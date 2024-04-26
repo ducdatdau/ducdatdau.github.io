@@ -1,13 +1,13 @@
 # Site settings
-title: George Do
-email: contact.georgedo@gmail.com
+title: Duc Dat Dau
+email: contact.ducdatdau@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   tôi muốn mình vẫn mãi như thế, có người hỏi tôi đã từng này tuổi rồi, không thể bớt một chút “tự do” được hay sao?💭
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://geordo.github.io" # the base hostname & protocol for your site
-twitter_username: georgedo_twit
-github_username: geordo
-linkedin_username: geordo
+url: "https://ducdatdau.github.io" # the base hostname & protocol for your site
+twitter_username: ducdatdau
+github_username: ducdatdau
+linkedin_username: ducdatdau
 
 theme: minima
 

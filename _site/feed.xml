@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>George Do</title>
+    <title>Duc Dat Dau</title>
     <description>tôi muốn mình vẫn mãi như thế, có người hỏi tôi đã từng này tuổi rồi, không thể bớt một chút “tự do” được hay sao?💭
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 04 Mar 2024 17:25:21 +0700</pubDate>
-    <lastBuildDate>Mon, 04 Mar 2024 17:25:21 +0700</lastBuildDate>
+    <pubDate>Fri, 26 Apr 2024 22:37:07 +0700</pubDate>
+    <lastBuildDate>Fri, 26 Apr 2024 22:37:07 +0700</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
     
       <item>
@@ -69,7 +69,7 @@
 
 &lt;p&gt;Hỗ hổng nằm ở hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fgets&lt;/code&gt; với việc cho nhập 100 bytes vào mảng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;buf&lt;/code&gt; có kích thước 50 bytes. Vì vậy, chúng ta có thể thay đổi giá trị biến &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;flag&lt;/code&gt; từ 0xDEADBEEF thành 0x13141516 dựa vào lỗ hổng này.&lt;/p&gt;
 
-&lt;p&gt;Quan sát trong IDA, chúng ta dễ dàng tính ra được số bytes cần phải lấp đầy mảng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;buf&lt;/code&gt; được khi ghi đè giá trị biến &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;flag&lt;/code&gt; là 0x50-0x4 = 76 (bytes)&lt;/p&gt;
+&lt;p&gt;Quan sát trong IDA, chúng ta dễ dàng tính ra được số bytes cần phải lấp đầy mảng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;buf&lt;/code&gt; trước khi ghi đè giá trị biến &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;flag&lt;/code&gt; là 0x50-0x4 = 76 (bytes)&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/bktrain2024/image.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 

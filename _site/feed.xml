@@ -6,42 +6,55 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 26 Apr 2024 22:37:07 +0700</pubDate>
-    <lastBuildDate>Fri, 26 Apr 2024 22:37:07 +0700</lastBuildDate>
+    <pubDate>Thu, 16 May 2024 03:08:38 +0700</pubDate>
+    <lastBuildDate>Thu, 16 May 2024 03:08:38 +0700</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
     
       <item>
-        <title>BKCTF 2024 Training</title>
+        <title>BKCTF Training 2024</title>
         <description>&lt;h2 id=&quot;table-of-content&quot;&gt;Table of Content&lt;/h2&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#lời-chào&quot;&gt;0x00 Lời chào&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#hello&quot;&gt;0x00 Hello&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#pwnable&quot;&gt;0x01 Pwnable&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#bài-buffalow&quot;&gt;Buffalow&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#bài-index_1&quot;&gt;index_1&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#bài-int_1&quot;&gt;int_1&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#bài-rộp-rộp-rộp&quot;&gt;Rộp Rộp Rộp&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#bài-pwn3&quot;&gt;pwn3&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#bài-raising-the-hero&quot;&gt;Raising the hero&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#bài-shell_1&quot;&gt;shell_1&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bài-1-buffalow&quot;&gt;Bài 1. Buffalow&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bài-2-index_1&quot;&gt;Bài 2. index_1&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bài-3-int_1&quot;&gt;Bài 3. int_1&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bài-4-rộp-rộp-rộp&quot;&gt;Bài 4. Rộp Rộp Rộp&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bài-5-pwn3&quot;&gt;Bài 5. pwn3&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bài-6-raising-the-hero&quot;&gt;Bài 6. Raising the hero&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bài-7-shell_1&quot;&gt;Bài 7. shell_1&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#crypto&quot;&gt;0x02 Crypto&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#bài-b64-recovery&quot;&gt;B64 Recovery&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bài-1-b64-recovery&quot;&gt;Bài 1. B64 Recovery&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;lời-chào&quot;&gt;Lời chào&lt;/h2&gt;
+&lt;h2 id=&quot;hello&quot;&gt;Hello&lt;/h2&gt;
 
 &lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/images/bktrain2024/imagee.png&quot; alt=&quot;Smile&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Đã từ lâu, tôi không viết bài ctf mới trên blog, một phần vì chưa có chủ đề nào tôi cảm thấy thú vị để viết, phần còn lại là do quỹ thời gian của tôi gần đây không có nhiều. Khởi động năm mới 2024 với giải training của trường ĐHBKHN, độ khó của các bài chỉ ở tầm dễ, trung bình, vì vậy tôi cũng tự tin hơn.&lt;/p&gt;
+&lt;p&gt;Đã từ lâu, mình không viết bài ctf mới trên blog, một phần vì chưa có chủ đề nào mình cảm thấy thú vị để viết, phần còn lại là do quỹ thời gian của mình gần đây không có nhiều. Khởi động năm mới 2024 với giải training của trường ĐHBKHN, độ khó của các bài chỉ ở tầm dễ, trung bình, vì vậy mình cũng thoải mái để giải quyết các vấn đề hơn :v:&lt;/p&gt;
 
 &lt;h2 id=&quot;pwnable&quot;&gt;Pwnable&lt;/h2&gt;
 
-&lt;h3 id=&quot;bài-buffalow&quot;&gt;Bài Buffalow&lt;/h3&gt;
+&lt;h3 id=&quot;bài-1-buffalow&quot;&gt;Bài 1. Buffalow&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Tràn là không tốt nên có lẽ bạn sẽ cần thứ này: &lt;a href=&quot;https://pwn.guide/free/buffer-overflow&quot;&gt;Buffer Overflow Tutorial&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Files provided&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe&quot;&gt;bof_1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe&quot;&gt;bof_1.c&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Đề bài cho chúng ta source code, đây là một bài BOF cơ bản&lt;/p&gt;
 &lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
@@ -73,7 +86,6 @@
 
 &lt;p&gt;&lt;img src=&quot;/images/bktrain2024/image.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Lời giải&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python3
 &lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
 
@@ -87,9 +99,16 @@
 &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;Đáp án: BKSEC{\xBuffer\xOv3rfl0w\x1s\xchiLL}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;:triangular_flag_on_post: &lt;strong&gt;BKSEC{\xBuffer\xOv3rfl0w\x1s\xchiLL}&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;bài-index_1&quot;&gt;Bài index_1&lt;/h3&gt;
+&lt;h3 id=&quot;bài-2-index_1&quot;&gt;Bài 2. index_1&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Files provided&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EiNLxoZtFbFDo11OpZeC3-MBxei6zSW31yC9cRX_YSq2lw?e=uUdUgy&quot;&gt;index_1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Đây là một chương trình mua bán các vật phẩm. Với dạng bài này, các lỗ hổng như chuyển tiền âm, mua số lượng sản phẩm âm, … rất dễ xảy ra nếu không được kiểm tra kỹ càng.&lt;/p&gt;
 
@@ -127,15 +146,21 @@
 
 &lt;p&gt;&lt;img src=&quot;/images/bktrain2024/image-1.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Đáp án: BKSEC{YOU_SHOULD_buY_f1A9_iN5TE4d_0F_p@PC@i1}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;:triangular_flag_on_post: &lt;strong&gt;BKSEC{YOU_SHOULD_buY_f1A9_iN5TE4d_0F_p@PC@i1}&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;bài-int_1&quot;&gt;Bài int_1&lt;/h3&gt;
+&lt;h3 id=&quot;bài-3-int_1&quot;&gt;Bài 3. int_1&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Files provided&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EihwCKAH_QVAk1e_7MqT0_gBuSiTtYSlJY2h-FR6aK47dg?e=cBC0uF&quot;&gt;int_1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Load file vào IDA, ta thấy chương trình cho nhập 2 số nguyên dương. Nếu tổng của chúng &amp;lt; 0, ta sẽ có được shell. Đây là lỗ hổng IOF (tràn số nguyên), ta chỉ cần nhập max giá trị của kiểu dữ liệu int cho số đầu tiên và số còn lại với giá trị nguyên dương bất kỳ.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/bktrain2024/image-7.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Lời giải&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python3 
 &lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
 
@@ -147,11 +172,25 @@
 &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;Đáp án: BKSEC{Ma7h_1s_7hE_woR57_thIn6_EveR}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;:triangular_flag_on_post: &lt;strong&gt;BKSEC{Ma7h_1s_7hE_woR57_thIn6_EveR}&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;bài-rộp-rộp-rộp&quot;&gt;Bài Rộp Rộp Rộp&lt;/h3&gt;
+&lt;h3 id=&quot;bài-4-rộp-rộp-rộp&quot;&gt;Bài 4. Rộp Rộp Rộp&lt;/h3&gt;
 
-&lt;p&gt;Load file đã cho vào IDA, ta thấy được lỗ hổng ở hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fgets()&lt;/code&gt; với việc cho phép nhập 0x100 bytes cho mảng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;buf&lt;/code&gt; có kích thước 8 bytes. (Ở đây tôi không chắc &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;buf&lt;/code&gt; có kích thước 8 bytes vì IDA phân tích ra như vậy. Nhưng tôi chắc chắn có lỗi BOF do &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;buf&lt;/code&gt; được bắt đầu từ [rbp-0x40])&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Nói đến Buffer Overflow không thể nào bỏ qua được ROP Attack (Return-oriented programming), các pwner hãy thử khai thác&lt;br /&gt;
+Keyword: ROP, Gadgets, RET&lt;br /&gt;
+Author: Spid3r&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Files provided&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/En3PdzP5jqtBoVZLIXZRzy8BtCq0kFAlsTVIgrumErKm0Q?e=xhR7eA&quot;&gt;bof_2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Load file đã cho vào IDA, ta thấy được lỗ hổng ở hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fgets()&lt;/code&gt; với việc cho phép nhập 0x100 bytes cho mảng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;buf&lt;/code&gt; có kích thước 8 bytes. (Ở đây mình không chắc &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;buf&lt;/code&gt; có kích thước 8 bytes vì IDA phân tích ra như vậy. Nhưng mình chắc chắn có lỗi BOF do &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;buf&lt;/code&gt; được bắt đầu từ [rbp-0x40])&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/bktrain2024/image-3.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
@@ -175,7 +214,6 @@
 
 &lt;p&gt;&lt;img src=&quot;/images/bktrain2024/image-4.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Lời giải&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python3
 &lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
 
@@ -193,13 +231,19 @@
 &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;Đáp án: BKSEC{2–&amp;gt;\xupgrade\xBuffer\xOv3rfl0w\x1s\xn0t\xchiLL\xhixxxxxxxxxxxxxx}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;:triangular_flag_on_post: &lt;strong&gt;BKSEC{2–&amp;gt;\xupgrade\xBuffer\xOv3rfl0w\x1s\xn0t\xchiLL\xhixxxxxxxxxxxxxx}&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;bài-pwn3&quot;&gt;Bài pwn3&lt;/h3&gt;
+&lt;h3 id=&quot;bài-5-pwn3&quot;&gt;Bài 5. pwn3&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Files provided&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x&quot;&gt;bof_1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Về cơ bản, ý tưởng giải bài này y hệt bài phía trên. Chỉ khác ở bài này có thêm cờ canary được bật.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Lời giải&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python3
 &lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
 
@@ -221,9 +265,23 @@
 &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;Đáp án: BKSEC{W3_4LL_Hat3_c4NARY}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;:triangular_flag_on_post: &lt;strong&gt;BKSEC{W3_4LL_Hat3_c4NARY}&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;bài-raising-the-hero&quot;&gt;Bài Raising the hero&lt;/h3&gt;
+&lt;h3 id=&quot;bài-6-raising-the-hero&quot;&gt;Bài 6. Raising the hero&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;doraзmoon&lt;/strong&gt; is a very strong knight. But he lost his most important sword.&lt;br /&gt;
+Please help him find it again.&lt;br /&gt;
+Author: Gr4ss&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Files provided&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ErD6ygO9r1dDnAHi2aVPijsBiKbKvPngcmBR70iRiU3xnw?e=JZi3kE&quot;&gt;fmt_1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Kiểm tra các lớp bảo vệ của file&lt;/p&gt;
 &lt;blockquote&gt;
@@ -240,7 +298,6 @@
 
 &lt;p&gt;Đây là dạng bài &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ret2win&lt;/code&gt;, chúng ta chỉ cần thay đổi giá trị &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target = 0x6F726568&lt;/code&gt; sẽ có được shell.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Lời giải&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python3
 &lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
 
@@ -265,20 +322,26 @@
 
 &lt;p&gt;Để gán cho &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target = 0x6F726568&lt;/code&gt;, ta phải chia ra làm 2 phần, vì khi truyền 0x6F726568 kí tự cho &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; thì sẽ quá lâu. Vì vậy, ta sẽ gán 0x6568 cho &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; và 0x6F72 cho &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target+2&lt;/code&gt;. Lưu ý rằng, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$n&lt;/code&gt; đếm số byte ở trước đó được ghi, vậy nên khi gán giá trị cho &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target+2&lt;/code&gt;, chúng ta chỉ cần gán 0x6F72 - 0x6568 (bytes) mà thôi.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Đáp án: BKSEC{R41s1ng_th3_H3rO}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;:triangular_flag_on_post: &lt;strong&gt;BKSEC{R41s1ng_th3_H3rO}&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Tham khảo:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=uet1ixUN8Gg&quot;&gt;Bài 16: Format String - Ghi dữ liệu bằng %n&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;bài-shell_1&quot;&gt;Bài shell_1&lt;/h3&gt;
+&lt;h3 id=&quot;bài-7-shell_1&quot;&gt;Bài 7. shell_1&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Files provided&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EhzasKiEe6FFoZ6yh4QVOZkBaBORaAdJcWVKC-NWOnUXPg?e=8u2Jic&quot;&gt;shell_1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Load file vào IDA, yêu cầu bài này chỉ là viết shellcode đơn giản&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/bktrain2024/image-6.png&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Lời giải&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python3
 &lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
 
@@ -290,11 +353,24 @@
 
 &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Đáp án: BKSEC{ju$7_A_5imPLE_ShelLCODE}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;:triangular_flag_on_post: &lt;strong&gt;BKSEC{ju$7_A_5imPLE_ShelLCODE}&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;crypto&quot;&gt;Crypto&lt;/h2&gt;
 
-&lt;h3 id=&quot;bài-b64-recovery&quot;&gt;Bài B64 Recovery&lt;/h3&gt;
+&lt;h3 id=&quot;bài-1-b64-recovery&quot;&gt;Bài 1. B64 Recovery&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Show me what you know about Base64?&lt;br /&gt;
+Author: huud4t&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Files provided&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ElsG5G7KpHxPk75ke4bGoNcBUIU4R5XVUAR5QVp__2zKtA?e=Q7B2zI&quot;&gt;chall.py&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Đề bài cho chúng ta source code như sau&lt;/p&gt;
 
@@ -364,8 +440,6 @@
 
 &lt;p&gt;Từ đây, ta có được &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;key&lt;/code&gt; và việc giải bài toán còn lại là hoàn toàn dễ dàng&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Lời giải&lt;/strong&gt;&lt;/p&gt;
-
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;
 
@@ -426,7 +500,7 @@
 &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;Đáp án: BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;:triangular_flag_on_post: &lt;strong&gt;BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}&lt;/strong&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 04 Mar 2024 00:00:00 +0700</pubDate>
         <link>http://localhost:4000/2024/03/04/BKCTF-Train.html</link>
@@ -1148,7 +1222,14 @@ cp /flag.txt /flag$FLAG.txt
     
       <item>
         <title>Pwnable.tw</title>
-        <description>&lt;h2 id=&quot;0x00-giới-thiệu&quot;&gt;0x00 Giới thiệu&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;table-of-content&quot;&gt;Table of Content&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x00-lời-chào&quot;&gt;0x00 Lời chào&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x01-start&quot;&gt;0x01 Start&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x02-babystack&quot;&gt;0x02 BabyStack&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;0x00-lời-chào&quot;&gt;0x00 Lời chào&lt;/h2&gt;
 &lt;p&gt;Khoảng một tháng trở lại đây, tôi chuyên tâm hơn vào việc chơi pwn. Một phần là vì mảng pwn khó, phần còn lại là tôi nghĩ nó có thể giúp tôi kiếm được tiền :)) Vì là một người mới, những kiến thức mà tôi viết ở đây có thể chưa chính xác hoàn toàn. Rất mong các bạn đọc góp ý để tôi phát triển hơn nữa.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://pwnable.tw/&quot;&gt;Pwnable.tw&lt;/a&gt; là một trang luyện tập mảng pwn khá nổi tiếng của Đài Loan. Theo tôi cảm nhận, thử thách ở đây khá khó cho người mới. Nếu các bạn không làm được thì cũng đừng lấy gì làm lạ. Tôi đã mất khoảng hơn 1 tuần để nghiền ngẫm challenge đầu tiên.&lt;/p&gt;
@@ -1322,6 +1403,75 @@ Giả sử chúng ta tiếp tục nhập vào, các giá trị tại các địa
   &lt;li&gt;&lt;a href=&quot;https://hackmd.io/@y198/ry6GrF3gi&quot;&gt;Pwnable.tw - Start @y198&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/weixin_43483799/article/details/113844032&quot;&gt;Pwnable.tw - Start @c01dkit&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;h2 id=&quot;0x02-babystack&quot;&gt;0x02 BabyStack&lt;/h2&gt;
+
+&lt;p&gt;Sau khi decompile và rename các biến, chúng ta thu được mã giả như sau&lt;/p&gt;
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;__int64&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;__fastcall&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__int64&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;_QWORD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// rcx&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__int64&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// rdx&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+0h] [rbp-60h] BYREF&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__int64&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random_password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+40h] [rbp-20h] BYREF&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [rsp+50h] [rbp-10h] BYREF&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;mmap_canary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;random_fd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/dev/urandom&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random_fd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random_password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x10uLL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;v3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;canary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;v4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random_password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_QWORD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;canary&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random_password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;v3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random_fd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&amp;gt;&amp;gt; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3uLL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;read_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0LL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x10LL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x10LL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;2&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                 &lt;span class=&quot;c1&quot;&gt;// exit()&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;3&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status_login&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;copy_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;LABEL_x1040:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Invalid choice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;1&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;goto&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LABEL_x1040&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status_login&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;status_login&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random_password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status_login&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;memcmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random_password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;canary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x10uLL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0LL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 </description>
         <pubDate>Fri, 23 Jun 2023 00:00:00 +0700</pubDate>
         <link>http://localhost:4000/2023/06/23/Pwnable.tw.html</link>

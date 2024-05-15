@@ -13,3 +13,4 @@ theme: minima
 
 plugins:
   - jekyll-seo-tag
+  - jemoji

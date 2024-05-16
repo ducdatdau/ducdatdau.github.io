@@ -16,6 +16,10 @@ comments: true
     * [Bài 7. shell_1](#bài-7-shell_1)
 - [0x02 Crypto](#crypto)
     * [Bài 1. B64 Recovery](#bài-1-b64-recovery)
+- [0x03 Reverse](#reverse)
+    * [Bài 1. Baby IDA 1](#bài-1-baby-ida-1)
+    * [Bài 2. BabyRust](#bài-2-babyrust)
+    * [Bài 3. babylua](#bài-3-babylua)
     
 ## Hello
 
@@ -217,7 +221,7 @@ p.interactive()
 ### Bài 5. pwn3
 
 **Files provided**
-- [bof_1](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x)
+- [bof_3](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x)
 
 **Solution**
 
@@ -471,3 +475,153 @@ p.interactive()
 ```
 
 :triangular_flag_on_post: **BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}**
+
+## Reverse 
+
+### Bài 1. Baby IDA 1 
+
+**Description**
+> Để bước chân vào con đường làm Reverser chân chính bạn cần điều gì:
+1. [IDA Pro của Spid3r](https://drive.google.com/drive/folders/16ZT_dzf7bGsFPW0jsBmsDoLakXNutCho?usp=sharing) (Bản nào cũng đều chill cả nhé)
+2. Lòng dũng cảm sử dụng file này trên máy thật của bạn
+
+**Files provided**
+- [chall.exe](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EndYd8HMJsdBqq10J_mi9-cBflnnISxiDN6l_EK2XDvZag?e=L2eiAJ)
+
+**Solution**
+
+Chương trình đơn thuần chỉ kiểm tra 2 input chúng ta nhập vào: 
+- input1 = `BKSEC{rev3r5e_r@t`
+- input2 = đảo ngược của `})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_`
+
+```python
+flag = "BKSEC{rev3r5e_r@t" + "})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_"[::-1]
+print(flag)
+```
+
+:triangular_flag_on_post: **BKSEC{rev3r5e_r@t_lA_vU1_lu0n_hehe}chU@_h3t_DaU_987g432t24678321)}**
+
+### Bài 2. BabyRust
+
+**Description**
+> Author: shynt_
+
+**Files provided**
+- [rust0](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EvAzVM_iQYlNvNwfPPgfdbYBmdGMU3L4oi637ZTgsjxMZQ?e=LDyXKN)
+
+**Solution**
+
+Chương trình yêu cầu phải nhập đúng password. Trace ngược lại từ message **"Wrong! Please try again"**, chúng ta thấy chương trình có gọi hàm `chall::check::h428e27b3168ba563()`. Khi phân tích hàm này, dễ thấy hàm chỉ kiểm tra từng ký tự với các giá trị đã cho trước. 
+
+```python
+flag = [0] * 21 
+flag[9] = 0x43
+flag[5] = 0x7B
+flag[2] = 0x53
+flag[6] = 0x77
+flag[0] = 0x42
+flag[0x14] = 0x7D
+flag[4] = 0x43
+flag[0xC] = 0x45
+flag[0x13] = 0x76
+flag[0x11] = 0x52
+flag[7] = 0x33
+flag[3] = 0x45
+flag[0xE] = 0x74
+flag[0xF] = 0x4F
+flag[0x10] = 0x5F
+flag[0xA] = 0x30
+flag[0x12] = 0x33
+flag[0xD] = 0x5F
+flag[8] = 0x6C
+flag[1] = 0x4B
+flag[0xB] = 0x6D
+
+print("".join([chr(i) for i in flag]))
+```
+
+:triangular_flag_on_post: **BKSEC{w3lC0mE_tO_R3v}**
+
+### Bài 3. babylua
+
+**Description**
+> Here is a lightweight sibling to Python. Reading the code probably just be as eas- oh wait... what is it precompiled for??\
+> Author: Hwi
+
+**Files provided**
+- [flag.lua](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY)
+- [main.lua](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY)
+
+**Solution**
+
+Mình đã từng xem qua một số dạng bài về `lua`. Quan sát source code file `main.lua` 
+```lua
+local ret = require("flag")
+
+io.write("Input flag: ")
+flag = io.read("*l")
+if ret.check(flag, 'ThisIsAFlag') then
+   print("Correct!") 
+else
+   print("Wrong...")
+end
+```
+ta thấy chương trình yêu cầu nhập `input`, rồi gọi hàm `check()` được khai báo ở `flag.lua` với **key = "ThisIsAFlag"**
+
+Tiếp tục kiểm tra file `flag.lua`, ta dùng lệnh `file` trên Linux
+```bash
+~ file flag.lua
+flag.lua: Lua bytecode, version 5.3
+```
+ 
+Kết quả cho thấy đây là Lua bytecode, nghĩa là đã được compile. Ta phải tìm cách đi decompile lại file này. Mình có search và sử dụng tool [luadec](https://github.com/viruscamp/luadec) để decompile nhưng gặp một số lỗi như `bad header`.
+
+Những lỗi này xuất hiện y hệt như trong [writeup](https://acquykhud.github.io/2021/11/28/ISITDTU-Quals-2021.html#luadec) của anh Trung bài LOVESEA - ISITDTU Quals 2021. Mình có fix bug và compile lại source code nhưng không được, vì vậy mình đành tìm một công cụ khác thay thế. May thay, mình tìm được [web](https://luadec.metaworm.site/) này và decompile được.
+
+```lua
+check = function(input, key)
+    local count = 0
+    local check_arr = { 22, 101, 133, 137, 79, 75, 166, 157, 189, 57, 172, 155, 144, 91, 137, 222, 52, 144, 211, 101, 114, 116, 121, 76, 154, 168, 83, 94 }
+    local encrypted_arr = {}
+
+    for i = 1, #input, 1 do
+        local tmp_char = input:byte(i) ~ key:byte((i - 1) % #key + 1)
+        if i > 1 then
+            tmp_char = tmp_char + input:byte(i - 1)
+        end
+        encrypted_arr[i] = tmp_char
+    end
+    for i = 1, math.min(#encrypted_arr, #check_arr), 1 do
+        if encrypted_arr[i] == check_arr[i] then
+            count = count + 1
+        end
+    end
+    if count == 28 then
+        local r5_1 = #encrypted_arr == #check_arr
+    else
+        goto label_74    -- block#11 is visited secondly
+    end
+    return r5_1
+end,
+```
+
+Thuật toán của hàm `check()` rất đơn giản. Xor lần lượt các ký tự trong `input` và `key` tương ứng. Ngoại trừ ký tự đầu tiên, chương trình tiếp tục lấy giá trị đó cộng với ký tự liền trước của `input`. 
+
+Kết thúc quá trình, ta thu được `encrypted_arr`. Đem so sánh `encrypted_arr` và `check_arr`, nếu 2 mảng bằng nhau hàm `check()` sẽ trả về kết quả đúng. 
+
+```python
+ans = [ 22, 101, 133, 137, 79, 75, 166, 157, 189, 57, 172, 155, 144, 91, 137, 222, 52, 144, 211, 101, 114, 116, 121, 76, 154, 168, 83, 94 ]
+key = "ThisIsAFlag"
+
+flag = "" 
+for i in range(len(ans)): 
+    if i == 0: 
+        flag += chr(ans[i] ^ ord(key[i % len(key)]))
+    else:
+        k = (ans[i] - ord(flag[i - 1])) ^ ord(key[i % len(key)])
+        flag += chr(k)
+
+print(flag)
+```
+
+:triangular_flag_on_post: **BKSEC{ju$t_h@rd3r_2_re@d_:P}**

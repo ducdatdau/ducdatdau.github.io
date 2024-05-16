@@ -17,8 +17,8 @@
 <meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="BKCTF Training 2024" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Table of Content 0x00 Hello 0x01 Pwnable Bài 1. Buffalow Bài 2. index_1 Bài 3. int_1 Bài 4. Rộp Rộp Rộp Bài 5. pwn3 Bài 6. Raising the hero Bài 7. shell_1 0x02 Crypto Bài 1. B64 Recovery Hello" />
-<meta property="og:description" content="Table of Content 0x00 Hello 0x01 Pwnable Bài 1. Buffalow Bài 2. index_1 Bài 3. int_1 Bài 4. Rộp Rộp Rộp Bài 5. pwn3 Bài 6. Raising the hero Bài 7. shell_1 0x02 Crypto Bài 1. B64 Recovery Hello" />
+<meta name="description" content="Table of Content 0x00 Hello 0x01 Pwnable Bài 1. Buffalow Bài 2. index_1 Bài 3. int_1 Bài 4. Rộp Rộp Rộp Bài 5. pwn3 Bài 6. Raising the hero Bài 7. shell_1 0x02 Crypto Bài 1. B64 Recovery 0x03 Reverse Bài 1. Baby IDA 1 Bài 2. BabyRust Bài 3. babylua Hello" />
+<meta property="og:description" content="Table of Content 0x00 Hello 0x01 Pwnable Bài 1. Buffalow Bài 2. index_1 Bài 3. int_1 Bài 4. Rộp Rộp Rộp Bài 5. pwn3 Bài 6. Raising the hero Bài 7. shell_1 0x02 Crypto Bài 1. B64 Recovery 0x03 Reverse Bài 1. Baby IDA 1 Bài 2. BabyRust Bài 3. babylua Hello" />
 <link rel="canonical" href="http://localhost:4000/2024/03/04/BKCTF-Train.html" />
 <meta property="og:url" content="http://localhost:4000/2024/03/04/BKCTF-Train.html" />
 <meta property="og:site_name" content="Duc Dat Dau" />
@@ -27,7 +27,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="BKCTF Training 2024" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-03-04T00:00:00+07:00","datePublished":"2024-03-04T00:00:00+07:00","description":"Table of Content 0x00 Hello 0x01 Pwnable Bài 1. Buffalow Bài 2. index_1 Bài 3. int_1 Bài 4. Rộp Rộp Rộp Bài 5. pwn3 Bài 6. Raising the hero Bài 7. shell_1 0x02 Crypto Bài 1. B64 Recovery Hello","headline":"BKCTF Training 2024","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/03/04/BKCTF-Train.html"},"url":"http://localhost:4000/2024/03/04/BKCTF-Train.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-03-04T00:00:00+07:00","datePublished":"2024-03-04T00:00:00+07:00","description":"Table of Content 0x00 Hello 0x01 Pwnable Bài 1. Buffalow Bài 2. index_1 Bài 3. int_1 Bài 4. Rộp Rộp Rộp Bài 5. pwn3 Bài 6. Raising the hero Bài 7. shell_1 0x02 Crypto Bài 1. B64 Recovery 0x03 Reverse Bài 1. Baby IDA 1 Bài 2. BabyRust Bài 3. babylua Hello","headline":"BKCTF Training 2024","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/03/04/BKCTF-Train.html"},"url":"http://localhost:4000/2024/03/04/BKCTF-Train.html"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -148,6 +148,14 @@
 <a href="#crypto">0x02 Crypto</a>
     <ul>
       <li><a href="#b%C3%A0i-1-b64-recovery">Bài 1. B64 Recovery</a></li>
+    </ul>
+  </li>
+  <li>
+<a href="#reverse">0x03 Reverse</a>
+    <ul>
+      <li><a href="#b%C3%A0i-1-baby-ida-1">Bài 1. Baby IDA 1</a></li>
+      <li><a href="#b%C3%A0i-2-babyrust">Bài 2. BabyRust</a></li>
+      <li><a href="#b%C3%A0i-3-babylua">Bài 3. babylua</a></li>
     </ul>
   </li>
 </ul>
@@ -398,7 +406,7 @@ Author: Spid3r</p>
 
 <p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x">bof_1</a></li>
+  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x">bof_3</a></li>
 </ul>
 
 <p><strong>Solution</strong></p>
@@ -687,6 +695,193 @@ Author: huud4t</p>
 </code></pre></div></div>
 
 <p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}</strong></p>
+<h2 id="reverse">
+  
+  
+    Reverse <a href="#reverse">#</a>
+  
+  
+</h2>
+    
+<h3 id="bài-1-baby-ida-1">
+  
+  
+    Bài 1. Baby IDA 1 <a href="#b%C3%A0i-1-baby-ida-1">#</a>
+  
+  
+</h3>
+    
+
+<p><strong>Description</strong></p>
+<blockquote>
+  <p>Để bước chân vào con đường làm Reverser chân chính bạn cần điều gì:</p>
+  <ol>
+    <li>
+<a href="https://drive.google.com/drive/folders/16ZT_dzf7bGsFPW0jsBmsDoLakXNutCho?usp=sharing">IDA Pro của Spid3r</a> (Bản nào cũng đều chill cả nhé)</li>
+    <li>Lòng dũng cảm sử dụng file này trên máy thật của bạn</li>
+  </ol>
+</blockquote>
+
+<p><strong>Files provided</strong></p>
+<ul>
+  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EndYd8HMJsdBqq10J_mi9-cBflnnISxiDN6l_EK2XDvZag?e=L2eiAJ">chall.exe</a></li>
+</ul>
+
+<p><strong>Solution</strong></p>
+
+<p>Chương trình đơn thuần chỉ kiểm tra 2 input chúng ta nhập vào:</p>
+<ul>
+  <li>input1 = <code class="language-plaintext highlighter-rouge">BKSEC{rev3r5e_r@t</code>
+</li>
+  <li>input2 = đảo ngược của <code class="language-plaintext highlighter-rouge">})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_</code>
+</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flag</span> <span class="o">=</span> <span class="sh">"</span><span class="s">BKSEC{rev3r5e_r@t</span><span class="sh">"</span> <span class="o">+</span> <span class="sh">"</span><span class="s">})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_</span><span class="sh">"</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{rev3r5e_r@t_lA_vU1_lu0n_hehe}chU@_h3t_DaU_987g432t24678321)}</strong></p>
+<h3 id="bài-2-babyrust">
+  
+  
+    Bài 2. BabyRust <a href="#b%C3%A0i-2-babyrust">#</a>
+  
+  
+</h3>
+    
+
+<p><strong>Description</strong></p>
+<blockquote>
+  <p>Author: shynt_</p>
+</blockquote>
+
+<p><strong>Files provided</strong></p>
+<ul>
+  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EvAzVM_iQYlNvNwfPPgfdbYBmdGMU3L4oi637ZTgsjxMZQ?e=LDyXKN">rust0</a></li>
+</ul>
+
+<p><strong>Solution</strong></p>
+
+<p>Chương trình yêu cầu phải nhập đúng password. Trace ngược lại từ message <strong>“Wrong! Please try again”</strong>, chúng ta thấy chương trình có gọi hàm <code class="language-plaintext highlighter-rouge">chall::check::h428e27b3168ba563()</code>. Khi phân tích hàm này, dễ thấy hàm chỉ kiểm tra từng ký tự với các giá trị đã cho trước.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flag</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">21</span> 
+<span class="n">flag</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x43</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x7B</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x53</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x77</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x42</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0x14</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x7D</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x43</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xC</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x45</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0x13</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x76</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0x11</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x52</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x33</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x45</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xE</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x74</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xF</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x4F</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0x10</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x5F</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xA</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x30</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0x12</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x33</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xD</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x5F</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x6C</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x4B</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xB</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x6D</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">]))</span>
+</code></pre></div></div>
+
+<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{w3lC0mE_tO_R3v}</strong></p>
+<h3 id="bài-3-babylua">
+  
+  
+    Bài 3. babylua <a href="#b%C3%A0i-3-babylua">#</a>
+  
+  
+</h3>
+    
+
+<p><strong>Description</strong></p>
+<blockquote>
+  <p>Here is a lightweight sibling to Python. Reading the code probably just be as eas- oh wait… what is it precompiled for??<br>
+Author: Hwi</p>
+</blockquote>
+
+<p><strong>Files provided</strong></p>
+<ul>
+  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">flag.lua</a></li>
+  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">main.lua</a></li>
+</ul>
+
+<p><strong>Solution</strong></p>
+
+<p>Mình đã từng xem qua một số dạng bài về <code class="language-plaintext highlighter-rouge">lua</code>. Quan sát source code file <code class="language-plaintext highlighter-rouge">main.lua</code></p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">local</span> <span class="n">ret</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"flag"</span><span class="p">)</span>
+
+<span class="nb">io.write</span><span class="p">(</span><span class="s2">"Input flag: "</span><span class="p">)</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="nb">io.read</span><span class="p">(</span><span class="s2">"*l"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">ret</span><span class="p">.</span><span class="n">check</span><span class="p">(</span><span class="n">flag</span><span class="p">,</span> <span class="s1">'ThisIsAFlag'</span><span class="p">)</span> <span class="k">then</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">"Correct!"</span><span class="p">)</span> 
+<span class="k">else</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">"Wrong..."</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>ta thấy chương trình yêu cầu nhập <code class="language-plaintext highlighter-rouge">input</code>, rồi gọi hàm <code class="language-plaintext highlighter-rouge">check()</code> được khai báo ở <code class="language-plaintext highlighter-rouge">flag.lua</code> với <strong>key = “ThisIsAFlag”</strong></p>
+
+<p>Tiếp tục kiểm tra file <code class="language-plaintext highlighter-rouge">flag.lua</code>, ta dùng lệnh <code class="language-plaintext highlighter-rouge">file</code> trên Linux</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ file flag.lua
+flag.lua: Lua bytecode, version 5.3
+</code></pre></div></div>
+
+<p>Kết quả cho thấy đây là Lua bytecode, nghĩa là đã được compile. Ta phải tìm cách đi decompile lại file này. Mình có search và sử dụng tool <a href="https://github.com/viruscamp/luadec">luadec</a> để decompile nhưng gặp một số lỗi như <code class="language-plaintext highlighter-rouge">bad header</code>.</p>
+
+<p>Những lỗi này xuất hiện y hệt như trong <a href="https://acquykhud.github.io/2021/11/28/ISITDTU-Quals-2021.html#luadec">writeup</a> của anh Trung bài LOVESEA - ISITDTU Quals 2021. Mình có fix bug và compile lại source code nhưng không được, vì vậy mình đành tìm một công cụ khác thay thế. May thay, mình tìm được <a href="https://luadec.metaworm.site/">web</a> này và decompile được.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">check</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="kd">local</span> <span class="n">check_arr</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">172</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span> <span class="p">}</span>
+    <span class="kd">local</span> <span class="n">encrypted_arr</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">input</span><span class="p">,</span> <span class="mi">1</span> <span class="k">do</span>
+        <span class="kd">local</span> <span class="n">tmp_char</span> <span class="o">=</span> <span class="n">input</span><span class="p">:</span><span class="n">byte</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="err">~</span> <span class="n">key</span><span class="p">:</span><span class="n">byte</span><span class="p">((</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="o">#</span><span class="n">key</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span>
+            <span class="n">tmp_char</span> <span class="o">=</span> <span class="n">tmp_char</span> <span class="o">+</span> <span class="n">input</span><span class="p">:</span><span class="n">byte</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">end</span>
+        <span class="n">encrypted_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp_char</span>
+    <span class="k">end</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">math.min</span><span class="p">(</span><span class="o">#</span><span class="n">encrypted_arr</span><span class="p">,</span> <span class="o">#</span><span class="n">check_arr</span><span class="p">),</span> <span class="mi">1</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="n">encrypted_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">check_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">then</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">28</span> <span class="k">then</span>
+        <span class="kd">local</span> <span class="n">r5_1</span> <span class="o">=</span> <span class="o">#</span><span class="n">encrypted_arr</span> <span class="o">==</span> <span class="o">#</span><span class="n">check_arr</span>
+    <span class="k">else</span>
+        <span class="n">goto</span> <span class="n">label_74</span>    <span class="c1">-- block#11 is visited secondly</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">r5_1</span>
+<span class="k">end</span><span class="p">,</span>
+</code></pre></div></div>
+
+<p>Thuật toán của hàm <code class="language-plaintext highlighter-rouge">check()</code> rất đơn giản. Xor lần lượt các ký tự trong <code class="language-plaintext highlighter-rouge">input</code> và <code class="language-plaintext highlighter-rouge">key</code> tương ứng. Ngoại trừ ký tự đầu tiên, chương trình tiếp tục lấy giá trị đó cộng với ký tự liền trước của <code class="language-plaintext highlighter-rouge">input</code>.</p>
+
+<p>Kết thúc quá trình, ta thu được <code class="language-plaintext highlighter-rouge">encrypted_arr</code>. Đem so sánh <code class="language-plaintext highlighter-rouge">encrypted_arr</code> và <code class="language-plaintext highlighter-rouge">check_arr</code>, nếu 2 mảng bằng nhau hàm <code class="language-plaintext highlighter-rouge">check()</code> sẽ trả về kết quả đúng.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ans</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">172</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span> <span class="p">]</span>
+<span class="n">key</span> <span class="o">=</span> <span class="sh">"</span><span class="s">ThisIsAFlag</span><span class="sh">"</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="sh">""</span> 
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">ans</span><span class="p">)):</span> 
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+        <span class="n">flag</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="nf">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)])</span>
+        <span class="n">flag</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{ju$t_h@rd3r_2<em>re@d</em>:P}</strong></p>
     <!-- <h2 id="table-of-content">Table of Content</h2>
 <ul>
   <li><a href="#hello">0x00 Hello</a></li>
@@ -704,6 +899,13 @@ Author: huud4t</p>
   <li><a href="#crypto">0x02 Crypto</a>
     <ul>
       <li><a href="#bài-1-b64-recovery">Bài 1. B64 Recovery</a></li>
+    </ul>
+  </li>
+  <li><a href="#reverse">0x03 Reverse</a>
+    <ul>
+      <li><a href="#bài-1-baby-ida-1">Bài 1. Baby IDA 1</a></li>
+      <li><a href="#bài-2-babyrust">Bài 2. BabyRust</a></li>
+      <li><a href="#bài-3-babylua">Bài 3. babylua</a></li>
     </ul>
   </li>
 </ul>
@@ -912,7 +1114,7 @@ Author: Spid3r</p>
 
 <p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x">bof_1</a></li>
+  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x">bof_3</a></li>
 </ul>
 
 <p><strong>Solution</strong></p>
@@ -1176,6 +1378,166 @@ Author: huud4t</p>
 </code></pre></div></div>
 
 <p>:triangular_flag_on_post: <strong>BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}</strong></p>
+
+<h2 id="reverse">Reverse</h2>
+
+<h3 id="bài-1-baby-ida-1">Bài 1. Baby IDA 1</h3>
+
+<p><strong>Description</strong></p>
+<blockquote>
+  <p>Để bước chân vào con đường làm Reverser chân chính bạn cần điều gì:</p>
+  <ol>
+    <li><a href="https://drive.google.com/drive/folders/16ZT_dzf7bGsFPW0jsBmsDoLakXNutCho?usp=sharing">IDA Pro của Spid3r</a> (Bản nào cũng đều chill cả nhé)</li>
+    <li>Lòng dũng cảm sử dụng file này trên máy thật của bạn</li>
+  </ol>
+</blockquote>
+
+<p><strong>Files provided</strong></p>
+<ul>
+  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EndYd8HMJsdBqq10J_mi9-cBflnnISxiDN6l_EK2XDvZag?e=L2eiAJ">chall.exe</a></li>
+</ul>
+
+<p><strong>Solution</strong></p>
+
+<p>Chương trình đơn thuần chỉ kiểm tra 2 input chúng ta nhập vào:</p>
+<ul>
+  <li>input1 = <code class="language-plaintext highlighter-rouge">BKSEC{rev3r5e_r@t</code></li>
+  <li>input2 = đảo ngược của <code class="language-plaintext highlighter-rouge">})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_</code></li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flag</span> <span class="o">=</span> <span class="sh">"</span><span class="s">BKSEC{rev3r5e_r@t</span><span class="sh">"</span> <span class="o">+</span> <span class="sh">"</span><span class="s">})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_</span><span class="sh">"</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>:triangular_flag_on_post: <strong>BKSEC{rev3r5e_r@t_lA_vU1_lu0n_hehe}chU@_h3t_DaU_987g432t24678321)}</strong></p>
+
+<h3 id="bài-2-babyrust">Bài 2. BabyRust</h3>
+
+<p><strong>Description</strong></p>
+<blockquote>
+  <p>Author: shynt_</p>
+</blockquote>
+
+<p><strong>Files provided</strong></p>
+<ul>
+  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EvAzVM_iQYlNvNwfPPgfdbYBmdGMU3L4oi637ZTgsjxMZQ?e=LDyXKN">rust0</a></li>
+</ul>
+
+<p><strong>Solution</strong></p>
+
+<p>Chương trình yêu cầu phải nhập đúng password. Trace ngược lại từ message <strong>“Wrong! Please try again”</strong>, chúng ta thấy chương trình có gọi hàm <code class="language-plaintext highlighter-rouge">chall::check::h428e27b3168ba563()</code>. Khi phân tích hàm này, dễ thấy hàm chỉ kiểm tra từng ký tự với các giá trị đã cho trước.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flag</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">21</span> 
+<span class="n">flag</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x43</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x7B</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x53</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x77</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x42</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0x14</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x7D</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x43</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xC</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x45</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0x13</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x76</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0x11</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x52</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x33</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x45</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xE</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x74</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xF</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x4F</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0x10</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x5F</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xA</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x30</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0x12</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x33</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xD</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x5F</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x6C</span>
+<span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x4B</span>
+<span class="n">flag</span><span class="p">[</span><span class="mh">0xB</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x6D</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">]))</span>
+</code></pre></div></div>
+
+<p>:triangular_flag_on_post: <strong>BKSEC{w3lC0mE_tO_R3v}</strong></p>
+
+<h3 id="bài-3-babylua">Bài 3. babylua</h3>
+
+<p><strong>Description</strong></p>
+<blockquote>
+  <p>Here is a lightweight sibling to Python. Reading the code probably just be as eas- oh wait… what is it precompiled for??<br />
+Author: Hwi</p>
+</blockquote>
+
+<p><strong>Files provided</strong></p>
+<ul>
+  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">flag.lua</a></li>
+  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">main.lua</a></li>
+</ul>
+
+<p><strong>Solution</strong></p>
+
+<p>Mình đã từng xem qua một số dạng bài về <code class="language-plaintext highlighter-rouge">lua</code>. Quan sát source code file <code class="language-plaintext highlighter-rouge">main.lua</code></p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">local</span> <span class="n">ret</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"flag"</span><span class="p">)</span>
+
+<span class="nb">io.write</span><span class="p">(</span><span class="s2">"Input flag: "</span><span class="p">)</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="nb">io.read</span><span class="p">(</span><span class="s2">"*l"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">ret</span><span class="p">.</span><span class="n">check</span><span class="p">(</span><span class="n">flag</span><span class="p">,</span> <span class="s1">'ThisIsAFlag'</span><span class="p">)</span> <span class="k">then</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">"Correct!"</span><span class="p">)</span> 
+<span class="k">else</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">"Wrong..."</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>ta thấy chương trình yêu cầu nhập <code class="language-plaintext highlighter-rouge">input</code>, rồi gọi hàm <code class="language-plaintext highlighter-rouge">check()</code> được khai báo ở <code class="language-plaintext highlighter-rouge">flag.lua</code> với <strong>key = “ThisIsAFlag”</strong></p>
+
+<p>Tiếp tục kiểm tra file <code class="language-plaintext highlighter-rouge">flag.lua</code>, ta dùng lệnh <code class="language-plaintext highlighter-rouge">file</code> trên Linux</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ file flag.lua
+flag.lua: Lua bytecode, version 5.3
+</code></pre></div></div>
+
+<p>Kết quả cho thấy đây là Lua bytecode, nghĩa là đã được compile. Ta phải tìm cách đi decompile lại file này. Mình có search và sử dụng tool <a href="https://github.com/viruscamp/luadec">luadec</a> để decompile nhưng gặp một số lỗi như <code class="language-plaintext highlighter-rouge">bad header</code>.</p>
+
+<p>Những lỗi này xuất hiện y hệt như trong <a href="https://acquykhud.github.io/2021/11/28/ISITDTU-Quals-2021.html#luadec">writeup</a> của anh Trung bài LOVESEA - ISITDTU Quals 2021. Mình có fix bug và compile lại source code nhưng không được, vì vậy mình đành tìm một công cụ khác thay thế. May thay, mình tìm được <a href="https://luadec.metaworm.site/">web</a> này và decompile được.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">check</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="kd">local</span> <span class="n">check_arr</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">172</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span> <span class="p">}</span>
+    <span class="kd">local</span> <span class="n">encrypted_arr</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">input</span><span class="p">,</span> <span class="mi">1</span> <span class="k">do</span>
+        <span class="kd">local</span> <span class="n">tmp_char</span> <span class="o">=</span> <span class="n">input</span><span class="p">:</span><span class="n">byte</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="err">~</span> <span class="n">key</span><span class="p">:</span><span class="n">byte</span><span class="p">((</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="o">#</span><span class="n">key</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span>
+            <span class="n">tmp_char</span> <span class="o">=</span> <span class="n">tmp_char</span> <span class="o">+</span> <span class="n">input</span><span class="p">:</span><span class="n">byte</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">end</span>
+        <span class="n">encrypted_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp_char</span>
+    <span class="k">end</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">math.min</span><span class="p">(</span><span class="o">#</span><span class="n">encrypted_arr</span><span class="p">,</span> <span class="o">#</span><span class="n">check_arr</span><span class="p">),</span> <span class="mi">1</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="n">encrypted_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">check_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">then</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">28</span> <span class="k">then</span>
+        <span class="kd">local</span> <span class="n">r5_1</span> <span class="o">=</span> <span class="o">#</span><span class="n">encrypted_arr</span> <span class="o">==</span> <span class="o">#</span><span class="n">check_arr</span>
+    <span class="k">else</span>
+        <span class="n">goto</span> <span class="n">label_74</span>    <span class="c1">-- block#11 is visited secondly</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">r5_1</span>
+<span class="k">end</span><span class="p">,</span>
+</code></pre></div></div>
+
+<p>Thuật toán của hàm <code class="language-plaintext highlighter-rouge">check()</code> rất đơn giản. Xor lần lượt các ký tự trong <code class="language-plaintext highlighter-rouge">input</code> và <code class="language-plaintext highlighter-rouge">key</code> tương ứng. Ngoại trừ ký tự đầu tiên, chương trình tiếp tục lấy giá trị đó cộng với ký tự liền trước của <code class="language-plaintext highlighter-rouge">input</code>.</p>
+
+<p>Kết thúc quá trình, ta thu được <code class="language-plaintext highlighter-rouge">encrypted_arr</code>. Đem so sánh <code class="language-plaintext highlighter-rouge">encrypted_arr</code> và <code class="language-plaintext highlighter-rouge">check_arr</code>, nếu 2 mảng bằng nhau hàm <code class="language-plaintext highlighter-rouge">check()</code> sẽ trả về kết quả đúng.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ans</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">172</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span> <span class="p">]</span>
+<span class="n">key</span> <span class="o">=</span> <span class="sh">"</span><span class="s">ThisIsAFlag</span><span class="sh">"</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="sh">""</span> 
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">ans</span><span class="p">)):</span> 
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+        <span class="n">flag</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="nf">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)])</span>
+        <span class="n">flag</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>:triangular_flag_on_post: <strong>BKSEC{ju$t_h@rd3r_2<em>re@d</em>:P}</strong></p>
  -->
   </div>
 

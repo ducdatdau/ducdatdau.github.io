@@ -13,12 +13,14 @@
         </svg>
       </a>
 
-      <div class="trigger">
+      {% assign keywords = "Blog,List 100,Public,Research,Writeup" | split: "," %}
+      {% for keyword in keywords %}
         {% for my_page in site.pages %}
-          {% if my_page.title %}
-          <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
+          {% if my_page.title and my_page.title contains keyword %}
+            <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
           {% endif %}
         {% endfor %}
+      {% endfor %}
       </div>
     </nav>
 

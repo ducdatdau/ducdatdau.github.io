@@ -14,3 +14,9 @@ theme: minima
 plugins:
   - jekyll-seo-tag
   - jemoji
+
+collections:
+  research:
+    output: true
+  write:
+    output: true

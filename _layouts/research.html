@@ -1,0 +1,28 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+  </header>
+
+  <div class="post-content">
+    {% for item in site.research %}
+        <header class="post-header">
+            <p class="post-meta">
+                <time datetime="{{ item.date | date_to_xmlschema }}" itemprop="datePublished">
+                    {{ item.date | date: "%b %-d, %Y" }}
+                </time>
+                {% if item.author %}
+                    • <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                        <span itemprop="name">{{ item.author }}</span>
+                      </span>
+                {% endif %}
+            </p>
+            <h3 class="post-title"><a href="{{ item.url }}">{{ item.title }}</a></h3>
+        </header>
+
+    {% endfor %}
+  </div>
+  
+</article>

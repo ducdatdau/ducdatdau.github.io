@@ -6,28 +6,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Duc Dat Dau</title>
-  <meta name="description" content="tôi muốn mình vẫn mãi như thế, có người hỏi tôi đã từng này tuổi rồi, không thể bớt một chút “tự do” được hay sao?💭
-">
+  <title>Ret2Libc</title>
+  <meta name="description" content="">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://localhost:4000/">
+  <link rel="canonical" href="http://localhost:4000/research/2024-06-01-ret2libc.html">
   <link rel="alternate" type="application/rss+xml" title="Duc Dat Dau" href="http://localhost:4000/feed.xml">
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Duc Dat Dau | tôi muốn mình vẫn mãi như thế, có người hỏi tôi đã từng này tuổi rồi, không thể bớt một chút “tự do” được hay sao?💭</title>
+<title>Ret2Libc | Duc Dat Dau</title>
 <meta name="generator" content="Jekyll v4.3.2" />
-<meta property="og:title" content="Duc Dat Dau" />
+<meta property="og:title" content="Ret2Libc" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="tôi muốn mình vẫn mãi như thế, có người hỏi tôi đã từng này tuổi rồi, không thể bớt một chút “tự do” được hay sao?💭" />
 <meta property="og:description" content="tôi muốn mình vẫn mãi như thế, có người hỏi tôi đã từng này tuổi rồi, không thể bớt một chút “tự do” được hay sao?💭" />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
+<link rel="canonical" href="http://localhost:4000/research/2024-06-01-ret2libc.html" />
+<meta property="og:url" content="http://localhost:4000/research/2024-06-01-ret2libc.html" />
 <meta property="og:site_name" content="Duc Dat Dau" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-06-01T00:00:00+07:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Duc Dat Dau" />
+<meta property="twitter:title" content="Ret2Libc" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","description":"tôi muốn mình vẫn mãi như thế, có người hỏi tôi đã từng này tuổi rồi, không thể bớt một chút “tự do” được hay sao?💭","headline":"Duc Dat Dau","name":"Duc Dat Dau","url":"http://localhost:4000/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-06-01T00:00:00+07:00","datePublished":"2024-06-01T00:00:00+07:00","description":"tôi muốn mình vẫn mãi như thế, có người hỏi tôi đã từng này tuổi rồi, không thể bớt một chút “tự do” được hay sao?💭","headline":"Ret2Libc","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/research/2024-06-01-ret2libc.html"},"url":"http://localhost:4000/research/2024-06-01-ret2libc.html"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -173,14 +173,52 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <p><img style="float: right; width: 250px; height: 250px; max-width: 33%; max-height: 20%; border-radius: 50%; margin: 0 0 1em 2em; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;" src="/images/geo3.jpg" /></p>
+        <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [['$','$']], 
+    }
+  });
+</script>
 
-<p>My fullname is Dau Duc Dat and I am currently studying cyber security as a sophomore. I was born in Nghe An province but now reside in the capital city of Hanoi.</p>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
-<p>This blog is where I share my knowledge on topics related to mathematics, CTF, and other interesting fields. In my free time, I enjoy playing CTF with the <a href="https://ctftime.org/team/278424">Double K</a> team.</p>
+<script>
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+  
+  var disqus_config = function () {
+  this.page.url = page.url ;  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://https-geordo-github-io.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
-<p>If you have any questions or comments about my articles, please feel free to email me at <em>“contact.ducdatdau@gmail.com”</em>. Thank you very much for visiting my blog.</p>
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Ret2Libc</h1>
+    <p class="post-meta"><time datetime="2024-06-01T00:00:00+07:00" itemprop="datePublished">Jun 1, 2024</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    
+    <!-- 
+ -->
+  </div>
+
+  <div id="disqus_thread"></div>
+
+</article>
       </div>
     </div>
 

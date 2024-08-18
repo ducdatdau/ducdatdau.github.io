@@ -2,7 +2,6 @@
 title: Duc Dat Dau
 email: contact.ducdatdau@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  tôi muốn mình vẫn mãi như thế, có người hỏi tôi đã từng này tuổi rồi, không thể bớt một chút “tự do” được hay sao?💭
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ducdatdau.github.io" # the base hostname & protocol for your site
 twitter_username: ducdatdau

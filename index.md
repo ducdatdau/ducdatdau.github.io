@@ -4,8 +4,7 @@ layout: default
 
 <img style="float: right; width: 250px; height: 250px; max-width: 33%; max-height: 20%; border-radius: 50%; margin: 0 0 1em 2em; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;" src="/images/geo3.jpg">
 
-My fullname is Dau Duc Dat and I am currently studying cyber security as a sophomore. I was born in Nghe An province but now reside in the capital city of Hanoi.
+I'm a hacker / security researcher from Vietnam :vietnam:\
+During the day, I learn about cybersecurity at my university. At night and in my free time, I spend my time researching IoT hardware, learning techniques to hack Linux kernel, or writing exploits for vulnerabilities. Sometimes, I play CTF with the [Dihydro Monoxide 💦](https://ctftime.org/team/310149/).  
 
-This blog is where I share my knowledge on topics related to mathematics, CTF, and other interesting fields. In my free time, I enjoy playing CTF with the [Double K](https://ctftime.org/team/278424) team.
-
-If you have any questions or comments about my articles, please feel free to email me at *"contact.ducdatdau@gmail.com"*. Thank you very much for visiting my blog.
+I plan to graduate in 2026 and am open to pursuing a MS or PhD if given the opportunity. This is my resume. Please let me know if it meets your requirements. Regards.

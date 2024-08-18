@@ -6,28 +6,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>BKCTF Training 2024</title>
-  <meta name="description" content="Table of Content  0x00 Hello  0x01 Pwnable          Bài 1. Buffalow      Bài 2. index_1      Bài 3. int_1      Bài 4. Rộp Rộp Rộp      Bài 5. pwn3      Bài 6...">
+  <title>BKCTF Training 2024 (Vietnamese)</title>
+  <meta name="description" content="Table of Content  pwn/Buffalow  pwn/index_1  pwn/int_1  pwn/Rộp Rộp Rộp  pwn/pwn3  pwn/Raising the hero  pwn/shell_1  crypto/B64 Recovery  reverse/Baby IDA 1...">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://localhost:4000/2024/03/04/BKCTF-Train.html">
   <link rel="alternate" type="application/rss+xml" title="Duc Dat Dau" href="http://localhost:4000/feed.xml">
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>BKCTF Training 2024 | Duc Dat Dau</title>
+<title>BKCTF Training 2024 (Vietnamese) | Duc Dat Dau</title>
 <meta name="generator" content="Jekyll v4.3.2" />
-<meta property="og:title" content="BKCTF Training 2024" />
+<meta property="og:title" content="BKCTF Training 2024 (Vietnamese)" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Table of Content 0x00 Hello 0x01 Pwnable Bài 1. Buffalow Bài 2. index_1 Bài 3. int_1 Bài 4. Rộp Rộp Rộp Bài 5. pwn3 Bài 6. Raising the hero Bài 7. shell_1 0x02 Crypto Bài 1. B64 Recovery 0x03 Reverse Bài 1. Baby IDA 1 Bài 2. BabyRust Bài 3. babylua Hello" />
-<meta property="og:description" content="Table of Content 0x00 Hello 0x01 Pwnable Bài 1. Buffalow Bài 2. index_1 Bài 3. int_1 Bài 4. Rộp Rộp Rộp Bài 5. pwn3 Bài 6. Raising the hero Bài 7. shell_1 0x02 Crypto Bài 1. B64 Recovery 0x03 Reverse Bài 1. Baby IDA 1 Bài 2. BabyRust Bài 3. babylua Hello" />
+<meta name="description" content="Table of Content pwn/Buffalow pwn/index_1 pwn/int_1 pwn/Rộp Rộp Rộp pwn/pwn3 pwn/Raising the hero pwn/shell_1 crypto/B64 Recovery reverse/Baby IDA 1 reverse/BabyRust reverse/babylua" />
+<meta property="og:description" content="Table of Content pwn/Buffalow pwn/index_1 pwn/int_1 pwn/Rộp Rộp Rộp pwn/pwn3 pwn/Raising the hero pwn/shell_1 crypto/B64 Recovery reverse/Baby IDA 1 reverse/BabyRust reverse/babylua" />
 <link rel="canonical" href="http://localhost:4000/2024/03/04/BKCTF-Train.html" />
 <meta property="og:url" content="http://localhost:4000/2024/03/04/BKCTF-Train.html" />
 <meta property="og:site_name" content="Duc Dat Dau" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2024-03-04T00:00:00+07:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="BKCTF Training 2024" />
+<meta property="twitter:title" content="BKCTF Training 2024 (Vietnamese)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-03-04T00:00:00+07:00","datePublished":"2024-03-04T00:00:00+07:00","description":"Table of Content 0x00 Hello 0x01 Pwnable Bài 1. Buffalow Bài 2. index_1 Bài 3. int_1 Bài 4. Rộp Rộp Rộp Bài 5. pwn3 Bài 6. Raising the hero Bài 7. shell_1 0x02 Crypto Bài 1. B64 Recovery 0x03 Reverse Bài 1. Baby IDA 1 Bài 2. BabyRust Bài 3. babylua Hello","headline":"BKCTF Training 2024","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/03/04/BKCTF-Train.html"},"url":"http://localhost:4000/2024/03/04/BKCTF-Train.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-03-04T00:00:00+07:00","datePublished":"2024-03-04T00:00:00+07:00","description":"Table of Content pwn/Buffalow pwn/index_1 pwn/int_1 pwn/Rộp Rộp Rộp pwn/pwn3 pwn/Raising the hero pwn/shell_1 crypto/B64 Recovery reverse/Baby IDA 1 reverse/BabyRust reverse/babylua","headline":"BKCTF Training 2024 (Vietnamese)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/03/04/BKCTF-Train.html"},"url":"http://localhost:4000/2024/03/04/BKCTF-Train.html"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -207,7 +207,7 @@
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">BKCTF Training 2024</h1>
+    <h1 class="post-title" itemprop="name headline">BKCTF Training 2024 (Vietnamese)</h1>
     <p class="post-meta"><time datetime="2024-03-04T00:00:00+07:00" itemprop="datePublished">Mar 4, 2024</time></p>
   </header>
 
@@ -221,75 +221,55 @@
 </h2>
     
 <ul>
-  <li><a href="#hello">0x00 Hello</a></li>
-  <li>
-<a href="#pwnable">0x01 Pwnable</a>
-    <ul>
-      <li><a href="#b%C3%A0i-1-buffalow">Bài 1. Buffalow</a></li>
-      <li><a href="#b%C3%A0i-2-index_1">Bài 2. index_1</a></li>
-      <li><a href="#b%C3%A0i-3-int_1">Bài 3. int_1</a></li>
-      <li><a href="#b%C3%A0i-4-r%E1%BB%99p-r%E1%BB%99p-r%E1%BB%99p">Bài 4. Rộp Rộp Rộp</a></li>
-      <li><a href="#b%C3%A0i-5-pwn3">Bài 5. pwn3</a></li>
-      <li><a href="#b%C3%A0i-6-raising-the-hero">Bài 6. Raising the hero</a></li>
-      <li><a href="#b%C3%A0i-7-shell_1">Bài 7. shell_1</a></li>
-    </ul>
-  </li>
-  <li>
-<a href="#crypto">0x02 Crypto</a>
-    <ul>
-      <li><a href="#b%C3%A0i-1-b64-recovery">Bài 1. B64 Recovery</a></li>
-    </ul>
-  </li>
-  <li>
-<a href="#reverse">0x03 Reverse</a>
-    <ul>
-      <li><a href="#b%C3%A0i-1-baby-ida-1">Bài 1. Baby IDA 1</a></li>
-      <li><a href="#b%C3%A0i-2-babyrust">Bài 2. BabyRust</a></li>
-      <li><a href="#b%C3%A0i-3-babylua">Bài 3. babylua</a></li>
-    </ul>
-  </li>
+  <li><a href="#pwnbuffalow">pwn/Buffalow</a></li>
+  <li><a href="#pwnindex_1">pwn/index_1</a></li>
+  <li><a href="#pwnint_1">pwn/int_1</a></li>
+  <li><a href="#pwnr%E1%BB%99p-r%E1%BB%99p-r%E1%BB%99p">pwn/Rộp Rộp Rộp</a></li>
+  <li><a href="#pwnpwn3">pwn/pwn3</a></li>
+  <li><a href="#pwnraising-the-hero">pwn/Raising the hero</a></li>
+  <li><a href="#pwnshell_1">pwn/shell_1</a></li>
+  <li><a href="#cryptob64-recovery">crypto/B64 Recovery</a></li>
+  <li><a href="#reversebaby-ida-1">reverse/Baby IDA 1</a></li>
+  <li><a href="#reversebabyrust">reverse/BabyRust</a></li>
+  <li><a href="#reversebabylua">reverse/babylua</a></li>
 </ul>
-<h2 id="hello">
-  
-  
-    Hello <a href="#hello">#</a>
-  
-  
-</h2>
-    
 
 <p style="text-align: center;"><img src="/images/bktrain2024/imagee.png" alt="Smile"></p>
 
 <p>Đã từ lâu, mình không viết bài ctf mới trên blog, một phần vì chưa có chủ đề nào mình cảm thấy thú vị để viết, phần còn lại là do quỹ thời gian của mình gần đây không có nhiều. Khởi động năm mới 2024 với giải training của trường ĐHBKHN, độ khó của các bài chỉ ở tầm dễ, trung bình, vì vậy mình cũng thoải mái để giải quyết các vấn đề hơn <img class="emoji" title=":v:" alt=":v:" src="https://github.githubassets.com/images/icons/emoji/unicode/270c.png" height="20" width="20"></p>
-<h2 id="pwnable">
+<h2 id="pwnbuffalow">
   
   
-    Pwnable <a href="#pwnable">#</a>
+    pwn/Buffalow <a href="#pwnbuffalow">#</a>
   
   
 </h2>
     
-<h3 id="bài-1-buffalow">
+<ul>
+  <li>Attachments:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe">bof_1</a></li>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe">bof_1.c</a></li>
+    </ul>
+  </li>
+</ul>
+<h3 id="description">
   
   
-    Bài 1. Buffalow <a href="#b%C3%A0i-1-buffalow">#</a>
+    Description <a href="#description">#</a>
   
   
 </h3>
     
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Tràn là không tốt nên có lẽ bạn sẽ cần thứ này: <a href="https://pwn.guide/free/buffer-overflow">Buffer Overflow Tutorial</a></p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
-<ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe">bof_1</a></li>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe">bof_1.c</a></li>
-</ul>
-
-<p><strong>Solution</strong></p>
+<p>Tràn là không tốt nên có lẽ bạn sẽ cần thứ này: <a href="https://pwn.guide/free/buffer-overflow">Buffer Overflow Tutorial</a></p>
+<h3 id="solution">
+  
+  
+    Solution <a href="#solution">#</a>
+  
+  
+</h3>
+    
 
 <p>Đề bài cho chúng ta source code, đây là một bài BOF cơ bản</p>
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
@@ -335,21 +315,29 @@
 </code></pre></div></div>
 
 <p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{\xBuffer\xOv3rfl0w\x1s\xchiLL}</strong></p>
-<h3 id="bài-2-index_1">
+<h2 id="pwnindex_1">
   
   
-    Bài 2. index_1 <a href="#b%C3%A0i-2-index_1">#</a>
+    pwn/index_1 <a href="#pwnindex_1">#</a>
+  
+  
+</h2>
+    
+<ul>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EiNLxoZtFbFDo11OpZeC3-MBxei6zSW31yC9cRX_YSq2lw?e=uUdUgy">index_1</a></li>
+    </ul>
+  </li>
+</ul>
+<h3 id="solution-1">
+  
+  
+    Solution <a href="#solution-1">#</a>
   
   
 </h3>
     
-
-<p><strong>Files provided</strong></p>
-<ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EiNLxoZtFbFDo11OpZeC3-MBxei6zSW31yC9cRX_YSq2lw?e=uUdUgy">index_1</a></li>
-</ul>
-
-<p><strong>Solution</strong></p>
 
 <p>Đây là một chương trình mua bán các vật phẩm. Với dạng bài này, các lỗ hổng như chuyển tiền âm, mua số lượng sản phẩm âm, … rất dễ xảy ra nếu không được kiểm tra kỹ càng.</p>
 
@@ -388,21 +376,30 @@
 <p><img src="/images/bktrain2024/image-1.png" alt="alt text"></p>
 
 <p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{YOU_SHOULD_buY_f1A9_iN5TE4d_0F_p@PC@i1}</strong></p>
-<h3 id="bài-3-int_1">
+<h2 id="pwnint_1">
   
   
-    Bài 3. int_1 <a href="#b%C3%A0i-3-int_1">#</a>
+    pwn/int_1 <a href="#pwnint_1">#</a>
+  
+  
+</h2>
+    
+
+<ul>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EihwCKAH_QVAk1e_7MqT0_gBuSiTtYSlJY2h-FR6aK47dg?e=cBC0uF">int_1</a></li>
+    </ul>
+  </li>
+</ul>
+<h3 id="solution-2">
+  
+  
+    Solution <a href="#solution-2">#</a>
   
   
 </h3>
     
-
-<p><strong>Files provided</strong></p>
-<ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EihwCKAH_QVAk1e_7MqT0_gBuSiTtYSlJY2h-FR6aK47dg?e=cBC0uF">int_1</a></li>
-</ul>
-
-<p><strong>Solution</strong></p>
 
 <p>Load file vào IDA, ta thấy chương trình cho nhập 2 số nguyên dương. Nếu tổng của chúng &lt; 0, ta sẽ có được shell. Đây là lỗ hổng IOF (tràn số nguyên), ta chỉ cần nhập max giá trị của kiểu dữ liệu int cho số đầu tiên và số còn lại với giá trị nguyên dương bất kỳ.</p>
 
@@ -417,31 +414,44 @@
 <span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="s">10</span><span class="sh">'</span><span class="p">)</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{Ma7h_1s_7hE_woR57_thIn6_EveR}
+</span></code></pre></div></div>
+<h2 id="pwnrộp-rộp-rộp">
+  
+  
+    pwn/Rộp Rộp Rộp <a href="#pwnr%E1%BB%99p-r%E1%BB%99p-r%E1%BB%99p">#</a>
+  
+  
+</h2>
+    
 
-<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{Ma7h_1s_7hE_woR57_thIn6_EveR}</strong></p>
-<h3 id="bài-4-rộp-rộp-rộp">
+<ul>
+  <li>Author: Spid3r</li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/En3PdzP5jqtBoVZLIXZRzy8BtCq0kFAlsTVIgrumErKm0Q?e=xhR7eA">bof_2</a></li>
+    </ul>
+  </li>
+</ul>
+<h3 id="description-1">
   
   
-    Bài 4. Rộp Rộp Rộp <a href="#b%C3%A0i-4-r%E1%BB%99p-r%E1%BB%99p-r%E1%BB%99p">#</a>
+    Description <a href="#description-1">#</a>
   
   
 </h3>
     
+<p>Nói đến Buffer Overflow không thể nào bỏ qua được ROP Attack (Return-oriented programming), các pwner hãy thử khai thác.</p>
 
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Nói đến Buffer Overflow không thể nào bỏ qua được ROP Attack (Return-oriented programming), các pwner hãy thử khai thác<br>
-Keyword: ROP, Gadgets, RET<br>
-Author: Spid3r</p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
-<ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/En3PdzP5jqtBoVZLIXZRzy8BtCq0kFAlsTVIgrumErKm0Q?e=xhR7eA">bof_2</a></li>
-</ul>
-
-<p><strong>Solution</strong></p>
+<p>Keyword: ROP, Gadgets, RET</p>
+<h3 id="solution-3">
+  
+  
+    Solution <a href="#solution-3">#</a>
+  
+  
+</h3>
+    
 
 <p>Load file đã cho vào IDA, ta thấy được lỗ hổng ở hàm <code class="language-plaintext highlighter-rouge">fgets()</code> với việc cho phép nhập 0x100 bytes cho mảng <code class="language-plaintext highlighter-rouge">buf</code> có kích thước 8 bytes. (Ở đây mình không chắc <code class="language-plaintext highlighter-rouge">buf</code> có kích thước 8 bytes vì IDA phân tích ra như vậy. Nhưng mình chắc chắn có lỗi BOF do <code class="language-plaintext highlighter-rouge">buf</code> được bắt đầu từ [rbp-0x40])</p>
 
@@ -482,24 +492,32 @@ Author: Spid3r</p>
 <span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{2--&gt;\\xupgrade\\xBuffer\\xOv3rfl0w\\x1s\\xn0t\\xchiLL\\xhixxxxxxxxxxxxxx}
+</span></code></pre></div></div>
+<h2 id="pwnpwn3">
+  
+  
+    pwn/pwn3 <a href="#pwnpwn3">#</a>
+  
+  
+</h2>
+    
 
-<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{2–&gt;\xupgrade\xBuffer\xOv3rfl0w\x1s\xn0t\xchiLL\xhixxxxxxxxxxxxxx}</strong></p>
-<h3 id="bài-5-pwn3">
+<ul>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x">bof_3</a></li>
+    </ul>
+  </li>
+</ul>
+<h3 id="solution-4">
   
   
-    Bài 5. pwn3 <a href="#b%C3%A0i-5-pwn3">#</a>
+    Solution <a href="#solution-4">#</a>
   
   
 </h3>
     
-
-<p><strong>Files provided</strong></p>
-<ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x">bof_3</a></li>
-</ul>
-
-<p><strong>Solution</strong></p>
 
 <p>Về cơ bản, ý tưởng giải bài này y hệt bài phía trên. Chỉ khác ở bài này có thêm cờ canary được bật.</p>
 
@@ -522,31 +540,42 @@ Author: Spid3r</p>
 <span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{W3_4LL_Hat3_c4NARY}
+</span></code></pre></div></div>
+<h2 id="pwnraising-the-hero">
+  
+  
+    pwn/Raising the hero <a href="#pwnraising-the-hero">#</a>
+  
+  
+</h2>
+    
 
-<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{W3_4LL_Hat3_c4NARY}</strong></p>
-<h3 id="bài-6-raising-the-hero">
+<ul>
+  <li>Author: Gr4ss</li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ErD6ygO9r1dDnAHi2aVPijsBiKbKvPngcmBR70iRiU3xnw?e=JZi3kE">fmt_1</a></li>
+    </ul>
+  </li>
+</ul>
+<h3 id="description-2">
   
   
-    Bài 6. Raising the hero <a href="#b%C3%A0i-6-raising-the-hero">#</a>
+    Description <a href="#description-2">#</a>
   
   
 </h3>
     
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p><strong>doraзmoon</strong> is a very strong knight. But he lost his most important sword.<br>
-Please help him find it again.<br>
-Author: Gr4ss</p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
-<ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ErD6ygO9r1dDnAHi2aVPijsBiKbKvPngcmBR70iRiU3xnw?e=JZi3kE">fmt_1</a></li>
-</ul>
-
-<p><strong>Solution</strong></p>
+<p><strong>doraзmoon</strong> is a very strong knight. But he lost his most important sword. Please help him find it again.</p>
+<h3 id="solution-5">
+  
+  
+    Solution <a href="#solution-5">#</a>
+  
+  
+</h3>
+    
 
 <p>Kiểm tra các lớp bảo vệ của file</p>
 <blockquote>
@@ -581,33 +610,47 @@ Author: Gr4ss</p>
 <span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">say?</span><span class="se">\n</span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{R41s1ng_th3_H3rO}
+</span></code></pre></div></div>
 
 <p>Phân tích một chút về lời giải trên. Do PIE tắt nên địa chỉ biến <code class="language-plaintext highlighter-rouge">target</code> không thay đổi. Chúng ta cần quan sát và đếm trên stack để biết được chính xác vị trí của <code class="language-plaintext highlighter-rouge">target</code>.</p>
 
 <p>Để gán cho <code class="language-plaintext highlighter-rouge">target = 0x6F726568</code>, ta phải chia ra làm 2 phần, vì khi truyền 0x6F726568 kí tự cho <code class="language-plaintext highlighter-rouge">target</code> thì sẽ quá lâu. Vì vậy, ta sẽ gán 0x6568 cho <code class="language-plaintext highlighter-rouge">target</code> và 0x6F72 cho <code class="language-plaintext highlighter-rouge">target+2</code>. Lưu ý rằng, <code class="language-plaintext highlighter-rouge">$n</code> đếm số byte ở trước đó được ghi, vậy nên khi gán giá trị cho <code class="language-plaintext highlighter-rouge">target+2</code>, chúng ta chỉ cần gán 0x6F72 - 0x6568 (bytes) mà thôi.</p>
-
-<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{R41s1ng_th3_H3rO}</strong></p>
-
-<p><strong>Tham khảo:</strong></p>
-<ul>
-  <li><a href="https://www.youtube.com/watch?v=uet1ixUN8Gg">Bài 16: Format String - Ghi dữ liệu bằng %n</a></li>
-</ul>
-<h3 id="bài-7-shell_1">
+<h3 id="reference">
   
   
-    Bài 7. shell_1 <a href="#b%C3%A0i-7-shell_1">#</a>
+    Reference: <a href="#reference">#</a>
   
   
 </h3>
     
-
-<p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EhzasKiEe6FFoZ6yh4QVOZkBaBORaAdJcWVKC-NWOnUXPg?e=8u2Jic">shell_1</a></li>
+  <li><a href="https://www.youtube.com/watch?v=uet1ixUN8Gg">Bài 16: Format String - Ghi dữ liệu bằng %n</a></li>
 </ul>
+<h2 id="pwnshell_1">
+  
+  
+    pwn/shell_1 <a href="#pwnshell_1">#</a>
+  
+  
+</h2>
+    
 
-<p><strong>Solution</strong></p>
+<ul>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EhzasKiEe6FFoZ6yh4QVOZkBaBORaAdJcWVKC-NWOnUXPg?e=8u2Jic">shell_1</a></li>
+    </ul>
+  </li>
+</ul>
+<h3 id="solution-6">
+  
+  
+    Solution <a href="#solution-6">#</a>
+  
+  
+</h3>
+    
 
 <p>Load file vào IDA, yêu cầu bài này chỉ là viết shellcode đơn giản</p>
 
@@ -623,37 +666,42 @@ Author: Gr4ss</p>
 <span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">(max 256 bytes):</span><span class="se">\n</span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
-<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{ju$7_A_5imPLE_ShelLCODE}</strong></p>
-<h2 id="crypto">
+<span class="c1"># BKSEC{ju$7_A_5imPLE_ShelLCODE}
+</span></code></pre></div></div>
+<h2 id="cryptob64-recovery">
   
   
-    Crypto <a href="#crypto">#</a>
+    crypto/B64 Recovery <a href="#cryptob64-recovery">#</a>
   
   
 </h2>
     
-<h3 id="bài-1-b64-recovery">
+
+<ul>
+  <li>Author: huud4t</li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ElsG5G7KpHxPk75ke4bGoNcBUIU4R5XVUAR5QVp__2zKtA?e=Q7B2zI">chall.py</a></li>
+    </ul>
+  </li>
+</ul>
+<h3 id="description-3">
   
   
-    Bài 1. B64 Recovery <a href="#b%C3%A0i-1-b64-recovery">#</a>
+    Description <a href="#description-3">#</a>
   
   
 </h3>
     
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Show me what you know about Base64?<br>
-Author: huud4t</p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
-<ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ElsG5G7KpHxPk75ke4bGoNcBUIU4R5XVUAR5QVp__2zKtA?e=Q7B2zI">chall.py</a></li>
-</ul>
-
-<p><strong>Solution</strong></p>
+<p>Show me what you know about Base64?\</p>
+<h3 id="solution-7">
+  
+  
+    Solution <a href="#solution-7">#</a>
+  
+  
+</h3>
+    
 
 <p>Đề bài cho chúng ta source code như sau</p>
 
@@ -782,42 +830,46 @@ Author: huud4t</p>
 <span class="nf">print</span><span class="p">(</span><span class="n">base64</span><span class="p">.</span><span class="nf">b64decode</span><span class="p">(</span><span class="n">decoded</span><span class="p">))</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}</strong></p>
-<h2 id="reverse">
+<span class="c1"># BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}
+</span></code></pre></div></div>
+<h2 id="reversebaby-ida-1">
   
   
-    Reverse <a href="#reverse">#</a>
+    reverse/Baby IDA 1 <a href="#reversebaby-ida-1">#</a>
   
   
 </h2>
     
-<h3 id="bài-1-baby-ida-1">
+<h3 id="description-4">
   
   
-    Bài 1. Baby IDA 1 <a href="#b%C3%A0i-1-baby-ida-1">#</a>
+    Description <a href="#description-4">#</a>
   
   
 </h3>
     
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Để bước chân vào con đường làm Reverser chân chính bạn cần điều gì:</p>
-  <ol>
-    <li>
+<p>Để bước chân vào con đường làm Reverser chân chính bạn cần điều gì:</p>
+<ol>
+  <li>
 <a href="https://drive.google.com/drive/folders/16ZT_dzf7bGsFPW0jsBmsDoLakXNutCho?usp=sharing">IDA Pro của Spid3r</a> (Bản nào cũng đều chill cả nhé)</li>
-    <li>Lòng dũng cảm sử dụng file này trên máy thật của bạn</li>
-  </ol>
-</blockquote>
+  <li>Lòng dũng cảm sử dụng file này trên máy thật của bạn</li>
+</ol>
 
-<p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EndYd8HMJsdBqq10J_mi9-cBflnnISxiDN6l_EK2XDvZag?e=L2eiAJ">chall.exe</a></li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EndYd8HMJsdBqq10J_mi9-cBflnnISxiDN6l_EK2XDvZag?e=L2eiAJ">chall.exe</a></li>
+    </ul>
+  </li>
 </ul>
-
-<p><strong>Solution</strong></p>
+<h3 id="solution-8">
+  
+  
+    Solution <a href="#solution-8">#</a>
+  
+  
+</h3>
+    
 
 <p>Chương trình đơn thuần chỉ kiểm tra 2 input chúng ta nhập vào:</p>
 <ul>
@@ -829,29 +881,33 @@ Author: huud4t</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flag</span> <span class="o">=</span> <span class="sh">"</span><span class="s">BKSEC{rev3r5e_r@t</span><span class="sh">"</span> <span class="o">+</span> <span class="sh">"</span><span class="s">})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_</span><span class="sh">"</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{rev3r5e_r@t_lA_vU1_lu0n_hehe}chU@_h3t_DaU_987g432t24678321)}
+</span></code></pre></div></div>
+<h2 id="reversebabyrust">
+  
+  
+    reverse/BabyRust <a href="#reversebabyrust">#</a>
+  
+  
+</h2>
+    
 
-<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{rev3r5e_r@t_lA_vU1_lu0n_hehe}chU@_h3t_DaU_987g432t24678321)}</strong></p>
-<h3 id="bài-2-babyrust">
+<ul>
+  <li>Author: shynt_</li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EvAzVM_iQYlNvNwfPPgfdbYBmdGMU3L4oi637ZTgsjxMZQ?e=LDyXKN">rust0</a></li>
+    </ul>
+  </li>
+</ul>
+<h3 id="solution-9">
   
   
-    Bài 2. BabyRust <a href="#b%C3%A0i-2-babyrust">#</a>
+    Solution <a href="#solution-9">#</a>
   
   
 </h3>
     
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Author: shynt_</p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
-<ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EvAzVM_iQYlNvNwfPPgfdbYBmdGMU3L4oi637ZTgsjxMZQ?e=LDyXKN">rust0</a></li>
-</ul>
-
-<p><strong>Solution</strong></p>
 
 <p>Chương trình yêu cầu phải nhập đúng password. Trace ngược lại từ message <strong>“Wrong! Please try again”</strong>, chúng ta thấy chương trình có gọi hàm <code class="language-plaintext highlighter-rouge">chall::check::h428e27b3168ba563()</code>. Khi phân tích hàm này, dễ thấy hàm chỉ kiểm tra từng ký tự với các giá trị đã cho trước.</p>
 
@@ -879,33 +935,45 @@ Author: huud4t</p>
 <span class="n">flag</span><span class="p">[</span><span class="mh">0xB</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x6D</span>
 
 <span class="nf">print</span><span class="p">(</span><span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">]))</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{w3lC0mE_tO_R3v}
+</span></code></pre></div></div>
+<h2 id="reversebabylua">
+  
+  
+    reverse/babylua <a href="#reversebabylua">#</a>
+  
+  
+</h2>
+    
 
-<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{w3lC0mE_tO_R3v}</strong></p>
-<h3 id="bài-3-babylua">
+<ul>
+  <li>Author: Hwi</li>
+  <li>Attachments:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">flag.lua</a></li>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">main.lua</a></li>
+    </ul>
+  </li>
+</ul>
+<h3 id="description-5">
   
   
-    Bài 3. babylua <a href="#b%C3%A0i-3-babylua">#</a>
+    Description <a href="#description-5">#</a>
+  
+  
+</h3>
+    
+<p>Here is a lightweight sibling to Python. Reading the code probably just be as eas- oh wait… what is it precompiled for??</p>
+<h3 id="solution-10">
+  
+  
+    Solution <a href="#solution-10">#</a>
   
   
 </h3>
     
 
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Here is a lightweight sibling to Python. Reading the code probably just be as eas- oh wait… what is it precompiled for??<br>
-Author: Hwi</p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
-<ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">flag.lua</a></li>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">main.lua</a></li>
-</ul>
-
-<p><strong>Solution</strong></p>
-
-<p>Mình đã từng xem qua một số dạng bài về <code class="language-plaintext highlighter-rouge">lua</code>. Quan sát source code file <code class="language-plaintext highlighter-rouge">main.lua</code></p>
+<p>Quan sát source code file <code class="language-plaintext highlighter-rouge">main.lua</code></p>
 <div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">local</span> <span class="n">ret</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"flag"</span><span class="p">)</span>
 
 <span class="nb">io.write</span><span class="p">(</span><span class="s2">"Input flag: "</span><span class="p">)</span>
@@ -969,59 +1037,41 @@ flag.lua: Lua bytecode, version 5.3
         <span class="n">flag</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
 <span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{ju$t_h@rd3r_2<em>re@d</em>:P}</strong></p>
+<span class="c1"># BKSEC{ju$t_h@rd3r_2_re@d_:P}
+</span></code></pre></div></div>
     <!-- <h2 id="table-of-content">Table of Content</h2>
 <ul>
-  <li><a href="#hello">0x00 Hello</a></li>
-  <li><a href="#pwnable">0x01 Pwnable</a>
-    <ul>
-      <li><a href="#bài-1-buffalow">Bài 1. Buffalow</a></li>
-      <li><a href="#bài-2-index_1">Bài 2. index_1</a></li>
-      <li><a href="#bài-3-int_1">Bài 3. int_1</a></li>
-      <li><a href="#bài-4-rộp-rộp-rộp">Bài 4. Rộp Rộp Rộp</a></li>
-      <li><a href="#bài-5-pwn3">Bài 5. pwn3</a></li>
-      <li><a href="#bài-6-raising-the-hero">Bài 6. Raising the hero</a></li>
-      <li><a href="#bài-7-shell_1">Bài 7. shell_1</a></li>
-    </ul>
-  </li>
-  <li><a href="#crypto">0x02 Crypto</a>
-    <ul>
-      <li><a href="#bài-1-b64-recovery">Bài 1. B64 Recovery</a></li>
-    </ul>
-  </li>
-  <li><a href="#reverse">0x03 Reverse</a>
-    <ul>
-      <li><a href="#bài-1-baby-ida-1">Bài 1. Baby IDA 1</a></li>
-      <li><a href="#bài-2-babyrust">Bài 2. BabyRust</a></li>
-      <li><a href="#bài-3-babylua">Bài 3. babylua</a></li>
-    </ul>
-  </li>
+  <li><a href="#pwnbuffalow">pwn/Buffalow</a></li>
+  <li><a href="#pwnindex_1">pwn/index_1</a></li>
+  <li><a href="#pwnint_1">pwn/int_1</a></li>
+  <li><a href="#pwnrộp-rộp-rộp">pwn/Rộp Rộp Rộp</a></li>
+  <li><a href="#pwnpwn3">pwn/pwn3</a></li>
+  <li><a href="#pwnraising-the-hero">pwn/Raising the hero</a></li>
+  <li><a href="#pwnshell_1">pwn/shell_1</a></li>
+  <li><a href="#cryptob64-recovery">crypto/B64 Recovery</a></li>
+  <li><a href="#reversebaby-ida-1">reverse/Baby IDA 1</a></li>
+  <li><a href="#reversebabyrust">reverse/BabyRust</a></li>
+  <li><a href="#reversebabylua">reverse/babylua</a></li>
 </ul>
-
-<h2 id="hello">Hello</h2>
 
 <p style="text-align: center;"><img src="/images/bktrain2024/imagee.png" alt="Smile" /></p>
 
 <p>Đã từ lâu, mình không viết bài ctf mới trên blog, một phần vì chưa có chủ đề nào mình cảm thấy thú vị để viết, phần còn lại là do quỹ thời gian của mình gần đây không có nhiều. Khởi động năm mới 2024 với giải training của trường ĐHBKHN, độ khó của các bài chỉ ở tầm dễ, trung bình, vì vậy mình cũng thoải mái để giải quyết các vấn đề hơn :v:</p>
 
-<h2 id="pwnable">Pwnable</h2>
-
-<h3 id="bài-1-buffalow">Bài 1. Buffalow</h3>
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Tràn là không tốt nên có lẽ bạn sẽ cần thứ này: <a href="https://pwn.guide/free/buffer-overflow">Buffer Overflow Tutorial</a></p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
+<h2 id="pwnbuffalow">pwn/Buffalow</h2>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe">bof_1</a></li>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe">bof_1.c</a></li>
+  <li>Attachments:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe">bof_1</a></li>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EjgKHLBXohRNvbwqrXUKTNcBKFnnv3xdBvtaJmzpW9mFPg?e=xnW5Oe">bof_1.c</a></li>
+    </ul>
+  </li>
 </ul>
 
-<p><strong>Solution</strong></p>
+<h3 id="description">Description</h3>
+<p>Tràn là không tốt nên có lẽ bạn sẽ cần thứ này: <a href="https://pwn.guide/free/buffer-overflow">Buffer Overflow Tutorial</a></p>
+
+<h3 id="solution">Solution</h3>
 
 <p>Đề bài cho chúng ta source code, đây là một bài BOF cơ bản</p>
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
@@ -1068,14 +1118,16 @@ flag.lua: Lua bytecode, version 5.3
 
 <p>:triangular_flag_on_post: <strong>BKSEC{\xBuffer\xOv3rfl0w\x1s\xchiLL}</strong></p>
 
-<h3 id="bài-2-index_1">Bài 2. index_1</h3>
-
-<p><strong>Files provided</strong></p>
+<h2 id="pwnindex_1">pwn/index_1</h2>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EiNLxoZtFbFDo11OpZeC3-MBxei6zSW31yC9cRX_YSq2lw?e=uUdUgy">index_1</a></li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EiNLxoZtFbFDo11OpZeC3-MBxei6zSW31yC9cRX_YSq2lw?e=uUdUgy">index_1</a></li>
+    </ul>
+  </li>
 </ul>
 
-<p><strong>Solution</strong></p>
+<h3 id="solution-1">Solution</h3>
 
 <p>Đây là một chương trình mua bán các vật phẩm. Với dạng bài này, các lỗ hổng như chuyển tiền âm, mua số lượng sản phẩm âm, … rất dễ xảy ra nếu không được kiểm tra kỹ càng.</p>
 
@@ -1115,14 +1167,17 @@ flag.lua: Lua bytecode, version 5.3
 
 <p>:triangular_flag_on_post: <strong>BKSEC{YOU_SHOULD_buY_f1A9_iN5TE4d_0F_p@PC@i1}</strong></p>
 
-<h3 id="bài-3-int_1">Bài 3. int_1</h3>
+<h2 id="pwnint_1">pwn/int_1</h2>
 
-<p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EihwCKAH_QVAk1e_7MqT0_gBuSiTtYSlJY2h-FR6aK47dg?e=cBC0uF">int_1</a></li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EihwCKAH_QVAk1e_7MqT0_gBuSiTtYSlJY2h-FR6aK47dg?e=cBC0uF">int_1</a></li>
+    </ul>
+  </li>
 </ul>
 
-<p><strong>Solution</strong></p>
+<h3 id="solution-2">Solution</h3>
 
 <p>Load file vào IDA, ta thấy chương trình cho nhập 2 số nguyên dương. Nếu tổng của chúng &lt; 0, ta sẽ có được shell. Đây là lỗ hổng IOF (tràn số nguyên), ta chỉ cần nhập max giá trị của kiểu dữ liệu int cho số đầu tiên và số còn lại với giá trị nguyên dương bất kỳ.</p>
 
@@ -1137,25 +1192,26 @@ flag.lua: Lua bytecode, version 5.3
 <span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="s">10</span><span class="sh">'</span><span class="p">)</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{Ma7h_1s_7hE_woR57_thIn6_EveR}
+</span></code></pre></div></div>
 
-<p>:triangular_flag_on_post: <strong>BKSEC{Ma7h_1s_7hE_woR57_thIn6_EveR}</strong></p>
+<h2 id="pwnrộp-rộp-rộp">pwn/Rộp Rộp Rộp</h2>
 
-<h3 id="bài-4-rộp-rộp-rộp">Bài 4. Rộp Rộp Rộp</h3>
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Nói đến Buffer Overflow không thể nào bỏ qua được ROP Attack (Return-oriented programming), các pwner hãy thử khai thác<br />
-Keyword: ROP, Gadgets, RET<br />
-Author: Spid3r</p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/En3PdzP5jqtBoVZLIXZRzy8BtCq0kFAlsTVIgrumErKm0Q?e=xhR7eA">bof_2</a></li>
+  <li>Author: Spid3r</li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/En3PdzP5jqtBoVZLIXZRzy8BtCq0kFAlsTVIgrumErKm0Q?e=xhR7eA">bof_2</a></li>
+    </ul>
+  </li>
 </ul>
 
-<p><strong>Solution</strong></p>
+<h3 id="description-1">Description</h3>
+<p>Nói đến Buffer Overflow không thể nào bỏ qua được ROP Attack (Return-oriented programming), các pwner hãy thử khai thác.</p>
+
+<p>Keyword: ROP, Gadgets, RET</p>
+
+<h3 id="solution-3">Solution</h3>
 
 <p>Load file đã cho vào IDA, ta thấy được lỗ hổng ở hàm <code class="language-plaintext highlighter-rouge">fgets()</code> với việc cho phép nhập 0x100 bytes cho mảng <code class="language-plaintext highlighter-rouge">buf</code> có kích thước 8 bytes. (Ở đây mình không chắc <code class="language-plaintext highlighter-rouge">buf</code> có kích thước 8 bytes vì IDA phân tích ra như vậy. Nhưng mình chắc chắn có lỗi BOF do <code class="language-plaintext highlighter-rouge">buf</code> được bắt đầu từ [rbp-0x40])</p>
 
@@ -1196,18 +1252,20 @@ Author: Spid3r</p>
 <span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{2--&gt;\\xupgrade\\xBuffer\\xOv3rfl0w\\x1s\\xn0t\\xchiLL\\xhixxxxxxxxxxxxxx}
+</span></code></pre></div></div>
 
-<p>:triangular_flag_on_post: <strong>BKSEC{2–&gt;\xupgrade\xBuffer\xOv3rfl0w\x1s\xn0t\xchiLL\xhixxxxxxxxxxxxxx}</strong></p>
+<h2 id="pwnpwn3">pwn/pwn3</h2>
 
-<h3 id="bài-5-pwn3">Bài 5. pwn3</h3>
-
-<p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x">bof_3</a></li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EgLIMROmAZpPpl08MByQ7oUBO-fAEMqn7hP7NaD0KMU9vQ?e=nIEJ1x">bof_3</a></li>
+    </ul>
+  </li>
 </ul>
 
-<p><strong>Solution</strong></p>
+<h3 id="solution-4">Solution</h3>
 
 <p>Về cơ bản, ý tưởng giải bài này y hệt bài phía trên. Chỉ khác ở bài này có thêm cờ canary được bật.</p>
 
@@ -1230,25 +1288,24 @@ Author: Spid3r</p>
 <span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{W3_4LL_Hat3_c4NARY}
+</span></code></pre></div></div>
 
-<p>:triangular_flag_on_post: <strong>BKSEC{W3_4LL_Hat3_c4NARY}</strong></p>
+<h2 id="pwnraising-the-hero">pwn/Raising the hero</h2>
 
-<h3 id="bài-6-raising-the-hero">Bài 6. Raising the hero</h3>
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p><strong>doraзmoon</strong> is a very strong knight. But he lost his most important sword.<br />
-Please help him find it again.<br />
-Author: Gr4ss</p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ErD6ygO9r1dDnAHi2aVPijsBiKbKvPngcmBR70iRiU3xnw?e=JZi3kE">fmt_1</a></li>
+  <li>Author: Gr4ss</li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ErD6ygO9r1dDnAHi2aVPijsBiKbKvPngcmBR70iRiU3xnw?e=JZi3kE">fmt_1</a></li>
+    </ul>
+  </li>
 </ul>
 
-<p><strong>Solution</strong></p>
+<h3 id="description-2">Description</h3>
+<p><strong>doraзmoon</strong> is a very strong knight. But he lost his most important sword. Please help him find it again.</p>
+
+<h3 id="solution-5">Solution</h3>
 
 <p>Kiểm tra các lớp bảo vệ của file</p>
 <blockquote>
@@ -1283,27 +1340,29 @@ Author: Gr4ss</p>
 <span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">say?</span><span class="se">\n</span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{R41s1ng_th3_H3rO}
+</span></code></pre></div></div>
 
 <p>Phân tích một chút về lời giải trên. Do PIE tắt nên địa chỉ biến <code class="language-plaintext highlighter-rouge">target</code> không thay đổi. Chúng ta cần quan sát và đếm trên stack để biết được chính xác vị trí của <code class="language-plaintext highlighter-rouge">target</code>.</p>
 
 <p>Để gán cho <code class="language-plaintext highlighter-rouge">target = 0x6F726568</code>, ta phải chia ra làm 2 phần, vì khi truyền 0x6F726568 kí tự cho <code class="language-plaintext highlighter-rouge">target</code> thì sẽ quá lâu. Vì vậy, ta sẽ gán 0x6568 cho <code class="language-plaintext highlighter-rouge">target</code> và 0x6F72 cho <code class="language-plaintext highlighter-rouge">target+2</code>. Lưu ý rằng, <code class="language-plaintext highlighter-rouge">$n</code> đếm số byte ở trước đó được ghi, vậy nên khi gán giá trị cho <code class="language-plaintext highlighter-rouge">target+2</code>, chúng ta chỉ cần gán 0x6F72 - 0x6568 (bytes) mà thôi.</p>
 
-<p>:triangular_flag_on_post: <strong>BKSEC{R41s1ng_th3_H3rO}</strong></p>
-
-<p><strong>Tham khảo:</strong></p>
+<h3 id="reference">Reference:</h3>
 <ul>
   <li><a href="https://www.youtube.com/watch?v=uet1ixUN8Gg">Bài 16: Format String - Ghi dữ liệu bằng %n</a></li>
 </ul>
 
-<h3 id="bài-7-shell_1">Bài 7. shell_1</h3>
+<h2 id="pwnshell_1">pwn/shell_1</h2>
 
-<p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EhzasKiEe6FFoZ6yh4QVOZkBaBORaAdJcWVKC-NWOnUXPg?e=8u2Jic">shell_1</a></li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EhzasKiEe6FFoZ6yh4QVOZkBaBORaAdJcWVKC-NWOnUXPg?e=8u2Jic">shell_1</a></li>
+    </ul>
+  </li>
 </ul>
 
-<p><strong>Solution</strong></p>
+<h3 id="solution-6">Solution</h3>
 
 <p>Load file vào IDA, yêu cầu bài này chỉ là viết shellcode đơn giản</p>
 
@@ -1319,25 +1378,24 @@ Author: Gr4ss</p>
 <span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">(max 256 bytes):</span><span class="se">\n</span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
-<p>:triangular_flag_on_post: <strong>BKSEC{ju$7_A_5imPLE_ShelLCODE}</strong></p>
+<span class="c1"># BKSEC{ju$7_A_5imPLE_ShelLCODE}
+</span></code></pre></div></div>
 
-<h2 id="crypto">Crypto</h2>
+<h2 id="cryptob64-recovery">crypto/B64 Recovery</h2>
 
-<h3 id="bài-1-b64-recovery">Bài 1. B64 Recovery</h3>
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Show me what you know about Base64?<br />
-Author: huud4t</p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ElsG5G7KpHxPk75ke4bGoNcBUIU4R5XVUAR5QVp__2zKtA?e=Q7B2zI">chall.py</a></li>
+  <li>Author: huud4t</li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/ElsG5G7KpHxPk75ke4bGoNcBUIU4R5XVUAR5QVp__2zKtA?e=Q7B2zI">chall.py</a></li>
+    </ul>
+  </li>
 </ul>
 
-<p><strong>Solution</strong></p>
+<h3 id="description-3">Description</h3>
+<p>Show me what you know about Base64?\</p>
+
+<h3 id="solution-7">Solution</h3>
 
 <p>Đề bài cho chúng ta source code như sau</p>
 
@@ -1465,29 +1523,27 @@ Author: huud4t</p>
 <span class="nf">print</span><span class="p">(</span><span class="n">base64</span><span class="p">.</span><span class="nf">b64decode</span><span class="p">(</span><span class="n">decoded</span><span class="p">))</span>
 
 <span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}
+</span></code></pre></div></div>
 
-<p>:triangular_flag_on_post: <strong>BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}</strong></p>
+<h2 id="reversebaby-ida-1">reverse/Baby IDA 1</h2>
 
-<h2 id="reverse">Reverse</h2>
+<h3 id="description-4">Description</h3>
+<p>Để bước chân vào con đường làm Reverser chân chính bạn cần điều gì:</p>
+<ol>
+  <li><a href="https://drive.google.com/drive/folders/16ZT_dzf7bGsFPW0jsBmsDoLakXNutCho?usp=sharing">IDA Pro của Spid3r</a> (Bản nào cũng đều chill cả nhé)</li>
+  <li>Lòng dũng cảm sử dụng file này trên máy thật của bạn</li>
+</ol>
 
-<h3 id="bài-1-baby-ida-1">Bài 1. Baby IDA 1</h3>
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Để bước chân vào con đường làm Reverser chân chính bạn cần điều gì:</p>
-  <ol>
-    <li><a href="https://drive.google.com/drive/folders/16ZT_dzf7bGsFPW0jsBmsDoLakXNutCho?usp=sharing">IDA Pro của Spid3r</a> (Bản nào cũng đều chill cả nhé)</li>
-    <li>Lòng dũng cảm sử dụng file này trên máy thật của bạn</li>
-  </ol>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EndYd8HMJsdBqq10J_mi9-cBflnnISxiDN6l_EK2XDvZag?e=L2eiAJ">chall.exe</a></li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EndYd8HMJsdBqq10J_mi9-cBflnnISxiDN6l_EK2XDvZag?e=L2eiAJ">chall.exe</a></li>
+    </ul>
+  </li>
 </ul>
 
-<p><strong>Solution</strong></p>
+<h3 id="solution-8">Solution</h3>
 
 <p>Chương trình đơn thuần chỉ kiểm tra 2 input chúng ta nhập vào:</p>
 <ul>
@@ -1497,23 +1553,21 @@ Author: huud4t</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flag</span> <span class="o">=</span> <span class="sh">"</span><span class="s">BKSEC{rev3r5e_r@t</span><span class="sh">"</span> <span class="o">+</span> <span class="sh">"</span><span class="s">})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_</span><span class="sh">"</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{rev3r5e_r@t_lA_vU1_lu0n_hehe}chU@_h3t_DaU_987g432t24678321)}
+</span></code></pre></div></div>
 
-<p>:triangular_flag_on_post: <strong>BKSEC{rev3r5e_r@t_lA_vU1_lu0n_hehe}chU@_h3t_DaU_987g432t24678321)}</strong></p>
+<h2 id="reversebabyrust">reverse/BabyRust</h2>
 
-<h3 id="bài-2-babyrust">Bài 2. BabyRust</h3>
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Author: shynt_</p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EvAzVM_iQYlNvNwfPPgfdbYBmdGMU3L4oi637ZTgsjxMZQ?e=LDyXKN">rust0</a></li>
+  <li>Author: shynt_</li>
+  <li>Attachment:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EvAzVM_iQYlNvNwfPPgfdbYBmdGMU3L4oi637ZTgsjxMZQ?e=LDyXKN">rust0</a></li>
+    </ul>
+  </li>
 </ul>
 
-<p><strong>Solution</strong></p>
+<h3 id="solution-9">Solution</h3>
 
 <p>Chương trình yêu cầu phải nhập đúng password. Trace ngược lại từ message <strong>“Wrong! Please try again”</strong>, chúng ta thấy chương trình có gọi hàm <code class="language-plaintext highlighter-rouge">chall::check::h428e27b3168ba563()</code>. Khi phân tích hàm này, dễ thấy hàm chỉ kiểm tra từng ký tự với các giá trị đã cho trước.</p>
 
@@ -1541,27 +1595,27 @@ Author: huud4t</p>
 <span class="n">flag</span><span class="p">[</span><span class="mh">0xB</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x6D</span>
 
 <span class="nf">print</span><span class="p">(</span><span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">]))</span>
-</code></pre></div></div>
+<span class="c1"># BKSEC{w3lC0mE_tO_R3v}
+</span></code></pre></div></div>
 
-<p>:triangular_flag_on_post: <strong>BKSEC{w3lC0mE_tO_R3v}</strong></p>
+<h2 id="reversebabylua">reverse/babylua</h2>
 
-<h3 id="bài-3-babylua">Bài 3. babylua</h3>
-
-<p><strong>Description</strong></p>
-<blockquote>
-  <p>Here is a lightweight sibling to Python. Reading the code probably just be as eas- oh wait… what is it precompiled for??<br />
-Author: Hwi</p>
-</blockquote>
-
-<p><strong>Files provided</strong></p>
 <ul>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">flag.lua</a></li>
-  <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">main.lua</a></li>
+  <li>Author: Hwi</li>
+  <li>Attachments:
+    <ul>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">flag.lua</a></li>
+      <li><a href="https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/Eq3F5H6Fhf1OubkBs7rNResBy-eI29obz86kP0dNhDK97Q?e=WJwogY">main.lua</a></li>
+    </ul>
+  </li>
 </ul>
 
-<p><strong>Solution</strong></p>
+<h3 id="description-5">Description</h3>
+<p>Here is a lightweight sibling to Python. Reading the code probably just be as eas- oh wait… what is it precompiled for??</p>
 
-<p>Mình đã từng xem qua một số dạng bài về <code class="language-plaintext highlighter-rouge">lua</code>. Quan sát source code file <code class="language-plaintext highlighter-rouge">main.lua</code></p>
+<h3 id="solution-10">Solution</h3>
+
+<p>Quan sát source code file <code class="language-plaintext highlighter-rouge">main.lua</code></p>
 <div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">local</span> <span class="n">ret</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"flag"</span><span class="p">)</span>
 
 <span class="nb">io.write</span><span class="p">(</span><span class="s2">"Input flag: "</span><span class="p">)</span>
@@ -1625,9 +1679,8 @@ flag.lua: Lua bytecode, version 5.3
         <span class="n">flag</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
 <span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p>:triangular_flag_on_post: <strong>BKSEC{ju$t_h@rd3r_2<em>re@d</em>:P}</strong></p>
+<span class="c1"># BKSEC{ju$t_h@rd3r_2_re@d_:P}
+</span></code></pre></div></div>
  -->
   </div>
 
@@ -1641,19 +1694,21 @@ flag.lua: Lua bytecode, version 5.3
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">Duc Dat Dau</h2>
+    <!-- <h2 class="footer-heading">Duc Dat Dau</h2> -->
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
-          <li>Duc Dat Dau</li>
-          <li><a href="mailto:contact.ducdatdau@gmail.com">contact.ducdatdau@gmail.com</a></li>
+          <!-- <li>Duc Dat Dau</li>
+          <li><a href="mailto:contact.ducdatdau@gmail.com">contact.ducdatdau@gmail.com</a></li> -->
           <!-- <li><script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=bWWMtUHXhX4_KVnkJ-k1GL_PEZEA0lCjHMP81H6JXAA&cl=ffffff&w=a"></script></li> -->
           <li><script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=hTxyDCpAFGmse2NCHLjlA3079v7NSBHXIjnN8mG-hlE"></script></li>
         </ul>
       </div>
 
-      <div class="footer-col footer-col-2">
+      <div class="footer-col footer-col-3">
+        <h2 style="font-weight: 600;">Contact</h2>
+        <p>For anything important, please email me at: <a href="mailto:contact.ducdatdau@gmail.com">contact.ducdatdau@gmail.com</a></p>
         <ul class="social-media-list">
           
           <li>
@@ -1683,10 +1738,9 @@ flag.lua: Lua bytecode, version 5.3
         </ul>
       </div>
 
-      <div class="footer-col footer-col-3">
-        <p>tôi muốn mình vẫn mãi như thế, có người hỏi tôi đã từng này tuổi rồi, không thể bớt một chút “tự do” được hay sao?💭
-</p>
-      </div>
+      <!-- <div class="footer-col footer-col-3">
+        <p></p>
+      </div> -->
     </div>
 
   </div>

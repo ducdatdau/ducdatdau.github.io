@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 30 Aug 2024 06:46:28 +0700</pubDate>
-    <lastBuildDate>Fri, 30 Aug 2024 06:46:28 +0700</lastBuildDate>
+    <pubDate>Fri, 30 Aug 2024 16:00:42 +0700</pubDate>
+    <lastBuildDate>Fri, 30 Aug 2024 16:00:42 +0700</lastBuildDate>
     <generator>Jekyll v3.10.0</generator>
     
       <item>
@@ -738,6 +738,17 @@ flag.lua: Lua bytecode, version 5.3
         <pubDate>Sat, 30 Dec 2023 00:00:00 +0700</pubDate>
         <link>http://localhost:4000/2023/12/30/KalmarCTF-2023.html</link>
         <guid isPermaLink="true">http://localhost:4000/2023/12/30/KalmarCTF-2023.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>KMA Recruitment 2023</title>
+        <description>&lt;p&gt;Please read on &lt;a href=&quot;https://ducdatdauvnsec.notion.site/KCSC-Recruitment-d3f3144578094022a4a0b004fbcaf4ba?pvs=25&quot;&gt;Notion&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 30 Dec 2023 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/2023/12/30/KMARecruitment.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2023/12/30/KMARecruitment.html</guid>
         
         
       </item>

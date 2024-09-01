@@ -5,9 +5,20 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 30 Aug 2024 16:00:42 +0700</pubDate>
-    <lastBuildDate>Fri, 30 Aug 2024 16:00:42 +0700</lastBuildDate>
+    <pubDate>Sun, 01 Sep 2024 18:05:04 +0700</pubDate>
+    <lastBuildDate>Sun, 01 Sep 2024 18:05:04 +0700</lastBuildDate>
     <generator>Jekyll v3.10.0</generator>
+    
+      <item>
+        <title>AngstromCTF 2024</title>
+        <description>&lt;p&gt;Please read on &lt;a href=&quot;https://ducdatdauvnsec.notion.site/AngstromCTF-85077df6a9234bb7b7ff8f16323b48ee?pvs=25&quot;&gt;Notion&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 01 Sep 2024 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/2024/09/01/AngstromCTF-2024.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2024/09/01/AngstromCTF-2024.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>KungfuRE</title>

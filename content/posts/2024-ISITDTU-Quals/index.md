@@ -28,21 +28,21 @@ Solution for ISITDTU Quals 2024
 
 Đề bài cho chúng ta một file PE64. Mở bằng IDA64, tổng quan chương trình sẽ như sau
 
-![https://hackmd.io/_uploads/HkZDC-fWJx.png](https://hackmd.io/_uploads/HkZDC-fWJx.png)
+<img src="1.png"/>
 
 Chương trình yêu cầu nhập flag có độ dài 36 ký tự, trong đó có điều kiện check ở một số idex cụ thể.
 
 Khi click vào hàm **`check_flag`**, ta nhận được thông báo lỗi như sau 
 
-![https://hackmd.io/_uploads/H1lDA-Mbkl.png](https://hackmd.io/_uploads/H1lDA-Mbkl.png)
+<img src="2.png" width=400 style="display: block; margin-left: auto; margin-right: auto;"/>
 
 Qua tab IDA View chế độ non-graph, ta thấy đây chỉ là một lệnh gọi hàm bình thường
 
-![https://hackmd.io/_uploads/BJ-DCZG-yx.png](https://hackmd.io/_uploads/BJ-DCZG-yx.png)
+<img src="3.png"/>
 
 Vậy mình sẽ debug từng dòng và sửa các kết quả check để chương trình tới được đến đoạn này. Đây là chương trình khi mình nhảy vào **`rax`**
 
-![https://hackmd.io/_uploads/HkxWD0bGWJx.png](https://hackmd.io/_uploads/HkxWD0bGWJx.png)
+<img src="4.png"/>
 
 Ấn phím **`p`** để create function và thu được đống mã giả của hàm này như sau 
 
@@ -200,7 +200,7 @@ flag[24] = 121
 print("".join([chr(i) for i in flag]))
 ```
 
-Flag thu được là `ISITDTU{a_g0lden_cat_1n_y0ur_area!!}`
+Flag thu được là **`ISITDTU{a_g0lden_cat_1n_y0ur_area!!}`**
 
 ## rev/re01
 
@@ -214,15 +214,15 @@ Flag thu được là `ISITDTU{a_g0lden_cat_1n_y0ur_area!!}`
 
 Đề bài cho chúng ta một file PE64, mở bằng IDA64, quan sát tổng thể ta có thể thấy chương trình dùng SHA1 để hash input và so sánh với chuỗi hash **`eeeddf4ae0c3364f189a37f79c9d7223a1d60ac7`**
 
-![https://hackmd.io/_uploads/B1wW1zM-1e.png](https://hackmd.io/_uploads/B1wW1zM-1e.png)
+<img src="5.png"/>
 
 Sau một hồi thử crack chuỗi hash kia không được, mình tiếp tục đi xem có function nào đáng nghi không. Và đây chính là hàm mà mình chú ý tới **`TlsCallback_0`**
 
-![https://hackmd.io/_uploads/SybDA-fb1e.png](https://hackmd.io/_uploads/SybDA-fb1e.png)
+<img src="6.png"/>
 
 Chương trình sử dụng anti-debug và gọi nó trong hàm TLS. Mình đặt breakpoint ở đoạn check **`IsDebuggerPresent`** và sửa giá trị cho **`ZF`** để chương trình tiếp tục được đi vào trong hàm **`sub_140004000`**
 
-![https://hackmd.io/_uploads/rkMPCWf-ke.png](https://hackmd.io/_uploads/rkMPCWf-ke.png)
+<img src="7.png"/>
 
 Chúng ta dễ dàng nhận ra input length = 58. Mình sẽ tạo mới input và debug lại. Kiểm tra các giá trị ở đoạn so sánh, ta biết được điều kiện check flag sẽ là
 
@@ -276,11 +276,11 @@ print(flag)
 
 Mở chương trình lên thì thấy một màn hình đen kịt 
 
-![https://hackmd.io/_uploads/rkWP0ZzZ1x.png](https://hackmd.io/_uploads/rkWP0ZzZ1x.png)
+<img src="8.png"/>
 
 Vào tab Debug → Hex Editor thấy 3 byte đầu nhảy liên tục, chứng tỏ rằng chương trình vẫn đang hoạt động bình thường. 
 
-![https://hackmd.io/_uploads/B1-wRbzZJx.png](https://hackmd.io/_uploads/B1-wRbzZJx.png)
+<img src="9.png"/>
 
 Sau khi thử nhập một vài phím và check toàn bộ dữ liệu trong tab Hex Editor, mình phát hiện input được xuất hiện ở các địa chỉ: 
 
@@ -289,7 +289,7 @@ Sau khi thử nhập một vài phím và check toàn bộ dữ liệu trong tab
 - 0x1300
 - 0x1B00
 
-![https://hackmd.io/_uploads/rkgDC-fZJx.png](https://hackmd.io/_uploads/rkgDC-fZJx.png)
+<img src="10.png"/>
 
 và có một số đặc điểm như sau: 
 
@@ -307,7 +307,7 @@ Sau khi đã biết chỗ nhập input thì chỗ check flag sẽ nằm ở đâ
 
 Mình vào tab Debug → Debugger, tìm đoạn code nào có chứa **`300`** (địa chỉ input) hoặc lệnh **`cmp`** thì ra được đoạn này 
 
-![https://hackmd.io/_uploads/ry-DAWzWJg.png](https://hackmd.io/_uploads/ry-DAWzWJg.png)
+<img src="11.png"/>
 
 Nếu tinh ý, ta có thể nhận ra các block check input khá tương tự nhau. Lấy các giá trị ở địa chỉ 300, 301 và 302 cộng với nhau, sau đó so sánh với 0x4A. Ví dụ cho block check đầu tiên sẽ là 
 
@@ -353,7 +353,7 @@ else:
 
 Kết quả thu được là **`tuanlinhlinhtuan`,** bây giờ ta chỉ cần nhập input đúng với các key đã được map sẽ có được flag là **`ISITDTU{Throw_back_the_nested_if_NES_have_funnnn_:)}`**
 
-![https://hackmd.io/_uploads/rybD0ZGW1g.png](https://hackmd.io/_uploads/rybD0ZGW1g.png)
+<img src="12.png"/>
 
 ## rev/The Chamber of Flag
 
@@ -371,7 +371,7 @@ Kết quả thu được là **`tuanlinhlinhtuan`,** bây giờ ta chỉ cần n
     - Nhập secret key
 - about
 
-![https://hackmd.io/_uploads/r1-DRbzWkg.png](https://hackmd.io/_uploads/r1-DRbzWkg.png)
+<img src="13.png" width=400 style="display: block; margin-left: auto; margin-right: auto;"/>
 
 Mình thử nhập secret và nhận thấy:
 
@@ -380,29 +380,29 @@ Mình thử nhập secret và nhận thấy:
 
 Mở file bằng IDA64, chương trình nhìn rất lớn và phức tạp. Mình nhảy qua tab string và nhận thấy chương trình có gọi các hàm encrypt của WinAPI. 
 
-![14.png](14.png)
+<img src="14.png"/>
 
 Trace theo các hàm này, mình tìm ra được hàm **`sub_7FF6A0F51530`** thực hiện việc mã hóa input và đi kiểm tra tính hợp lệ của nó. 
 
-![https://hackmd.io/_uploads/SJWvAZM-yg.png](https://hackmd.io/_uploads/SJWvAZM-yg.png)
+<img src="15.png"/>
 
 Sau khi debug và decrypt **`AlgId`**, chúng ta biết được chương trình sử dụng hash SHA256. Thông tin chi tiết các bạn có thể đọc thêm ở đây https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider
 
-![https://hackmd.io/_uploads/HkgWPRWfbkl.png](https://hackmd.io/_uploads/HkgWPRWfbkl.png)
+<img src="16.png"/>
 
 Tiếp tục debug và ta lấy được **`checked_hash`** = **`26F2D45844BFDBC8E5A2AE67149AA6C50E897A2A48FBF479D1BFB9F0D4E24544`**
 
 Với input có độ dài 6 ký tự, mình sẽ dùng **`hashcat`** để bruteforce nhằm tìm ra giá trị tương ứng với mã hash này. Kết quả thu được là **`808017`**
 
-![image.png](image.png)
+<img src="23.png"/>
 
 Đăng nhập thành công, chúng ta chọn option flag nhưng lại xuất hiện thông báo flag crashed.
 
-![https://hackmd.io/_uploads/HygbwAbf-yg.png](https://hackmd.io/_uploads/HygbwAbf-yg.png)
+<img src="17.png" width=400 style="display: block; margin-left: auto; margin-right: auto;"/>
 
 Sau khi xref chuỗi trên, mình tìm ra được đoạn code có liên quan tới chuỗi trên ở đây. 
 
-![https://hackmd.io/_uploads/H1-P0-zW1x.png](https://hackmd.io/_uploads/H1-P0-zW1x.png)
+<img src="18.png"/>
 
 Đi phân tích hàm **`sub_7FF7AFB110C8`**, ta thấy nó decrypt dữ liệu bằng thuật toán AES mode CBC. 
 
@@ -544,21 +544,21 @@ __int64 __fastcall sub_7FF7AFB110C8(PUCHAR pbInput, __int64 a2, __int64 a3, UCHA
 
 Nhưng khi chạy đến cuối hàm thì gặp lỗi này. 
 
-![https://hackmd.io/_uploads/BJ-PR-f-yx.png](https://hackmd.io/_uploads/BJ-PR-f-yx.png)
+<img src="19.png"/>
 
 Lỗi này gây ra do **`rcx`** chưa trỏ đúng vào vị trí bộ nhớ. 
 
-![https://hackmd.io/_uploads/B1Gv0-fZ1x.png](https://hackmd.io/_uploads/B1Gv0-fZ1x.png)
+<img src="20.png" width=400 style="display: block; margin-left: auto; margin-right: auto;"/>
 
 Lúc này, mình tìm xung quanh các thanh ghi **`rcx`** để xem nó bị ảnh hưởng bởi thanh ghi nào. Ta thấy có **`rax`** và **`rbx`** tác động tới nó 
 
-![https://hackmd.io/_uploads/rJbDC-f-1e.png](https://hackmd.io/_uploads/rJbDC-f-1e.png)
+<img src="21.png"/>
 
- Do `rax` trên stack nên mình bỏ qua, tìm xung quanh giá trị của `rbx`, ta thấy có đống dữ liệu rất khả nghi.
+ Do **`rax`** trên stack nên mình bỏ qua, tìm xung quanh giá trị của **`rbx`**, ta thấy có đống dữ liệu rất khả nghi.
 
-![https://hackmd.io/_uploads/SkxMP0ZGWkx.png](https://hackmd.io/_uploads/SkxMP0ZGWkx.png)
+<img src="22.png"/>
 
-Đưa `rcx` trỏ về đây, chạy nốt chương trình và thu được flag `ISITDTU{STATIC_STRUCt_INITIALIZATION_FAiLED}`
+Đưa **`rcx`** trỏ về đây, chạy nốt chương trình và thu được flag **`ISITDTU{STATIC_STRUCt_INITIALIZATION_FAiLED}`**
 
 ## pwn/shellcode 2
 

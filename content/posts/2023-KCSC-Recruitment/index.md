@@ -62,7 +62,7 @@ Chuỗi này khả năng cao bị mã hóa base64. Lên [CyberChef](https://gchq
 
 {{< admonition note "Challenge Information" >}}
 * 3 solves / 484 pts
-* **Given files:** Images.zip
+* **Given files:** [Images.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EUv27tElKYFNkTHz4-MwShgBt8gKdfYfhIYytovddCz7RQ?e=fFLSDm)
 * **Description:** It doesnt hard as u expected ^^
 {{< /admonition >}}
 
@@ -150,8 +150,8 @@ print("".join([chr(i) for i in flag]))
 {{< admonition note "Challenge Information" >}}
 * 9 solves / 244 pts
 * **Given files:** 
-  * output.txt
-  * src.py
+  * [output.txt](https://wru-my.sharepoint.com/:t:/g/personal/2251272678_e_tlu_edu_vn/EYI8SrfAH95GgnP_bTvmdPsB8nFCtAb1Db0uPga6GFSsJA?e=Zcy3Ut)
+  * [src.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EchJO5YZqkdCtKlyLtBgS4sBd2Og6jVC2xRCgLznmfnb_Q?e=NlU4J3)
 * **Description:** xor, xor nữa, xor mãi\
 Flag format: **`KCSC{}`**
 {{< /admonition >}}
@@ -216,7 +216,7 @@ Dễ thấy có kí tự **`==`**, ta sẽ decode Base64 nhiều lần trên [Cy
 
 {{< admonition note "Challenge Information" >}}
 * 12 solves / 100 pts
-* **Given files:** rev_hide_and_seek.rar
+* **Given files:** [rev_hide_and_seek.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EZSSBRfU3Q1Bh06Xm0pnlWgBU4zysM7KLJMrDI3PcsSMJg?e=Z6Ipv5)
 * **Description:** I hid a little surprise for you somewhere in your computer. Let's see if you can find it!
 {{< /admonition >}}
 
@@ -390,10 +390,7 @@ function showFlag() {
 
 {{< admonition note "Challenge Information" >}}
 * 2 solves / 496 pts / by sonx
-* **Given files:** 
-  * dynamicFunction
-  * ucrtbased.dll
-  * vcruntime140d.dll
+* **Given files:** [rev_dynamic_function.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ETVhfCJRyjVIvM5yXMjStCIBPyIrWi8w6G4oQBTK6HfN1g?e=VrmuZg)
 * **Description:** Unless I am in motion, I remain invisible.
 {{< /admonition >}}
 
@@ -630,7 +627,7 @@ print(flag)
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts / by sonx
-* **Given files:** rev_two_faces.rar
+* **Given files:** [rev_two_faces.rar](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EsSV4QVyTopIl_6UT65as80B4l8qKmfDx9c_ydgtqJYA9g?e=rEZ5wF)
 * **Description:** Don’t judge a book by its cover.
 {{< /admonition >}}
 
@@ -1046,7 +1043,7 @@ if __name__ == "__main__":
 
 {{< admonition note "Challenge Information" >}}
 * 40 solves / 100 pts
-* **Given files:** gift
+* **Given files:** [gift](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EX1Y8Dum-21OjKYxOWeahqsBx8Jv0sr4Pl6OJ-wfv2s2pQ?e=ImvXPj)
 * **Description:** Just find flag in file, no need netcat
 {{< /admonition >}}
 
@@ -1062,7 +1059,7 @@ Flag đầy đủ của bài toán là **`KCSC{A_gift_for_the_pwners_0xdeadbeef}
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts / by Nuuuuuuuu
-* **Given files:** format.zip
+* **Given files:** [format.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EbjKR1jipvdJm4ZWwXLa2BoBNfwJJSKf2qcXOf8r3JsC7w?e=mpBn7N)
 * **Description:** You don't have to do anything, i will printf the flag for you^^\
 **`nc 103.162.14.116 12001`**
 {{< /admonition >}}
@@ -1111,7 +1108,7 @@ p.interactive()
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts
-* **Given files:** pwn1
+* **Given files:** [pwn1](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EeNv7B6LlU1Cm8xv11c8j14B53DaHhiI_rNmTx9wNTGQrg?e=kV9ns4)
 * **Description:** every things start with assembly\
 **`nc 103.162.14.116 20001`**
 {{< /admonition >}}
@@ -1190,7 +1187,7 @@ p.interactive()
 
 {{< admonition note "Challenge Information" >}}
 * 2 solves / 496 pts / by Nuuuuuuuu
-* **Given files:** simple_overflow.zip
+* **Given files:** [simple_overflow.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EUlfGWaVWGlCikIA45vdnVQBmb8jzs-1yK8KiWvShSwOiQ?e=tm96Lp)
 * **Description:** simple description since it’s simple overflow\
 **`nc 103.162.14.116 12004`**
 {{< /admonition >}}
@@ -1304,8 +1301,8 @@ p.interactive()
 {{< admonition note "Challenge Information" >}}
 * 6 solves / 400 pts / by Wan
 * **Given files:** 
-  * chall
-  * chall.c
+  * [chall](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EcOEg_DwZalImTfKKKYe-PQB5pYivg-yZved4VwaC8E7vQ?e=UzTYVN)
+  * [chall.c](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYeP36OiA_ZJvskdROPzYv8BCAwCVSnsiYLFV8IQXL-WfQ?e=eA3FL8)
 * **Description:** simple description since it’s simple overflow\
 **`nc 103.162.14.116 12005`**
 {{< /admonition >}}
@@ -1375,6 +1372,6 @@ rev/mission: impossible
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts / by sonx
-* **Given files:** rev_mission_impossible.rar
+* **Given files:** [rev_mission_impossible.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EZckKwbqg-FMrk8-KWf740kBqOaaqriUc28UKFnCsbalvw?e=awVmt4)
 * **Description:** Defeat all the adversaries to protect your base. We're relying
 {{< /admonition >}}

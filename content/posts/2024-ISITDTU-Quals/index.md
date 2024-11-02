@@ -23,7 +23,7 @@ Solutions for some challenges in ISITDTU Quals 2024
 
 {{< admonition note "Challenge Information" >}}
 * 31 solves / 100 pts / by kinjazz
-* **Given files:** chall
+* **Given files:** [animal.7z](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EVuJORIn52pClGE2rCr4DmUBCTw90S1TIg4_IAXLm0DzQg?e=qSdvbh)
 * **Description:** Find the hidden animal
 {{< /admonition >}}
 
@@ -209,7 +209,7 @@ Flag thu được là **`ISITDTU{a_g0lden_cat_1n_y0ur_area!!}`**
 
 {{< admonition note "Challenge Information" >}}
 * 46 solves / 100 pts
-* **Given files:** re01.zip
+* **Given files:** [re01.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ESNNoaYOae9JvGrl9JN6OPMBtIU2akWobbFQ_uM4AorvGg?e=6Qz8eW)
 * **Description:** VC++ ;)
 {{< /admonition >}}
 
@@ -269,7 +269,7 @@ print(flag)
 
 {{< admonition note "Challenge Information" >}}
 * 29 solves / 100 pts
-* **Given files:** re02.zip
+* **Given files:** [re02.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EeUsnHq698FEtmb_PBqHVr0B8lbnkxPoWVzGVXMzEv56Tg?e=Yzivqm)
 * **Description:** NES, good luck ;)
 {{< /admonition >}}
 
@@ -362,7 +362,7 @@ Kết quả thu được là **`tuanlinhlinhtuan`,** bây giờ ta chỉ cần n
 
 {{< admonition note "Challenge Information" >}}
 * 28 solves / 100 pts / by ks75vl
-* **Given files:** [TheChamberOfFlag_11BA527D91D85F332DEBC3145E3E1C4A.zip](https://ctf.isitdtu.com/files/77c8d53ffc4bef692852e6468b8174e7/TheChamberOfFlag_11BA527D91D85F332DEBC3145E3E1C4A.zip?token=eyJ1c2VyX2lkIjoyMzUwLCJ0ZWFtX2lkIjoxNDAyLCJmaWxlX2lkIjo1OX0.Zx57Aw.lAwlfdig9LbY7snwdAWv-QVZw2Q)
+* **Given files:** [TheChamberOfFlag_11BA527D91D85F332DEBC3145E3E1C4A.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EfFkS6k8M_9JjPsrzbBDaYkBIuV4cVsOh92XlL1pCCfG6A?e=4BGYmb)
 * **Description:** Try to unlock the Chamber and get the Flag.
 {{< /admonition >}}
 
@@ -567,7 +567,7 @@ Lúc này, mình tìm xung quanh các thanh ghi **`rcx`** để xem nó bị ả
 
 {{< admonition note "Challenge Information" >}}
 * 61 solves / 100 pts / by code016hiro
-* **Given files:** [https://drive.google.com/file/d/1_w9se3I6o9esnnMt1OyISZEqid5HGvUO/view](https://drive.google.com/file/d/1_w9se3I6o9esnnMt1OyISZEqid5HGvUO/view)
+* **Given files:** [shellcode2.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EX0TUAE1NPhJndbYW1iHfpYBTKYyWKIMhYnFfxp1WSXHFA?e=sBRCLM)
 * **Description:** **`nc 152.69.210.130 3002`**
 {{< /admonition >}}
 
@@ -579,14 +579,14 @@ rev/2much
 
 {{< admonition note "Challenge Information" >}}
 * 9 solves / 463 pts / by kinjazz
-* **Given files:** 2much
+* **Given files:** [2much](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EXwT132DY0NPk7OxgMuDi0MBx2yC4T2EOka5eeCVUI-I4Q?e=YVdBO4)
 {{< /admonition >}}
 
 rev/FlagCpp
 
 {{< admonition note "Challenge Information" >}}
 * 6 solves / 486 pts / by ks75vl
-* **Given files:** [FlagCpp_5C9F861EFCC1AFF273C435E3CC988438.zip](https://ctf.isitdtu.com/files/05153c62f8deaf01bbbf0e0cf1cf1ff8/FlagCpp_5C9F861EFCC1AFF273C435E3CC988438.zip?token=eyJ1c2VyX2lkIjoyMzUwLCJ0ZWFtX2lkIjoxNDAyLCJmaWxlX2lkIjo2M30.Zx57eg.J9fLcNCPDtdvOzQzBeZt29tsZqs)
+* **Given files:** [FlagCpp_5C9F861EFCC1AFF273C435E3CC988438.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EVxUcWswr9dDpgp6dliEmegBuIlCMyD9yrrI2shOlmwArw?e=mwWGaf)
 * **Description:** Trust me, this program was written in **`C++`**.
 {{< /admonition >}}
 
@@ -594,7 +594,7 @@ pwn/shellcode 1
 
 {{< admonition note "Challenge Information" >}}
 * 68 solves / 100 pts / by code016hiro
-* **Given files:** [https://drive.google.com/file/d/1VYDG9AFhaSddgn9qr8cWCaN5qVb-fQCE/view](https://drive.google.com/file/d/1VYDG9AFhaSddgn9qr8cWCaN5qVb-fQCE/view)
+* **Given files:** [shellcode1.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERrQb5blRN1IgofOJUmPwBwBROdWJxB03jdYp0yTbzcfGg?e=UTPFbg)
 * **Description:** **`nc 152.69.210.130 3001`**
 {{< /admonition >}}
 
@@ -602,7 +602,7 @@ pwn/Game of Luck
 
 {{< admonition note "Challenge Information" >}}
 * 43 solves / 100 pts
-* **Given files:** chall
+* **Given files:** [chal](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERNFcvJ6e1hJpa1dCZ_7Vi0BuGrWTSPjcJKarUz4mA63_Q?e=xatAA3)
 * **Description:** **`nc 152.69.210.130 2004`**
 {{< /admonition >}}
 
@@ -610,7 +610,7 @@ pwn/no_name
 
 {{< admonition note "Challenge Information" >}}
 * 29 solves / 100 pts
-* **Given files:** no_name.zip
+* **Given files:** [no_name.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EW0yP2v46lVGi3xRUj9hG-IBg1zvlXp0MAoFnybPawQs0g?e=k44Cdw)
 * **Description:** **`nc 152.69.210.130 1337`**
 {{< /admonition >}}
 
@@ -637,7 +637,7 @@ forensics/unexpected
 
 {{< admonition note "Challenge Information" >}}
 * 17 solves / 349 pts / by 3r3m1t1c
-* **Given files:** [https://drive.google.com/file/d/1_pfVtaS1oMeiWd9dgqLP97yiLfD60Sih/view](https://drive.google.com/file/d/1_pfVtaS1oMeiWd9dgqLP97yiLfD60Sih/view)
+* **Given files:** [chall](https://drive.google.com/file/d/1_pfVtaS1oMeiWd9dgqLP97yiLfD60Sih/view)
 * **Description:** Aquanman Investigation Company is currently recruiting for the role of Digital Forensics Investigator. As part of the application process, candidates are required to complete a challenge designed to assess their skills in digital forensics. Applicants will need to investigate a simulated attack, analyze the provided evidence, and submit the flag.\
 The flag is divided into three different parts!
 {{< /admonition >}}
@@ -646,7 +646,7 @@ forensics/swatted
 
 {{< admonition note "Challenge Information" >}}
 * 15 solves / 385 pts / by 3r3m1t1c
-* **Given files:** [https://drive.google.com/file/d/15fdpvHGRI94QGzUZ61CYX2rVbKGAYDVU/view](https://drive.google.com/file/d/15fdpvHGRI94QGzUZ61CYX2rVbKGAYDVU/view)
+* **Given files:** [source](https://drive.google.com/file/d/15fdpvHGRI94QGzUZ61CYX2rVbKGAYDVU/view)
 * **Description:** San Andreas PD recently conducted a raid on a suspect's residence, discovering that their laptop contains crucial evidence. As a Digital Forensics Investigator, it is now your responsibility to analyze the evidence and answer the related questions.\
 **`nc 152.69.210.130 1259`**
 {{< /admonition >}}
@@ -673,7 +673,6 @@ web/X Éc Éc
 
 {{< admonition note "Challenge Information" >}}
 * 63 solves / 100 pts / by onrsa
-* **Given files:** [https://drive.proton.me/urls/ZYS0NTACTC#2E4aPfRdGZum](https://drive.proton.me/urls/ZYS0NTACTC#2E4aPfRdGZum)
 * **Description:** **`"dependencies":  {"dompurify": "^3.1.6"}`**\
 Warm up liu tiu riu :v\
 Chall: [http://152.69.210.130](http://152.69.210.130/)\
@@ -684,7 +683,7 @@ web/S1mple
 
 {{< admonition note "Challenge Information" >}}
 * 35 solves / 100 pts / by 0x90
-* **Given files:** Dockerfile
+* **Given files:** [Dockerfile](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERWi6qwus71Hrb1yXBBg8kQBsaYhHrvyk9CHbIHzJW2hSg?e=mbHb8t)
 * **Description:** Just a simple HTTP Server\
   [http://35.240.202.218:8000](http://35.240.202.218:8000/)
 {{< /admonition >}}
@@ -693,7 +692,7 @@ web/hihi
 
 {{< admonition note "Challenge Information" >}}
 * 20 solves / 287 pts / by khanhhnahk1
-* **Given files:** [https://drive.google.com/file/d/13p2eQemGAHZm35g1040T8Yo_rp26x8Sq/view](https://drive.google.com/file/d/13p2eQemGAHZm35g1040T8Yo_rp26x8Sq/view)
+* **Given files:** [src](https://drive.google.com/file/d/13p2eQemGAHZm35g1040T8Yo_rp26x8Sq/view)
 * **Description:** 🤭🤭\
   Chall: [http://213.35.127.196:8083](http://213.35.127.196:8083/)
 {{< /admonition >}}
@@ -702,7 +701,7 @@ web/niceray
 
 {{< admonition note "Challenge Information" >}}
 * 17 solves / 349 pts / by Onsra x Deku
-* **Given files:** [https://drive.google.com/file/d/1mTkXeAxAPmEGcwwjylxlZ7Xlni9Hw99o/view](https://drive.google.com/file/d/1mTkXeAxAPmEGcwwjylxlZ7Xlni9Hw99o/view)
+* **Given files:** [src](https://drive.google.com/file/d/1mTkXeAxAPmEGcwwjylxlZ7Xlni9Hw99o/view)
 * **Description:** Niceray or Nineray or Liferay :)))\
   Please test locally before testing on remote. Any team that has captured the flag on the local instance, please DM the two authors below or create a ticket, and we will open an instance for you to capture the flag remotely. The instance creation link will be updated soon (since we're getting a high-RAM VPS to support this challenge :v )\
 **Hint**: Due to a configuration, teams can still exploit the 
@@ -721,7 +720,7 @@ web/Geo Weapon
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 1000 pts / by pew
-* **Given files:** dist.zip
+* **Given files:** [dist.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EdqO5-j3f-lBp-aqVaOtPo4BgAEaSD_LSQPO_n7bZo8egg?e=AeuMJa)
 * **Description:** Little weapon, little weapon, little weapon We're calling you There's a war, if the guns are just to tall for you. We'll find you something small to use Little weapon, little weapon, little weapon. We need you now, blaow!\
 By: Pew (This challenge expects you to find a 0day. If one is found pls report it yourself to the respected party.) Please test locally before testing on remote, ips that abuse instance will be blocked !!!\
 **`nc 213.35.127.196 4444`**
@@ -731,7 +730,7 @@ crypto/ShareMixer1
 
 {{< admonition note "Challenge Information" >}}
 * 42 solves / 100 pts / by catto
-* **Given files:** chall.py
+* **Given files:** [chall.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EfTJ2V_UgjVIh5AsYtjUPw0Bk5IdW6sE9E4pQJYQnu--oA?e=UGsPhP)
 * **Description:** Let's mix some shares!!!!!!!!!!!!!!!!!!!!!!!!!\
   **`nc 35.187.238.100 5001`**
 {{< /admonition >}}
@@ -740,7 +739,7 @@ crypto/ShareMixer2
 
 {{< admonition note "Challenge Information" >}}
 * 32 solves / 100 pts / by catto
-* **Given files:** chall.py
+* **Given files:** [chall.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYF7MSXSFBZNmPZqMEj8SfwB9Rc3OWf7rGZEUjQXM4wZjA?e=kVIMCM)
 * **Description:** Let's mix some shares!!!!!!!!!!!!!!!!!!!!!!!!! Again :>\
   **`nc 35.187.238.100 5002`**
 {{< /admonition >}}
@@ -749,7 +748,7 @@ crypto/Sign
 
 {{< admonition note "Challenge Information" >}}
 * 23 solves / 214 pts / by m1dm4n
-* **Given files:** chall.py
+* **Given files:** [chall.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EWpihqOcqqFBpCr-__BVLSQBEBOqoCsR9OgPkuWTZ5hssA?e=Ej4Y3H)
 * **Description:** I love giving out signatures :"> As long as my modulus are hidden, you can't know what I'm signing!\
 **`nc 35.187.238.100 5003`**
 {{< /admonition >}}
@@ -759,13 +758,13 @@ crypto/thats so random
 {{< admonition note "Challenge Information" >}}
 * 9 solves / 463 pts
 * **Given files:** 
-  * chall.py
-  * output.txt
+  * [chall.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/Eaxf7qc0U4BAlcaGXrAIhxkB6VTsPM_z0DtWsDacscqKyg?e=i1ezT3)
+  * [output.txt](https://wru-my.sharepoint.com/:t:/g/personal/2251272678_e_tlu_edu_vn/EQRcIQxYSudKo4VOxpQH5zoB9E_ENGlBwYcZe1q3Yrwmzg?e=gFfsOq)
 {{< /admonition >}}
 
 crypto/somesomesome
 
 {{< admonition note "Challenge Information" >}}
 * 6 solves / 486 pts
-* **Given files:** [somesomesome.py](https://ctf.isitdtu.com/files/3ed230ade12b92c7df7a99384f28008f/somesomesome.py?token=eyJ1c2VyX2lkIjoyMzUwLCJ0ZWFtX2lkIjoxNDAyLCJmaWxlX2lkIjo1Nn0.Zx6KVA.hpFJRHyfE-msiHu6eIHVEOFrQ-Q)
+* **Given files:** [somesomesome.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERjCy2wKIjRLkClEsno1y6UBs63svCe4KFjY51KXuvmUYA?e=5wwLXg)
 {{< /admonition >}}

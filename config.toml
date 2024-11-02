@@ -79,7 +79,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # website title for Open Graph and Twitter Cards
   title = "ducdatdau blog"
   # website description for RSS, SEO, Open Graph and Twitter Cards
-  description = "$ never stop exploiting"
+  description = "# never stop exploiting 💦"
   # website images for Open Graph and Twitter Cards
   images = ["/logo.png"]
 
@@ -189,7 +189,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       #  title shown in home page (HTML format is supported)
       title = "người Việt yêu nước mắm"
       # subtitle shown in home page (HTML format is supported)
-      subtitle = "$ never stop exploiting"
+      subtitle = "# never stop exploiting 💦"
       # whether to use typeit animation for subtitle
       typeit = true
       # whether to show social links

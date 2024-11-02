@@ -17,7 +17,7 @@ Solutions for some challenges in ISITDTU Quals 2024
 
 # ISITDTU Quals 2024
 
-<img src="isitdtu.png"/>
+<img src="0.png"/>
 
 ## rev/animal
 
@@ -573,7 +573,7 @@ Lúc này, mình tìm xung quanh các thanh ghi **`rcx`** để xem nó bị ả
 
 ---
 
-## List challenges
+# List challenges
 
 rev/2much
 

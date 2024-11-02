@@ -28,7 +28,7 @@ Flag format: **`KCSC{}`**
 
 **Solution**
 
-Mở file trong IDA64, chương trình cho người dùng nhập vào và so sánh với một chuỗi cho trước. 
+Mở file trong IDA64, chương trình cho phép người dùng nhập vào và so sánh với một chuỗi cho trước. 
 
 ```python
 int __fastcall main(int argc, const char **argv, const char **envp)
@@ -56,9 +56,7 @@ int __fastcall main(int argc, const char **argv, const char **envp)
 }
 ```
 
-Chuỗi này khá giống với chuỗi bị mã hóa base64. Lên [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=UzBOVFEzdERhRFF3WUY5TmZGOThiamxnWDBRelRpZGZWakF4SjE4M04xd3ZYMHREVTBOOQ) decode nó và thu được flag 
-
-**`KCSC{Ch40_M|_|n9_D3N'_V01'_77\/_KCSC}`**
+Chuỗi này khả năng cao bị mã hóa base64. Lên [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=UzBOVFEzdERhRFF3WUY5TmZGOThiamxnWDBRelRpZGZWakF4SjE4M04xd3ZYMHREVTBOOQ) decode và thu được flag **`KCSC{Ch40_M|_|n9_D3N'_V01'_77\/_KCSC}`**
 
 ## rev/Images
 
@@ -70,7 +68,7 @@ Chuỗi này khá giống với chuỗi bị mã hóa base64. Lên [CyberChef](h
 
 **Solution**
 
-Bài này cho chúng ta một loạt ảnh chứa mã assembly. Sau khi đọc qua, mình thấy đoạn mã code format như dưới đây được lặp đi lặp lại 
+Bài này cho chúng ta một loạt hình ảnh chứa mã assembly. Sau khi đọc sơ qua, mình thấy đoạn code với format như dưới đây được lặp đi lặp lại 
 
 ```nasm
 mov eax, 1
@@ -80,11 +78,12 @@ cmp eax, 95
 jnz loc_140012834
 ```
 
-trong đó  **`loc_140012834`** là đoạn mã in ra kết quả sai. Việc kiểm tra rất đơn giản, có thể mô phỏng như sau
+trong đó  **`loc_140012834`** là đoạn mã in ra kết quả sai. Điều kiện kiểm tra có thể được mô phỏng lại như sau
 ```python
 Buffer[1 * 8] == 95
 ``` 
-Từ đấy mình chỉ cần lấy tất cả các đoạn code như trên và ghép chúng lại sẽ có được flag **``KCSC{Cam_on_vi_da_kien_nhan_nhin_het_dong_anh_nay`}``**
+
+Lấy tất cả các giá trị như trên và convert sang ký tự, ta thu được flag **``KCSC{Cam_on_vi_da_kien_nhan_nhin_het_dong_anh_nay`}``**
 
 ```python
 flag = [0] * 54 
@@ -159,7 +158,7 @@ Flag format: **`KCSC{}`**
 
 **Solution**
 
-Chương trình chia **`flag`** thành 3 phần và thực hiện các xor giữa các phần với nhau. 
+Chương trình chia **`flag`** thành 3 phần và thực hiện xor giữa các phần với nhau. 
 
 ```python
 from pwn import *
@@ -233,7 +232,7 @@ Vào folder trên và tìm sẽ có được flag.
 
 <img src="9.png"/>
 
-Mình muốn tìm hiểu xem thực sự chương trình này đang hoạt động như nào. Decompile bằng IDA64, xem lần lượt các hàm, ta biết được output ở trên được in ra từ hàm **`sub_E5FCD0`**
+Mình muốn tìm hiểu xem thực sự chương trình này đang hoạt động như nào. Decompile bằng IDA64, xem qua lần lượt các hàm, ta biết được output ở trên được in ra từ hàm **`sub_E5FCD0`**
 
 Trong đó, đoạn in ra filepath như sau 
 
@@ -253,7 +252,7 @@ while ( v15 != (char *)v14 )
 
 Tới đây, mình có thể lấy được filepath và truy cập để lấy flag. 
 
-Câu hỏi đặt ra là filepath được tạo ra như thế nào và file html kia ở đâu. Quay trở về hàm **`main`** dưới đây. Ta sẽ đi phân tích sâu vào 2 hàm: 
+Câu hỏi đặt ra là filepath được tạo ra như thế nào và file html kia ở đâu. Quay trở về hàm **`main`**, ta sẽ đi phân tích chi tiết 2 hàm: 
 
 1. Hàm **`sub_E5151E`** 
 2. Hàm **`sub_E518A7`**
@@ -292,7 +291,7 @@ int __cdecl main_0(int argc, const char **argv, const char **envp)
 
 ### Phân tích hàm `sub_E5151E`
 
-Đi sâu vào trong, hàm này thực hiện việc tạo filepath. 
+Nhìn tổng quan, ta biết được hàm này thực hiện việc tạo filepath. 
 
 ```c
 char sub_E588A0()
@@ -330,10 +329,10 @@ char sub_E588A0()
 
 ```c
 GetTempPathW = (int (__stdcall *)(int, char *))sub_E516E5("kernel32", 0xCCD7EB77, 0x5EA58);
-        if ( !GetTempPathW )
-        {
-                return 0;
-        }
+if ( !GetTempPathW )
+{
+    return 0;
+}
 ```
 
 Tiếp theo, chương trình tạo filepath bởi hàm `wsprintfW` với cấu trúc 
@@ -764,10 +763,10 @@ Luồng hoạt động chính của chương trình sẽ diễn ra như sau:
     Sau khi debug rồi quan sát output, ta sẽ biết được chức năng của các hàm như sau 
     
     - **`encrypt1`** xoay các hàng theo thứ tự từ phải sang trái với số lần là 0, 1, 2, 3.
-        <img src="4.png"/>
+        <img src="4.png" width = "500" style="display: block; margin-left: auto; margin-right: auto;"/>
         
     - **`encrypt2`** xoay các cột theo thứ tự từ dưới lên trên với số lần là 0, 1, 2, 3
-        <img src="5.png"/>
+        <img src="5.png" height="400" style="display: block; margin-left: auto; margin-right: auto;"/>
         
     - **`encrypt3`** đổi 4 bit đầu và cuối của 1 byte. Ví dụ **`0x61`** → **`0x16`**
     - **`encrypt4`** xor với (i + 0x55) với i chạy từ 0 → 99, tương ứng với index của từng round.

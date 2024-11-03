@@ -3,7 +3,7 @@ title: "ISITDTU Quals 2024"
 date: 2024-11-01T16:42:03+07:00
 draft: false
 description: "Solutions for some challenges in ISITDTU Quals 2024"
-tags: ["2024", "Rev", "Pwn", "Vietnamese"]
+tags: ["2024", "ISITDTU", "Rev", "Pwn", "Vietnamese"]
 categories: ["CTF Writeups"]
 lightgallery: true
 toc:

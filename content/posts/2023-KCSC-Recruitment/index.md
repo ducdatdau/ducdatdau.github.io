@@ -3,7 +3,7 @@ title: "KCSC Recruitment 2023"
 date: 2023-12-31T16:00:03+07:00
 draft: false
 description: "Solutions for some challenges in KCSC Recruitment 2023"
-tags: ["2023", "Rev", "Pwn", "Vietnamese"]
+tags: ["2023", "KCSC Recruitment", "Rev", "Pwn", "Vietnamese"]
 categories: ["CTF Writeups"]
 lightgallery: true
 toc:

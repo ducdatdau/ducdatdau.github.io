@@ -755,9 +755,8 @@ p.send(payload2)
 p.interactive() 
 # ISITDTU{95acf3a6b3e1afc243fbad70fbd60a6be00541c62c6d651d1c10179b41113bda}
 ```
- 
----
 
+<!--
 # List challenges
 
 rev/2much
@@ -944,4 +943,4 @@ crypto/somesomesome
 {{< admonition note "Challenge Information" >}}
 * 6 solves / 486 pts
 * **Given files:** [somesomesome.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERjCy2wKIjRLkClEsno1y6UBs63svCe4KFjY51KXuvmUYA?e=5wwLXg)
-{{< /admonition >}}
+{{< /admonition >}} -->

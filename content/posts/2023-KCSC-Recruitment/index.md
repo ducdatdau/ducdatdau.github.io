@@ -210,7 +210,7 @@ with open('flag.txt', 'wb') as (f):
 
 Sau khi chạy đoạn script trên, ta thu được output là **`VXpCT1ZGRXpjelJPUjA1TVdETlJkMWd3U21oUk1IUm1Wa2M1WmxGcVVtcGhNVGxaVFVoS1oxaDZVblZTUmpnMFRtcFNabUl3TUhwYWVsSk5aRlY0T1E9PQ==`** 
 
-Dễ thấy có kí tự **`==`**, ta sẽ decode Base64 nhiều lần trên [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)From_Base64('A-Za-z0-9%2B/%3D',true,false)From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=VlhwQ1QxWkdSWHBqZWxKUFVqQTFUVmRFVGxKa01XZDNVMjFvVWsxSVVtMVdhMk0xV214R2NWVnRjR2hOVkd4YVZGVm9TMW94YURaVmJsWlRVbXBuTUZSdGNGTmFiVWwzVFVod1lXVnNTazVhUmxZMFQxRTlQUT09) và có được flag **``KCSC{84cK_t0_BaCK_To_B4ck_X0r`_4nD_864_oM3g4LuL}``**
+Dễ thấy có kí tự **`==`**, ta sẽ decode base64 nhiều lần trên [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)From_Base64('A-Za-z0-9%2B/%3D',true,false)From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=VlhwQ1QxWkdSWHBqZWxKUFVqQTFUVmRFVGxKa01XZDNVMjFvVWsxSVVtMVdhMk0xV214R2NWVnRjR2hOVkd4YVZGVm9TMW94YURaVmJsWlRVbXBuTUZSdGNGTmFiVWwzVFVod1lXVnNTazVhUmxZMFQxRTlQUT09) và có được flag **``KCSC{84cK_t0_BaCK_To_B4ck_X0r`_4nD_864_oM3g4LuL}``**
 
 ## rev/hide and seek
 

@@ -11,7 +11,7 @@ toc:
 
 ---
 
-Solutions for some challenges in KCSC Recruitment 2024
+:vietnam: Solutions for some challenges in KCSC Recruitment 2024
 
 <!--more-->
 

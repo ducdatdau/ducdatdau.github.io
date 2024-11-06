@@ -15,7 +15,7 @@ Solutions for some challenges in ISITDTU Quals 2024
 
 <!--more-->
 
-# ISITDTU Quals 2024 :vietnam:
+# ISITDTU Quals 2024
 
 <img src="0.png"/>
 

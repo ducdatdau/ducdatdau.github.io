@@ -15,7 +15,7 @@ Solutions for some challenges in KCSC CTF 2024
 
 <!--more-->
 
-# KCSC CTF 2024 :vietnam:
+# KCSC CTF 2024
 
 Sau khi kết thúc thi cuối kỳ môn Pháp Luật Đại Cương, mình được nghỉ hơn 10 ngày để tiếp tục học giai đoạn mới. Đề CTF của KMA hay UIT luôn làm mình hứng thú, đặc biệt là những bài reverse. 
 

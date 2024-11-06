@@ -15,7 +15,7 @@ Solutions for some challenges in KCSC Recruitment 2024
 
 <!--more-->
 
-# KCSC Recruitment 2024 :vietnam:
+# KCSC Recruitment 2024
 
 ## rev/riel warmup
 

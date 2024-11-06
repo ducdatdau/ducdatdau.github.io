@@ -15,7 +15,7 @@ Solutions for some challenges in KCSC Recruitment 2023
 
 <!--more-->
 
-# KCSC Recruitment 2023 :vietnam:
+# KCSC Recruitment 2023
 
 ## rev/Real Warmup
 

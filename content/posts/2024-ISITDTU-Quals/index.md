@@ -11,11 +11,11 @@ toc:
 
 ---
 
-:vietnam: Solutions for some challenges in ISITDTU Quals 2024
+Solutions for some challenges in ISITDTU Quals 2024
 
 <!--more-->
 
-# ISITDTU Quals 2024
+# ISITDTU Quals 2024 :vietnam:
 
 <img src="0.png"/>
 

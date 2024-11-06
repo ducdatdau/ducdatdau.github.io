@@ -11,11 +11,11 @@ toc:
 
 ---
 
-:vietnam: Solutions for some challenges in KCSC Recruitment 2024
+Solutions for some challenges in KCSC Recruitment 2024
 
 <!--more-->
 
-# KCSC Recruitment 2024
+# KCSC Recruitment 2024 :vietnam:
 
 ## rev/riel warmup
 

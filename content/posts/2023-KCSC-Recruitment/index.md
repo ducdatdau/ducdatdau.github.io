@@ -11,11 +11,11 @@ toc:
 
 ---
 
-:vietnam: Solutions for some challenges in KCSC Recruitment 2023
+Solutions for some challenges in KCSC Recruitment 2023
 
 <!--more-->
 
-# KCSC Recruitment 2023
+# KCSC Recruitment 2023 :vietnam:
 
 ## rev/Real Warmup
 

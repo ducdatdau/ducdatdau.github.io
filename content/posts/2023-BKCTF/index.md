@@ -17,7 +17,7 @@ Solutions for some challenges in BKCTF 2023
 
 ![](./0.jpg)
 
-BKCTF là giải lần đầu tiên mà mình được tham gia onsite. Host là câu lạc bộ BKSEC của Trường Đại học Bách khoa Hà Nội, nơi đào tạo về kỹ thuật hàng hàng đầu tại Việt Nam, là niềm mơ ước của biết bao thế hệ học sinh, sinh viên trong nước. Mình nhớ tới BKSEC vì có biết một số anh chị rất khủng và có tiếng tăm trong ngành như anh chung96vn, chị lanleft, anh hacmao, ... 
+BKCTF là giải mà mình lần đầu tiên được tham gia onsite. Host là câu lạc bộ BKSEC của Trường Đại học Bách khoa Hà Nội, nơi đào tạo về kỹ thuật hàng hàng đầu tại Việt Nam, là niềm mơ ước của biết bao thế hệ học sinh, sinh viên trong nước. Mình nhớ tới BKSEC vì có biết một số anh chị rất khủng và có tiếng tăm trong ngành như anh chung96vn, chị lanleft, anh hacmao, ... 
 
 Sau một năm, mình muốn chơi lại giải này để xem thử trình độ của mình đã tiến bộ được chút nào hay chưa. Đề bài mình chơi vẫn đang được mở trên web [Cookie Hân Hoan](https://battle.cookiearena.org/arenas/bkctf-2023), các bạn hoàn toàn có thể vào chơi và tận hưởng bộ đề theo mình nghĩ là khá thú vị. 
 
@@ -43,9 +43,9 @@ Sau một năm, mình muốn chơi lại giải này để xem thử trình đ�
 
 ### Overview & Clean code 
 
-Đề bài cho chúng ta một file exe 64 bit `StackVM.exe` với mã giả dài hơn 300 dòng, chủ yếu là khai báo và gán giá trị cho các biến. 
+Đề bài cho chúng ta một file PE 64 bit `StackVM.exe` với mã giả dài hơn 300 dòng, chủ yếu là khai báo và gán giá trị cho các biến. 
 
-Sau khi nhìn tổng quan, ta thấy chương trình khởi tạo cho vm một loạt opcode như thế này 
+Sau khi nhìn tổng quan, ta thấy chương trình khởi tạo cho vm một loạt bytecode như thế này 
 
 <img src="./4.png">
 
@@ -67,17 +67,17 @@ fgets(Buffer, 0x15, v6);
     }
 ```
 
-Đầu tiên, chúng ta phải đi định nghĩa lại kích thước của mảng `opcodes[]` và `Buffer[]` để chương trình nhìn gọn gàng hơn. 
+Đầu tiên, chúng ta phải đi định nghĩa lại kích thước của mảng `bytecodes[]` và `Buffer[]` để chương trình nhìn gọn gàng hơn. 
 
 Đặt lại cho mảng `Buffer[]` có kích thước 20 bytes và đổi tên thành `input[]`. 
 
 <img src="./5.png">
 
-và mảng `opcodes[]` là 400 bytes. 
+và mảng `bytecodes[]` là 400 bytes. 
 
 <img src="./6.png">
 
-> Tại sao mình tính được kích thước là 400 bytes. Vì `opcodes` bắt đầu từ `v24 [rsp+60h]`, kết thúc ở `v131 [rsp+1E8h]`, vậy nên 0x1E8 - 0x60 + 8 = 400
+> Tại sao mình tính được kích thước là 400 bytes. Vì `bytecodes` bắt đầu từ `v24 [rsp+60h]`, kết thúc ở `v131 [rsp+1E8h]`, vậy nên 0x1E8 - 0x60 + 8 = 400
 
 Okay, chương trình đã ngắn hơn một xíu rồi. Tiếp tục quan sát đoạn code dưới đây, ta thấy chương trình sử dụng vtable. Hiểu một cách đơn giản, vtable như là một cái bảng chứa các hàm, chương trình cần dùng hàm nào thì nhảy vào đó mà lấy. 
 
@@ -102,52 +102,52 @@ Right click `v19`, nhấn `Convert to Struct * ...` và chọn `struct_vm` để
 
 ### Analyze 
 
-Chúng ta có thể thấy `input` được load vào mảng `opcodes[]` như sau:
+Chúng ta có thể thấy `input` được load vào mảng `bytecodes[]` như sau:
 ```c
-opcodes[29] = input[0];
-opcodes[28] = input[1];
-opcodes[79] = input[2];
-opcodes[78] = input[3];
-opcodes[117] = input[4];
-opcodes[116] = input[5];
-opcodes[155] = input[6];
-opcodes[154] = input[7];
-opcodes[193] = input[8];
-opcodes[192] = input[9];
-opcodes[231] = input[10];
-opcodes[230] = input[11];
-opcodes[269] = input[12];
-opcodes[268] = input[13];
-opcodes[307] = input[14];
-opcodes[306] = input[15];
-opcodes[345] = input[16];
-opcodes[344] = input[17];
-opcodes[383] = input[18];
-total_opcode = 0;
-opcodes[382] = input[19];
+bytecodes[29] = input[0];
+bytecodes[28] = input[1];
+bytecodes[79] = input[2];
+bytecodes[78] = input[3];
+bytecodes[117] = input[4];
+bytecodes[116] = input[5];
+bytecodes[155] = input[6];
+bytecodes[154] = input[7];
+bytecodes[193] = input[8];
+bytecodes[192] = input[9];
+bytecodes[231] = input[10];
+bytecodes[230] = input[11];
+bytecodes[269] = input[12];
+bytecodes[268] = input[13];
+bytecodes[307] = input[14];
+bytecodes[306] = input[15];
+bytecodes[345] = input[16];
+bytecodes[344] = input[17];
+bytecodes[383] = input[18];
+total_bytecode = 0;
+bytecodes[382] = input[19];
 ```
 
-Nếu chú ý, ta có thể thấy các `opcodes` chứa `input` liền kề nhau từng đôi một. Vậy rất có thể, chương trình sẽ đi xử lý từng cặp một của `input`. 
+Nếu chú ý, ta có thể thấy các `bytecodes` chứa `input` liền kề nhau từng đôi một. Vậy rất có thể, chương trình sẽ đi xử lý từng cặp một của `input`. 
 
 Đoạn xử lý chính của chương trình nằm ở đây
 ```c
 do
     {
-        v10 = opcodes[idx];
-        if ( opcodes[idx + 1] == 6 )
+        v10 = bytecodes[idx];
+        if ( bytecodes[idx + 1] == 6 )
         {
             instruction_sz = 4i64;
-            HIDWORD(ptr_vm) = opcodes[idx + 1];
-            LOBYTE(ptr_vm) = opcodes[idx];
+            HIDWORD(ptr_vm) = bytecodes[idx + 1];
+            LOBYTE(ptr_vm) = bytecodes[idx];
             v12 = ptr_vm;
-            LOWORD(v20) = opcodes[idx + 3] + (opcodes[idx + 2] << 8);
+            LOWORD(v20) = bytecodes[idx + 3] + (bytecodes[idx + 2] << 8);
             v13 = v20;
         }
         else
         {
-            HIDWORD(v21) = opcodes[idx + 1];
+            HIDWORD(v21) = bytecodes[idx + 1];
             instruction_sz = 2i64;
-            LOBYTE(v21) = opcodes[idx];
+            LOBYTE(v21) = bytecodes[idx];
             v12 = v21;
             LOWORD(v22) = 0;
             v13 = v22;
@@ -155,12 +155,12 @@ do
 
         *(_DWORD *)&input[8] = v13;
         vtable = v3->vtable;
-        total_opcode += instruction_sz;
+        total_bytecode += instruction_sz;
         *(_QWORD *)input = v12;
         ((void (__fastcall *)(struct_vm *, char *))vtable->___7stackVM__6B@)(v3, input);
         idx += instruction_sz;
     }
-    while ( total_opcode < 0x18C );
+    while ( total_bytecode < 0x18C );
 ```
 Tóm tắt đoạn code trên như sau: 
 - Nếu `[idx + 1] == 6` thì 
@@ -205,10 +205,10 @@ __int64 __fastcall PUSH(struct_vm *a1, char a2, __int16 value)
 ```
 
 ### Solve 
-Sau khi đã hiểu cách thức hoạt động, mình đã lấy toàn bộ giá trị của mảng `opcodes[]` và viết một đoạn code Python nhỏ để xem chương trình đang thực hiện những thao tác gì. 
+Sau khi đã hiểu cách thức hoạt động, mình đã lấy toàn bộ giá trị của mảng `bytecodes[]` và viết một đoạn code Python nhỏ để xem chương trình đang thực hiện những thao tác gì. 
 
 ```python
-opcodes = [0x00, 0x06, 0x00, 0x01, 0x01, 0x06, 0x0C, 0x0D, 0x01, 0x06, 
+bytecodes = [0x00, 0x06, 0x00, 0x01, 0x01, 0x06, 0x0C, 0x0D, 0x01, 0x06, 
         0x00, 0x08, 0x01, 0x05, 0x01, 0x06, 0x22, 0x38, 0x01, 0x06, 
         0xFF, 0x00, 0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 0x62, 0x61, 
         0x01, 0x01, 0x01, 0x06, 0x69, 0x4E, 0x01, 0x00, 0x00, 0x07, 
@@ -251,11 +251,11 @@ opcodes = [0x00, 0x06, 0x00, 0x01, 0x01, 0x06, 0x0C, 0x0D, 0x01, 0x06,
 
 idx = 0 
 
-while (idx < len(opcodes)): 
-    code = opcodes[idx + 1]
+while (idx < len(bytecodes)): 
+    code = bytecodes[idx + 1]
     if (code == 0x06): 
         instruction_sz = 4 
-        value = (opcodes[idx + 2] << 8) | (opcodes[idx + 3])
+        value = (bytecodes[idx + 2] << 8) | (bytecodes[idx + 3])
         print(f"PUSH {hex(value)}")
         idx += 4 
     else:
@@ -314,7 +314,7 @@ Correct...
 Với việc dump được ra các instruction, chúng ta hoàn toàn có thể giải tay ra được flag. Nhưng để tiết kiệm thời gian, mình sẽ chỉ đặt breakpoint ở hàm `XOR` và hàm `CMP` để lấy các kết quả cuối cùng. 
 
 Một số lưu ý nhỏ: 
-1. Ta thấy trong đống `opcodes[]` kia, 2 byte `0x01, 0x00` đại diện cho lệnh `CMP`. Vậy chắc chắn trước đó sẽ là lệnh `PUSH` giá trị `cipher` để so sánh kết quả đã xor. Từ đó ta không cần đặt breakpoint ở hàm `CMP` nữa. 
+1. Ta thấy trong đống `bytecodes[]` kia, 2 byte `0x01, 0x00` đại diện cho lệnh `CMP`. Vậy chắc chắn trước đó sẽ là lệnh `PUSH` giá trị `cipher` để so sánh kết quả đã xor. Từ đó ta không cần đặt breakpoint ở hàm `CMP` nữa. 
 2. Việc thực hiện 1 loạt biến đổi rồi xor với 2 byte `input` ta không cần quan tâm. Chỉ cần `F9` và xem thử có input của mình không. Nếu có thì đó là giá trị chính xác. 
  
 ```python

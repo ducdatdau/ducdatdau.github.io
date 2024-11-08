@@ -35,7 +35,7 @@ Solutions for some challenges in ISITDTU Quals 2024
 
 Chương trình yêu cầu nhập flag có độ dài 36 ký tự, trong đó có điều kiện check ở một số idex cụ thể.
 
-Khi click vào hàm **`check_flag`**, ta nhận được thông báo lỗi như sau 
+Khi click vào hàm `check_flag`, ta nhận được thông báo lỗi như sau 
 
 <img src="2.png" width=400 style="display: block; margin-left: auto; margin-right: auto;"/>
 
@@ -43,11 +43,11 @@ Qua tab IDA View chế độ non-graph, ta thấy đây chỉ là một lệnh g
 
 <img src="3.png"/>
 
-Vậy mình sẽ debug từng dòng và sửa các kết quả check để chương trình tới được đến đoạn này. Đây là chương trình khi mình nhảy vào **`rax`**
+Vậy mình sẽ debug từng dòng và sửa các kết quả check để chương trình tới được đến đoạn này. Đây là chương trình khi mình nhảy vào `rax`
 
 <img src="4.png"/>
 
-Ấn phím **`p`** để create function và thu được đống mã giả của hàm này như sau 
+Ấn phím `p` để create function và thu được đống mã giả của hàm này như sau 
 
 ```c
 _BOOL8 __fastcall sub_21871F785(char *a1)
@@ -203,7 +203,7 @@ flag[24] = 121
 print("".join([chr(i) for i in flag]))
 ```
 
-Flag thu được là **`ISITDTU{a_g0lden_cat_1n_y0ur_area!!}`**
+Flag thu được là `ISITDTU{a_g0lden_cat_1n_y0ur_area!!}`
 
 ## rev/re01
 
@@ -215,15 +215,15 @@ Flag thu được là **`ISITDTU{a_g0lden_cat_1n_y0ur_area!!}`**
 
 **Solution**
 
-Đề bài cho chúng ta một file PE64, mở bằng IDA64, quan sát tổng thể ta có thể thấy chương trình dùng SHA1 để hash input và so sánh với chuỗi hash **`eeeddf4ae0c3364f189a37f79c9d7223a1d60ac7`**
+Đề bài cho chúng ta một file PE64, mở bằng IDA64, quan sát tổng thể ta có thể thấy chương trình dùng SHA1 để hash input và so sánh với chuỗi hash `eeeddf4ae0c3364f189a37f79c9d7223a1d60ac7`
 
 <img src="5.png"/>
 
-Sau một hồi thử crack chuỗi hash kia không được, mình tiếp tục đi xem có function nào đáng nghi không. Và đây chính là hàm mà mình chú ý tới **`TlsCallback_0`**
+Sau một hồi thử crack chuỗi hash kia không được, mình tiếp tục đi xem có function nào đáng nghi không. Và đây chính là hàm mà mình chú ý tới `TlsCallback_0`
 
 <img src="6.png"/>
 
-Chương trình sử dụng anti-debug và gọi nó trong hàm TLS. Mình đặt breakpoint ở đoạn check **`IsDebuggerPresent`** và sửa giá trị cho **`ZF`** để chương trình tiếp tục được đi vào trong hàm **`sub_140004000`**
+Chương trình sử dụng anti-debug và gọi nó trong hàm TLS. Mình đặt breakpoint ở đoạn check `IsDebuggerPresent` và sửa giá trị cho `ZF` để chương trình tiếp tục được đi vào trong hàm `sub_140004000`
 
 <img src="7.png"/>
 
@@ -233,7 +233,7 @@ Chúng ta dễ dàng nhận ra input length = 58. Mình sẽ tạo mới input v
 flag[i] ^ 0x35 == v7[i] 
 ```
 
-Dễ dàng lấy toàn bộ giá trị của **`v7`** và xor ngược lại, ta thu được flag **`ISITDTU{Congrats_You_Solved_TLS_Callback_Re01_Have_Fun_:)}`**
+Dễ dàng lấy toàn bộ giá trị của `v7` và xor ngược lại, ta thu được flag `ISITDTU{Congrats_You_Solved_TLS_Callback_Re01_Have_Fun_:)}`
 
 ```python
 X = [0x7C, 0x00, 0x00, 0x00, 0x66, 0x00, 0x00, 0x00, 0x7C, 0x00, 
@@ -275,7 +275,7 @@ print(flag)
 
 **Solution**
 
-Đề bài cho chúng ta một file **`re02.nes`**, đây là một Nintendo ROM image file. Sau một hồi tìm kiếm, mình tìm được tool **`FCEUX`** có thể emulate và debug file này.  
+Đề bài cho chúng ta một file `re02.nes`, đây là một Nintendo ROM image file. Sau một hồi tìm kiếm, mình tìm được tool `FCEUX` có thể emulate và debug file này.  
 
 Mở chương trình lên thì thấy một màn hình đen kịt 
 
@@ -298,17 +298,17 @@ và có một số đặc điểm như sau:
 
 - Độ dài tối đa input là 16
 - Có 7 phím được chấp nhận và nó sẽ được map như sau:
-    - **`s`** → **`a`**
-    - **`d`** → **`u`**
-    - **`f`** → **`t`**
-    - **`up arrow`** → **`n`**
-    - **`right arrow`** → **`i`**
-    - **`down arrow`** → **`h`**
-    - **`left arrow`** → **`l`**
+    - `s` → `a`
+    - `d` → `u`
+    - `f` → `t`
+    - `up arrow` → `n`
+    - `right arrow` → `i`
+    - `down arrow` → `h`
+    - `left arrow` → `l`
 
 Sau khi đã biết chỗ nhập input thì chỗ check flag sẽ nằm ở đâu? 
 
-Mình vào tab Debug → Debugger, tìm đoạn code nào có chứa **`300`** (địa chỉ input) hoặc lệnh **`cmp`** thì ra được đoạn này 
+Mình vào tab Debug → Debugger, tìm đoạn code nào có chứa `300` (địa chỉ input) hoặc lệnh `cmp` thì ra được đoạn này 
 
 <img src="11.png"/>
 
@@ -318,7 +318,7 @@ Nếu tinh ý, ta có thể nhận ra các block check input khá tương tự n
 input[0] + input[1] + input[2] == 0x4A
 ```
 
-Thực hiện tương tự cho các block sau, chúng ta có thể tìm ra được **`mapped_input`** bằng Z3 
+Thực hiện tương tự cho các block sau, chúng ta có thể tìm ra được `mapped_input` bằng Z3 
 
 ```python
 from z3 import * 
@@ -354,7 +354,7 @@ else:
     print("......")
 ```
 
-Kết quả thu được là **`tuanlinhlinhtuan`,** bây giờ ta chỉ cần nhập input đúng với các key đã được map sẽ có được flag là **`ISITDTU{Throw_back_the_nested_if_NES_have_funnnn_:)}`**
+Kết quả thu được là `tuanlinhlinhtuan`,** bây giờ ta chỉ cần nhập input đúng với các key đã được map sẽ có được flag là `ISITDTU{Throw_back_the_nested_if_NES_have_funnnn_:)}`
 
 <img src="12.png"/>
 
@@ -385,17 +385,17 @@ Mở file bằng IDA64, chương trình nhìn rất lớn và phức tạp. Mìn
 
 <img src="14.png"/>
 
-Trace theo các hàm này, mình tìm ra được hàm **`sub_7FF6A0F51530`** thực hiện việc mã hóa input và đi kiểm tra tính hợp lệ của nó. 
+Trace theo các hàm này, mình tìm ra được hàm `sub_7FF6A0F51530` thực hiện việc mã hóa input và đi kiểm tra tính hợp lệ của nó. 
 
 <img src="15.png"/>
 
-Sau khi debug và decrypt **`AlgId`**, chúng ta biết được chương trình sử dụng hash SHA256. Thông tin chi tiết các bạn có thể đọc thêm ở đây https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider
+Sau khi debug và decrypt `AlgId`, chúng ta biết được chương trình sử dụng hash SHA256. Thông tin chi tiết các bạn có thể đọc thêm ở đây https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider
 
 <img src="16.png"/>
 
-Tiếp tục debug và ta lấy được **`checked_hash`** = **`26F2D45844BFDBC8E5A2AE67149AA6C50E897A2A48FBF479D1BFB9F0D4E24544`**
+Tiếp tục debug và ta lấy được `checked_hash` = `26F2D45844BFDBC8E5A2AE67149AA6C50E897A2A48FBF479D1BFB9F0D4E24544`
 
-Với input có độ dài 6 ký tự, mình sẽ dùng **`hashcat`** để bruteforce nhằm tìm ra giá trị tương ứng với mã hash này. Kết quả thu được là **`808017`**
+Với input có độ dài 6 ký tự, mình sẽ dùng `hashcat` để bruteforce nhằm tìm ra giá trị tương ứng với mã hash này. Kết quả thu được là `808017`
 
 <img src="23.png"/>
 
@@ -407,7 +407,7 @@ Sau khi xref chuỗi trên, mình tìm ra được đoạn code có liên quan t
 
 <img src="18.png"/>
 
-Đi phân tích hàm **`sub_7FF7AFB110C8`**, ta thấy nó decrypt dữ liệu bằng thuật toán AES mode CBC. 
+Đi phân tích hàm `sub_7FF7AFB110C8`, ta thấy nó decrypt dữ liệu bằng thuật toán AES mode CBC. 
 
 ```c
 __int64 __fastcall sub_7FF7AFB110C8(PUCHAR pbInput, __int64 a2, __int64 a3, UCHAR *a4, PUCHAR a5)
@@ -549,39 +549,39 @@ Nhưng khi chạy đến cuối hàm thì gặp lỗi này.
 
 <img src="19.png"/>
 
-Lỗi này gây ra do **`rcx`** chưa trỏ đúng vào vị trí bộ nhớ. 
+Lỗi này gây ra do `rcx` chưa trỏ đúng vào vị trí bộ nhớ. 
 
 <img src="20.png" width=400 style="display: block; margin-left: auto; margin-right: auto;"/>
 
-Lúc này, mình tìm xung quanh các thanh ghi **`rcx`** để xem nó bị ảnh hưởng bởi thanh ghi nào. Ta thấy có **`rax`** và **`rbx`** tác động tới nó 
+Lúc này, mình tìm xung quanh các thanh ghi `rcx` để xem nó bị ảnh hưởng bởi thanh ghi nào. Ta thấy có `rax` và `rbx` tác động tới nó 
 
 <img src="21.png"/>
 
- Do **`rax`** trên stack nên mình bỏ qua, tìm xung quanh giá trị của **`rbx`**, ta thấy có đống dữ liệu rất khả nghi.
+ Do `rax` trên stack nên mình bỏ qua, tìm xung quanh giá trị của `rbx`, ta thấy có đống dữ liệu rất khả nghi.
 
 <img src="22.png"/>
 
-Đưa **`rcx`** trỏ về đây, chạy nốt chương trình và thu được flag **`ISITDTU{STATIC_STRUCt_INITIALIZATION_FAiLED}`**
+Đưa `rcx` trỏ về đây, chạy nốt chương trình và thu được flag `ISITDTU{STATIC_STRUCt_INITIALIZATION_FAiLED}`
 
 ## pwn/shellcode 1
 
 {{< admonition note "Challenge Information" >}}
 * 68 solves / 100 pts / by code016hiro
 * **Given files:** [shellcode1.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERrQb5blRN1IgofOJUmPwBwBROdWJxB03jdYp0yTbzcfGg?e=UTPFbg)
-* **Description:** **`nc 152.69.210.130 3001`**
+* **Description:** `nc 152.69.210.130 3001`
 {{< /admonition >}}
 
 **Solution**
 
-Về tổng quan, chương trình đọc flag, lưu nó trên 1 vùng nhớ được **`mmap`** rồi xóa flag đó đi. Chương trình tiếp tục **`mmap`** một vùng nhớ mới cho shellcode với full quyền rwx và cho phép chúng ta chạy shellcode đó. 
+Về tổng quan, chương trình đọc flag, lưu nó trên 1 vùng nhớ được `mmap` rồi xóa flag đó đi. Chương trình tiếp tục `mmap` một vùng nhớ mới cho shellcode với full quyền rwx và cho phép chúng ta chạy shellcode đó. 
 
 <img src="25.png"/>
 
-Khi nhảy vào shellcode, check **`vmmap`**, ta có thể thấy được vùng nhớ lưu flag nằm ngay dưới shellcode và cách nhau 0x1000 byte. Vậy nếu ta sử dụng được syscall **`write`** thì hoàn toàn có thể đọc được flag. 
+Khi nhảy vào shellcode, check `vmmap`, ta có thể thấy được vùng nhớ lưu flag nằm ngay dưới shellcode và cách nhau 0x1000 byte. Vậy nếu ta sử dụng được syscall `write` thì hoàn toàn có thể đọc được flag. 
 
 <img src="26.png"/>
 
-Kiểm tra seccomp, ta thấy các syscall như **`read`**, **`write`**, **`open`**, **`execve`**, **`openat`** đều không được phép sử dụng.
+Kiểm tra seccomp, ta thấy các syscall như `read`, `write`, `open`, `execve`, `openat` đều không được phép sử dụng.
 
 ```shell
 ❯ seccomp-tools dump ./challenge
@@ -604,21 +604,21 @@ Some gift for you: 0x7fd1042216f0
  0012: 0x06 0x00 0x00 0x00000000  return KILL
  ```
 
- Để bypass được các hạn chế phía trên, mình sẽ sử dụng syscall **`writev`** thay thế cho **`write`** để đọc flag.
+ Để bypass được các hạn chế phía trên, mình sẽ sử dụng syscall `writev` thay thế cho `write` để đọc flag.
 
  ```c
  ssize_t writev(int fd, const struct iovec *iov, int iovcnt)
  ``` 
- trong đó **`iovec`** có cấu trúc như sau 
+ trong đó `iovec` có cấu trúc như sau 
  ```c
  struct iovec {
     void  *iov_base;    /* Starting address */
     size_t iov_len;     /* Number of bytes to transfer */
 };
 ```
-Vậy mình sẽ chỉ định cho **`iov_base`** là địa chỉ vùng nhớ chứa flag, **`iov_len`** là 0x100. 
+Vậy mình sẽ chỉ định cho `iov_base` là địa chỉ vùng nhớ chứa flag, `iov_len` là 0x100. 
 
-Khi nhảy vào shellcode, **`rdx`** chứa giá trị của địa chỉ shellcode. Vậy nên địa chỉ của vùng nhớ flag sẽ là **`rdx + 0x1000`**. 
+Khi nhảy vào shellcode, `rdx` chứa giá trị của địa chỉ shellcode. Vậy nên địa chỉ của vùng nhớ flag sẽ là `rdx + 0x1000`. 
 
 ```python
 #!/usr/bin/env python3
@@ -669,12 +669,12 @@ p.interactive()
 {{< admonition note "Challenge Information" >}}
 * 61 solves / 100 pts / by code016hiro
 * **Given files:** [shellcode2.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EX0TUAE1NPhJndbYW1iHfpYBTKYyWKIMhYnFfxp1WSXHFA?e=sBRCLM)
-* **Description:** **`nc 152.69.210.130 3002`**
+* **Description:** `nc 152.69.210.130 3002`
 {{< /admonition >}}
 
 **Solution**
 
-Decompile file đề bài cho bằng IDA64, ta có thể thấy chương trình **`mmap`** cho vùng nhớ ở địa chỉ 0xAABBCC00 kích thước 0x1000 byte với full quyền rwx. 
+Decompile file đề bài cho bằng IDA64, ta có thể thấy chương trình `mmap` cho vùng nhớ ở địa chỉ 0xAABBCC00 kích thước 0x1000 byte với full quyền rwx. 
 
 ```c
 int __cdecl main(int argc, const char **argv, const char **envp)
@@ -704,15 +704,15 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 }
 ```
 
-Những opcode chẵn trong shellcode sẽ bị thay đổi thành **`nop`** làm cho nó không hoạt động được.
+Những opcode chẵn trong shellcode sẽ bị thay đổi thành `nop` làm cho nó không hoạt động được.
 
 Có một bài [write-up](https://github.com/peace-ranger/CTF-WriteUps/tree/main/2022/UIUCTF/odd-shell) của giải UIUCTF 2022 nói rất chi tiết về việc build lại toàn bộ các instruction với opcode lẻ cần thiết cho việc lấy shell mà các bạn có thể tham khảo. Mình sẽ giải bài này với hướng tiếp cận khác so với write-up phía trên.  
 
-Chúng ta có thể thấy, khi chương trình chuẩn bị nhảy vào shellcode, các giá trị của các thanh ghi như **`rax`**, **`rdi`**, **`rsi`** và **`rdx`** đều hợp lệ cho việc gọi syscall **`read`**.
+Chúng ta có thể thấy, khi chương trình chuẩn bị nhảy vào shellcode, các giá trị của các thanh ghi như `rax`, `rdi`, `rsi` và `rdx` đều hợp lệ cho việc gọi syscall `read`.
 
 <img src="24.png"/>
 
-Vậy payload đầu tiên chúng ta chỉ cần gọi **`syscall`** để chương trình tiếp tục được nhập input lần thứ hai. Vì đã pass qua vòng **`for`** check opcode chẵn lẻ, nên tại lần nhập thứ hai này, ta chỉ cần viết shellcode lấy shell như thông thường. 
+Vậy payload đầu tiên chúng ta chỉ cần gọi `syscall` để chương trình tiếp tục được nhập input lần thứ hai. Vì đã pass qua vòng `for` check opcode chẵn lẻ, nên tại lần nhập thứ hai này, ta chỉ cần viết shellcode lấy shell như thông thường. 
 
 ```python
 #!/usr/bin/env python3
@@ -771,7 +771,7 @@ rev/FlagCpp
 {{< admonition note "Challenge Information" >}}
 * 6 solves / 486 pts / by ks75vl
 * **Given files:** [FlagCpp_5C9F861EFCC1AFF273C435E3CC988438.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EVxUcWswr9dDpgp6dliEmegBuIlCMyD9yrrI2shOlmwArw?e=mwWGaf)
-* **Description:** Trust me, this program was written in **`C++`**.
+* **Description:** Trust me, this program was written in `C++`.
 {{< /admonition >}}
 
 pwn/Game of Luck
@@ -779,7 +779,7 @@ pwn/Game of Luck
 {{< admonition note "Challenge Information" >}}
 * 43 solves / 100 pts
 * **Given files:** [chal](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERNFcvJ6e1hJpa1dCZ_7Vi0BuGrWTSPjcJKarUz4mA63_Q?e=xatAA3)
-* **Description:** **`nc 152.69.210.130 2004`**
+* **Description:** `nc 152.69.210.130 2004`
 {{< /admonition >}}
 
 pwn/no_name
@@ -787,7 +787,7 @@ pwn/no_name
 {{< admonition note "Challenge Information" >}}
 * 29 solves / 100 pts
 * **Given files:** [no_name.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EW0yP2v46lVGi3xRUj9hG-IBg1zvlXp0MAoFnybPawQs0g?e=k44Cdw)
-* **Description:** **`nc 152.69.210.130 1337`**
+* **Description:** `nc 152.69.210.130 1337`
 {{< /admonition >}}
 
 forensics/CPUsage
@@ -796,8 +796,8 @@ forensics/CPUsage
 * 37 solves / 100 pts / by M4shl3
 * **Given files:** [https://drive.proton.me/urls/5MM9NY7SZW#O3lmkiJIBJzr](https://drive.proton.me/urls/5MM9NY7SZW#O3lmkiJIBJzr)
 * **Description:** My friend noticed a high usage of CPU after he opened his laptop, I just take a memory dump of his laptop, and needs you to investigate it. Q1- What is the name of the malicious process, full path of the process, parent process id? Q2- what is the ip that process communicate with, family name of the malware\
-Format flag: **`ISITDTU{processName-FullPath-ID_ip-FamilyName}`** \
-Eg: **`ISITDTU{Spotify.exe-Path-141_192.168.1.1-isitdtu}`**
+Format flag: `ISITDTU{processName-FullPath-ID_ip-FamilyName}` \
+Eg: `ISITDTU{Spotify.exe-Path-141_192.168.1.1-isitdtu}`
 {{< /admonition >}}
 
 forensics/Corrupted Hard Drive
@@ -806,7 +806,7 @@ forensics/Corrupted Hard Drive
 * 46 solves / 100 pts / by M4shl3 x vizer
 * **Given files:** [https://drive.proton.me/urls/15NQK5V8B0#VAesxikOWzxP](https://drive.proton.me/urls/15NQK5V8B0#VAesxikOWzxP)
 * **Description:** You’ve come across a damaged disk image retrieved from my friend's laptop, he downloaded some good stuff then went to bathroom, but when came, he found that he can't access the disk. The file system appears to be corrupted, but hidden deep inside the broken structure lies critical information that could unlock the next step in your investigation.\
-**`nc 152.69.210.130 1411`**
+`nc 152.69.210.130 1411`
 {{< /admonition >}}
 
 forensics/unexpected
@@ -824,7 +824,7 @@ forensics/swatted
 * 15 solves / 385 pts / by 3r3m1t1c
 * **Given files:** [source](https://drive.google.com/file/d/15fdpvHGRI94QGzUZ61CYX2rVbKGAYDVU/view)
 * **Description:** San Andreas PD recently conducted a raid on a suspect's residence, discovering that their laptop contains crucial evidence. As a Digital Forensics Investigator, it is now your responsibility to analyze the evidence and answer the related questions.\
-**`nc 152.69.210.130 1259`**
+`nc 152.69.210.130 1259`
 {{< /admonition >}}
 
 forensics/Initial
@@ -849,7 +849,7 @@ web/X Éc Éc
 
 {{< admonition note "Challenge Information" >}}
 * 63 solves / 100 pts / by onrsa
-* **Description:** **`"dependencies":  {"dompurify": "^3.1.6"}`**\
+* **Description:** `"dependencies":  {"dompurify": "^3.1.6"}`\
 Warm up liu tiu riu :v\
 Chall: [http://152.69.210.130](http://152.69.210.130/)\
 Bot: [http://152.69.210.130:81/report](http://152.69.210.130:81/report/)
@@ -881,7 +881,7 @@ web/niceray
 * **Description:** Niceray or Nineray or Liferay :)))\
   Please test locally before testing on remote. Any team that has captured the flag on the local instance, please DM the two authors below or create a ticket, and we will open an instance for you to capture the flag remotely. The instance creation link will be updated soon (since we're getting a high-RAM VPS to support this challenge :v )\
 **Hint**: Due to a configuration, teams can still exploit the 
-endpoint **`/api/jsonws/invoke`** locally, but it won’t be exploitable remotely.
+endpoint `/api/jsonws/invoke` locally, but it won’t be exploitable remotely.
 {{< /admonition >}}
 
 web/Hero
@@ -899,7 +899,7 @@ web/Geo Weapon
 * **Given files:** [dist.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EdqO5-j3f-lBp-aqVaOtPo4BgAEaSD_LSQPO_n7bZo8egg?e=AeuMJa)
 * **Description:** Little weapon, little weapon, little weapon We're calling you There's a war, if the guns are just to tall for you. We'll find you something small to use Little weapon, little weapon, little weapon. We need you now, blaow!\
 By: Pew (This challenge expects you to find a 0day. If one is found pls report it yourself to the respected party.) Please test locally before testing on remote, ips that abuse instance will be blocked !!!\
-**`nc 213.35.127.196 4444`**
+`nc 213.35.127.196 4444`
 {{< /admonition >}}
 
 crypto/ShareMixer1
@@ -908,7 +908,7 @@ crypto/ShareMixer1
 * 42 solves / 100 pts / by catto
 * **Given files:** [chall.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EfTJ2V_UgjVIh5AsYtjUPw0Bk5IdW6sE9E4pQJYQnu--oA?e=UGsPhP)
 * **Description:** Let's mix some shares!!!!!!!!!!!!!!!!!!!!!!!!!\
-  **`nc 35.187.238.100 5001`**
+  `nc 35.187.238.100 5001`
 {{< /admonition >}}
 
 crypto/ShareMixer2
@@ -917,7 +917,7 @@ crypto/ShareMixer2
 * 32 solves / 100 pts / by catto
 * **Given files:** [chall.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYF7MSXSFBZNmPZqMEj8SfwB9Rc3OWf7rGZEUjQXM4wZjA?e=kVIMCM)
 * **Description:** Let's mix some shares!!!!!!!!!!!!!!!!!!!!!!!!! Again :>\
-  **`nc 35.187.238.100 5002`**
+  `nc 35.187.238.100 5002`
 {{< /admonition >}}
 
 crypto/Sign
@@ -926,7 +926,7 @@ crypto/Sign
 * 23 solves / 214 pts / by m1dm4n
 * **Given files:** [chall.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EWpihqOcqqFBpCr-__BVLSQBEBOqoCsR9OgPkuWTZ5hssA?e=Ej4Y3H)
 * **Description:** I love giving out signatures :"> As long as my modulus are hidden, you can't know what I'm signing!\
-**`nc 35.187.238.100 5003`**
+`nc 35.187.238.100 5003`
 {{< /admonition >}}
 
 crypto/thats so random

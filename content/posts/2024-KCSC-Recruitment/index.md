@@ -27,7 +27,7 @@ Solutions for some challenges in KCSC Recruitment 2024
 
 **Solution**
 
-Load file đề bài cho vào IDA64, chuyển qua tab code assembly, ta có thể thấy được các phần của flag. Ghép chúng lại và ta được flag **`KCSC{have_u_known_IDA_after_this_real_warmup}`**
+Load file đề bài cho vào IDA64, chuyển qua tab code assembly, ta có thể thấy được các phần của flag. Ghép chúng lại và ta được flag `KCSC{have_u_known_IDA_after_this_real_warmup}`
 
 <img src="1.png"/>
 
@@ -47,7 +47,7 @@ Load file đề bài cho vào IDA64, chuyển qua tab code assembly, ta có th�
 inp[30] + inp[44] + inp[16] + inp[38] + inp[47] + inp[7] != 398
 ```
 
-Để giải được dạng bài này, ta chỉ cần sử dụng Z3 và thu được flag là **`KCSC{700_much_1f-3l53_f0r_fl46ch3ck3r!!!7ry_z3<3}`**
+Để giải được dạng bài này, ta chỉ cần sử dụng Z3 và thu được flag là `KCSC{700_much_1f-3l53_f0r_fl46ch3ck3r!!!7ry_z3<3}`
 
 ```python
 from z3 import *
@@ -173,7 +173,7 @@ else:
 input[i] ^ key[i] == check[i] 
 ```
 
-Thực hiện debug, mình có viết 1 script nhỏ để lấy toàn bộ giá trị của mảng **`check`** trong IDA Python 
+Thực hiện debug, mình có viết 1 script nhỏ để lấy toàn bộ giá trị của mảng `check` trong IDA Python 
 
 ```python
 import idc 
@@ -188,7 +188,7 @@ print(ans)
 # [18, 27, 5, 115, 26, 112, 81, 72, 87, 50, 8, 67, 6, 94, 5, 93, 27, 91, 5, 25, 110, 0, 124, 41, 1, 63, 64, 6, 15, 1, 35, 11, 106, 7, 97, 85, 0, 117, 93, 24, 83, 90, 102, 74, 106, 81, 2, 73, 67, 76, 72]
 ```
 
-Sau khi đã có đầy đủ dữ liệu, ta dễ dàng viết lại thuật toán giải mã và thu được flag **`KCSC{7h15_15_345y60l4n6_ch4ll3n63_7ea2da17_<3<3!!!}`**
+Sau khi đã có đầy đủ dữ liệu, ta dễ dàng viết lại thuật toán giải mã và thu được flag `KCSC{7h15_15_345y60l4n6_ch4ll3n63_7ea2da17_<3<3!!!}`
 
 ```python
 key = "YXV0aG9ybm9vYm1hbm5uZnJvbWtjc2M="
@@ -214,9 +214,9 @@ Load file vào IDA64, ta thấy đoạn code của chương trình chính rất 
 
 <img src="2.png"/>
 
-Chương trình khởi tạo seed để gọi hàm **`rand()`**, mở file **`enc.txt`** và ghi dữ liệu bị encrypt vào file. 
+Chương trình khởi tạo seed để gọi hàm `rand()`, mở file `enc.txt` và ghi dữ liệu bị encrypt vào file. 
 
-Ý tưởng để giải bài này rất đơn giản. Vì format flag là **`KCSC{`** vậy nên ta sẽ có được 5 giá trị random đầu tiên. Tiếp đến, ta sẽ bruteforce seed để tìm ra seed chính xác của tác giả. 
+Ý tưởng để giải bài này rất đơn giản. Vì format flag là `KCSC{` vậy nên ta sẽ có được 5 giá trị random đầu tiên. Tiếp đến, ta sẽ bruteforce seed để tìm ra seed chính xác của tác giả. 
 
 ```cpp
 #include <cstdio>
@@ -243,7 +243,7 @@ int main() {
 // seed = 16777215
 ```
 
-Công việc còn lại là là xor ngược lại để lấy flag. Kết quả thu được là **`KCSC{0xffffff_is_1970-07-14,I_created_this_challenge_at_"the_end"_of_time}`**
+Công việc còn lại là là xor ngược lại để lấy flag. Kết quả thu được là `KCSC{0xffffff_is_1970-07-14,I_created_this_challenge_at_"the_end"_of_time}`
 
 ```cpp
 #include <cstdio>
@@ -286,7 +286,7 @@ Ta thấy chương trình tạo 16 số random, đổi 4 số random cuối bằ
 encryptedFlag[i] ^= randomArray[i % 16]
 ```
 
-Do flag format là **`KCSC{`** ta sẽ xor ngược lại để tính được 5 giá trị random đầu tiên. Sau đó sẽ bruteforce tất cả các seed để tìm ra seed chính xác của tác giả. 
+Do flag format là `KCSC{` ta sẽ xor ngược lại để tính được 5 giá trị random đầu tiên. Sau đó sẽ bruteforce tất cả các seed để tìm ra seed chính xác của tác giả. 
 
 Đây là đoạn code để mình lấy 5 giá trị random đầu tiên 
 
@@ -312,7 +312,7 @@ for i in range(5):
 print(randomArray) 
 ```
 
-Sau khi có các giá trị random, mình sẽ đi bruteforce seed. Lưu ý là đề bài cho chúng ta file **`exe`** nên ta phải compile source code này trên Windows 
+Sau khi có các giá trị random, mình sẽ đi bruteforce seed. Lưu ý là đề bài cho chúng ta file `exe` nên ta phải compile source code này trên Windows 
 
 ```c
 #include <stdio.h>
@@ -344,7 +344,7 @@ int main() {
 // seed = 13973678
 ```
 
-Khi đã tìm thấy seed, ta thực hiện xor ngược lại để tìm ra flag. Kết quả thu được là **`KCSC{nhin em anh boi roi anh thua roi tim em lam loi anh chua tung dam noi anh yeu mot ai the nay!!}`**
+Khi đã tìm thấy seed, ta thực hiện xor ngược lại để tìm ra flag. Kết quả thu được là `KCSC{nhin em anh boi roi anh thua roi tim em lam loi anh chua tung dam noi anh yeu mot ai the nay!!}`
 
 ```c
 #include <stdio.h>
@@ -399,7 +399,7 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 }
 ```
 
-Phân tích hàm **`paddingInput()`**, nhiệm vụ của hàm này chỉ là padding **`0`** vào **`input`** sao cho độ dài **`input`** chia hết cho 16 và không lớn hơn 80 byte. 
+Phân tích hàm `paddingInput()`, nhiệm vụ của hàm này chỉ là padding `0` vào `input` sao cho độ dài `input` chia hết cho 16 và không lớn hơn 80 byte. 
 
 ```c
 int paddingInput()
@@ -426,29 +426,29 @@ int paddingInput()
 }
 ```
 
-Hàm **`sha256_key`** sử dụng các hàm encrypt của WinAPI để tạo hash SHA256 của link **`https://www.youtube.com/watch?v=fzQ6gRAEoy0`**
+Hàm `sha256_key` sử dụng các hàm encrypt của WinAPI để tạo hash SHA256 của link `https://www.youtube.com/watch?v=fzQ6gRAEoy0`
 
 <img src="4.png"/>
 
-Hàm **`md5_iv()`** có chức năng tương tự như hàm **`sha256_key`.** Thay vì tạo hash SHA256 thì sẽ tạo hash MD5cho link **`https://www.youtube.com/watch?v=fzQ6gRAEoy0`**
+Hàm `md5_iv()` có chức năng tương tự như hàm `sha256_key`.** Thay vì tạo hash SHA256 thì sẽ tạo hash MD5cho link `https://www.youtube.com/watch?v=fzQ6gRAEoy0`
 
 <img src="5.png"/>
 
-Quan sát hàm **`encryptData`**, ta thấy hàm sử dụng thuật toán AES để mã hóa dữ liệu. 
+Quan sát hàm `encryptData`, ta thấy hàm sử dụng thuật toán AES để mã hóa dữ liệu. 
 
 <img src="6.png"/>
 
 Các bước thực hiện mã hóa của hàm này diễn ra như sau: 
 
-1. Gọi hàm **`CryptAcquireContextW`** để set context mã hóa là AES. 
-2. Gọi hàm **`CryptImportKey`** để lấy key **`sha256Hash`**. Nó được cất trong **`pdData`** ở phía dưới 
+1. Gọi hàm `CryptAcquireContextW` để set context mã hóa là AES. 
+2. Gọi hàm `CryptImportKey` để lấy key `sha256Hash`. Nó được cất trong `pdData` ở phía dưới 
 
 <img src="7.png"/>
 
-1. Gọi hàm **`CryptSetKeyParam`** để set IV và chế độ mã hóa AES CBC. 
-2. Gọi hàm **`CryptEncrypt`** để mã hóa dữ liệu.  
+1. Gọi hàm `CryptSetKeyParam` để set IV và chế độ mã hóa AES CBC. 
+2. Gọi hàm `CryptEncrypt` để mã hóa dữ liệu.  
 
-Sau khi mã hóa dữ liệu, hàm **`checkFlag`** được gọi để so sánh encrypted input với mảng **`ans`** đã có sẵn 
+Sau khi mã hóa dữ liệu, hàm `checkFlag` được gọi để so sánh encrypted input với mảng `ans` đã có sẵn 
 
 ```c
 int checkFlag()
@@ -467,8 +467,8 @@ int checkFlag()
 }
 ```
 
-Sau khi hiểu rõ toàn bộ luồng hoạt động của chương trình, mình đã viết lại toàn bộ các hàm để tạo ra **`sha256_hash`** và **`md5_iv`**. Sau đó gọi hàm **`CryptDecrypt`** của WinAPI để giải mã.\
-Flag thu được là **`KCSC{md5_4nd_5h4256_4nd_435_w17h_w1n4p1_YXV0aG9ybm9vYm1hbm5uZnJvbWtjc2M=}`**
+Sau khi hiểu rõ toàn bộ luồng hoạt động của chương trình, mình đã viết lại toàn bộ các hàm để tạo ra `sha256_hash` và `md5_iv`. Sau đó gọi hàm `CryptDecrypt` của WinAPI để giải mã.\
+Flag thu được là `KCSC{md5_4nd_5h4256_4nd_435_w17h_w1n4p1_YXV0aG9ybm9vYm1hbm5uZnJvbWtjc2M=}`
 ```cpp
 #include <cstdio>
 #include <Windows.h>
@@ -697,7 +697,7 @@ public class Flag_Checker {
 }
 ```
 
-Đây là câu lệnh để kiểm tra flag bằng nhiều hàm **`check`** lồng nhau: 
+Đây là câu lệnh để kiểm tra flag bằng nhiều hàm `check` lồng nhau: 
 
 ```java
 if (check(check(check(check(check(ret, input), input, isDigit), input, pos), input, let), input, ""))
@@ -707,7 +707,7 @@ Ta thấy tên hàm không khác nhau nhưng các đối số được truyền 
 
 ### Hàm `check1`
 
-Chỉ đơn giản là đi kiểm tra input có bắt đầu bằng cụm từ **`KCSC{`** và kết thúc bằng **`}`** hay không. 
+Chỉ đơn giản là đi kiểm tra input có bắt đầu bằng cụm từ `KCSC{` và kết thúc bằng `}` hay không. 
 
 ```java
 public static boolean check1(boolean ret, String s) {
@@ -750,7 +750,7 @@ public static boolean check2(boolean ret, String s, boolean[] arr) {
 }
 ```
 
-Ý tưởng của hàm trên là đi kiểm tra giá trị tại các index trong mảng **`pos[]`** có phải là chữ số không. Sau đó convert thành số nguyên, lưu vào mảng **`num[]`** rồi đi kiểm tra các điều kiện biểu thức. Mình sẽ dùng Z3 để đi tìm các giá trị của mảng **`num[]`** như sau
+Ý tưởng của hàm trên là đi kiểm tra giá trị tại các index trong mảng `pos[]` có phải là chữ số không. Sau đó convert thành số nguyên, lưu vào mảng `num[]` rồi đi kiểm tra các điều kiện biểu thức. Mình sẽ dùng Z3 để đi tìm các giá trị của mảng `num[]` như sau
 
 ```python
 from z3 import * 
@@ -776,7 +776,7 @@ if s.check() == sat:
 > Mình có comment lại 1 điều kiện do BitVec không tính mũ được nhưng kết quả tìm ra vẫn thỏa mãn tất cả các điều kiện.
 > 
 
-Sau bước check này, ta thu được flag có dạng **`KCSC{*****0****5***0********4*1*************4****5******}`**
+Sau bước check này, ta thu được flag có dạng `KCSC{*****0****5***0********4*1*************4****5******}`
 
 ### Hàm `check3`
 
@@ -791,7 +791,7 @@ public static boolean check3(boolean ret, String s, int[] arr) {
 }
 ```
 
-Giá trị của các index trong mảng `pos[]` là `_`. Ta được flag có dạng **`KCSC{*****0****5*_*0*_**_***4_1*_**_**_*****4***_5***_**}`** 
+Giá trị của các index trong mảng `pos[]` là `_`. Ta được flag có dạng `KCSC{*****0****5*_*0*_**_***4_1*_**_**_*****4***_5***_**}` 
 
 ### Hàm `check5`
 
@@ -859,7 +859,7 @@ if s.check() == sat:
     # [tmp[6] = 118, tmp[8] = 101, tmp[7] = 115, tmp[2] = 111, tmp[10] = 116, tmp[5] = 97, tmp[1] = 80, tmp[4] = 74, tmp[0] = 79, tmp[13] = 80, tmp[11] = 111, tmp[9] = 122, tmp[12] = 97, tmp[3] = 102]
 ```
 
-Sau khi tìm được giá trị của mảng **`tmp[]`**, mình tiếp tục lắp ráp nó vào flag theo đúng vị trí trong mảng **`f1nal[]`**. 
+Sau khi tìm được giá trị của mảng `tmp[]`, mình tiếp tục lắp ráp nó vào flag theo đúng vị trí trong mảng `f1nal[]`. 
 
 ```python
 tmp = [0] * 14
@@ -887,7 +887,7 @@ for i in range(14):
 print("".join([chr(i) for i in flag]))
 ```
 
-Flag chúng ta thu được là **`KCSC{*****0****5*_O0P_of_Jav4_1s_ez_to_aP***4**_*5**_**?}`**
+Flag chúng ta thu được là `KCSC{*****0****5*_O0P_of_Jav4_1s_ez_to_aP***4**_*5**_**?}`
 
 ### Hàm `check4`
 
@@ -912,9 +912,9 @@ public static boolean check4(boolean ret, String s, char[] arr) {
 }
 ```
 
-Hàm này duyệt một substring sau **`KCSC{`** và trước **`}`** trong input với 2 con trỏ **`left`** và **`right`**. Mỗi con trỏ này sẽ liên tục tăng lên và giảm đi, cuối cùng nó sẽ dừng tại vị trí mà ở đó là một ký tự. Tiếp theo, nó sẽ check **`input[left] = let[cnt + 1]`** và **`input[right] = let[cnt]`** không và **`cnt += 2`**. Lấy ví dụ như flag là **`KCSC{*****0****5*_O0P_of_Jav4_1s_ez_to_aP***4**_*5**_**?}`** thì **`*`** đầu tiên bên trái phải là **`let[1] = 'P'`** và **`*`** đầu tiên bên phải phải là **`let[0] = 't'`**. 
+Hàm này duyệt một substring sau `KCSC{` và trước `}` trong input với 2 con trỏ `left` và `right`. Mỗi con trỏ này sẽ liên tục tăng lên và giảm đi, cuối cùng nó sẽ dừng tại vị trí mà ở đó là một ký tự. Tiếp theo, nó sẽ check `input[left] = let[cnt + 1]` và `input[right] = let[cnt]` không và `cnt += 2`. Lấy ví dụ như flag là `KCSC{*****0****5*_O0P_of_Jav4_1s_ez_to_aP***4**_*5**_**?}` thì `*` đầu tiên bên trái phải là `let[1] = 'P'` và `*` đầu tiên bên phải phải là `let[0] = 't'`. 
 
-Tới đây, chúng ta hoàn toàn có thể làm bằng tay để hoàn thiện flag. Mình có viết một script nhỏ để làm công việc này. Kết quả chạy sẽ bị lỗi **`out of range`** nhưng mình không biết tại sao lại bị như vậy. Vì vậy, mỗi lần chạy mình sẽ in ra luôn mảng **`flag`** và kết quả cuối cùng thu được là chính xác. 
+Tới đây, chúng ta hoàn toàn có thể làm bằng tay để hoàn thiện flag. Mình có viết một script nhỏ để làm công việc này. Kết quả chạy sẽ bị lỗi `out of range` nhưng mình không biết tại sao lại bị như vậy. Vì vậy, mỗi lần chạy mình sẽ in ra luôn mảng `flag` và kết quả cuối cùng thu được là chính xác. 
 
 ```python
 flag = "KCSC{*****0****5*_O0P_of_Jav4_1s_ez_to_aP***4**_*5**_**?}"
@@ -940,7 +940,7 @@ while (left <= right and count <= len(charset)):
 # [75, 67, 83, 67, 123, 80, 111, 76, 121, 109, 48, 114, 112, 104, 105, 53, 109, 95, 79, 48, 80, 95, 111, 102, 95, 74, 97, 118, 52, 95, 49, 115, 95, 101, 122, 95, 116, 111, 95, 97, 80, 80, 114, 111, 52, 99, 104, 95, 105, 53, 110, 116, 95, 105, 116, 63, 125]
 ```
 
-Convert mảng kia thành string và thu được flag là **`KCSC{PoLym0rphi5m_O0P_of_Jav4_1s_ez_to_aPPro4ch_i5nt_it?}`**
+Convert mảng kia thành string và thu được flag là `KCSC{PoLym0rphi5m_O0P_of_Jav4_1s_ez_to_aPPro4ch_i5nt_it?}`
 
 ```python
 X = [75, 67, 83, 67, 123, 80, 111, 76, 121, 109, 48, 114, 112, 104, 105, 53, 109, 95, 79, 48, 80, 95, 111, 102, 95, 74, 97, 118, 52, 95, 49, 115, 95, 101, 122, 95, 116, 111, 95, 97, 80, 80, 114, 111, 52, 99, 104, 95, 105, 53, 110, 116, 95, 105, 116, 63, 125]

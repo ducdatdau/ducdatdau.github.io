@@ -8,7 +8,6 @@ categories: ["CTF Writeups"]
 lightgallery: true
 toc:
   enable: true
-
 ---
 
 Solutions for some challenges in KCSC Recruitment 2023
@@ -23,7 +22,7 @@ Solutions for some challenges in KCSC Recruitment 2023
 * 28 solves / 100 pts
 * **Given files:** [chall.exe](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EcXjLpKa0z5HqaVRynlslY8BwqxA8IryjLRQxBmlcfjj5g?e=LZRydh)
 * **Description:** Làm nóng người 1 tí\
-Flag format: **`KCSC{}`**
+Flag format: `KCSC{}`
 {{< /admonition >}}
 
 **Solution**
@@ -56,7 +55,7 @@ int __fastcall main(int argc, const char **argv, const char **envp)
 }
 ```
 
-Chuỗi này khả năng cao bị mã hóa base64. Lên [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=UzBOVFEzdERhRFF3WUY5TmZGOThiamxnWDBRelRpZGZWakF4SjE4M04xd3ZYMHREVTBOOQ) decode và thu được flag **`KCSC{Ch40_M|_|n9_D3N'_V01'_77\/_KCSC}`**
+Chuỗi này khả năng cao bị mã hóa base64. Lên [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=UzBOVFEzdERhRFF3WUY5TmZGOThiamxnWDBRelRpZGZWakF4SjE4M04xd3ZYMHREVTBOOQ) decode và thu được flag `KCSC{Ch40_M|_|n9_D3N'_V01'_77\/_KCSC}`
 
 ## rev/Images
 
@@ -78,12 +77,12 @@ cmp eax, 95
 jnz loc_140012834
 ```
 
-trong đó  **`loc_140012834`** là đoạn mã in ra kết quả sai. Điều kiện kiểm tra có thể được mô phỏng lại như sau
+trong đó  `loc_140012834` là đoạn mã in ra kết quả sai. Điều kiện kiểm tra có thể được mô phỏng lại như sau
 ```python
 Buffer[1 * 8] == 95
 ``` 
 
-Lấy tất cả các giá trị như trên và convert sang ký tự, ta thu được flag **``KCSC{Cam_on_vi_da_kien_nhan_nhin_het_dong_anh_nay`}``**
+Lấy tất cả các giá trị như trên và convert sang ký tự, ta thu được flag ``KCSC{Cam_on_vi_da_kien_nhan_nhin_het_dong_anh_nay`}``
 
 ```python
 flag = [0] * 54 
@@ -153,12 +152,12 @@ print("".join([chr(i) for i in flag]))
   * [output.txt](https://wru-my.sharepoint.com/:t:/g/personal/2251272678_e_tlu_edu_vn/EYI8SrfAH95GgnP_bTvmdPsB8nFCtAb1Db0uPga6GFSsJA?e=Zcy3Ut)
   * [src.py](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EchJO5YZqkdCtKlyLtBgS4sBd2Og6jVC2xRCgLznmfnb_Q?e=NlU4J3)
 * **Description:** xor, xor nữa, xor mãi\
-Flag format: **`KCSC{}`**
+Flag format: `KCSC{}`
 {{< /admonition >}}
 
 **Solution**
 
-Chương trình chia **`flag`** thành 3 phần và thực hiện xor giữa các phần với nhau. 
+Chương trình chia `flag` thành 3 phần và thực hiện xor giữa các phần với nhau. 
 
 ```python
 from pwn import *
@@ -185,7 +184,7 @@ Vì tính chất đối xứng và hoán vị của phép xor:
 - $A \oplus B = C \to A = C \oplus B$
 - $A \oplus B = B \oplus A$
 
-ta có thể đặt ngược file **`output.txt`** thành **`flag.txt`** và thực hiện ngược lại các bước mã hóa. 
+ta có thể đặt ngược file `output.txt` thành `flag.txt` và thực hiện ngược lại các bước mã hóa. 
 
 ```python
 from pwn import *
@@ -208,9 +207,9 @@ with open('flag.txt', 'wb') as (f):
     f.write(enc)
 ```
 
-Sau khi chạy đoạn script trên, ta thu được output là **`VXpCT1ZGRXpjelJPUjA1TVdETlJkMWd3U21oUk1IUm1Wa2M1WmxGcVVtcGhNVGxaVFVoS1oxaDZVblZTUmpnMFRtcFNabUl3TUhwYWVsSk5aRlY0T1E9PQ==`** 
+Sau khi chạy đoạn script trên, ta thu được output là `VXpCT1ZGRXpjelJPUjA1TVdETlJkMWd3U21oUk1IUm1Wa2M1WmxGcVVtcGhNVGxaVFVoS1oxaDZVblZTUmpnMFRtcFNabUl3TUhwYWVsSk5aRlY0T1E9PQ==` 
 
-Dễ thấy có kí tự **`==`**, ta sẽ decode base64 nhiều lần trên [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)From_Base64('A-Za-z0-9%2B/%3D',true,false)From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=VlhwQ1QxWkdSWHBqZWxKUFVqQTFUVmRFVGxKa01XZDNVMjFvVWsxSVVtMVdhMk0xV214R2NWVnRjR2hOVkd4YVZGVm9TMW94YURaVmJsWlRVbXBuTUZSdGNGTmFiVWwzVFVod1lXVnNTazVhUmxZMFQxRTlQUT09) và có được flag **``KCSC{84cK_t0_BaCK_To_B4ck_X0r`_4nD_864_oM3g4LuL}``**
+Dễ thấy có kí tự `==`, ta sẽ decode base64 nhiều lần trên [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)From_Base64('A-Za-z0-9%2B/%3D',true,false)From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=VlhwQ1QxWkdSWHBqZWxKUFVqQTFUVmRFVGxKa01XZDNVMjFvVWsxSVVtMVdhMk0xV214R2NWVnRjR2hOVkd4YVZGVm9TMW94YURaVmJsWlRVbXBuTUZSdGNGTmFiVWwzVFVod1lXVnNTazVhUmxZMFQxRTlQUT09) và có được flag ``KCSC{84cK_t0_BaCK_To_B4ck_X0r`_4nD_864_oM3g4LuL}``
 
 ## rev/hide and seek
 
@@ -224,7 +223,7 @@ Dễ thấy có kí tự **`==`**, ta sẽ decode base64 nhiều lần trên [Cy
 
 Sau khi chạy thử file đề bài cho, mình có select 2 dòng màu xanh thì thấy có dòng text mờ 
 
-**`C:\Users\Pwn2Own\AppData\Local\Temp\.temp_html_file_90865953.html`** 
+`C:\Users\Pwn2Own\AppData\Local\Temp\.temp_html_file_90865953.html` 
 
 <img src="8.png"/>
 
@@ -232,7 +231,7 @@ Vào folder trên và tìm sẽ có được flag.
 
 <img src="9.png"/>
 
-Mình muốn tìm hiểu xem thực sự chương trình này đang hoạt động như nào. Decompile bằng IDA64, xem qua lần lượt các hàm, ta biết được output ở trên được in ra từ hàm **`sub_E5FCD0`**
+Mình muốn tìm hiểu xem thực sự chương trình này đang hoạt động như nào. Decompile bằng IDA64, xem qua lần lượt các hàm, ta biết được output ở trên được in ra từ hàm `sub_E5FCD0`
 
 Trong đó, đoạn in ra filepath như sau 
 
@@ -252,10 +251,10 @@ while ( v15 != (char *)v14 )
 
 Tới đây, mình có thể lấy được filepath và truy cập để lấy flag. 
 
-Câu hỏi đặt ra là filepath được tạo ra như thế nào và file html kia ở đâu. Quay trở về hàm **`main`**, ta sẽ đi phân tích chi tiết 2 hàm: 
+Câu hỏi đặt ra là filepath được tạo ra như thế nào và file html kia ở đâu. Quay trở về hàm `main`, ta sẽ đi phân tích chi tiết 2 hàm: 
 
-1. Hàm **`sub_E5151E`** 
-2. Hàm **`sub_E518A7`**
+1. Hàm `sub_E5151E` 
+2. Hàm `sub_E518A7`
 
 ```c
 int __cdecl main_0(int argc, const char **argv, const char **envp)
@@ -325,7 +324,7 @@ char sub_E588A0()
 }
 ```
 
-Đầu tiên, hàm **`sub_E516E5`** sẽ tìm trong kernel32 đâu là địa chỉ của hàm **`getTempPath`**. Khi search các đối số sẽ không có kết quả, mình debug và đọc kết quả của hàm trả về mới biết được tên hàm là gì. 
+Đầu tiên, hàm `sub_E516E5` sẽ tìm trong kernel32 đâu là địa chỉ của hàm `getTempPath`. Khi search các đối số sẽ không có kết quả, mình debug và đọc kết quả của hàm trả về mới biết được tên hàm là gì. 
 
 ```c
 GetTempPathW = (int (__stdcall *)(int, char *))sub_E516E5("kernel32", 0xCCD7EB77, 0x5EA58);
@@ -355,15 +354,15 @@ else
 }
 ```
 
-### Phân tích hàm **`sub_E518A7`**
+### Phân tích hàm `sub_E518A7`
 
-Hàm thực hiện chức năng tạo file, trong đó **`lpFileName = filePath`**
+Hàm thực hiện chức năng tạo file, trong đó `lpFileName = filePath`
 
 ```c
 hFile = CreateFileW(lpFileName, 0x40000000u, 0, 0, 2u, 0x80u, 0);
 ```
 
-Sau khi tạo thành công, nó sẽ viết nội dung ở **`lpBuffer`** vào file 
+Sau khi tạo thành công, nó sẽ viết nội dung ở `lpBuffer` vào file 
 
 ```c
 WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, &NumberOfBytesWritten, 0)
@@ -373,7 +372,7 @@ WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, &NumberOfBytesWritten, 0)
 
 <img src="10.png"/>
 
-Trong đó có một đoạn code js để in ra flag **`KCSC{~(^._.)=^._.^=(._.^)~}`**
+Trong đó có một đoạn code js để in ra flag `KCSC{~(^._.)=^._.^=(._.^)~}`
 
 ```javascript
 function showFlag() {
@@ -396,7 +395,7 @@ function showFlag() {
 
 **Solution**
 
-Decompile file exe bằng IDA64, sau khi đổi tên các hàm, các biến, chúng ta thu được hàm **`main`** như sau 
+Decompile file exe bằng IDA64, sau khi đổi tên các hàm, các biến, chúng ta thu được hàm `main` như sau 
 
 ```c
 int __cdecl main_0(int argc, const char **argv, const char **envp)
@@ -472,8 +471,8 @@ labelFail:
 
 Tóm tắt chương trình trên: 
 
-1. Cho người dùng nhập vào **`input`** từ bàn phím. Đổi byte cuối cùng **`\n`**  (khi nhấn enter) thành byte kết thúc chuỗi **`\x00`**.  
-2. So sánh độ dài chuỗi **`input`** với 30. Đi vào hàm **`splitInput`,** chương trình kiểm tra **`input`** có bắt đầu bằng chuỗi **`KCSC{`** và kết thúc bằng **`}`** hay không. Kết thúc hàm, chúng ta thu được **`output`** có độ dài 24 byte chính là phần ở giữa của chuỗi bắt đầu và kết thúc.
+1. Cho người dùng nhập vào `input` từ bàn phím. Đổi byte cuối cùng `\n`  (khi nhấn enter) thành byte kết thúc chuỗi `\x00`.  
+2. So sánh độ dài chuỗi `input` với 30. Đi vào hàm `splitInput`,** chương trình kiểm tra `input` có bắt đầu bằng chuỗi `KCSC{` và kết thúc bằng `}` hay không. Kết thúc hàm, chúng ta thu được `output` có độ dài 24 byte chính là phần ở giữa của chuỗi bắt đầu và kết thúc.
     
     ```c
     char *__cdecl sub_D51890(char *Str)
@@ -505,15 +504,15 @@ Tóm tắt chương trình trên:
     }
     ```
     
-3. Hàm **`VirtualAlloc`** phân bổ một vùng nhớ mới với 4 đối số như sau: 
+3. Hàm `VirtualAlloc` phân bổ một vùng nhớ mới với 4 đối số như sau: 
     1. 0: Hàm tự động chọn địa chỉ cho vùng nhớ
     2. 0xA4u: Kích thước của vùng nhớ
-    3. 0x1000u: **`MEM_COMMIT`**, đặt quyền truy cập cho vùng nhớ
-    4. 0x40u: **`PAGE_EXECUTE_READWRITE`**, đặt quyền đọc ghi, thực thi cho vùng nhớ 
+    3. 0x1000u: `MEM_COMMIT`, đặt quyền truy cập cho vùng nhớ
+    4. 0x40u: `PAGE_EXECUTE_READWRITE`, đặt quyền đọc ghi, thực thi cho vùng nhớ 
     
     > Đọc thêm thông tin ở  https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
     
-    Hàm sẽ trả về là địa chỉ của vùng nhớ mới, được lưu trong biến **`lpAddress`**
+    Hàm sẽ trả về là địa chỉ của vùng nhớ mới, được lưu trong biến `lpAddress`
     
 4. Chương trình ghi lần lượt các byte vào vùng nhớ mới 
     
@@ -524,13 +523,13 @@ Tóm tắt chương trình trên:
     }
     ```
     
-5. Tiếp theo, chương trình sẽ thực hiện các lệnh trong vùng nhớ mới. Sau khi kết thúc việc gọi hàm, ta sẽ thu được **`output`**
+5. Tiếp theo, chương trình sẽ thực hiện các lệnh trong vùng nhớ mới. Sau khi kết thúc việc gọi hàm, ta sẽ thu được `output`
     
     ```c
     lpAddress(subInput, output, subInputLength);
     ```
     
-6. So sánh **`output`** với chuỗi byte **`expectedOutput`** cho trước
+6. So sánh `output` với chuỗi byte `expectedOutput` cho trước
     
     ```c
     for ( j = 0; j < strlen1(subInput); ++j )
@@ -542,19 +541,19 @@ Tóm tắt chương trình trên:
     }
     ```
     
-Sau bản tóm tắt trên, mấu chốt của bài toán nằm ở đoạn code gọi hàm động **`lpAddress`**. Chúng ta cần phải biết nó thực sự đã làm gì với **`input`** ban đầu. 
+Sau bản tóm tắt trên, mấu chốt của bài toán nằm ở đoạn code gọi hàm động `lpAddress`. Chúng ta cần phải biết nó thực sự đã làm gì với `input` ban đầu. 
 
-Đặt breakpoint tại dòng 44, ấn F7 tại **`text:00D558BD`** để đi sâu vào từng câu lệnh. Input ban đầu chúng ta nhập sẽ là **`KCSC{aaaaaaaaaaaaaaaaaaaaaaaa}`**
+Đặt breakpoint tại dòng 44, ấn F7 tại `text:00D558BD` để đi sâu vào từng câu lệnh. Input ban đầu chúng ta nhập sẽ là `KCSC{aaaaaaaaaaaaaaaaaaaaaaaa}`
 
 ```nasm
 .text:00D558BD                 call    [ebp+lpAddress]
 ```
 
-Đây là một phần mã assembly của hàm **`lpAddress`**
+Đây là một phần mã assembly của hàm `lpAddress`
 
 <img src="1.png"/>
 
-Ta có thể click chuột phải, chọn chức năng **`Create function (phím P)`**, và thu được hàm như sau 
+Ta có thể click chuột phải, chọn chức năng `Create function (phím P)`, và thu được hàm như sau 
 
 ```c
 int __cdecl sub_DF0000(int a1, int a2, int a3)
@@ -575,15 +574,15 @@ int __cdecl sub_DF0000(int a1, int a2, int a3)
 }
 ```
 
-Ta cần sửa lại kiểu dữ liệu của một số biến cho dễ đọc hơn. Ấn **`y`** vào tên hàm để định nghĩa lại các tham số của hàm. 
+Ta cần sửa lại kiểu dữ liệu của một số biến cho dễ đọc hơn. Ấn `y` vào tên hàm để định nghĩa lại các tham số của hàm. 
 
 <img src="2.png"/>
 
-Đổi lại tên, kiểu dữ liệu và kích thước cho mảng **`v4`**
+Đổi lại tên, kiểu dữ liệu và kích thước cho mảng `v4`
 
 <img src="3.png"/>
 
-> Mình biết mảng **`buf`** có size 25 bởi vì nó strcpy chuỗi "reversing_is_pretty_cool" có size 25 vào **`buf`**.
+> Mình biết mảng `buf` có size 25 bởi vì nó strcpy chuỗi "reversing_is_pretty_cool" có size 25 vào `buf`.
 
 Đến đây, ta đã thu được một hàm nhìn code rất đẹp
 
@@ -605,9 +604,9 @@ int __cdecl sub_DF0000(char *subInput, char *output, int subInputLength)
 }
 ```
 
-Đoạn encrypt trên rất ngắn gọn, swap 4 bit trước với 4 bit sau của 1 byte. Ví dụ **`0x61`** → **`0x16`**
+Đoạn encrypt trên rất ngắn gọn, swap 4 bit trước với 4 bit sau của 1 byte. Ví dụ `0x61` → `0x16`
 
-Tiếp theo sẽ xor kết quả trên với mảng **`buf`** rồi đi so sánh với **`expectedOutput`**. Chúng ta dễ dàng viết được code giải mã và thu được flag **`KCSC{correct_flag!submit_now!}`**
+Tiếp theo sẽ xor kết quả trên với mảng `buf` rồi đi so sánh với `expectedOutput`. Chúng ta dễ dàng viết được code giải mã và thu được flag `KCSC{correct_flag!submit_now!}`
 
 ```python
 buf = [0x72, 0x65, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6E, 0x67, 0x5F, 0x69, 0x73, 0x5F, 0x70, 0x72, 0x65, 0x74, 0x74, 0x79, 0x5F, 0x63, 0x6F, 0x6F, 0x6C]
@@ -722,7 +721,7 @@ labelFail:
 
 Luồng hoạt động chính của chương trình sẽ diễn ra như sau: 
 
-1. Cấp phát động cho **`Block`** có kích thước 16 byte. Với mỗi **`Block[i]`** lại được tiếp tục cấp phát 4 byte. Mục đích sẽ là tạo một mảng 2 chiều, có kích thước 4x4
+1. Cấp phát động cho `Block` có kích thước 16 byte. Với mỗi `Block[i]` lại được tiếp tục cấp phát 4 byte. Mục đích sẽ là tạo một mảng 2 chiều, có kích thước 4x4
     
     ```c
     Block = malloc(16u);
@@ -732,8 +731,8 @@ Luồng hoạt động chính của chương trình sẽ diễn ra như sau:
     } 
     ```
     
-2. Kiểm tra độ dài **`input`** dài 22 bytes, bắt đầu **`KCSC{`**, kết thúc bằng **`}`**. 
-3. Chia **`input`** thành từng phần rồi cho vào mảng **`Block`**
+2. Kiểm tra độ dài `input` dài 22 bytes, bắt đầu `KCSC{`, kết thúc bằng `}`. 
+3. Chia `input` thành từng phần rồi cho vào mảng `Block`
     
     ```c
     for ( j = 0; j < 4; ++j )
@@ -759,15 +758,15 @@ Luồng hoạt động chính của chương trình sẽ diễn ra như sau:
     
     Sau khi debug rồi quan sát output, ta sẽ biết được chức năng của các hàm như sau 
     
-    - **`encrypt1`** xoay các hàng theo thứ tự từ phải sang trái với số lần là 0, 1, 2, 3.
+    - `encrypt1` xoay các hàng theo thứ tự từ phải sang trái với số lần là 0, 1, 2, 3.
         <img src="4.png" width = "500" style="display: block; margin-left: auto; margin-right: auto;"/>
         
-    - **`encrypt2`** xoay các cột theo thứ tự từ dưới lên trên với số lần là 0, 1, 2, 3
+    - `encrypt2` xoay các cột theo thứ tự từ dưới lên trên với số lần là 0, 1, 2, 3
         <img src="5.png" height="400" style="display: block; margin-left: auto; margin-right: auto;"/>
         
-    - **`encrypt3`** đổi 4 bit đầu và cuối của 1 byte. Ví dụ **`0x61`** → **`0x16`**
-    - **`encrypt4`** xor với (i + 0x55) với i chạy từ 0 → 99, tương ứng với index của từng round.
-5. Sau 100 round encrypt ở trên, **`Block`** thu được sẽ đem đi so sánh với chuỗi **`FDA6FF91ADA0FDB7ABA9FB91EFAFFAA2`**
+    - `encrypt3` đổi 4 bit đầu và cuối của 1 byte. Ví dụ `0x61` → `0x16`
+    - `encrypt4` xor với (i + 0x55) với i chạy từ 0 → 99, tương ứng với index của từng round.
+5. Sau 100 round encrypt ở trên, `Block` thu được sẽ đem đi so sánh với chuỗi `FDA6FF91ADA0FDB7ABA9FB91EFAFFAA2`
 
 Mấu chốt để giải bài này nằm ở việc phải đi viết lại 4 hàm decrypt ở trên. Đây là code giải mã của mình cho 4 hàm phía trên. 
 
@@ -838,7 +837,7 @@ if __name__ == "__main__":
 
 Mình thử chạy lại chương trình với flag thu được ở trên nhưng kết quả sai.
 
-Sau khi trace lại từ đâu, ta thấy được có một hàm tên là **`TlsCallback_0_0`** được chạy trước cả hàm **`main`**
+Sau khi trace lại từ đâu, ta thấy được có một hàm tên là `TlsCallback_0_0` được chạy trước cả hàm `main`
 
 ```c
 void *__stdcall TlsCallback_0_0(int a1, int a2, int a3)
@@ -870,7 +869,7 @@ void *__stdcall TlsCallback_0_0(int a1, int a2, int a3)
 }
 ```
 
-Chương trình có gọi hàm antidebug **`IsDebuggerPresent`**. Chúng ta có thể đổi trạng thái của cờ ZF để đi tiếp vào trong.   
+Chương trình có gọi hàm antidebug `IsDebuggerPresent`. Chúng ta có thể đổi trạng thái của cờ ZF để đi tiếp vào trong.   
 
 ```c
 Src[0] = (int)sub_FD133E;
@@ -890,20 +889,20 @@ push sub_FD133E
 ret
 ```
 
-Tiếp theo, chương trình gọi **`VirtualProtect`** thay đổi lớp bảo vệ của vùng nhớ với lần lượt 4 đối số: 
+Tiếp theo, chương trình gọi `VirtualProtect` thay đổi lớp bảo vệ của vùng nhớ với lần lượt 4 đối số: 
 
 1. j_strcmp: Địa chỉ bắt đầu của vùng nhớ 
-2. 6: Kích thước ảnh hưởng của vùng nhớ. Ở đây, vùng nhớ bị thay đổi sẽ từ **`j_strcmp`** → **`j_strcmp + 6`**
-3. 0x40u: **`PAGE_EXECUTE_READWRITE`**, kích hoạt quyền thực thi, đọc, viết cho vùng nhớ  
+2. 6: Kích thước ảnh hưởng của vùng nhớ. Ở đây, vùng nhớ bị thay đổi sẽ từ `j_strcmp` → `j_strcmp + 6`
+3. 0x40u: `PAGE_EXECUTE_READWRITE`, kích hoạt quyền thực thi, đọc, viết cho vùng nhớ  
 4. flOldProtect: Con trỏ trỏ tới biến lưu quyền truy cập cũ của vùng nhớ. 
 
 > Đọc thêm thông tin ở https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualprotect
 
-Khi chạy nốt các dòng lệnh còn lại, click vào **`j_strcmp`**, ta sẽ thấy **`push 0xFD133E`** và **`ret`**. Điều đó đồng nghĩa với việc gọi hàm **`sub_FD133E`**. Nói tóm lại, khi chúng ta gọi hàm **`strcmp`**, nó sẽ thực thi hàm **`sub_FD133E`**
+Khi chạy nốt các dòng lệnh còn lại, click vào `j_strcmp`, ta sẽ thấy `push 0xFD133E` và `ret`. Điều đó đồng nghĩa với việc gọi hàm `sub_FD133E`. Nói tóm lại, khi chúng ta gọi hàm `strcmp`, nó sẽ thực thi hàm `sub_FD133E`
 
 <img src="7.png"/>
 
-Click vào hàm **`sub_FD133E`,** nó lại tiếp tục nhảy tới hàm **`sub_FD61D0`.** Đây là mã giả của nó 
+Click vào hàm `sub_FD133E`,** nó lại tiếp tục nhảy tới hàm `sub_FD61D0`.** Đây là mã giả của nó 
 
 ```c
 int __cdecl sub_FD61D0(char *input, char *cmpInput)
@@ -968,7 +967,7 @@ int __cdecl sub_FD61D0(char *input, char *cmpInput)
 }
 ```
 
-Tới đây thì rõ ràng rồi, **`cmpInput`** bị xor với mảng **`buf`** rồi mới được đem đi so sánh với **`input`** của chúng ta. Mình chỉ cần xor ngược lại là có thể giải được bài toán và thu được flag **`KCSC{function_h00k1ng}`**.
+Tới đây thì rõ ràng rồi, `cmpInput` bị xor với mảng `buf` rồi mới được đem đi so sánh với `input` của chúng ta. Mình chỉ cần xor ngược lại là có thể giải được bài toán và thu được flag `KCSC{function_h00k1ng}`.
 
 ```python
 def unShiftRow(blk):
@@ -1049,11 +1048,11 @@ if __name__ == "__main__":
 
 **Solution**
 
-Load file vào IDA64, dùng shortcut Shift + F12 để kiểm tra các string, ta có được phần đầu và phần cuối của flag là **`KCSC{A_gift_`** và **`pwners_0xdeadbeef}`**. 
+Load file vào IDA64, dùng shortcut Shift + F12 để kiểm tra các string, ta có được phần đầu và phần cuối của flag là `KCSC{A_gift_` và `pwners_0xdeadbeef}`. 
 
-Kiểm tra hàm **`secret`**, ta có được phần giữa của flag là **`for_the_`**. 
+Kiểm tra hàm `secret`, ta có được phần giữa của flag là `for_the_`. 
 
-Flag đầy đủ của bài toán là **`KCSC{A_gift_for_the_pwners_0xdeadbeef}`**
+Flag đầy đủ của bài toán là `KCSC{A_gift_for_the_pwners_0xdeadbeef}`
 
 ## pwn/Format
 
@@ -1061,12 +1060,12 @@ Flag đầy đủ của bài toán là **`KCSC{A_gift_for_the_pwners_0xdeadbeef}
 * 0 solve / 500 pts / by Nuuuuuuuu
 * **Given files:** [format.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EbjKR1jipvdJm4ZWwXLa2BoBNfwJJSKf2qcXOf8r3JsC7w?e=mpBn7N)
 * **Description:** You don't have to do anything, i will printf the flag for you^^\
-**`nc 103.162.14.116 12001`**
+`nc 103.162.14.116 12001`
 {{< /admonition >}}
 
 **Solution**
 
-Load file vào IDA64, dễ thấy có lỗ hổng FMT ở dòng **`printf(buf)`**
+Load file vào IDA64, dễ thấy có lỗ hổng FMT ở dòng `printf(buf)`
 
 ```c
 int __fastcall main(int argc, const char **argv, const char **envp)
@@ -1083,7 +1082,7 @@ int __fastcall main(int argc, const char **argv, const char **envp)
 }
 ```
 
-Chương trình gọi hàm **`system`** với **`cmd`** là một câu lệnh echo. Ý tưởng để giải bài này sẽ là tận dụng bug FMT viết thêm chuỗi **`;sh`** sau câu lệnh đó để lấy shell. 
+Chương trình gọi hàm `system` với `cmd` là một câu lệnh echo. Ý tưởng để giải bài này sẽ là tận dụng bug FMT viết thêm chuỗi `;sh` sau câu lệnh đó để lấy shell. 
 
 ```python
 from pwn import *
@@ -1110,12 +1109,12 @@ p.interactive()
 * 0 solve / 500 pts
 * **Given files:** [pwn1](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EeNv7B6LlU1Cm8xv11c8j14B53DaHhiI_rNmTx9wNTGQrg?e=kV9ns4)
 * **Description:** every things start with assembly\
-**`nc 103.162.14.116 20001`**
+`nc 103.162.14.116 20001`
 {{< /admonition >}}
 
 **Solution**
 
-Sử dụng IDA64 decompile chương trình, ta thu được mã giả của hàm **`main`** như sau 
+Sử dụng IDA64 decompile chương trình, ta thu được mã giả của hàm `main` như sau 
 
 ```c
 int __cdecl main(int argc, const char **argv, const char **envp)
@@ -1132,9 +1131,9 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 }
 ```
 
-Ta thấy, chương trình **`mmap`** 1000 byte, bắt đầu tại địa chỉ **`0x1337000`** với full quyền rwx và yêu cầu chúng ta viết shellcode. 
+Ta thấy, chương trình `mmap` 1000 byte, bắt đầu tại địa chỉ `0x1337000` với full quyền rwx và yêu cầu chúng ta viết shellcode. 
 
-Vấn đề ở đây là chúng ta chỉ nhập được tối đa 12 byte. Vậy nên không thể viết trực tiếp shellcode lấy shell như thông thường được. Mình sẽ mở rộng kích thước số byte được nhập ra và gọi lại hàm **`read`**. 
+Vấn đề ở đây là chúng ta chỉ nhập được tối đa 12 byte. Vậy nên không thể viết trực tiếp shellcode lấy shell như thông thường được. Mình sẽ mở rộng kích thước số byte được nhập ra và gọi lại hàm `read`. 
 
 ```python
 from pwn import *
@@ -1189,12 +1188,12 @@ p.interactive()
 * 2 solves / 496 pts / by Nuuuuuuuu
 * **Given files:** [simple_overflow.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EUlfGWaVWGlCikIA45vdnVQBmb8jzs-1yK8KiWvShSwOiQ?e=tm96Lp)
 * **Description:** simple description since it’s simple overflow\
-**`nc 103.162.14.116 12004`**
+`nc 103.162.14.116 12004`
 {{< /admonition >}}
 
 **Solution**
 
-Chúng ta có thể thấy sự xuất hiện của lỗ hổng BOF ở hàm **`save_data`** tại hàm **`read`** 
+Chúng ta có thể thấy sự xuất hiện của lỗ hổng BOF ở hàm `save_data` tại hàm `read` 
 
 ```c
 unsigned __int64 __fastcall save_data(const char *a1)
@@ -1304,12 +1303,12 @@ p.interactive()
   * [chall](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EcOEg_DwZalImTfKKKYe-PQB5pYivg-yZved4VwaC8E7vQ?e=UzTYVN)
   * [chall.c](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYeP36OiA_ZJvskdROPzYv8BCAwCVSnsiYLFV8IQXL-WfQ?e=eA3FL8)
 * **Description:** simple description since it’s simple overflow\
-**`nc 103.162.14.116 12005`**
+`nc 103.162.14.116 12005`
 {{< /admonition >}}
 
 **Solution**
 
-Đề bài cho chúng là luôn source code, quan sát kỹ thì thấy có bug BOF để ret2win. Nhưng ở hàm **`filter`** có check 1 số string 
+Đề bài cho chúng là luôn source code, quan sát kỹ thì thấy có bug BOF để ret2win. Nhưng ở hàm `filter` có check 1 số string 
 
 ```c
 if(strstr(buf, "v\x11@") || strstr(buf, "w\x11@") || strstr(buf, "z\x11@") != NULL)
@@ -1319,7 +1318,7 @@ if(strstr(buf, "v\x11@") || strstr(buf, "w\x11@") || strstr(buf, "z\x11@") != NU
     }
 ```
 
-Địa chỉ hàm **`win`** nằm ở **`0x401186`** nghĩa là chỉ bị trùng 2 byte **`\x11@`** nên ta sẽ không bị kill. Chương trình có lỗi SIGSEGV do stack layout chưa được căn chỉnh. Vì vậy mình nhảy luôn vào **`win + 4`** để tránh việc **`push rbp`** vào stack. 
+Địa chỉ hàm `win` nằm ở `0x401186` nghĩa là chỉ bị trùng 2 byte `\x11@` nên ta sẽ không bị kill. Chương trình có lỗi SIGSEGV do stack layout chưa được căn chỉnh. Vì vậy mình nhảy luôn vào `win + 4` để tránh việc `push rbp` vào stack. 
 
 ```python
 #!/usr/bin/env python3

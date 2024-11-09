@@ -1,6 +1,6 @@
 ---
 title: "Olympic Toán Sinh viên Toàn quốc 2023"
-date: 2023-11-07T01:13:42+07:00
+date: 2023-04-10T01:13:42+07:00
 draft: false
 tags: ["2023", "Trips", "Vietnam", "Mathematics"]
 categories: ["Blog"]
@@ -58,7 +58,7 @@ Sáng thứ 4, đội giải tích bắt đầu làm bài thi. Đội giải tí
 
 <div style="text-align: center;">
     <figure style="display: inline-block; text-align: center;">
-        <img src="./44.jpg" style="height: 800px; width: 650px; max-width: 100%;" alt="The Coffee House">
+        <img src="./44.jpg" style="height: 10 rem; width: 650px; max-width: 80%; max-height: 100%;" alt="The Coffee House">
         <figcaption>Cô Loan mời cả đội uống The Coffee House</figcaption>
     </figure>
 </div>
@@ -71,7 +71,7 @@ Tôi, anh Kiên và chị Lan Anh đi trước, đợi mãi mới thấy cô và
 
 <div style="text-align: center;">
     <figure style="display: inline-block; text-align: center;">
-        <img src="./8.jpg" style="height: 800px; width: 750px; max-width: 100%;" alt="Đội Đại số ở trường Chuyên Quốc học Huế">
+        <img src="./8.jpg" style="height: 10 rem; width: 750px; max-width: 80%;max-height: 100%;" alt="Đội Đại số ở trường Chuyên Quốc học Huế">
         <figcaption>Đội Đại số ở trường Chuyên Quốc học Huế</figcaption>
     </figure>
 </div>
@@ -91,7 +91,7 @@ Sáng thứ 5, các thầy cô đi họp. Anh Kiên thi cuối kỳ môn gì đ�
 
 <div style="text-align: center;">
     <figure style="display: inline-block; text-align: center;">
-        <img src="./23.jpg" style="height: 900px; width: 750px; max-width: 100%;" alt="">
+        <img src="./23.jpg" style="height: 10 rem; width: 750px; max-width: 100%;" alt="">
         <figcaption>Thầy đang chuẩn bị chụp ảnh cho tôi</figcaption>
     </figure>
 </div>
@@ -108,7 +108,12 @@ Sáng thứ 5, các thầy cô đi họp. Anh Kiên thi cuối kỳ môn gì đ�
 
 ![](./43.jpg "Anh Hải Nam chủ tịch")
 
-![](./22.jpg "Anh Huy - Người anh tôi vừa bắt được sau chuyến đi Huế")
+<div style="text-align: center;">
+    <figure style="display: inline-block; text-align: center;">
+        <img src="./22.jpg" style="height: 10 rem; width: 750px; max-width: 70%;" alt="">
+        <figcaption>Anh Huy - Người anh tôi mới quen sau chuyến đi Huế<figcaption>
+    </figure>
+</div>
 
 Tham quan xong kinh thành Huế, thầy cô cho chúng tôi đi chùa Thiên Mụ. Ở chùa có 1 phòng trưng bày xe ô tô của Hòa thượng Thích Quảng Đức khi đi ra ngã tư tự thiêu để phản đối sự đàn áp Phật giáo của chính quyền Ngô Đình Diệm.  
 
@@ -136,7 +141,12 @@ Sáng thứ 6, đoàn đi chơi ở lăng tẩm. Bọn tôi đi chơi hơi mệt
 
 ![](./39.jpg "Anh Hụy chụp ảnh siêu đẹp")
 
-![](./40.jpg "Anh Tân rất rất rất ngầu")
+<div style="text-align: center;">
+    <figure style="display: inline-block; text-align: center;">
+        <img src="./40.jpg" style="height: 10 rem; width: 750px; max-width: 50%;" alt="">
+        <figcaption>Anh Tân rất rất rất ngầu<figcaption>
+    </figure>
+</div>
 
 Trưa về thầy cô cho mỗi người 200.000 để mua quà Huế. Tôi không biết mua cái gì nên không mua. Trưa bọn tôi ăn cơm ở khách sạn, ăn xong thì thầy báo giải cho chúng tôi. Thầy báo đoàn Hà Nội môn Đại số có 3 giải, 2 nhì và 1 ba. Giải khuyến khích thì chưa có xét.
  

@@ -1,6 +1,6 @@
 ---
 title: "BKCTF 2023"
-date: 2024-11-08T15:31:20+07:00
+date: 2023-08-19T15:31:20+07:00
 draft: false
 tags: ["2023", "BKCTF", "Rev", "Pwn"]
 categories: ["CTF Writeups"]
@@ -17,7 +17,7 @@ Solutions for some challenges in BKCTF 2023
 
 ![](./0.jpg)
 
-BKCTF là giải mà mình lần đầu tiên được tham gia onsite. Host là câu lạc bộ BKSEC của Trường Đại học Bách khoa Hà Nội, nơi đào tạo về kỹ thuật hàng hàng đầu tại Việt Nam, là niềm mơ ước của biết bao thế hệ học sinh, sinh viên trong nước. Mình nhớ tới BKSEC vì có biết một số anh chị rất khủng và có tiếng tăm trong ngành như anh chung96vn, chị lanleft, anh hacmao, ... 
+BKCTF là giải mà mình lần đầu tiên được tham gia onsite. Host là câu lạc bộ BKSEC của Trường Đại học Bách khoa Hà Nội, nơi đào tạo kỹ thuật hàng đầu tại Việt Nam, là niềm mơ ước của biết bao thế hệ học sinh, sinh viên trong nước. Mình nhớ tới BKSEC vì có biết một số anh chị rất khủng và có tiếng tăm trong ngành như anh chung96vn, chị lanleft, anh hacmao, ... 
 
 Sau một năm, mình muốn chơi lại giải này để xem thử trình độ của mình đã tiến bộ được chút nào hay chưa. Đề bài mình chơi vẫn đang được mở trên web [Cookie Hân Hoan](https://battle.cookiearena.org/arenas/bkctf-2023), các bạn hoàn toàn có thể vào chơi và tận hưởng bộ đề theo mình nghĩ là khá thú vị. 
 
@@ -325,24 +325,84 @@ flag = "".join([(v ^ c).to_bytes(2, "little").decode("utf8") for v, c in zip(val
 
 Flag thu được là `BKSEC{C0nGratul4t31}`
 
-## rev/Checker
-
-{{< admonition note "Challenge Information" >}}
-* **Given files:** [checker.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EVfrh8c75apLnhn8Vv_rhBIBD1E3SAbCgdo35RI5QCEx4w?e=gggpRu)
-* **Difficulty:** Easy
-* **Description:** a checker ran with rice tree. Flag format: `BKSEC{}`
-{{< /admonition >}}
-
-**Solution**
-
-Updating ... 
-
 ## rev/Reality
 
 {{< admonition note "Challenge Information" >}}
 * **Given files:** [reality.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYE-JsOfHUlLn3eLktQ-CXIB5e-4J0AhnZoM9qHwfNqGdA?e=Phj3TB)
 * **Difficulty:** Easy
 * **Description:** A simple reversing challenge... Flag format: `BKSEC{}`
+{{< /admonition >}}
+
+**Solution**
+
+Đề bài cho chúng ta một file PE32 `reality.exe`. Khi decompile file này, IDA không cho chúng ta mã giả. Mình sẽ đi đọc mã assembly kết hợp debug để xem chương trình đang làm gì. 
+
+<img src="./11.png" width=350px style="display: block; margin-left: auto; margin-right: auto;">
+
+Về tổng quan, chương trình cho nhập input và luôn nhảy vào block có exception khi chúng ta debug. 
+
+<img src="./12.png">
+
+Nhìn ở block bên cạnh, mình thấy có một chuỗi khá khả nghi `BKSEECCCC!!!`. Thử xem qua hàm `sub_401220` được gọi trong block này, ta thấy đây đơn giản chỉ là một hàm xor input với key là chuỗi phía trên. 
+
+```c
+char __fastcall sub_401220(const char *a1, int a2, int a3)
+{
+    char result; // al
+    signed int v5; // esi
+    int i; // ecx
+
+    v5 = strlen(a1);
+    for ( i = 0; i < a3; ++i )
+    {
+        result = a1[i % v5];
+        *(_BYTE *)(i + a2) ^= result;
+    }
+
+    return result;
+}
+```
+
+Mình debug và sửa `EIP` cho nó trỏ vào khối này. Ta thấy được rất nhiều bytecode ở dưới, mình dùng make code thì thấy đó là những phép biến đổi rất phức tạp. 
+
+<img src="./13.png">
+
+Ta thấy ở `loc_40131F` là câu lệnh 
+```assembly
+jmp short near ptr loc_40131F+1 
+```
+nghĩa là cứ đến đây nó sẽ bị lặp vô tận. Mình nhận ra có gì đó sai sai nên đã ấn `d` để tách hết thành từng bytecode và ấn `c` để make code lại. Kết quả thu được như sau 
+
+<img src="./14.png">
+
+Yeah, đến đây thì rõ ràng rồi. Chương trình check xem ta có đang debug không. Nếu có sẽ nhảy vào đống tính toán phức tạp kia, ngược lại sẽ nhảy tới `loc_401AD5`. 
+
+> Tại sao mình biết đây là anti-debug, câu trả lời các bạn có thể xem ở [stackoverflow](https://stackoverflow.com/questions/14496730/mov-eax-large-fs30h). 
+
+Ở `loc_401AD5` chỉ là gán giá trị cho `cipher[]`. Vậy chúng ta chỉ cần lấy mảng này xor ngược lại với key phía trên là có được flag. 
+
+```python
+cipher = [
+    0x00, 0x00, 0x00, 0x00, 0x06, 0x38, 0x26, 0x77, 0x30, 0x58, 
+    0x7E, 0x42, 0x2A, 0x7F, 0x3F, 0x29, 0x1A, 0x21, 0x36, 0x37, 
+    0x1C, 0x55, 0x49, 0x12, 0x30, 0x78, 0x0C, 0x28, 0x30, 0x30, 
+    0x37, 0x1C, 0x21, 0x12, 0x7E, 0x52, 0x2D, 0x26, 0x60, 0x1A, 
+    0x24, 0x2D, 0x37, 0x72, 0x1C, 0x45, 0x44, 0x43, 0x37, 0x2C, 
+    0x6C, 0x7A, 0x38
+]
+key = [ord(i) for i in "BKSEECCCC!!!"]
+flag = "".join([chr(cipher[i] ^ key[i % len(key)]) for i in range(len(cipher))])
+print(flag)
+```
+
+Flag thu được là `BKSEC{e4sy_ch4ll_but_th3r3_must_b3_som3_ant1_debug??}` 
+
+## rev/Checker
+
+{{< admonition note "Challenge Information" >}}
+* **Given files:** [checker.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EVfrh8c75apLnhn8Vv_rhBIBD1E3SAbCgdo35RI5QCEx4w?e=gggpRu)
+* **Difficulty:** Easy
+* **Description:** a checker ran with rice tree. Flag format: `BKSEC{}`
 {{< /admonition >}}
 
 **Solution**

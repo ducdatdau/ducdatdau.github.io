@@ -7,6 +7,7 @@ categories: ["CTF Writeups"]
 lightgallery: true
 toc:
   enable: true
+description: "Solutions for some challenges in BKCTF 2023 by ducdatdau"
 ---
 
 Solutions for some challenges in BKCTF 2023

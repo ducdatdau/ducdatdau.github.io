@@ -187,7 +187,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # URL of avatar shown in home page
       avatarURL = "https://github.com/ducdatdau.png"
       #  title shown in home page (HTML format is supported)
-      title = "người Việt yêu nước mắm"
+      title = "Welcome to ducdatdau's Blog"
       # subtitle shown in home page (HTML format is supported)
       subtitle = "# never stop exploiting 💦"
       # whether to use typeit animation for subtitle
@@ -208,7 +208,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # Social config about the author
   [params.social]
     GitHub = "ducdatdau"
-    Discord = "ducdatdau "
+    Discord = "ducdatdau"
     Email = "contact.ducdatdau@gmail.com"
     RSS = true # 
 

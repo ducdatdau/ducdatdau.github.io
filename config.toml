@@ -4,7 +4,7 @@ baseURL = "https://ducdatdau.github.io/"
 theme = "LoveIt"
 
 # website title
-title = "Duc Dat Dau"
+title = "ducdatdau"
 
 # language code ["en", "zh-CN", "fr", "pl", ...]
 languageCode = "en"

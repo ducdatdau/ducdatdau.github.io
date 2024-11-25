@@ -58,12 +58,20 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     url = "/tags/"
     title = ""
   [[menu.main]]
-    weight = 3
+    weight = 4
     identifier = "about"
     pre = ""
     post = ""
     name = "About Me"
     url = "/aboutme/"
+    title = ""
+  [[menu.main]]
+    weight = 3
+    identifier = "list100"
+    pre = ""
+    post = ""
+    name = "List 100"
+    url = "/list100/"
     title = ""
 
 [params]

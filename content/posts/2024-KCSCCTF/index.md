@@ -45,7 +45,18 @@ Trời mùa thu Hà Nội thật đẹp, nó sẽ đẹp hơn rất nhiều nế
 
 **Solution**
 
+<style>
+img {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 6px;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+</style>
+
 Flow chương trình rất ngắn gọn. Mảng `Str[]` sẽ được decrypt bởi thuật toán RC4 với `key` = `F@**!`. Sau đó chương trình so sánh `input` nhập vào với `output` là kết quả của giải mã mảng trên. 
+
 
 <img src="1.png"/>
 
@@ -76,7 +87,7 @@ Sau khi có key đúng thì kết quả decrypt vẫn sai. Có một vấn đề
 
 Đi sâu vào hàm `lstrcmpA`, ta thấy flag được tạo ra bằng cách xor `output` với một mảng `Str[]` khác và luôn return 0. Đây cũng là lý do tại sao chương trình luôn in ra `Correct!`. 
 
-<img src="3.png" height="600" style="display: block; margin-left: auto; margin-right: auto;"/>
+<img src="3.png"/>
 
 Flag thu được là `KCSC{1t_co5ld_be_right7_fla9_here_^.^@@}`
 

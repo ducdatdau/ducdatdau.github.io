@@ -13,7 +13,15 @@ description: "Solutions for some challenges in BKCTF 2023 by ducdatdau"
 Solutions for some challenges in BKCTF 2023
 
 <!--more-->
-
+<style>
+img {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 6px;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+</style>
 # BKCTF 2023
 
 ![](./0.jpg)

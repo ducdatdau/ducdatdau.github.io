@@ -14,7 +14,15 @@ toc:
 Solutions for some challenges in KCSC Recruitment 2024
 
 <!--more-->
-
+<style>
+img {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 6px;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+</style>
 # KCSC Recruitment 2024
 
 ## rev/riel warmup

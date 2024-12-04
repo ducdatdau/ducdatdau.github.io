@@ -14,7 +14,15 @@ toc:
 Solutions for some challenges in ISITDTU Quals 2024
 
 <!--more-->
-
+<style>
+img {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 6px;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+</style>
 # ISITDTU Quals 2024
 
 <img src="0.png"/>
@@ -37,7 +45,7 @@ Chương trình yêu cầu nhập flag có độ dài 36 ký tự, trong đó c�
 
 Khi click vào hàm `check_flag`, ta nhận được thông báo lỗi như sau 
 
-<img src="2.png" width=400 style="display: block; margin-left: auto; margin-right: auto;"/>
+<img src="2.png" width=500em/>
 
 Qua tab IDA View chế độ non-graph, ta thấy đây chỉ là một lệnh gọi hàm bình thường
 
@@ -356,7 +364,7 @@ else:
 
 Kết quả thu được là `tuanlinhlinhtuan`,** bây giờ ta chỉ cần nhập input đúng với các key đã được map sẽ có được flag là `ISITDTU{Throw_back_the_nested_if_NES_have_funnnn_:)}`
 
-<img src="12.png"/>
+<img src="12.png" width=500em/>
 
 ## rev/The Chamber of Flag
 
@@ -374,7 +382,7 @@ Kết quả thu được là `tuanlinhlinhtuan`,** bây giờ ta chỉ cần nh�
     - input secret key
 - about
 
-<img src="13.png" width=400 style="display: block; margin-left: auto; margin-right: auto;"/>
+<img src="13.png" width=500em/>
 
 Mình thử nhập secret và nhận thấy:
 
@@ -401,7 +409,7 @@ Với input có độ dài 6 ký tự, mình sẽ dùng `hashcat` để brutefor
 
 Đăng nhập thành công, chúng ta chọn option flag nhưng lại xuất hiện thông báo flag crashed.
 
-<img src="17.png" width=400 style="display: block; margin-left: auto; margin-right: auto;"/>
+<img src="17.png" width=500em/>
 
 Sau khi xref chuỗi trên, mình tìm ra được đoạn code có liên quan tới chuỗi trên ở đây. 
 
@@ -551,7 +559,7 @@ Nhưng khi chạy đến cuối hàm thì gặp lỗi này.
 
 Lỗi này gây ra do `rcx` chưa trỏ đúng vào vị trí bộ nhớ. 
 
-<img src="20.png" width=400 style="display: block; margin-left: auto; margin-right: auto;"/>
+<img src="20.png" width=500em/>
 
 Lúc này, mình tìm xung quanh các thanh ghi `rcx` để xem nó bị ảnh hưởng bởi thanh ghi nào. Ta thấy có `rax` và `rbx` tác động tới nó 
 

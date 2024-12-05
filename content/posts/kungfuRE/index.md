@@ -819,3 +819,225 @@ Func checker()
     EndIf
 EndFunc    ; -> checker
 ```
+
+Thử debug với IDA, ta thấy chương trình thông báo lỗi, chứng tỏ có antidebug ở đây 
+
+<img src="8.png" width=300rem/>
+
+Sử dụng tab strings, ta dễ dàng tìm ra đoạn check debug và bypass nó. Đặt breakpoint tại `CallWindowProcA` trong `user32.dll`, F9 để chương trình chạy tới đoạn gọi shellcode và input. 
+
+<img src="9.png"/>
+
+Đây là hình minh họa một đoạn shellcode ngắn của chương trình. 
+
+<img src="10.png" width=500rem/>
+
+Ta thấy string `user32.dll` nằm ngay ở shellcode, sau khi makecode trừ các chuỗi như trên, ta thu được kết quả như sau
+
+<img src="11.png"/>
+
+Đối với file 32 bit, khi gọi hàm `loc_47003B3()`, chương trình sẽ push chuỗi `user32.dll` lên stack, khi đó hàm được gọi có thể sử dụng chuỗi này như một đối số được truyền vào của hàm. 
+
+Thực hiện makecode tương tự cho các bytecode còn lại, chúng ta sẽ vừa debug trâu bò vừa ghi các hàm được gọi ra bản nháp để hiểu sâu hơn về chương trình.    
+
+### Hàm loc_4700939
+Hàm có sự xuất hiện của những strings như: 
+- kernel32.dll 
+- LoadLibraryA
+- GetProcAddress
+- VirtualAlloc
+- VirtualFree
+- lstrlenA
+
+nên mình nghĩ khả năng cao nó sẽ load các hàm từ `kernell32.dll`.  
+
+### Hàm loc_470076A
+Tương tự như trên, ở hàm này, chương trình sẽ load các hàm thực hiện mã hóa từ `advapi32.dll`.
+- CryptAcquireContextA
+- CryptCreateHash
+- CryptImportKey
+- CryptDeriveKey
+- CryptHashData
+- CryptEncrypt
+- CryptGetHashParam
+- CryptDestroyHash
+- CryptDestroyKey
+- CryptReleaseContext
+
+### Hàm loc_47003B3
+
+Phần thực thi chính shellcode sẽ nằm ở đây. Như cách giải thích việc gọi hàm ở phía trên, 
+
+<img src="12.png"/>
+
+việc gọi hàm như vậy sẽ tương đương với 
+```c
+HMODULE user32 = LoadLibraryA("user32.dll");
+if (!user32) {
+    wrong_fn_loc_47004BF();
+}
+```
+Tiếp theo, chương trình có load hàm `MessageBoxA()`, kiểm tra độ dài `input` với 28. Đoạn mã phía dưới theo phỏng đoán của mình chính là `ciphertext` để check flag. 
+
+<img src="13.png"/>
+
+Tới đây, mình dành vài tiếng để vừa makecode, debug và ghi chép mô phỏng lại toàn bộ các hàm được gọi. Kết quả được clean bởi ChatGPT như sau 
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <wincrypt.h>
+
+#pragma comment(lib, "Advapi32.lib")
+
+void wrong_fn_loc_47004BF() {
+    printf("Something went wrong!\n");
+    exit(1);
+}
+
+int main() {
+    char input[1000];
+    printf("Enter input: ");
+    scanf("%999s", input); // Đảm bảo không tràn bộ nhớ
+
+    // Load user32.dll
+    HMODULE user32 = LoadLibraryA("user32.dll");
+    if (!user32) {
+        wrong_fn_loc_47004BF();
+    }
+
+    // Lấy địa chỉ hàm MessageBoxA
+    FARPROC messageBoxA = GetProcAddress(user32, "MessageBoxA");
+    if (!messageBoxA) {
+        wrong_fn_loc_47004BF();
+    }
+
+    // Kiểm tra độ dài input
+    int input_len = lstrlenA(input);
+    if (input_len != 28) {
+        wrong_fn_loc_47004BF();
+    }
+
+    // Mã hóa input với Cryptography API
+    HCRYPTPROV hProv;
+    if (!CryptAcquireContextA(&hProv, NULL, NULL, PROV_RSA_FULL, 0)) {
+        wrong_fn_loc_47004BF();
+    }
+
+    HCRYPTHASH hHash;
+    if (!CryptCreateHash(hProv, CALG_SHA, 0, 0, &hHash)) {
+        wrong_fn_loc_47004BF();
+    }
+
+    char youtube_url[] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    int youtube_url_len = lstrlenA(youtube_url);
+
+    // Hash dữ liệu URL
+    if (!CryptHashData(hHash, (BYTE*)youtube_url, youtube_url_len, 0)) {
+        wrong_fn_loc_47004BF();
+    }
+
+    HCRYPTKEY hKey;
+    if (!CryptDeriveKey(hProv, CALG_RC4, hHash, 0, &hKey)) {
+        wrong_fn_loc_47004BF();
+    }
+
+    // Giải phóng hash sau khi tạo key
+    CryptDestroyHash(hHash);
+
+    // Tính toán bộ nhớ cần thiết cho đầu ra mã hóa
+    DWORD buf_len = input_len;
+    if (!CryptEncrypt(hKey, 0, TRUE, 0, NULL, &buf_len, input_len)) {
+        wrong_fn_loc_47004BF();
+    }
+
+    // Cấp phát bộ nhớ để chứa dữ liệu mã hóa
+    BYTE* buffer = (BYTE*)VirtualAlloc(NULL, buf_len, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+    if (!buffer) {
+        wrong_fn_loc_47004BF();
+    }
+
+    memset(buffer, 0, 0x1D);
+
+    // Sao chép input vào buffer và thực hiện mã hóa
+    memcpy(buffer, input, input_len);
+
+    if (!CryptEncrypt(hKey, 0, TRUE, 0, buffer, &input_len, buf_len)) {
+        wrong_fn_loc_47004BF();
+    }
+
+    printf("Encryption successful! Encrypted data length: %lu\n", buf_len);
+
+    // Dọn dẹp
+    CryptDestroyKey(hKey);
+    CryptReleaseContext(hProv, 0);
+
+    return 0;
+}
+```
+
+Tới đây thì ta hoàn toàn hình dung được luồng thực thi của chương trình. Trước tiên sẽ cho phép nhập input mã hóa RC4 với key là SHA1 của `youtube_url`. Cuối cùng sẽ so sánh với mảng `ciphertext`. 
+
+Mình sẽ lấy luôn các hàm decrypt bằng cryptoAPI để tránh những sai sót không mong muốn. 
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <wincrypt.h>
+
+#pragma comment(lib, "Advapi32.lib")
+
+
+int main() {
+    // Ciphertext đã mã hóa
+    BYTE ciphertext[] = {
+        0xF8, 0x50, 0xCC, 0xEF, 0xE6, 0x3C, 0x35, 0x96, 0x1D, 0x61, 0xAE, 0xC0, 
+        0xC5, 0x31, 0xCE, 0xB0, 0xE7, 0x1D, 0xED, 0xBC, 0x5D, 0x81, 0x69, 0x8A, 
+        0x35, 0x74, 0x57, 0xB6
+    };
+    DWORD ciphertext_len = sizeof(ciphertext);
+
+    // Tạo khóa RC4 từ URL cố định
+    HCRYPTPROV hProv;
+    if (CryptAcquireContextA(&hProv, NULL, NULL, PROV_RSA_FULL, 0)) {
+        printf("Good\n");
+    }
+
+    HCRYPTHASH hHash;
+    if (CryptCreateHash(hProv, CALG_SHA, 0, 0, &hHash)) {
+        printf("Good\n");
+
+    }
+
+    BYTE youtube_url[] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    int youtube_url_len = lstrlenA((const char*) youtube_url);
+
+    // Hash dữ liệu URL
+    if (CryptHashData(hHash, youtube_url, youtube_url_len, 0)) {
+        printf("Good\n");
+    }
+
+    HCRYPTKEY hKey;
+    if (CryptDeriveKey(hProv, CALG_RC4, hHash, 0, &hKey)) {
+        printf("Good\n");
+    }
+
+    // Giải phóng hash sau khi tạo key
+    CryptDestroyHash(hHash);
+
+    // Giải mã dữ liệu
+    DWORD plaintext_len = ciphertext_len; // Độ dài plaintext sau khi giải mã
+    if (CryptDecrypt(hKey, 0, TRUE, 0, (BYTE*) ciphertext, &plaintext_len)) {
+        printf("Flag = %s", ciphertext);
+    }
+
+    // Dọn dẹp tài nguyên
+    CryptDestroyKey(hKey);
+    CryptReleaseContext(hProv, 0);
+
+    return 0;
+}
+```
+
+Flag thu được là `KCSC{rC4_8uT_1T_L00k2_W31Rd}`

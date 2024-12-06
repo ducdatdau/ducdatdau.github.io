@@ -438,7 +438,7 @@ Hàm `sha256_key` sử dụng các hàm encrypt của WinAPI để tạo hash SH
 
 <img src="4.png"/>
 
-Hàm `md5_iv()` có chức năng tương tự như hàm `sha256_key`.** Thay vì tạo hash SHA256 thì sẽ tạo hash MD5cho link `https://www.youtube.com/watch?v=fzQ6gRAEoy0`
+Hàm `md5_iv()` có chức năng tương tự như hàm `sha256_key`. Thay vì tạo hash SHA256 thì sẽ tạo hash MD5 cho link `https://www.youtube.com/watch?v=fzQ6gRAEoy0`
 
 <img src="5.png"/>
 

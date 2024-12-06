@@ -56,7 +56,7 @@ Sau một năm, mình muốn chơi lại giải này để xem thử trình đ�
 
 Sau khi nhìn tổng quan, ta thấy chương trình khởi tạo cho vm một loạt bytecode như thế này 
 
-<img src="./4.png">
+<img src="./4.png" width=500rem>
 
 Tiếp theo, chương trình cho nhập vào `Buffer` và kiểm tra kích thước xem có bằng 20 không. 
 
@@ -80,17 +80,17 @@ fgets(Buffer, 0x15, v6);
 
 Đặt lại cho mảng `Buffer[]` có kích thước 20 bytes và đổi tên thành `input[]`. 
 
-<img src="./5.png">
+<img src="./5.png"  width=600rem>
 
 và mảng `bytecodes[]` là 400 bytes. 
 
-<img src="./6.png">
+<img src="./6.png" width=600rem>
 
 > Tại sao mình tính được kích thước là 400 bytes. Vì `bytecodes` bắt đầu từ `v24 [rsp+60h]`, kết thúc ở `v131 [rsp+1E8h]`, vậy nên 0x1E8 - 0x60 + 8 = 400
 
 Okay, chương trình đã ngắn hơn một xíu rồi. Tiếp tục quan sát đoạn code dưới đây, ta thấy chương trình sử dụng vtable. Hiểu một cách đơn giản, vtable như là một cái bảng chứa các hàm, chương trình cần dùng hàm nào thì nhảy vào đó mà lấy. 
 
-<img src="./7.png">
+<img src="./7.png" width=600rem>
 
 Ở đây mình sẽ tạo 1 struct cho vtable có kích thước 40 byte, đúng bằng kích thước của `v19`. Double click vào `vtable`, bôi đen toàn bộ các hàm, chuột phải và create struct. Đặt tên cho struct này là `struct_vtable`, tên các field mình vẫn giữ nguyên, sau này khi phân tích kỹ càng hơn mình sẽ rename sau. 
 
@@ -316,7 +316,7 @@ CMP
 
 Phía trên chỉ là toàn bộ phỏng đoán của mình. Để kiểm chứng, mình debug và check ở hàm `CMP` xem logic trên có thực sự đúng không. 
 
-<img src="./10.png">
+<img src="./10.png" width=500rem>
 
 Correct... 
 

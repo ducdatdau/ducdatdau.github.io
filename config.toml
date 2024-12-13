@@ -64,7 +64,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     post = ""
     name = "About Me"
     url = "/aboutme/"
-    title = ""
+    title = "About Me"
   [[menu.main]]
     weight = 3
     identifier = "list100"
@@ -72,7 +72,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     post = ""
     name = "List 100"
     url = "/list100/"
-    title = ""
+    title = "List 100"
 
 [params]
   # site default theme ["auto", "light", "dark"]

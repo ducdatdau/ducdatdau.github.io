@@ -1,4 +1,12 @@
-# List 100 
+---
+title: "List 100"
+date: 2024-12-13T02:35:00+07:00
+draft: false
+description: "List 100"
+lightgallery: true
+math:
+  enable: true
+---
 
 > Things I want to do before I die. Please let me know if you have any recommendation.\
 > Progress as of March 4, 2024

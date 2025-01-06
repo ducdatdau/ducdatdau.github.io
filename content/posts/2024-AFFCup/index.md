@@ -4,22 +4,55 @@ date: 2025-01-06T16:15:38+07:00
 draft: false
 ---
 
+Việt Nam Vô Địch - Tôi Yêu Việt Nam :heart:
+
+<!--more-->
+<style>
+img {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 6px;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+</style>
+
 ## Happy New Year 2025 - Vietnam dominates AFF Cup 2024
+
 
 Vào những ngày đầu xuân năm mới 2025 dương lịch, mình và toàn thể nhân dân đất nước Việt Nam đã được sống và hòa mình trong những giây phút hạnh phúc nhất của cuộc đời. Sau 6 năm chờ đợi, cuối cùng Việt Nam cũng đã nâng cao chiếc cúp AFF, tất cả người dân cả người đã có một đêm không ngủ để cùng nhau ra đường, vô vang khẩu hiệu "Việt Nam Vô Địch".  
 
-<img src="./1.jpg" style="display: block; margin-left: auto; margin-right: auto;">
+![](./1.jpg "Hình ảnh người dân cả nước đi bão")
 
-<img src="./2.jpg" style="display: block; margin-left: auto; margin-right: auto;">
+<!-- <img src="./1.jpg" style="display: block; margin-left: auto; margin-right: auto;"> -->
+
+<div style="text-align: center;">
+    <figure style="display: inline-block; text-align: center;">
+        <img src="./2.jpg" style="height: 5 rem; width: 650px; max-width: 100%;" alt="">
+        <figcaption>Chiếc cúp vàng đã về Việt Nam</figcaption>
+    </figure>
+</div>
+
+
+<!-- <img src="./2.jpg" style="display: block; margin-left: auto; margin-right: auto;"> -->
 
 Mình xem bóng đá lần đầu tiên là khoảng năm 2011, lúc đó giải V.League đang rất nóng, đặc biệt là những trận cầu của SLNA với một vài đối thủ như Hải Phòng, Hà Nội T&T, Thanh Hóa. Mình thường xem bóng cùng với bố hoặc bác trai vào những buổi chiều đi học về, dần dần tình yêu dành cho trái bóng ngày càng lớn. Tình cảm dành cho bóng đá đã nuôi dưỡng cho tâm hồn mình, cho mình những kỉ niệm vô cùng đẹp thời thơ ấu. 
 Và cũng kể từ đó, đây là lần đầu tiên mình được thấy Đội tuyển Quốc gia Việt Nam đánh bại Thái Lan cả lượt đi lẫn lượt về. 
 
-<img src="./4.jpg" style="display: block; margin-left: auto; margin-right: auto;">
+![](./4.jpg "Tỷ số chung cuộc 5-3")
+
+<!-- <img src="./4.jpg" style="display: block; margin-left: auto; margin-right: auto;"> -->
 
 Chiến thắng của Việt Nam ở giải đấu năm nay mang dấu ấn rất lớn của tiền đạo nhập tịch người Brazil Nguyễn Xuân Son. 
 
-<img src="./5.jpg" style="display: block; margin-left: auto; margin-right: auto;">
+<div style="text-align: center;">
+    <figure style="display: inline-block; text-align: center;">
+        <img src="./5.jpg" style="height: 5 rem; width: 650px; max-width: 100%;" alt="">
+        <figcaption>Chiến binh Nguyễn Xuân Son</figcaption>
+    </figure>
+</div>
+
+<!-- <img src="./5.jpg" style="display: block; margin-left: auto; margin-right: auto;"> -->
 
 Thật đáng tiếc khi anh đã dính chấn thương đứt dây chằng trong trận chung kết. Việt Nam đã mất đi một trụ cột rất quan trọng trong đội hình nhưng đó cũng là lời minh chứng cho sức mạnh đội tuyển khi không có sự xuất hiện của Xuân Son trên sân. 
 
@@ -54,11 +87,12 @@ Mình nghĩ rằng, Supachok cũng sẽ không lấy làm vui vẻ gì khi ghi b
 
 Cuối cùng, Việt Nam chúng ta vẫn dành được chiến thắng. Điều đó càng làm cho mình thêm tin tưởng vào sự tử tế, cuộc đời sẽ mỉm cười đối với ai biết chia sẻ, cảm thông. 
 
-<img src="./13.jpg" style="display: block; margin-left: auto; margin-right: auto;">
+![](./13.jpg "Việt Nam quê hương tôi đẹp lắm")
+<!-- <img src="./13.jpg" style="display: block; margin-left: auto; margin-right: auto;"> -->
 
 Việt Nam Vô Địch - Tôi Yêu Việt Nam :heart:
-
-<img src="./3.jpg" style="display: block; margin-left: auto; margin-right: auto;">
+![](./3.jpg "Việt Nam là nhà vô địch")
+<!-- <img src="./3.jpg" style="display: block; margin-left: auto; margin-right: auto;"> -->
 
 <!-- <img src="./10.jpg" style="display: block; margin-left: auto; margin-right: auto;"> -->
 <!-- <img src="./6.jpg" style="display: block; margin-left: auto; margin-right: auto;"> -->

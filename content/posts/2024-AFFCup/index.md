@@ -8,9 +8,6 @@ draft: false
 
 Vào những ngày đầu xuân năm mới 2025 dương lịch, mình và toàn thể nhân dân đất nước Việt Nam đã được sống và hòa mình trong những giây phút hạnh phúc nhất của cuộc đời. Sau 6 năm chờ đợi, cuối cùng Việt Nam cũng đã nâng cao chiếc cúp AFF, tất cả người dân cả người đã có một đêm không ngủ để cùng nhau ra đường, vô vang khẩu hiệu "Việt Nam Vô Địch".  
 
-<img src="./3.jpg" style="display: block; margin-left: auto; margin-right: auto;">
-
-
 <img src="./1.jpg" style="display: block; margin-left: auto; margin-right: auto;">
 
 <img src="./2.jpg" style="display: block; margin-left: auto; margin-right: auto;">
@@ -60,5 +57,8 @@ Cuối cùng, Việt Nam chúng ta vẫn dành được chiến thắng. Điều
 <img src="./13.jpg" style="display: block; margin-left: auto; margin-right: auto;">
 
 Việt Nam Vô Địch - Tôi Yêu Việt Nam :heart:
+
+<img src="./3.jpg" style="display: block; margin-left: auto; margin-right: auto;">
+
 <!-- <img src="./10.jpg" style="display: block; margin-left: auto; margin-right: auto;"> -->
 <!-- <img src="./6.jpg" style="display: block; margin-left: auto; margin-right: auto;"> -->

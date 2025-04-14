@@ -8,10 +8,8 @@ math:
   enable: true
 ---
 
-## Hello, I’m ducdatdau.
+Duc Dat Dau is a passionate security researcher and currently a third-year undergraduate student in Cybersecurity at Thuyloi University, Vietnam. He is recognized as the top-performing student in his department and was awarded a Bronze Medal in the Vietnam Student Mathematical Olympiad 2023.
 
-I’m a hacker/security researcher from Vietnam 🇻🇳
+His current research interests center around hardware and operating system security, including the exploitation of low-level vulnerabilities in the Linux kernel and embedded systems. He is particularly enthusiastic about reverse engineering and the systematic analysis of modern attack surfaces.
 
-During the day, I learn about cybersecurity at my university. At night and in my free time, I research IoT hardware, learn techniques to hack Linux kernel or write exploits for vulnerabilities. Sometimes, I play CTF with the [TAS.DihydroMonoxide](https://ctftime.org/team/359392).
-
-I plan to graduate in 2026 and am open to pursuing an MS or PhD if given the opportunity. This is my [resume](https://wru-my.sharepoint.com/:b:/g/personal/2251272678_e_tlu_edu_vn/EVoRDiq9bVJBk2mWXTx9tuMB82_yumheVEgaKpi_eWSGBQ?e=10zwfE). Please let me know if it meets your requirements. Regards.
+He plans to pursue a Master's degree (and potentially a Ph.D.) in Cybersecurity after his graduation in 2026. He is always open to research opportunities and collaborations in systems security.

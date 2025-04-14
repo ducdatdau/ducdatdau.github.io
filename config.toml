@@ -158,6 +158,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     themeColor = "#ffffff"
     # Safari mask icon color
     iconColor = "#5bbad5"
+
     # Windows v8-10 tile color
     tileColor = "#da532c"
 

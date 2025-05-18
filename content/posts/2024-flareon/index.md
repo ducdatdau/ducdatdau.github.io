@@ -89,7 +89,7 @@ Tìm trong local app data, thu được flag challenge.
 
 Đề bài cho chúng ta một file YARA rule, nhiệm vụ là đi tìm input để khớp với những rule này. 
 
-<img src="./image.png">
+<img src="./8.png">
 
 ### Clean code 
 

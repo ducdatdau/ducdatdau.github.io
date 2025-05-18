@@ -220,7 +220,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     Discord = "ducdatdau"
     Email = "contact.ducdatdau@gmail.com"
     RSS = true # 
-
+      
   #  Page global config
   [params.page]
     #  whether to hide a page from home page

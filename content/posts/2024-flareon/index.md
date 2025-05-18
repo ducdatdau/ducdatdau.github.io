@@ -191,9 +191,13 @@ if (s.check() == sat):
 
 Full script các bạn có thể đọc ở [đây](./solve.py)
 
+### Flag 
+
 Kết quả thu được là 
 
 ```shell
 C:\Users\PWN2OWN\CTF\Flare-On\Flare11\3_aray\aray>python brute.py
 bytearray(b'rule flareon { strings: $f = "1RuleADayK33p$Malw4r3Aw4y@flare-on.com" condition: $f }')
 ```
+
+## Challenge 4: FLARE Meme Maker 3000

@@ -608,6 +608,7 @@ custom_sigma = b"expand 32-byte K"
 plaintext = chacha20_decrypt(key, nonce, encrypted_data, counter=0, sigma=custom_sigma)
 
 print("Decrypted:", plaintext)
+# Decrypted: b'supp1y_cha1n_sund4y@flare-on.com\n\x86Xm\xb4U'
 ```
 
 ## Challenge 6: bloke2

@@ -12,6 +12,15 @@ toc:
 Solutions for some challenges in Flare On 11
 
 <!--more-->
+<style>
+img {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 6px;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+</style>
 
 # Flare On 11
 
@@ -400,3 +409,205 @@ After reloading the page, we get the flag: `wh0a_it5_4_cru3l_j4va5cr1p7@flare-on
 <img src="./11.png">
 
 ## Challenge 5: sshd 
+
+{{< admonition note "Challenge Information" >}}
+* **Given file:** [sshd.7z](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYCYJYqV0dZCtAzhZT2O2skBMNpPgWPQ45qrW9Ztf5KQ5A?e=X5v81N)
+* **Description:** Our server in the FLARE Intergalactic HQ has crashed! Now criminals are trying to sell me my own data!!! Do your part, random internet hacker, to help FLARE out and tell us what data they stole! We used the best forensic preservation technique of just copying all the files on the system for you.\
+7zip archive password: flare
+{{< /admonition >}}
+
+### Opinion 
+
+In my opinion, this is one of the best challenges in the series. It is related to cases of real-world cybersecurity incidents and mentions a very interesting backdoor [that was discovered last year](https://en.wikipedia.org/wiki/XZ_Utils_backdoor).
+
+### Part 1: Overview 
+
+The challenge provides a filesystem image.
+
+<img src="./12.png">
+
+The description mentions that the server crashed due to something. When an application crashes on Linux, the coredump file is stored at `/var/lib/systemd/coredump`. There is a coredump file related to the `sshd` process.
+
+```shell
+➜ ls ./var/lib/systemd/coredump
+sshd.core.93794.0.0.11.1725917676
+```
+
+To get a clearer picture of the memory at the time the process crashed, I used GDB for analysis.
+
+```shell
+➜ gdb ./usr/sbin/sshd ./var/lib/systemd/coredump/sshd.core.93794.0.0.11.1725917676
+```
+
+Looking at the information provided by the `bt` command, the program crashed due to calling a function at address `0x0000000000000000`. The function that caused the crash is at address `0x00007f4a18c8f88f`, located in the `liblzma.so.5` library.
+
+<img src="./13.png">
+
+Observing the memory mapping information using the `info proc mappings` command, we see that starting from address `0x7f4a18c86000`, there are memory regions that have been deleted but contain the faulty code at `0x00007f4a18c8f88f`.  
+
+<img src="./14.png">
+
+Update the base address of the library in IDA PRO to facilitate analysis of the liblzma.so.5 library.
+
+<img src="./15.png" width=400rem>
+
+### Part 2: Analysis The library 
+
+Jumping to the address that caused the crash, the function that caused the error is `sub_7F4A18C8F820`, with the content renamed as follows:
+
+<img src="./16.png">
+
+Normally, `dlsym` would call the `RSA_public_decrypt` function by its exact name. However, `symbol_name` has an extra space at the end. Therefore, `dlsym` returns NULL, and the code below causes a crash.
+
+What we need to pay attention to is the code at `line[20:26]`. Thanks to the string `expand 32-byte k`, we can determine that the encryption algorithm is likely ChaCha20 or Salsa20. Its operation flow can be summarized as follows:
+
+The process involves mapping and copying the encrypted shellcode into a memory region with full RWX permissions. After that, the shellcode is decrypted, executed, and then re-encrypted to avoid detection.
+
+---
+
+The next task is to decrypt the shellcode.
+
+There are several ways to decrypt the shellcode. You can dump the `init_chacha20_block, sus_crypto_fn`, `from`, and `encrypted_shellcode` functions and use Unicorn or Ghidra + plugin to emulate and analyze.
+
+I choose a different way to save time, though it may be more error-prone. Find the `key` and `nonce` and manually decrypt the shellcode.
+
+The `v10` function — the one that caused the crash calls the `from` variable as its second parameter. Therefore, `rsi` will store the value of the `from` variable
+
+```c
+(v10)(flen, from, to, rsa, padding)
+```
+
+From there, it's easy to determine: `key = from + 4` and `nonce = from + 0x24` based on the call to `init_chacha20_block_sub_7F4A18C8F3F0(v14, (from + 4), (from + 0x24), 0LL)`. 
+
+<img src="./17.png">
+
+We see that `rsi = from = 0xc5407a48`, which matches the backdoor signature check. Continue to decrypt the shellcode with the key and nonce just found.
+
+```python
+from Crypto.Cipher import ChaCha20 
+
+key = b"\x94\x3d\xf6\x38\xa8\x18\x13\xe2\xde\x63\x18\xa5\x07\xf9\xa0\xba\x2d\xbb\x8a\x7b\xa6\x36\x66\xd0\x8d\x11\xa6\x5e\xc9\x14\xd6\x6f"
+nonce = b"\xf2\x36\x83\x9f\x4d\xcd\x71\x1a\x52\x86\x29\x55"
+
+with open("./dumped_bytes.bin", "rb") as f: 
+    encrypted_data = f.read() 
+
+cipher = ChaCha20.new(key=key, nonce=nonce)
+decrypted_data = cipher.decrypt(encrypted_data)
+
+with open("decrypted_shellcode.bin", "wb") as f:
+    f.write(decrypted_data)
+```
+
+### Part 3: Analysis Shellcode 
+
+The shellcode is quite short and straightforward. It frequently sets the value of the `rax` register to call syscalls in the form `{push value; pop rax}`
+
+<img src="./18.png">
+
+To summarize, the shellcode's operation flow is as follows:
+- Create a socket and connect to `10.0.2.15:1337`
+- Receive 0x20 bytes `key`
+- Receive 12 bytes `nonce`
+- Receive 4 bytes `size_of_file_path_name`
+- Receive `size_of_file_path_name` bytes `file_path`
+- Open the file
+- Read 0x80 bytes from `file_path`, store in `file_content`
+- Initialize ChaCha20/Salsa algorithm
+- Encrypt file_content using the above algorithm
+- Send `encrypted_file_content_size` to C2
+- Send `encrypted_file_content` to C2
+- Close the file
+- Shutdown the connection
+
+Searching for strings in the coredump file, we find a very important path `/root/certificate_authority_signing_key.txt`. Opening HxD, we can easily see that the values around the path match the operation flow summarized above.
+
+<img src="./20.png">
+
+- Green underline: `key`
+- Orange underline: `nonce`
+- Red underline: `size_of_file_path_name`
+
+Using IDA PRO, we calculate the offset of `path_name` relative to `file_content`.
+
+<img src="./19.png" width=400>
+
+Returning to decrypting the data, the shellcode used the ChaCha20 algorithm but with a custom sigma `expand 32-byte K`.
+
+<img src="./21.png">
+
+Rewrite the entire ChaCha20 decryption function instead of using the library, and we get the challenge flag.
+
+```python
+import struct
+
+def rotate(v, c):
+    return ((v << c) & 0xffffffff) | (v >> (32 - c))
+
+def quarter_round(x, a, b, c, d):
+    x[a] = (x[a] + x[b]) & 0xffffffff
+    x[d] ^= x[a]
+    x[d] = rotate(x[d], 16)
+
+    x[c] = (x[c] + x[d]) & 0xffffffff
+    x[b] ^= x[c]
+    x[b] = rotate(x[b], 12)
+
+    x[a] = (x[a] + x[b]) & 0xffffffff
+    x[d] ^= x[a]
+    x[d] = rotate(x[d], 8)
+
+    x[c] = (x[c] + x[d]) & 0xffffffff
+    x[b] ^= x[c]
+    x[b] = rotate(x[b], 7)
+
+def chacha20_block(key, counter, nonce, sigma):
+    state = (
+        list(struct.unpack('<4I', sigma)) +
+        list(struct.unpack('<8I', key)) +
+        [counter] +
+        list(struct.unpack('<3I', nonce))
+    )
+
+    working_state = state[:]
+    for _ in range(10):  # 20 rounds (10 double rounds)
+        quarter_round(working_state, 0, 4, 8, 12)
+        quarter_round(working_state, 1, 5, 9, 13)
+        quarter_round(working_state, 2, 6, 10, 14)
+        quarter_round(working_state, 3, 7, 11, 15)
+        quarter_round(working_state, 0, 5, 10, 15)
+        quarter_round(working_state, 1, 6, 11, 12)
+        quarter_round(working_state, 2, 7, 8, 13)
+        quarter_round(working_state, 3, 4, 9, 14)
+
+    for i in range(16):
+        working_state[i] = (working_state[i] + state[i]) & 0xffffffff
+
+    return struct.pack('<16I', *working_state)
+
+def chacha20_decrypt(key, nonce, ciphertext, counter=0, sigma=b"expand 32-byte K"):
+    assert len(key) == 32
+    assert len(nonce) == 12
+    assert len(sigma) == 16
+
+    plaintext = b""
+    for block_index in range(0, len(ciphertext), 64):
+        block = chacha20_block(key, counter, nonce, sigma)
+        chunk = ciphertext[block_index:block_index + 64]
+        keystream = block[:len(chunk)]
+        plaintext += bytes([c ^ k for c, k in zip(chunk, keystream)])
+        counter += 1
+    return plaintext
+
+
+key = b"\x8D\xEC\x91\x12\xEB\x76\x0E\xDA\x7C\x7D\x87\xA4\x43\x27\x1C\x35\xD9\xE0\xCB\x87\x89\x93\xB4\xD9\x04\xAE\xF9\x34\xFA\x21\x66\xD7"
+nonce = b"\x11\x11\x11\x11\x11\x11\x11\x11\x11\x11\x11\x11"
+encrypted_data = b"\xA9\xF6\x34\x08\x42\x2A\x9E\x1C\x0C\x03\xA8\x08\x94\x70\xBB\x8D\xAA\xDC\x6D\x7B\x24\xFF\x7F\x24\x7C\xDA\x83\x9E\x92\xF7\x07\x1D\x02\x63\x90\x2E\xC1\x58"
+custom_sigma = b"expand 32-byte K"
+
+plaintext = chacha20_decrypt(key, nonce, encrypted_data, counter=0, sigma=custom_sigma)
+
+print("Decrypted:", plaintext)
+```
+
+## Challenge 6: bloke2

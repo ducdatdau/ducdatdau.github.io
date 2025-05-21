@@ -4,7 +4,7 @@ date: 2024-11-03
 draft: false
 description: "Solutions for some challenges in KCSC CTF 2024"
 tags: ["2024", "KCSC CTF", "Rev", "Pwn"]
-categories: ["CTF Writeups"]
+# categories: ["CTF Writeups"]
 lightgallery: true
 toc:
   enable: true

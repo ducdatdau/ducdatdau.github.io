@@ -3,7 +3,7 @@ title: "BKCTF 2023"
 date: 2023-08-19T15:31:20+07:00
 draft: false
 tags: ["2023", "BKCTF", "Rev", "Pwn"]
-categories: ["CTF Writeups"]
+# categories: ["CTF Writeups"]
 lightgallery: true
 toc:
   enable: true

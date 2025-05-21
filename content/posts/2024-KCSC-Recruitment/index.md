@@ -4,7 +4,7 @@ date: 2024-11-01T16:00:03+07:00
 draft: false
 description: "Solutions for some challenges in KCSC Recruitment 2024"
 tags: ["2024", "KCSC Recruitment", "Rev"]
-categories: ["CTF Writeups"]
+# categories: ["CTF Writeups"]
 lightgallery: true
 toc:
   enable: true

@@ -2,8 +2,8 @@
 title: "Flare On 11"
 date: 2025-05-14T19:18:47+07:00
 draft: false
-tags: ["2025", "Flare On", "Rev"]
-categories: ["CTF Writeups"]
+tags: ["2025", "FlareOn", "Rev"]
+# categories: ["CTF Writeups"]
 lightgallery: true
 toc:
   enable: true

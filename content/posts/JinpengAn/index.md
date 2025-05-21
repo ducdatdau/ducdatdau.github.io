@@ -2,8 +2,8 @@
 title: "Câu chuyện của Tiến sĩ An Kim Bằng"
 date: 2024-11-25T17:01:38+07:00
 draft: false
-tags: [Mathematics"]
-categories: ["Blog"]
+tags: ["Blog", "Mathematics"]
+# categories: ["Blog"]
 lightgallery: true
 ---
 

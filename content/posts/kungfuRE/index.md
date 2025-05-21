@@ -4,7 +4,7 @@ date: 2024-12-05T14:31:53+07:00
 draft: false
 description: "Solutions for some rev challenges by ducdatdau"
 tags: ["Training", "Rev"]
-categories: ["CTF Writeups"]
+# categories: ["CTF Writeups"]
 lightgallery: true
 toc:
   enable: true

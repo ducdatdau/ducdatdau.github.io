@@ -3,8 +3,7 @@ title: "ISITDTU Quals 2024"
 date: 2024-11-01T16:42:03+07:00
 draft: false
 description: "Solutions for some challenges in ISITDTU Quals 2024 by ducdatdau"
-tags: ["2024", "ISITDTU", "Rev", "Pwn"]
-categories: ["CTF Writeups"]
+tags: ["2024", "ISITDTU", "Reverse-Engineering", "Pwnable"]
 lightgallery: true
 toc:
   enable: true

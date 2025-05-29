@@ -87,7 +87,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # website title for Open Graph and Twitter Cards
   title = "ducdatdau blog"
   # website description for RSS, SEO, Open Graph and Twitter Cards
-  description = "# never stop exploiting 💦"
+  description = "just a street kid with a solid academic background 🇻🇳"
   # website images for Open Graph and Twitter Cards
   images = ["/logo.png"]
 
@@ -102,7 +102,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # URL of the LOGO
       logo = ""
       # title name
-      name = "Blogs"
+      name = "Home"
       # you can add extra information before the name (HTML format is supported), such as icons
       pre = ""
       # you can add extra information after the name (HTML format is supported), such as icons
@@ -196,9 +196,9 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # URL of avatar shown in home page
       avatarURL = "https://avatars.githubusercontent.com/u/96908409?s=400&u=64e5f6c916299bc18ec014db3b445c3d27c3f65f&v=4"
       #  title shown in home page (HTML format is supported)
-      title = "Welcome to ducdatdau's Blog"
+      title = "Dat D. Dau"
       # subtitle shown in home page (HTML format is supported)
-      subtitle = "# never stop exploiting 💦"
+      subtitle = "just a street kid with a solid academic background 🇻🇳"
       # whether to use typeit animation for subtitle
       typeit = true
       # whether to show social links
@@ -218,8 +218,8 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   [params.social]
     GitHub = "ducdatdau"
     Discord = "ducdatdau"
-    Email = "contact.ducdatdau@gmail.com"
-    RSS = true # 
+    # Email = "contact.ducdatdau@gmail.com"
+    # RSS = true # 
       
   #  Page global config
   [params.page]

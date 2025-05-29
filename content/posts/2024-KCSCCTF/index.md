@@ -3,7 +3,7 @@ title: "KCSC CTF 2024"
 date: 2024-11-03
 draft: false
 description: "Solutions for some challenges in KCSC CTF 2024"
-tags: ["2024", "KCSC CTF", "Rev", "Pwn"]
+tags: ["2024", "KCSC CTF", "Reverse-Engineering", "Pwnable"]
 # categories: ["CTF Writeups"]
 lightgallery: true
 toc:

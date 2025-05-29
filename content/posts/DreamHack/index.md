@@ -2,7 +2,7 @@
 title: "Dream Hack Playround"
 date: 2025-05-21
 draft: false
-tags: ["Wargame", "DreamHack", "Rev", "Pwn"]
+tags: ["DreamHack", "Reverse-Engineering", "Pwnable"]
 # categories: ["CTF Writeups"]
 lightgallery: true
 toc:

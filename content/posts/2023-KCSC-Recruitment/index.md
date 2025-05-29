@@ -3,7 +3,7 @@ title: "KCSC Recruitment 2023"
 date: 2023-12-31T16:00:03+07:00
 draft: false
 description: "Solutions for some challenges in KCSC Recruitment 2023 by ducdatdau"
-tags: ["2023", "KCSC Recruitment", "Rev", "Pwn"]
+tags: ["2023", "KCSC Recruitment", "Reverse-Engineering", "Pwnable"]
 # categories: ["CTF Writeups"]
 lightgallery: true
 toc:

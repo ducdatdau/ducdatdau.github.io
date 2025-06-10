@@ -1,7 +1,7 @@
 ---
 title: "Olympic Toán Sinh viên Toàn quốc 2023"
 date: 2023-04-10T01:13:42+07:00
-draft: false
+draft: true
 tags: ["Blog", "Mathematics"]
 # categories: ["Blog"]
 lightgallery: true

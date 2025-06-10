@@ -1,7 +1,7 @@
 ---
 title: "Dream Hack Playround"
 date: 2025-05-21
-draft: false
+draft: true
 tags: ["DreamHack", "Reverse-Engineering", "Pwnable"]
 # categories: ["CTF Writeups"]
 lightgallery: true

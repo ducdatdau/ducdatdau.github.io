@@ -10,7 +10,7 @@ math:
 
 <div style="text-align: center;">
     <figure style="display: inline-block; text-align: center;">
-        <img src="./avt.jpg" style="width: 150px; border-radius:999px; max-width: 100%;">
+        <img src="./avt.png" style="width: 150px; border-radius:999px; max-width: 100%;">
     </figure>
 </div>
 

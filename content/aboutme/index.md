@@ -10,7 +10,7 @@ math:
 
 <div style="text-align: center;">
     <figure style="display: inline-block; text-align: center;">
-        <img src="./avt.png" style="width: 150px; border-radius:999px; max-width: 100%;">
+        <img src="/aboutme/avt.png" style="width: 150px; border-radius:999px; max-width: 100%;">
     </figure>
 </div>
 
@@ -21,9 +21,9 @@ Phone: (+84) 366.337.737
 
 ## PROFILE 
 
-Duc Dat Dau is a third-year undergraduate student in Cyber Security at Thuyloi University, Vietnam. 
+Duc Dat Dau is a third-year undergraduate student in Cyber Security at Thuyloi University, Vietnam.
 
-His current research interests center around hardware and operating system security, including the exploitation of low-level vulnerabilities in the Linux kernel and embedded systems. He is particularly enthusiastic about reverse engineering and the systematic analysis of modern attack surfaces.
+His primary research interests lie in reverse engineering and binary exploitation, with a strong emphasis on understanding and manipulating low-level software behavior. He is also interested in hardware security, fuzzing, and the security of IoT systems, especially in contexts where software and hardware interact in complex and potentially vulnerable ways.
 
 ## PUBLICATIONS
 

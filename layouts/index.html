@@ -1,0 +1,17 @@
+{{- define "content" -}}
+    {{ $aboutme := site.GetPage "aboutme/index" }}
+    {{- if $aboutme -}}
+        <div class="page home">
+            <article class="single">
+                <h1 class="single-title animate__animated animate__flipInX">{{ $aboutme.Title }}</h1>
+                <div class="content" id="content">
+                    {{ $aboutme.Content }}
+                </div>
+            </article>
+        </div>
+    {{- else -}}
+        <div class="page home">
+            <p>Không tìm thấy trang About Me.</p>
+        </div>
+    {{- end -}}
+{{- end -}} 

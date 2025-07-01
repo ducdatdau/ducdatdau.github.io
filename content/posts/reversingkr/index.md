@@ -56,7 +56,9 @@ Instruction tham chiếu một địa chỉ không hợp lệ 0x60160A9D. Đây 
 dword_4084D0 = hex(input) + 2 + 0x601605C7 + 2
 ```
 
-Vậy là chỉ cần đưa `dword_4084D0` trỏ về đoạn code `correct`. Giá trị input thỏa mãn là: 
+### Solving 
+
+Vậy nhiệm vụ lúc này là chỉ cần đưa `dword_4084D0` trỏ về đoạn code `correct`. Giá trị input thỏa mãn là: 
 ```
 input = (0x401071 - 2 - 0x601605C7 - 2) & 0xFFFFFFFF = 2687109798
 ```
@@ -64,3 +66,41 @@ input = (0x401071 - 2 - 0x601605C7 - 2) & 0xFFFFFFFF = 2687109798
 > Do kết quả âm nên phải & 0xFFFFFFFF 
 
 ## ImagePrc ~ 120 points 
+
+### Overview 
+
+Chương trình cho người chơi vẽ hình bất kỳ và có nút check kết quả. 
+
+<img src="./5.png" width=400rem>
+
+Với dạng bài này, khả năng cao chương trình sẽ so sánh hình chúng ta vẽ với dữ liệu đã có sẵn. 
+
+### Static Analysis
+
+Chương trình đăng ký lớp cửa sổ với các thuộc tính: Background, Cursor, Icon, ... Sau đó tính toán vị trí để cửa sổ ở giữa màn hình, tạo cửa sổ và hiển thị. 
+
+<img src="./6.png">
+
+Hàm xử lý logic chính của chương trình chính là `sub_401130()`. Trước tiên, nó tạo một bitmap có kích thước 200x150.
+
+<img src="./7.png">
+
+Tiếp theo, gọi các hàm `FindResourceA()`, `LoadResource()`, `LockResource()` để tải tài nguyên có sẵn lên rồi đem đi so sánh với dữ liệu mình vẽ. 
+
+<img src="./8.png">
+
+### Solving 
+
+Sử dụng tool Paint, tạo ra một bức ảnh có kích thước 200x150, lưu dưới dạng BMP picture. 
+
+<img src="./9.png">
+
+Copy toàn bộ tài nguyên bằng tool Resource Hacker, tiếp tục dùng tool HxD để paste chúng vào ảnh ở trên. Phần được select là phần được giữ lại của BMP picture. 
+
+<img src="./11.png" width=600rem>
+
+
+Save lại và mở ra, ta có được đáp án thử thách. 
+
+<img src="./10.png" width=300rem>
+

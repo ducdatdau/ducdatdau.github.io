@@ -99,8 +99,58 @@ Copy toàn bộ tài nguyên bằng tool Resource Hacker, tiếp tục dùng too
 
 <img src="./11.png" width=600rem>
 
-
 Save lại và mở ra, ta có được đáp án thử thách. 
 
 <img src="./10.png" width=300rem>
 
+## Music Player ~ 150 points 
+
+### Overview
+
+Chạy một đoạn nhạc mp3 có độ dài > 60s, một message box hiện lên với nội dung khá khó hiểu "????". 
+
+<img src="./13.png" width=400rem>
+
+Thử thách còn cung cấp một file `ReadMe.txt` với nội dung:  
+
+```
+This MP3 Player is limited to 1 minutes.
+You have to play more than one minute.
+
+There are exist several 1-minute-check-routine.
+After bypassing every check routine, you will see the perfect flag.
+```
+
+Đọc qua, chúng ta có thể hình dung được nhiệm vụ sẽ phải đi bypass những đoạn check "1-minute" có trong chương trình. 
+
+### Static Analysis
+
+Chương trình được viết bởi ngôn ngữ Visual Basic, thực sự các hàm được IDAPRO tạo ra đều không đem lại giá trị quá nhiều. Mình bắt đầu đi tìm những đoạn code có liên quan tới việc hiển thị Message Box.
+
+Kiểm tra ở tab Import, ta thấy `__imp_rtcMsgBox` giúp gợi nhớ tới Message Box và được gọi ở 2 hàm `sub_4038D0()` và `sub_4044C0()`. 
+
+<img src="./14.png" width=600rem>
+
+Ở `sub_4038D0()`, hàm `__imp_rtcMsgBox` được gọi khá nhiều nhưng mình không tìm thấy đoạn code nào có kiểm tra độ dài thời gian file mp3. 
+
+<img src="./15.png">
+
+Ở `sub_4044C0`, ta tìm được đoạn check thời gian ngay tại đây 
+
+<img src="./17.png">
+
+Chính đoạn check đó sẽ đưa chương trình vào nhánh sai (màu đỏ). Vì vậy, tôi sẽ dùng plugin KeyPatch để thay đổi từ lệnh `jl` thành `jmp` (nhảy trực tiếp) tới vị trí 0x004045FE. 
+
+<img src="./18.png" width=400rem>
+
+Apply patch, save và chạy lại chương trình. Một lỗi khác lại xuất hiện "Run-time error". 
+
+<img src="./19.png" width=300rem>
+
+Sau khi quan sát toàn bộ các hàm bên nhánh đúng, tôi đã đi hỏi [ChatGPT](https://chatgpt.com/share/68666386-bf3c-8010-86c7-dbbb1536e1b2) về các hàm có thể gây lỗi. Tôi đã quyết định sửa `jge` thành `jmp` để nó bỏ qua hàm `__imp___vbaHresultCheckObj()` đầu tiên. 
+
+<img src="./20.png">
+
+Lưu lại chương trình, ta thu được flag ở thanh tiêu đề chương trình. 
+
+<img src="./21.png" width=400rem>

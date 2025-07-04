@@ -154,3 +154,114 @@ Sau khi quan sát toàn bộ các hàm bên nhánh đúng, tôi đã đi hỏi [
 Lưu lại chương trình, ta thu được flag ở thanh tiêu đề chương trình. 
 
 <img src="./21.png" width=400rem>
+
+## Easy Crack ~ 100 points 
+
+Hàm check input rất rõ ràng như sau 
+
+<img src="./22.png">
+
+Ghép nối các đoạn check lại, ta thu được flag "Ea5yR3versing". 
+
+## Position ~ 160 points 
+
+### Overview 
+
+Chương trình là một bài keygen thuần túy. 
+
+<img src="./26.png" width=300rem>
+
+> Khi chạy chương trình, máy mình thông báo thiếu [msvcr100.dll](https://www.dll-files.com/download/ef3e115c225588a680acf365158b2f4a/msvcr100.dll.html?c=RzJuTXBnOWM1WFhYa0ZFY0hyOC9vZz09) và [mfc100u.dll](https://www.dll-files.com/download/6358cc2a77f3c12c5b9b16190d5477f7/mfc100u.dll.html?c=Q1JBekRTNVFtelcwZmJmVEoySVZPZz09). Lên mạng download các dll còn thiếu về rồi paste vào thư mục challenge để fix các lỗi. 
+
+Ngoài ra, còn có một file `README.txt.` có nội dung như sau: 
+
+```
+ReversingKr KeygenMe
+
+Find the Name when the Serial is 76876-77776
+This problem has several answers.
+
+Password is ***p
+```
+
+Từ đó, ta có thể hình dung được phải đi tìm `name` có tận cùng là chữ `p` và thỏa mãn serial bằng `76876-77776`.
+
+### Static Analysis
+
+Sau khi tìm kiếm các hàm trong IDAPRO, ta dễ dàng nhận biết được `sub_DD1740()` chính là hàm check input. 
+
+<img src="./25.png">
+
+Về cơ bản, hàm này sẽ 
+- Kiểm tra độ dài `name` có bằng 4 hay không? 
+- Kiểm tra các ký tự trong `name` có thuộc khoảng [a-z] không? 
+- Kiểm tra các ký tự trong `name` có trùng lặp hay không? 
+- Kiểm tra độ dài `serial` có bằng 11 hay không? Ký tự thứ 6 (serial[5]) có phải là dấu `-` hay không? 
+- Tạo ra các giá trị trung gian dựa trên biến `name` rồi đem đi so sánh với `serial`. 
+
+### Solving 
+
+Do `name` có 4 ký tự, ký tự cuối cùng là `p` nên ta chỉ cần brute-force 3 ký tự còn lại là tìm ra kết quả. 
+
+```python
+from itertools import permutations
+
+def bit_sum(c, mask):
+    return ((ord(c) & mask) != 0)
+
+def calc_serial_part(c0, c1, c2, c3):
+    vals = [0] * 10
+
+    # name[0], name[1]
+    vals[0] = (ord(c0) & 1) + 5 + bit_sum(c1, 4) + 1
+    vals[1] = bit_sum(c0, 8) + 5 + bit_sum(c1, 8) + 1
+    vals[2] = bit_sum(c0, 2) + 5 + bit_sum(c1, 0x10) + 1
+    vals[3] = bit_sum(c0, 4) + 5 + (ord(c1) & 1) + 1
+    vals[4] = bit_sum(c0, 0x10) + 5 + bit_sum(c1, 2) + 1
+
+    vals[5] = '-' 
+
+    # name[2], name[3]
+    vals[6] = (ord(c2) & 1) + 5 + bit_sum(c3, 4) + 1
+    vals[7] = bit_sum(c2, 8) + 5 + bit_sum(c3, 8) + 1
+    vals[8] = bit_sum(c2, 2) + 5 + bit_sum(c3, 0x10) + 1
+    vals[9] = bit_sum(c2, 4) + 5 + (ord(c3) & 1) + 1
+    vals.append(bit_sum(c2, 0x10) + 5 + bit_sum(c3, 2) + 1)
+
+    return vals[:5] + vals[6:]
+
+def check_name(name, target_serial="76876-77776"):
+    # Check format
+    if len(name) != 4 or len(set(name)) != 4:
+        return False
+
+    # Serial target
+    expected = list(target_serial)
+    if expected[5] != '-':
+        return False
+
+    c0, c1, c2, c3 = name
+    computed_vals = calc_serial_part(c0, c1, c2, c3)
+
+    for i in range(5):
+        if str(computed_vals[i])[0] != expected[i]:
+            return False
+    for i in range(5, 10):
+        if str(computed_vals[i])[0] != expected[i + 1]: 
+            return False
+
+    return True
+
+from string import ascii_lowercase
+
+for name_tuple in permutations(ascii_lowercase, 3):
+    name = ''.join(name_tuple) + 'p' 
+    if check_name(name):
+        print(f"[+] Found valid name: {name}")
+
+# [+] Found valid name: bump
+# [+] Found valid name: cqmp
+# [+] Found valid name: ftmp
+```
+
+## Direct3D FPS ~ 140 points 

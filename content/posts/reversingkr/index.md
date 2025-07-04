@@ -24,15 +24,15 @@ img {
 
 # reversing.kr
 
-## Replace ~ 150 points 
+## 1. Replace ~ 150 points 
 
-### Overview 
+### 1.1. Overview 
 
 Một bài yêu cầu nhập password chính xác. Khi click check, chương trình chạy một lúc và tự thoát ngay sau đó. 
 
 <img src="./1.png" width=300rem>
 
-### Static Analysis
+### 1.2. Static Analysis
 
 Đây là mã giả của chương trình khi được phân tích trong IDAPRO32. 
 
@@ -40,7 +40,7 @@ Một bài yêu cầu nhập password chính xác. Khi click check, chương tr�
 
 Lời gọi hàm `sub_40466F()` dẫn tới lệnh `call $+5` rất lạ. Mình đặt breakpoint ngay chỗ này và debug để xem nó đang làm gì. 
 
-### Dynamic Analysis
+### 1.3. Dynamic Analysis
 
 Quan sát kỹ càng, nhận thấy rằng giá trị `dword_4084D0` chính là giá trị hexacimal của input. 
 
@@ -56,7 +56,7 @@ Instruction tham chiếu một địa chỉ không hợp lệ 0x60160A9D. Đây 
 dword_4084D0 = hex(input) + 2 + 0x601605C7 + 2
 ```
 
-### Solving 
+### 1.4. Solving 
 
 Vậy nhiệm vụ lúc này là chỉ cần đưa `dword_4084D0` trỏ về đoạn code `correct`. Giá trị input thỏa mãn là: 
 ```
@@ -65,9 +65,9 @@ input = (0x401071 - 2 - 0x601605C7 - 2) & 0xFFFFFFFF = 2687109798
 
 > Do kết quả âm nên phải & 0xFFFFFFFF 
 
-## ImagePrc ~ 120 points 
+## 2. ImagePrc ~ 120 points 
 
-### Overview 
+### 2.1. Overview 
 
 Chương trình cho người chơi vẽ hình bất kỳ và có nút check kết quả. 
 
@@ -75,7 +75,7 @@ Chương trình cho người chơi vẽ hình bất kỳ và có nút check kế
 
 Với dạng bài này, khả năng cao chương trình sẽ so sánh hình chúng ta vẽ với dữ liệu đã có sẵn. 
 
-### Static Analysis
+### 2.2. Static Analysis
 
 Chương trình đăng ký lớp cửa sổ với các thuộc tính: Background, Cursor, Icon, ... Sau đó tính toán vị trí để cửa sổ ở giữa màn hình, tạo cửa sổ và hiển thị. 
 
@@ -89,7 +89,7 @@ Tiếp theo, gọi các hàm `FindResourceA()`, `LoadResource()`, `LockResource(
 
 <img src="./8.png">
 
-### Solving 
+### 2.3. Solving 
 
 Sử dụng tool Paint, tạo ra một bức ảnh có kích thước 200x150, lưu dưới dạng BMP picture. 
 
@@ -103,9 +103,9 @@ Save lại và mở ra, ta có được đáp án thử thách.
 
 <img src="./10.png" width=300rem>
 
-## Music Player ~ 150 points 
+## 3. Music Player ~ 150 points 
 
-### Overview
+### 3.1. Overview
 
 Chạy một đoạn nhạc mp3 có độ dài > 60s, một message box hiện lên với nội dung khá khó hiểu "????". 
 
@@ -123,7 +123,7 @@ After bypassing every check routine, you will see the perfect flag.
 
 Đọc qua, chúng ta có thể hình dung được nhiệm vụ sẽ phải đi bypass những đoạn check "1-minute" có trong chương trình. 
 
-### Static Analysis
+### 3.2. Static Analysis
 
 Chương trình được viết bởi ngôn ngữ Visual Basic, thực sự các hàm được IDAPRO tạo ra đều không đem lại giá trị quá nhiều. Mình bắt đầu đi tìm những đoạn code có liên quan tới việc hiển thị Message Box.
 
@@ -155,7 +155,7 @@ Lưu lại chương trình, ta thu được flag ở thanh tiêu đề chương 
 
 <img src="./21.png" width=400rem>
 
-## Easy Crack ~ 100 points 
+## 4. Easy Crack ~ 100 points 
 
 Hàm check input rất rõ ràng như sau 
 
@@ -163,9 +163,9 @@ Hàm check input rất rõ ràng như sau
 
 Ghép nối các đoạn check lại, ta thu được flag "Ea5yR3versing". 
 
-## Position ~ 160 points 
+## 5. Position ~ 160 points 
 
-### Overview 
+### 5.1. Overview 
 
 Chương trình là một bài keygen thuần túy. 
 
@@ -186,7 +186,7 @@ Password is ***p
 
 Từ đó, ta có thể hình dung được phải đi tìm `name` có tận cùng là chữ `p` và thỏa mãn serial bằng `76876-77776`.
 
-### Static Analysis
+### 5.2. Static Analysis
 
 Sau khi tìm kiếm các hàm trong IDAPRO, ta dễ dàng nhận biết được `sub_DD1740()` chính là hàm check input. 
 
@@ -199,7 +199,7 @@ Về cơ bản, hàm này sẽ
 - Kiểm tra độ dài `serial` có bằng 11 hay không? Ký tự thứ 6 (serial[5]) có phải là dấu `-` hay không? 
 - Tạo ra các giá trị trung gian dựa trên biến `name` rồi đem đi so sánh với `serial`. 
 
-### Solving 
+### 5.3. Solving 
 
 Do `name` có 4 ký tự, ký tự cuối cùng là `p` nên ta chỉ cần brute-force 3 ký tự còn lại là tìm ra kết quả. 
 
@@ -264,4 +264,51 @@ for name_tuple in permutations(ascii_lowercase, 3):
 # [+] Found valid name: ftmp
 ```
 
-## Direct3D FPS ~ 140 points 
+## 6. Direct3D FPS ~ 140 points
+
+### 6.1. Overview 
+
+Một tựa game bắn súng fps. Nhiệm vụ của player sẽ phải đi bắn chết toàn bộ quái đang xuất hiện. Mình có thử bắn một vài con quái nhưng tất cả đều không khả thi. 
+
+<img src="./27.png">
+
+### 6.2. Static Analysis
+
+Sau khi trace các hàm với string "Game Clear!", ta đi tới được hàm `sub_4039C0()`. 
+
+<img src="./28.png" width=500rem>
+
+Chuỗi `szCkfkbuliLEEZF` được chú ý tới vì đây là thông điệp được hiển thị bởi Message Box. Có vẻ chuỗi đã bị mã hóa nên ta cần xref để xem chuỗi này còn được xuất hiện ở đoạn code nào nữa. 
+
+<img src="./29.png">
+
+Tại hàm `sub_403400()`, chuỗi `szCkfkbuliLEEZF` được xor với các giá trị ở mảng `byte_409184[]`. 
+
+<img src="./30.png" width=500rem>
+
+### 6.2. Dynamic Analysis
+
+Bật debug lên để lấy các giá trị của mảng `byte_409184[]`. Nhìn vào kết quả, có thể  dự đoán được giá trị của mảng sẽ là: 0, 4, 8, 12, 16, ... 
+
+<img src="./31.png">
+
+> Khi debug động, mảng được xor là `byte_389184[]` chứ lại không phải `byte_409184[]`. Mình không rõ là tại sao lại bị thay đổi như vậy nhưng không sao cả, chuỗi `szCkfkbuliLEEZF` vẫn được xor với 1 mảng như đã phân tích ban đầu. 
+
+### 6.3. Solving 
+
+Dump toàn bộ giá trị của chuỗi `szCkfkbuliLEEZF` và xor ngược lại với mảng ở trên sẽ thu được flag bài toán. 
+
+```python 
+szCkfkbuliLEEZF = [
+    0x43, 0x6B, 0x66, 0x6B, 0x62, 0x75, 0x6C, 0x69, 0x4C, 0x45, 
+    0x5C, 0x45, 0x5F, 0x5A, 0x46, 0x1C, 0x07, 0x25, 0x25, 0x29, 
+    0x70, 0x17, 0x34, 0x39, 0x01, 0x16, 0x49, 0x4C, 0x20, 0x15, 
+    0x0B, 0x0F, 0xF7, 0xEB, 0xFA, 0xE8, 0xB0, 0xFD, 0xEB, 0xBC, 
+    0xF4, 0xCC, 0xDA, 0x9F, 0xF5, 0xF0, 0xE8, 0xCE, 0xF0, 0xA9
+]
+
+for i in range(len(szCkfkbuliLEEZF)):
+    print(chr(szCkfkbuliLEEZF[i] ^ (i * 4)), end='')
+
+# Congratulation~ Game Clear! Password is Thr3EDPr0m
+```

@@ -14,7 +14,7 @@ math:
     </figure>
 </div>
 
-Bachelor of Science in Cyber Security, Thuyloi University, class of 2026
+Bachelor of Science in Cyber Security, Thuyloi University, Class of 2026 (CPA: 3.97/4.00)
 
 Email: contact.ducdatdau@gmail.com\
 Phone: (+84) 366.337.737

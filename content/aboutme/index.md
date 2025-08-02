@@ -27,7 +27,8 @@ His primary research interests lie in reverse engineering and binary exploitatio
 
 ## PUBLICATIONS
 
-1. Duc Dat Dau, "Research on the technique of File Structure Attack", Student Research Conference, 2025. 
+1. Duc Dat Dau, "Research on the technique of File Structure Attack", TLU Student Research Conference, 2025.
+2. Ta Hoang Vo, Duc Dat Dau, "Generator-Based Fuzzing: Enhancing Coverage and Reusing High-Quality Inputs", TLU Annual Scientific Conference, 2025 
 
 ## RESEARCH AREAS
 

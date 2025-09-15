@@ -1,7 +1,7 @@
 ---
 title: "Olympic Toán Sinh viên Toàn quốc 2023"
 date: 2023-04-10T01:13:42+07:00
-draft: true
+draft: false
 tags: ["Blog", "Mathematics"]
 # categories: ["Blog"]
 lightgallery: true
@@ -21,7 +21,11 @@ img {
     margin-right: auto;
 }
 </style>
-Tôi là sinh viên năm nhất của Đại học Thủy Lợi tham gia kỳ thi Olympic Toán học năm 2023 tại thành phố Huế  đầy thơ mộng. Đoàn Hà Nội chúng tôi gồm 10 thành viên, chia đều thành 2 nhóm: Đại Số và Giải Tích cùng với 2 thầy cô dẫn đoàn là thầy Thọ và cô Lý. <br/>
+
+# Olympic Toán Sinh viên Toàn quốc 2023
+
+Tôi là sinh viên năm nhất của Đại học Thủy Lợi tham gia kỳ thi Olympic Toán học năm 2023 tại thành phố Huế  đầy thơ mộng. Đoàn Hà Nội chúng tôi gồm 10 thành viên, chia đều thành 2 nhóm: Đại Số và Giải Tích cùng với 2 thầy cô dẫn đoàn là thầy Thọ và cô Lý.
+
 Đoàn chúng tôi vào Huế bằng máy bay hãng Vietjet. Ở sân bay chúng tôi bắt gặp đoàn ĐHSP Hà Nội và đoàn Đại học KTQD. Đây cũng là lần đầu tiên tôi được đi máy bay, cảm giác khá hồi hộp và hào hứng. Thật tiếc là sau chuyến bay đó tôi không muốn phải đi thêm máy bay lần nào nữa :cry:
 
 <div style="text-align: center;">
@@ -33,7 +37,11 @@ Tôi là sinh viên năm nhất của Đại học Thủy Lợi tham gia kỳ th
 
 ## Ngày thứ nhất (03 - 04 - 2023)
 
-Chúng tôi vào Huế lúc 13h chiều, thời tiết ở đây nắng kinh khủng. Đã rất lâu rồi tôi mới được cảm nhận cái nắng miền Trung như thiêu như đốt. Tất cả chúng tôi ai nấy đều mệt mỏi rã rời. May mà có một ông Tây để cho chúng tôi bắt chuyện, lúc đó cả đội mới đỡ mệt hơn. <br/>Bọn tôi đi taxi về khách sạn Duy Tân, phòng của 3 anh em đội Đại số là 116, Giải tích là 117, chị Thơm và chị Lan Anh thì ở 213. Lúc chúng tôi lên nhận phòng thì thấy đoàn Đại học Kiến Trúc đang thi nhau làm kỷ yếu. Chúng tôi có chơi và trêu họ một chút rồi vào phòng.<br/> Một lúc sau, cả đoàn được 2 thầy cô dẫn đi ăn cơm niêu. Lần đầu tôi được ăn món thịt luộc chấm tôm chua. Tôi thấy không hợp khẩu vị của mình cho lắm, mắm tôm vẫn là chân ái của đời tôi. Ăn uống xong xuôi thì cả đoàn đi bộ về. Thầy buổi chiều hình như phải đi họp, còn bọn tôi thì thi nhau trùm chăn ngủ không biết trời đất gì. Khoảng chập tối, thầy đi gõ cửa từng phòng để gọi bọn tôi đi ăn tối. Chắc thầy nghĩ chúng tôi đang ôn bài say sưa nhưng thực ra thì không, bọn tôi ai nấy rủ nhau ngủ. Bọn em xin lỗi nhưng bọn em quá mệt rồi :sleepy:. 
+Chúng tôi vào Huế lúc 13h chiều, thời tiết ở đây nắng kinh khủng. Đã rất lâu rồi tôi mới được cảm nhận cái nắng miền Trung như thiêu như đốt. Tất cả chúng tôi ai nấy đều mệt mỏi rã rời. May mà có một ông Tây để cho chúng tôi bắt chuyện, lúc đó cả đội mới đỡ mệt hơn.
+
+Bọn tôi đi taxi về khách sạn Duy Tân, phòng của 3 anh em đội Đại số là 116, Giải tích là 117, chị Thơm và chị Lan Anh thì ở 213. Lúc chúng tôi lên nhận phòng thì thấy đoàn Đại học Kiến Trúc đang thi nhau làm kỷ yếu. Chúng tôi có chơi và trêu họ một chút rồi vào phòng.
+
+Một lúc sau, cả đoàn được 2 thầy cô dẫn đi ăn cơm niêu. Lần đầu tôi được ăn món thịt luộc chấm tôm chua. Tôi thấy không hợp khẩu vị của mình cho lắm, mắm tôm vẫn là chân ái của đời tôi. Ăn uống xong xuôi thì cả đoàn đi bộ về. Thầy buổi chiều hình như phải đi họp, còn bọn tôi thì thi nhau trùm chăn ngủ không biết trời đất gì. Khoảng chập tối, thầy đi gõ cửa từng phòng để gọi bọn tôi đi ăn tối. Chắc thầy nghĩ chúng tôi đang ôn bài say sưa nhưng thực ra thì không, bọn tôi ai nấy rủ nhau ngủ. Bọn em xin lỗi nhưng bọn em quá mệt rồi :sleepy:. 
 
 Chiều hôm đó cả đội ăn cơm ở khách sạn, buổi tối tầm 9 - 10h đêm thì đoàn Đại học Thủy Lợi phân hiệu đến. Đêm đó 3 anh em chúng tôi là anh Nam, anh Kiên và tôi mang sách ra ôn để chiều ngày mai thi. Tôi ngồi xem lại tất cả các bài tôi đã giải, cũng không muốn học thêm gì nữa vì lúc đó khá muộn rồi. Tôi cất sách vở và đi ngủ trước, 2 anh vẫn ngồi ôn bài, một lúc sau thì đành lên ngủ với đứa em này. Đêm đó tôi trằn trọc khó ngủ, chắc có lẽ vì lạ giường và tôi đã phải di chuyển một quãng đường xa nên hơi mệt mỏi. 
 
@@ -42,12 +50,13 @@ Sáng thứ 3, cả đoàn chúng tôi đi ra ĐHSP Huế để tham dự buổi
 
 ![](./7.jpg "Hai đội checkin ở hội trường trường ĐHSP Huế")
 
-Chiều thứ 3, 5 người đội Đại Số chúng tôi gồm: chị Thơm, chị Lan Anh, anh Nam, anh Kiên và tôi cùng 3 anh ở phân hiệu là anh Huy, anh Thành và anh Nguyên thi môn Đại Số. Tôi bước vào phòng thi với tâm lý không phải chịu áp lực nào nhưng cũng không tự tin cho lắm. Vì đã từ rất lâu rồi, tôi mới lại tham dự một kỳ thi học sinh giỏi. Một số kỹ năng giải bài hay thi cử của tôi chưa được phát huy tối đa. Trước giờ vào phòng thi, tôi có làm quen 2 bạn bên Đại học Thăng Long. Tầm đúng 14h, chúng tôi bắt đầu làm bài thi của mình.<br/>
+Chiều thứ 3, 5 người đội Đại Số chúng tôi gồm: chị Thơm, chị Lan Anh, anh Nam, anh Kiên và tôi cùng 3 anh ở phân hiệu là anh Huy, anh Thành và anh Nguyên thi môn Đại Số. Tôi bước vào phòng thi với tâm lý không phải chịu áp lực nào nhưng cũng không tự tin cho lắm. Vì đã từ rất lâu rồi, tôi mới lại tham dự một kỳ thi học sinh giỏi. Một số kỹ năng giải bài hay thi cử của tôi chưa được phát huy tối đa. Trước giờ vào phòng thi, tôi có làm quen 2 bạn bên Đại học Thăng Long. Tầm đúng 14h, chúng tôi bắt đầu làm bài thi của mình.
 
-Khi nhận được đề bài, tôi chú ý đầu tiên là bài số 2, đây là dạng bài ánh xạ tuyến tính. Tôi nghĩ thầm trong đầu, thôi cả đoàn toang rồi. Vì cả đoàn không một ai ôn phần này, bọn tôi nghĩ nếu ra phần này sẽ ra dạng bài rất khó, rất trừu tượng. Bản thân tôi không có thời gian để làm phần này nhiều nên tôi phải bỏ phần này.<br/>
+Khi nhận được đề bài, tôi chú ý đầu tiên là bài số 2, đây là dạng bài ánh xạ tuyến tính. Tôi nghĩ thầm trong đầu, thôi cả đoàn toang rồi. Vì cả đoàn không một ai ôn phần này, bọn tôi nghĩ nếu ra phần này sẽ ra dạng bài rất khó, rất trừu tượng. Bản thân tôi không có thời gian để làm phần này nhiều nên tôi phải bỏ phần này.
+
 Câu 1A thì ai cũng làm được nhưng đến câu 1B, tôi lại rất chật vật để giải quyết bài này. Tôi vật lộn với câu hỏi này hơn 30 phút, thử mọi cách để tìm nghiệm của phương trình bậc 3. Chúng tôi không được dùng máy tính nên việc tìm nghiệm của phương trình: $3.2022.2023.x - (x^3 + 2022^3 + 2023^3) = 0$ là không hề dễ dàng.
 
-Tôi thấy hàng loạt các bạn ngồi ở trên bỏ trống câu 1B này, trong đầu tôi cũng có suy nghĩ câu này rất khó. Sai lầm của tôi là không thoát ra ý tưởng đang làm để làm ý tưởng mới. Đây là một kĩ năng mà ai đi thi cũng cần phải có. Thật buồn khi tôi đã từng tự tin đến mức các bài tính định thức, hạng ma trận tôi có thể làm được lên tới 90%, tôi đã học rất nhiều những dạng này. Mà vào thi một bài rất đơn giản lại không làm được :(
+Tôi thấy hàng loạt các bạn ngồi ở trên bỏ trống câu 1B này, trong đầu tôi cũng có suy nghĩ câu này rất khó. Sai lầm của tôi là không thoát ra ý tưởng đang làm để làm ý tưởng mới. Đây là một kĩ năng mà ai đi thi cũng cần phải có. Thật buồn khi tôi đã từng tự tin đến mức các bài tính định thức, hạng ma trận tôi có thể làm được lên tới 90%, tôi đã học rất nhiều những dạng này. Mà vào thi một bài rất đơn giản lại không làm được😢
 
 Ngồi cùng hàng với tôi có 1 bạn bên Học viện BCVT, trông rất sáng sủa và đẹp trai. Khi được phát đề, tầm 5 phút mà bạn đó làm gần hết tờ giấy thi, trong khi tôi đang chật vật xử lý câu 1B. Lúc đó tôi buồn bã vô cùng, cảm giác như bị bất lực trước bài được cho là dễ nhất đề. Tôi chuyển hướng sang làm bài 3A. Thật kinh khủng khi tôi không thể hình dung ra được bài 3A muốn hỏi cái gì. Đây là lần đầu tiên tôi học đề mà không hình dung được đề. Bài này cũng gây tranh cãi khá nhiều giữa các thầy cô vì đề rất khó hiểu. 
 
@@ -127,8 +136,7 @@ Tham quan xong kinh thành Huế, thầy cô cho chúng tôi đi chùa Thiên M�
 
 ![](./10.jpg "Chùa Thiên Mụ")
 
-Tối về chúng tôi ăn cơm ở khách sạn rồi lên phòng chơi. Buổi đêm thầy về báo điểm cho chúng tôi. Chị Thơm được 13 điểm, chị Lan Anh 12.5, tôi 10.5, anh Nam 8.5, anh Kiên 4.5. Lúc đó tôi thấy anh Kiên rất buồn. Tôi cũng chỉ mong mình được giải khuyến khích thôi. 
-Thầy về phòng, anh Phong, anh Phương chạy sang phòng tôi hỏi thăm kết quả. Ai nấy đều buồn, cuối cùng có tôi, anh Nam, chị Lan Anh sang phòng giải tích đánh bài ăn bánh kem. Tôi hơi đen khi được ăn mỗi một lần :(
+Tối về chúng tôi ăn cơm ở khách sạn rồi lên phòng chơi. Buổi đêm thầy về báo điểm cho chúng tôi. Chị Thơm được 13 điểm, chị Lan Anh 12.5, tôi 10.5, anh Nam 8.5, anh Kiên 4.5. Lúc đó tôi thấy anh Kiên rất buồn. Tôi cũng chỉ mong mình được giải khuyến khích thôi. Thầy về phòng, anh Phong, anh Phương chạy sang phòng tôi hỏi thăm kết quả. Ai nấy đều buồn, cuối cùng có tôi, anh Nam, chị Lan Anh sang phòng giải tích đánh bài ăn bánh kem. Tôi hơi đen khi được ăn mỗi một lần 😢
 
 ## Ngày thứ năm (07 - 04 - 2023)
 Sáng thứ 6, đoàn đi chơi ở lăng tẩm. Bọn tôi đi chơi hơi mệt, chụp được một đống ảnh.

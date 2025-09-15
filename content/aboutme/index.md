@@ -60,4 +60,4 @@ His research interests focus on automated software vulnerability discovery, part
 - University
   - Le Van Kiem Scholarship for Excellence student (2023)
   - Bronze Medal, Vietnam National Mathematics Olympiad for Undergraduates (2023)
-  - Best student in Cyber Security major (2023, 205)
+  - Best student in Cyber Security major (2023, 2025)

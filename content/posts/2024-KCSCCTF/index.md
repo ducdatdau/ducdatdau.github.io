@@ -19,13 +19,11 @@ Solutions for some challenges in KCSC CTF 2024
 
 Sau khi kết thúc thi cuối kỳ môn Pháp Luật Đại Cương, mình được nghỉ hơn 10 ngày để tiếp tục học giai đoạn mới. Đề CTF của KMA hay UIT luôn làm mình hứng thú, đặc biệt là những bài reverse. 
 
-Thời gian cứ dần trôi, nỗi nhớ bạn gái cũ mỗi ngày một lớn, mình lại lặng lẽ lôi vài bài của giải KCSC CTF ra làm để khỏa lấp đi những trống vắng này. 
+Thời gian cứ dần trôi, mình lại lặng lẽ lôi vài bài của giải KCSC CTF ra làm để khỏa lấp đi những trống vắng trong trái tim. 
 
 Trời mùa thu Hà Nội thật đẹp, nó sẽ đẹp hơn rất nhiều nếu như anh có em :fallen_leaf:
 
-> **Trang** giấy trắng đâu thể mờ đi từng màu buồn của nắng\
-**À** ơi vu vơ câu hát có lẽ chưa bao giờ anh viết tặng\
-**Em** nhẹ bước chân qua bao ngọt ngào bao nhiêu cố gắng\
+> **Em** nhẹ bước chân qua bao ngọt ngào bao nhiêu cố gắng\
 **Có** hay không những bước thềm trong con tim em cần một khoảng rộng\
 **Biết** lúc nào anh có thể lại được gặp em một lần nữa\
 **Là** khi đó anh cảm nhận mùi hương tàn cánh hoa sữa\

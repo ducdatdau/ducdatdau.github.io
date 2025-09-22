@@ -1,6 +1,6 @@
 ---
 title: "reversing.kr"
-draft: false
+draft: true
 tags: ["Reverse-Engineering"]
 date: 2025-06-28
 # categories: ["CTF Writeups"]
@@ -286,7 +286,7 @@ Tại hàm `sub_403400()`, chuỗi `szCkfkbuliLEEZF` được xor với các gi�
 
 <img src="./30.png" width=500rem>
 
-### 6.2. Dynamic Analysis
+### 6.3. Dynamic Analysis
 
 Bật debug lên để lấy các giá trị của mảng `byte_409184[]`. Nhìn vào kết quả, có thể  dự đoán được giá trị của mảng sẽ là: 0, 4, 8, 12, 16, ... 
 
@@ -294,7 +294,7 @@ Bật debug lên để lấy các giá trị của mảng `byte_409184[]`. Nhìn
 
 > Khi debug động, mảng được xor là `byte_389184[]` chứ lại không phải `byte_409184[]`. Mình không rõ là tại sao lại bị thay đổi như vậy nhưng không sao cả, chuỗi `szCkfkbuliLEEZF` vẫn được xor với 1 mảng như đã phân tích ban đầu. 
 
-### 6.3. Solving 
+### 6.4. Solving 
 
 Dump toàn bộ giá trị của chuỗi `szCkfkbuliLEEZF` và xor ngược lại với mảng ở trên sẽ thu được flag bài toán. 
 
@@ -312,3 +312,15 @@ for i in range(len(szCkfkbuliLEEZF)):
 
 # Congratulation~ Game Clear! Password is Thr3EDPr0m
 ```
+
+## 7. Ransomware ~ 120 points 
+
+### 7.1. Overview 
+
+Challenge cung cấp người chơi 3 file: 
+1. `readme.txt`: Nội dung chính là Decrypt File (EXE)
+2. `file`: Binary file 
+3. `run.exe`: file PE32, bị pack bởi UPX 
+
+### 7.2. Static Analysis 
+

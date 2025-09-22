@@ -1,7 +1,7 @@
 ---
 title: "Symbol Resolution in Linux"
 date: 2025-07-17
-draft: false
+draft: true
 tags: ["R3CTF 2025", "Reverse-Engineering", "Pwnable"]
 # categories: ["CTF Writeups"]
 lightgallery: true

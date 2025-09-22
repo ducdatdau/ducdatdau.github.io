@@ -17,8 +17,9 @@ img {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 6px;
     display: block; 
-    margin-left: auto; 
-    margin-right: auto;
+    /* margin-left: auto; 
+    margin-right: auto; */
+    margin: 15px auto;
 }
 </style>
 

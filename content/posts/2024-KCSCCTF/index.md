@@ -15,6 +15,15 @@ Solutions for some challenges in KCSC CTF 2024
 
 <!--more-->
 
+<style>
+img {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 6px;
+    display: block; 
+    margin: 15px auto;
+}
+</style>
+
 # KCSC CTF 2024
 
 Sau khi kết thúc thi cuối kỳ môn Pháp Luật Đại Cương, mình được nghỉ hơn 10 ngày để tiếp tục học giai đoạn mới. Đề CTF của KMA hay UIT luôn làm mình hứng thú, đặc biệt là những bài reverse. 

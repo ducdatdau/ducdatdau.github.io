@@ -22,8 +22,6 @@ img {
 }
 </style>
 
-# reversing.kr
-
 ## 1. Replace ~ 150 points 
 
 ### 1.1. Overview 

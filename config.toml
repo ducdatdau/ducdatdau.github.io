@@ -45,12 +45,12 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     pre = ""
     # you can add extra information after the name (HTML format is supported), such as icons
     post = ""
-    name = "Posts"
+    name = "Blog"
     url = "/posts/"
     # title will be shown when you hover on this menu link
     title = ""
   [[menu.main]]
-    weight = 2
+    weight = 4
     identifier = "tags"
     pre = ""
     post = ""
@@ -66,9 +66,18 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     url = "/list100/"
     title = "List 100"
 
+  [[menu.main]]
+    weight = 2
+    identifier = "ctf-writeup"
+    pre = ""
+    post = ""
+    name = "CTF Writeup"
+    url = "/ctf-writeup/"
+    title = "CTF Writeup"
+
 [params]
   # site default theme ["auto", "light", "dark"]
-  defaultTheme = "light"
+  defaultTheme = "dark"
   # public git repo url only then enableGitInfo is true
   gitRepo = ""
   #  which hash function used for SRI, when empty, no SRI is used
@@ -511,6 +520,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 [Permalinks]
   # posts = ":year/:month/:filename"
   posts = ":filename"
+  ctf-writeup = ":filename"
 
 # Privacy config
 [privacy]

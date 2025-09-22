@@ -23,8 +23,6 @@ img {
 }
 </style>
 
-# SEKAI CTF 2025
-
 <img src="./imgs/0.png"/>
 
 ## rev/Miku Music Machine (Hard) 
@@ -41,7 +39,7 @@ img {
 
 Đề bài cho một file PE64, thử chạy với một số input ngẫu nhiên, ta sẽ thấy được chương trình yêu cầu một input với độ dài hợp lệ. 
 
-```
+```Text
 C:\Users\P\Downloads>mmm-v2.exe
 Usage: mmm-v2.exe <prompt>
 
@@ -66,7 +64,7 @@ Sau một hồi quan sát, thứ làm mình chú ý tới nhất đó là `list_
 
 ### CFG/XFG
 
-Đặt breakpoint ngay tại dòng `list_fn[v8]();` với input `SEKAI{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}`. Sau khi `F9` để chương trình chạy liên tục, IDA đưa ra một thông báo lỗi  
+Đặt breakpoint ngay tại dòng `list_fn[v8]();` với input **SEKAI{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}**. Sau khi F9 để chương trình chạy liên tục, IDA đưa ra một thông báo lỗi  
 
 ```
 7FFE06586490: unknown exception code C0000409 (exc.code c0000409, tid 19460)
@@ -79,19 +77,19 @@ Sau một hồi quan sát, thứ làm mình chú ý tới nhất đó là `list_
 Sau khi tìm kiếm trên Google, mình có đọc được một bài viết khá chi tiết nói về hàm này: 
 - [https://connormcgarr.github.io/examining-xfg](https://connormcgarr.github.io/examining-xfg/)
 
-Định nghĩa về `CFG` và `XFG` theo như mình tìm hiểu được như sau. Cả 2 đều có chức năng chống lại việc ghi đè function pointer trong Windows. 
-- `CFG` hay còn được biết tới là **Control Flow Guard**. Khi một function pointer được gọi, cơ chế này sẽ kiểm tra xem địa chỉ được trỏ tới đã đăng ký ở trong bitmap hay chưa, nếu chưa sẽ ngăn chặn việc gọi hàm. Kỹ thuật này ngăn chặn được kỹ thuật ROP-chain nhưng vẫn không thể tránh được việc attacker ghi đè function pointer thành địa chỉ các hàm hệ thống nguy hiểm như: `VirtualProtect()`, `WriteProcessMemory()`, ...  
-- `XFG` hay **Xtended Flow Guard** là phiên bản nâng cấp của `CFG`. Ngoài việc kiểm tra địa chỉ đã được đăng ký trong bitmap hay chưa, cơ chế này còn kiểm tra mã hash của một số thuộc tính như: số lượng parameter, kiểu dữ liệu của parmeter, kiểu dữ liệu trả về, ... Từ đó kẻ tấn công ngoài việc ghi đè function pointer còn phải thiết kế hàm sao cho trùng khớp với các thuộc tính đã nêu trên. 
+Định nghĩa về **CFG** và **XFG** theo như mình tìm hiểu được như sau. Cả 2 đều có chức năng chống lại việc ghi đè function pointer trong Windows. 
+- **CFG** hay còn được biết tới là **Control Flow Guard**. Khi một function pointer được gọi, cơ chế này sẽ kiểm tra xem địa chỉ được trỏ tới đã đăng ký ở trong bitmap hay chưa, nếu chưa sẽ ngăn chặn việc gọi hàm. Kỹ thuật này ngăn chặn được kỹ thuật ROP-chain nhưng vẫn không thể tránh được việc attacker ghi đè function pointer thành địa chỉ các hàm hệ thống nguy hiểm như: `VirtualProtect()`, `WriteProcessMemory()`, ...  
+- **XFG** hay **Xtended Flow Guard** là phiên bản nâng cấp của CFG. Ngoài việc kiểm tra địa chỉ đã được đăng ký trong bitmap hay chưa, cơ chế này còn kiểm tra mã hash của một số thuộc tính như: số lượng parameter, kiểu dữ liệu của parmeter, kiểu dữ liệu trả về, ... Từ đó kẻ tấn công ngoài việc ghi đè function pointer còn phải thiết kế hàm sao cho trùng khớp với các thuộc tính đã nêu trên. 
 
-Quay lại bài toán, ta thấy được tác giả đã sử dụng cơ chế bảo vệ `XFG` với `85F13E9656DA4870h` là mã hash để check. 
+Quay lại bài toán, ta thấy được tác giả đã sử dụng cơ chế bảo vệ XFG với `85F13E9656DA4870h` là mã hash để check. 
 
-Câu hỏi được đặt ra là: Tại sao chương trình thông báo lỗi khi gặp `XFG`? 
+Câu hỏi được đặt ra là: Tại sao chương trình thông báo lỗi khi gặp XFG? 
 1. Do hàm được gọi chưa được đăng ký trong bitmap? 
 2. Do các thuộc tính của hàm gọi không trùng khớp với mã hash và gây crash? 
 
 #### Checking the bitmap
 
-Ở bài viết nêu trên, tác giả sử dụng công cụ [dumpbin.exe](https://github.com/Delphier/dumpbin) để extract ra bitmap. Kết quả thu được khá lớn, mình chỉ tập trung ở phần **Guard CF Function Table**, trong đó địa chỉ nào có dấu `X` là được bảo vệ bởi cơ chế `XFG`. 
+Ở bài viết nêu trên, tác giả sử dụng công cụ [dumpbin.exe](https://github.com/Delphier/dumpbin) để extract ra bitmap. Kết quả thu được khá lớn, mình chỉ tập trung ở phần **Guard CF Function Table**, trong đó địa chỉ nào có dấu `X` là được bảo vệ bởi cơ chế XFG. 
 
 ```
 C:\Users\P\Downloads\dumpbin-14.40.33811-x64>dumpbin.exe /LOADCONFIG mmm-v2.exe

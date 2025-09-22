@@ -1,6 +1,6 @@
 ---
 title: "Sinh viên với An toàn Thông tin 2024"
-date: 2024-11-30
+date: 2024-10-19
 draft: false
 tags: ["ASCIS 2024", "Reverse-Engineering", "Pwnable"]
 # categories: ["CTF Writeups"]

@@ -21,7 +21,6 @@ img {
     margin: 15px auto;
 }
 </style>
-# KCSC Recruitment 2023
 
 ## rev/Real Warmup
 

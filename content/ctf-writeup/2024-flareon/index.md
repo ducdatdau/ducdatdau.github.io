@@ -21,8 +21,6 @@ img {
 }
 </style>
 
-# Flare On 11
-
 ## Challenge 2: checksum
 
 ### Challenge Overview

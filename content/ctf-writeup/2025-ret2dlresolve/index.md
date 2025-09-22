@@ -28,8 +28,6 @@ img {
 }
 </style>
 
-# Symbol Resolution in Linux. Writeup for R3CTF 2025 (rev) + ASCIS 2024 (pwn)
-
 ## 0x00. Overview
 
 Dưới đây là hình ảnh để chúng ta có thể dễ dàng hình dung nhất kỹ thuật obfuscate này làm gì. 

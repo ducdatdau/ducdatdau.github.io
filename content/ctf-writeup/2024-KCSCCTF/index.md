@@ -1,6 +1,6 @@
 ---
 title: "KCSC CTF 2024"
-date: 2024-11-03
+date: 2024-05-16
 draft: false
 description: "Solutions for some challenges in KCSC CTF 2024"
 tags: ["2024", "KCSC CTF", "Reverse-Engineering", "Pwnable"]
@@ -23,8 +23,6 @@ img {
     margin: 15px auto;
 }
 </style>
-
-# KCSC CTF 2024
 
 Sau khi kết thúc thi cuối kỳ môn Pháp Luật Đại Cương, mình được nghỉ hơn 10 ngày để tiếp tục học giai đoạn mới. Đề CTF của KMA hay UIT luôn làm mình hứng thú, đặc biệt là những bài reverse. 
 

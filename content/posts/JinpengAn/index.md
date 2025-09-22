@@ -1,13 +1,11 @@
 ---
-title: "Câu chuyện của Tiến sĩ An Kim Bằng"
+title: "Câu chuyện của Tiến sĩ An Kim Bằng - Huy chương vàng IMO năm 1997"
 date: 2024-11-25T17:01:38+07:00
-draft: true
+draft: false
 tags: ["Blog", "Mathematics"]
-# categories: ["Blog"]
+categories: ["Blog"]
 lightgallery: true
 ---
-
-Câu chuyện của Tiến sĩ An Kim Bằng - Huy chương vàng IMO năm 1997
 
 <!--more-->
 

@@ -1,7 +1,7 @@
 ---
 title: "Happy New Year 2025 - Vietnam dominates AFF Cup 2024"
 date: 2025-01-06T16:15:38+07:00
-draft: true
+draft: false
 tags: ["Blog"]
 # categories: ["Blog"]
 ---
@@ -18,9 +18,6 @@ img {
     margin-right: auto;
 }
 </style>
-
-## Happy New Year 2025 - Vietnam dominates AFF Cup 2024
-
 
 Vào những ngày đầu xuân năm mới 2025 dương lịch, mình và toàn thể nhân dân đất nước Việt Nam đã được sống và hòa mình trong những giây phút hạnh phúc nhất của cuộc đời. Sau 6 năm chờ đợi, cuối cùng Việt Nam cũng đã nâng cao chiếc cúp AFF, tất cả người dân cả người đã có một đêm không ngủ để cùng nhau ra đường, vô vang khẩu hiệu "Việt Nam Vô Địch".  
 

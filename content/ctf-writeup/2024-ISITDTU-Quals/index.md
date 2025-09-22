@@ -1,6 +1,6 @@
 ---
 title: "ISITDTU Quals 2024"
-date: 2024-11-01T16:42:03+07:00
+date: 2024-11-19T16:42:03+07:00
 draft: false
 description: "Solutions for some challenges in ISITDTU Quals 2024 by ducdatdau"
 tags: ["2024", "ISITDTU", "Reverse-Engineering", "Pwnable"]
@@ -21,8 +21,6 @@ img {
     margin: 15px auto;
 }
 </style>
-
-# ISITDTU Quals 2024
 
 <img src="0.png"/>
 

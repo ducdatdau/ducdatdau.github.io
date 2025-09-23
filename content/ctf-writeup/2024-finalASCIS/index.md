@@ -2,12 +2,11 @@
 title: "Sinh viên với An toàn Thông tin 2024"
 date: 2024-10-19
 draft: false
-tags: ["ASCIS 2024", "Reverse-Engineering", "Pwnable"]
+tags: ["ASCIS", "Reverse-Engineering", "Pwnable"]
 # categories: ["CTF Writeups"]
 lightgallery: true
 toc:
   enable: true
-# description: "Solutions for some challenges in BKCTF 2023 by ducdatdau"
 ---
 
 Sinh viên với An toàn Thông tin là cuộc thi CTF danh giá nhất cho sinh viên ở Việt Nam. Hằng năm, cuộc thi được tổ chức 3 vòng: khởi động, sơ khảo và chung khảo. Dưới đây là bài giải cho một số challenge pwnable và reversing ở các vòng thi của mình.  

@@ -39,7 +39,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 # Menu config
 [menu]
   [[menu.main]]
-    weight = 1
+    weight = 2
     identifier = "posts"
     # you can add extra information before the name (HTML format is supported), such as icons
     pre = ""
@@ -67,7 +67,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     title = "List 100"
 
   [[menu.main]]
-    weight = 2
+    weight = 1
     identifier = "ctf-writeup"
     pre = ""
     post = ""

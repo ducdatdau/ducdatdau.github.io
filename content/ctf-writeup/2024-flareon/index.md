@@ -2,7 +2,7 @@
 title: "Flare On 11"
 date: 2025-05-14T19:18:47+07:00
 draft: false
-tags: ["2025", "Flare-on", "Reverse-Engineering"]
+tags: ["2025", "Flare-On", "Reverse-Engineering"]
 # categories: ["CTF Writeups"]
 lightgallery: true
 toc:

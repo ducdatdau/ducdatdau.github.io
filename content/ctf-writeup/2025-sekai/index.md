@@ -3,14 +3,12 @@ title: "SEKAI CTF 2025"
 date: 2025-09-07
 draft: false
 description: "Solutions for some challenges in SEKAI CTF 2025 by ducdatdau"
-tags: ["Reverse-Engineering", "Pwnable", "2025", "SEKAI"]
+tags: ["Reverse-Engineering", "SEKAI", "2025"]
 lightgallery: true
 toc:
   enable: true
 
 ---
-
-<!-- Solutions for some challenges in SEKAI CTF 2025 -->
 
 <!--more-->
 <style>

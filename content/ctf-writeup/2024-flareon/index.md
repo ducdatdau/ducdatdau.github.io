@@ -1,15 +1,13 @@
 ---
-title: "Flare On 11"
+title: "Flare-On 11"
 date: 2025-05-14T19:18:47+07:00
 draft: false
-tags: ["2025", "Flare-On", "Reverse-Engineering"]
+tags: ["Reverse-Engineering", "Flare-On", "2025"]
 # categories: ["CTF Writeups"]
 lightgallery: true
 toc:
   enable: true
 ---
-
-Solutions for some challenges in Flare On 11
 
 <!--more-->
 <style>
@@ -23,7 +21,7 @@ img {
 
 ## Challenge 2: checksum
 
-### Challenge Overview
+### Overview
 
 The challenge provides us with a PE64 file written in Golang, along with several questions related to the result of a "checksum" calculation.
 
@@ -45,7 +43,7 @@ Checksum: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 Maybe it's time to analyze the binary! ;)
 ```
 
-### Challenge Static Analysis 
+### Static Analysis 
 
 The program contains three non-library functions: `main_main`, `main_a`, `main_b`. 
 

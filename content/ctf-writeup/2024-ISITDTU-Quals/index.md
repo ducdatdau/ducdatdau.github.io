@@ -3,16 +3,13 @@ title: "ISITDTU Quals 2024"
 date: 2024-11-19T16:42:03+07:00
 draft: false
 description: "Solutions for some challenges in ISITDTU Quals 2024 by ducdatdau"
-tags: ["2024", "ISITDTU", "Reverse-Engineering", "Pwnable"]
+tags: ["Reverse-Engineering", "Pwnable", "ISITDTU", "2024"]
 lightgallery: true
 toc:
   enable: true
 
 ---
 
-Solutions for some challenges in ISITDTU Quals 2024
-
-<!--more-->
 <style>
 img {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

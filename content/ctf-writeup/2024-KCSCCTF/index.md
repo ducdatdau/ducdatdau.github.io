@@ -3,17 +3,13 @@ title: "KCSC CTF 2024"
 date: 2024-05-16
 draft: false
 description: "Solutions for some challenges in KCSC CTF 2024"
-tags: ["2024", "KCSC CTF", "Reverse-Engineering", "Pwnable"]
+tags: ["Reverse-Engineering", "Pwnable", "KCSC CTF", "2024"]
 # categories: ["CTF Writeups"]
 lightgallery: true
 toc:
   enable: true
 
 ---
-
-Solutions for some challenges in KCSC CTF 2024
-
-<!--more-->
 
 <style>
 img {
@@ -26,9 +22,7 @@ img {
 
 Sau khi kết thúc thi cuối kỳ môn Pháp Luật Đại Cương, mình được nghỉ hơn 10 ngày để tiếp tục học giai đoạn mới. Đề CTF của KMA hay UIT luôn làm mình hứng thú, đặc biệt là những bài reverse. 
 
-Thời gian cứ dần trôi, mình lại lặng lẽ lôi vài bài của giải KCSC CTF ra làm để khỏa lấp đi những trống vắng trong trái tim. 
-
-Trời mùa thu Hà Nội thật đẹp, nó sẽ đẹp hơn rất nhiều nếu như anh có em :fallen_leaf:
+Thời gian cứ dần trôi, mình lại lặng lẽ lôi vài bài của giải KCSC CTF ra làm để khỏa lấp đi những trống vắng trong trái tim. Trời mùa thu Hà Nội thật đẹp, nó sẽ đẹp hơn rất nhiều nếu như anh có em :fallen_leaf:
 
 > **Em** nhẹ bước chân qua bao ngọt ngào bao nhiêu cố gắng\
 **Có** hay không những bước thềm trong con tim em cần một khoảng rộng\

@@ -3,15 +3,13 @@ title: "KCSC Recruitment 2024"
 date: 2024-09-10T16:00:03+07:00
 draft: false
 description: "Solutions for some challenges in KCSC Recruitment 2024"
-tags: ["2024", "KCSC Recruitment", "Reverse-Engineering"]
+tags: ["Reverse-Engineering", "KCSC Recruitment", "2024"]
 # categories: ["CTF Writeups"]
 lightgallery: true
 toc:
   enable: true
 
 ---
-
-Solutions for some challenges in KCSC Recruitment 2024
 
 <!--more-->
 <style>

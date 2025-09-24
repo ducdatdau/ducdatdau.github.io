@@ -8,9 +8,7 @@ tags: ["Reverse-Engineering", "Pwnable", "KCSC CTF", "2024"]
 lightgallery: true
 toc:
   enable: true
-
 ---
-
 <style>
 img {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

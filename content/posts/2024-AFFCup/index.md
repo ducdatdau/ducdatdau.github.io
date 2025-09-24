@@ -1,14 +1,11 @@
 ---
-title: "Happy New Year 2025 - Vietnam dominates AFF Cup 2024"
+title: "Happy New Year 2025 - Việt Nam vô địch AFF Cup 2024"
 date: 2025-01-06T16:15:38+07:00
 draft: false
 tags: ["Blog"]
 # categories: ["Blog"]
 ---
 
-Việt Nam Vô Địch - Tôi Yêu Việt Nam :heart:
-
-<!--more-->
 <style>
 img {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

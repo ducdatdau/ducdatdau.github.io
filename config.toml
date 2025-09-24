@@ -39,18 +39,18 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 # Menu config
 [menu]
   [[menu.main]]
-    weight = 2
+    weight = 3
     identifier = "posts"
     # you can add extra information before the name (HTML format is supported), such as icons
     pre = ""
     # you can add extra information after the name (HTML format is supported), such as icons
     post = ""
-    name = "Blog"
+    name = "VN Blog"
     url = "/posts/"
     # title will be shown when you hover on this menu link
     title = ""
   [[menu.main]]
-    weight = 4
+    weight = 5
     identifier = "tags"
     pre = ""
     post = ""
@@ -58,7 +58,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     url = "/tags/"
     title = ""
   [[menu.main]]
-    weight = 3
+    weight = 4
     identifier = "list100"
     pre = ""
     post = ""
@@ -67,13 +67,22 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     title = "List 100"
 
   [[menu.main]]
-    weight = 1
+    weight = 2
     identifier = "ctf-writeup"
     pre = ""
     post = ""
-    name = "CTF Writeup"
+    name = "CTF"
     url = "/ctf-writeup/"
     title = "CTF Writeup"
+
+  [[menu.main]]
+    weight = 1
+    identifier = "research"
+    pre = ""
+    post = ""
+    name = "Research"
+    url = "/research/"
+    title = "Research"
 
 [params]
   # site default theme ["auto", "light", "dark"]
@@ -521,6 +530,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # posts = ":year/:month/:filename"
   posts = ":filename"
   ctf-writeup = ":filename"
+  research = ":filename"
 
 # Privacy config
 [privacy]

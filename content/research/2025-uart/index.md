@@ -1,6 +1,6 @@
 ---
 title: "UART protocol"
-date: 2025-09-24
+date: 2024-08-24
 draft: false
 tags: ["IOT"]
 # categories: ["CTF Writeups"]
@@ -19,24 +19,24 @@ img {
 
 ## 0x00. Overview
 
-Một số thiết bị nhúng, IoT có serial console để phục vụ cho việc khời động, giám sát, debug, … Nếu như chúng ta may mắn kết nối được tới nó thông qua UART, ta có thể lấy được shell. Một số hướng để nghiên cứu như là: 
-- Có shell, backdoor được thiết bị
-- Dịch ngược firmware để tìm lỗ hổng
+Một số thiết bị nhúng có sẵn *serial console* để phục vụ việc khởi động, giám sát, và gỡ lỗi. Nếu có thể kết nối được với console thông qua UART, chúng ta hoàn toàn có thể truy cập vào shell và thực hiện một số việc như: 
+- Cài backdoor trên thiết bị.
+- Dịch ngược firmware để tìm lỗ hổng. 
 
 ## 0x01 UART protocol
 
-UART là viết tắt của Universal Asynchronous Receiver / Transmitter. Dịch nôm na là giao thức truyền nhận bất đồng bộ. UART interface có 4 chân cơ bản, đó là: `RX`, `TX`, `VCC`, `GND`. Trong đó có 3 chân thường thấy là `RX`, `TX` và `GND` có công dụng như sau:
+UART là viết tắt của **Universal Asynchronous Receiver / Transmitter**. Dịch nôm na là giao thức truyền nhận bất đồng bộ. UART interface có 4 chân cơ bản, đó là: `RX`, `TX`, `VCC`, `GND`. Trong đó có 3 chân thường thấy là `RX`, `TX` và `GND` có công dụng như sau:
 - `TX`: viết tắt của **Transmitter** là chân truyền dữ liệu
 - `RX`: viết tắt của **Receiver** là chân nhận dữ liệu
 - `GND`: viết tắt của **Ground reference** hay còn gọi là **tham chiếu "đất"**, dùng làm điểm để tham chiếu cho giá trị 0V và khử các tín hiệu nhiễu
 
 <img src="./imgs/0.png"/>
 
-Để xác định chính xác các chân, ta có thể sử dụng đồng hồ vạn năng hoặc Logic Anayzer 
+Để xác định được chính xác các chân, ta có thể sử dụng các công cụ như đồng hồ vạn năng hay Logic Anayzer. 
 
 <img src="./imgs/1.png"/>
 
-Chúng ta có thể thảo khảo thêm cách sử dụng ở đây: 
+Tham khảo thêm cách sử dụng các thiết bị trên ở đây: 
 - [Hacker's Guide to UART Root Shells](https://www.youtube.com/watch?v=01mw0oTHwxg)
 - [Hardware Hacking 101: Getting a root shell via UART](https://riverloopsecurity.com/blog/2020/01/hw-101-uart/)
 
@@ -51,7 +51,7 @@ Trường hợp 2. Sử dụng Logic Anayzer
 
 <img src="./imgs/2.jpg" width=400px/>
 
-Công cụ chúng ta sử dụng để bắt các tín hiệu là Saleae Logic Anayzer. Phần mềm để phân tích các tín hiệu là Logic 2. Để tiến hành phân tích, ta sẽ thực hiện các bước sau:
+Công cụ chúng ta sử dụng để bắt các tín hiệu là Saleae Logic Anayzer. Phần mềm để phân tích các tín hiệu là Logic 2. Để tiến hành phân tích, ta sẽ lần lượt thực hiện các bước sau:
 1. Chọn Analyzers 
 2. Chọn Async Serial 
 3. Thiết lập các giá trị phù hợp cho Bit Rate, Stop Bits, Parity Bit. Những giá trị còn lại thường sẽ để standard.

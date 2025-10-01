@@ -1,6 +1,6 @@
 ---
 title: "Flare-On 11"
-date: 2025-05-14T19:18:47+07:00
+date: 2024-11-10T19:18:47+07:00
 draft: false
 tags: ["Reverse-Engineering", "Flare-On", "2025"]
 # categories: ["CTF Writeups"]

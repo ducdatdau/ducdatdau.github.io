@@ -10,7 +10,7 @@ math:
 
 <div style="text-align: center;">
     <figure style="display: inline-block; text-align: center;">
-        <img src="/aboutme/ducdatdau.jpg" style="width: 200px; border-radius:999px; max-width: 100%;">
+        <img src="/aboutme/1.jpg" style="width: 200px; border-radius:999px; max-width: 100%;">
     </figure>
 </div>
 
@@ -31,7 +31,7 @@ After reading [this blog](https://andreas-zeller.info/2020/07/01/whats-it-like-t
 
 Duc Dat Dau is a senior undergraduate student in Cyber Security at Thuyloi University, Vietnam.
 
-His research interests focus on automated software vulnerability discovery, particularly fuzzing-based approaches for uncovering security flaws. He has a strong background in reverse engineering and binary exploitation, with an emphasis on analyzing and manipulating low-level program behavior. Beyond software, he is also interested in hardware-assisted security, with a specific focus on the security of Internet of Things (IoT) devices. 
+His research centers on automated vulnerability discovery, with a particular focus on Fuzzing. He has a strong background in reverse engineering and binary exploitation, emphasizing analysis and manipulation of low-level program behavior. Beyond software, he is also interested in hardware-assisted security, with a specific focus on the security of Internet of Things (IoT) devices. 
 
 ## PUBLICATIONS
 
@@ -57,7 +57,7 @@ His research interests focus on automated software vulnerability discovery, part
 
 ## HONORS & AWARDS 
 
-**University**
+**Academic**
   - Le Van Kiem Scholarship for Excellence student (2023)
   - Bronze Medal, Vietnam National Mathematics Olympiad for Undergraduates (2023)
   - Best student in Cyber Security major (2023, 2025)

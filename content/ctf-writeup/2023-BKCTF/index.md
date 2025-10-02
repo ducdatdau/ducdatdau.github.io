@@ -20,9 +20,9 @@ img {
 
 <img src="./2.jpg">
 
-BKCTF là giải mà mình lần đầu tiên được tham gia onsite. Host là câu lạc bộ BKSEC của Trường Đại học Bách khoa Hà Nội, nơi đào tạo kỹ thuật hàng đầu tại Việt Nam, là niềm mơ ước của biết bao thế hệ học sinh, sinh viên trong nước. Mình nhớ tới BKSEC vì có biết một số anh chị rất khủng và có tiếng tăm trong ngành như anh chung96vn, chị lanleft, anh hacmao, ... 
+BKCTF was the first CTF I attended on-site. It was hosted by BKSEC, a club at Hanoi University of Science and Technology (HUST), a leading engineering school in Vietnam. HUST is the dream of many students across the country. I remember BKSEC because I know some very skilled peoples such as chung96vn, lanleft, and hacmao.
 
-## **rev/BabyStack (Hard)**
+## rev/BabyStack (Hard)
 
 {{< admonition note "Challenge Information" >}}
 * **Given files:** [BabyStack.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EWmha5dk9GxHhMIDplXWwkwBcXd6O5JpYM1G38mtdG8Elw?e=EBWzTG)
@@ -30,74 +30,74 @@ BKCTF là giải mà mình lần đầu tiên được tham gia onsite. Host là
 * **Description:** Stack up to the moon. Flag format: `BKSEC{}`
 {{< /admonition >}}
 
-### **0x00 My opinion**
+### 0x00 My opinion
 
-Theo quan điểm cá nhân của mình, bài này không thực sự quá khó. Nếu ai đã từng có một chút kinh nghiệm làm các dạng bài StackVM thì sẽ thấy bài này khá nhẹ nhàng. Mình sẽ cố gắng đi chi tiết từng thao tác nhỏ để các bạn mới có thể dễ dàng tiếp cận. Happy hacking ... 
+In my opinion, this challenge is not very hard. If you have a bit of experience with StackVM-style problems, you will find it quite easy. I will try to explain every small step so beginners can follow along. Happy hacking...
 
-### **0x01 Overview & Clean code**
+### 0x01 Overview & Clean code
 
-Đề bài cho chúng ta một file PE 64 bit `StackVM.exe` với mã giả dài hơn 300 dòng, chủ yếu là khai báo và gán giá trị cho các biến. 
+The challenge gives us a 64-bit PE file named `StackVM.exe` with more than 300 lines of pseudocode, mostly variable declarations and assignments.
 
-Sau khi nhìn tổng quan, ta thấy chương trình khởi tạo cho vm một loạt bytecode như thế này 
+At a glance, we can see the program initializes a series of bytecode for the VM like this:
 
 <img src="./4.png" width=500rem>
 
-Tiếp theo, chương trình cho nhập vào `Buffer` và kiểm tra kích thước xem có bằng 20 không. 
+Next, the program reads your input into `Buffer` and checks whether its length is exactly 20.
 
 ```c
 fgets(Buffer, 0x15, v6);
-    do
-    {
-        Buffer[++v4];
-    }
-    while ( Buffer[v4] );
+do
+{
+    Buffer[++v4];
+}
+while ( Buffer[v4] );
 
-    if ( v4 != 0x14 )
-    {
-        v7 = sub_140001000(std::cout, "Not enough length");
-        std::ostream::operator<<(v7, sub_140001260);
-        exit(0);
-    }
+if ( v4 != 0x14 )
+{
+    v7 = sub_140001000(std::cout, "Not enough length");
+    std::ostream::operator<<(v7, sub_140001260);
+    exit(0);
+}
 ```
 
-Chúng ta sẽ phải đi định nghĩa lại kích thước của mảng `bytecodes[]` và `Buffer[]` để chương trình nhìn gọn gàng hơn. 
+We should redefine the sizes of the `bytecodes[]` and `Buffer[]` arrays to make the code cleaner.
 
-Đặt lại cho mảng `Buffer[]` có kích thước 20 bytes và đổi tên thành `input[]`. 
+Set `Buffer[]` to 20 bytes and rename it to `input[]`.
 
 <img src="./5.png"  width=600rem>
 
-và mảng `bytecodes[]` là 400 bytes. 
+and set the `bytecodes[]` array to 400 bytes.
 
 <img src="./6.png" width=600rem>
 
-> Tại sao mình tính được kích thước là 400 bytes? 
+> Why did I calculate the size as 400 bytes?
 >
-> Vì `bytecodes` bắt đầu từ `v24 [rsp+60h]`, kết thúc ở `v131 [rsp+1E8h]`, vậy nên 0x1E8 - 0x60 + 8 = 400
+> Because bytecodes starts at `v24 [rsp+60h]` and ends at `v131 [rsp+1E8h]`. So, 0x1E8 - 0x60 + 8 = 400.
 
-Okay, chương trình đã ngắn hơn một xíu rồi. Tiếp tục quan sát đoạn code dưới đây, ta thấy chương trình sử dụng vtable. Hiểu một cách đơn giản, vtable như là một cái bảng chứa các hàm, chương trình cần dùng hàm nào thì nhảy vào đó mà lấy. 
+Okay, the program is a bit shorter now. Looking at the code below, we can see it uses a vtable. It is a table of functions when the program needs a function, it jumps to the corresponding entry in that table and calls it.
 
 <img src="./7.png" width=600rem>
 
-Ở đây mình sẽ tạo 1 struct cho vtable có kích thước 40 byte, đúng bằng kích thước của `v19`. Double click vào `vtable`, bôi đen toàn bộ các hàm, chuột phải và chọn **Create struct ...**. Đặt tên cho struct này là `struct_vtable`, tên các field mình vẫn giữ nguyên, sau này khi phân tích kỹ càng hơn mình sẽ rename sau. 
+I will create a struct for the vtable with a size of 40 bytes, which matches the size of `v19`. Double-click `vtable`, select all the functions, right-click, and choose **Create struct ...**, name it `struct_vtable`. I'll keep the field names as they are for now and rename them later when the analysis is more detailed.
 
 <img src="./8.png">
 
-Thường những bài StackVM, mọi thao thác đều diễn ra trên cùng một stack. Và có 2 thứ không thể thiếu đó là: 
-- `stack_base`: địa chỉ gốc stack
-- `stack_esp`: địa chỉ đỉnh ngăn xếp 
+In StackVM challenges, almost everything happens on a single stack. Two things are essential:
+1. `stack_base`: the base address of the stack
+2. `stack_esp`: the top-of-stack pointer
 
-Nhìn vào mã giả, mình đoán chắn chắn `v19[4]` là `stack_base` và `v19[3]` là `stack_esp`. Còn `v19[1]` và `v19[2]` chưa rõ nên mình không định nghĩa. 
-Tạo tiếp một struct `struct_vm` như sau
+From the pseudocode, I'm quite sure `v19[4]` is `stack_base` and `v19[3]` is `stack_esp`, `v19[1]` and `v19[2]` are still unclear, so I won't define them yet. Next, create a `struct_vm` struct like this:
 
 <img src="./9.png">
 
-và ép kiểu cho field đầu tiên là `*struct_vtable` mà chúng ta đã định nghĩa ở phía trên. 
+And cast the first field as a `*struct_vtable` (the one we defined above).
 
-Right click `v19`, nhấn **Convert to Struct ...** và chọn `struct_vm` để sửa lại cấu trúc cho `v19`. 
+Right-click `v19`, choose **Convert to Struct ...**, and select `struct_vm` to apply the new structure to `v19`.
 
-### **0x02 VM Analysis** 
+### 0x02 VM Analysis 
 
-Chúng ta có thể thấy `input` được load vào mảng `bytecodes[]` như sau:
+We can see that the `input` is loaded into the `bytecodes[]` array as follows:
+
 ```c
 bytecodes[29] = input[0];
 bytecodes[28] = input[1];
@@ -118,63 +118,65 @@ bytecodes[306] = input[15];
 bytecodes[345] = input[16];
 bytecodes[344] = input[17];
 bytecodes[383] = input[18];
-total_bytecode = 0;
 bytecodes[382] = input[19];
 ```
 
-Nếu chú ý, ta có thể thấy các `bytecodes` chứa `input` liền kề nhau từng đôi một. Vậy rất có thể, chương trình sẽ đi xử lý từng cặp một của `input`. 
+If you look closely, the `bytecodes` that hold the input appear in adjacent pairs. So it's very likely the program processes the `input` two bytes at a time.
 
-Đoạn xử lý chính của chương trình nằm ở đây
+The main processing routine is here:
+
 ```c
-do
+do 
+{
+    v10 = bytecodes[idx];
+    if ( bytecodes[idx + 1] == 6 )
     {
-        v10 = bytecodes[idx];
-        if ( bytecodes[idx + 1] == 6 )
-        {
-            instruction_sz = 4i64;
-            HIDWORD(ptr_vm) = bytecodes[idx + 1];
-            LOBYTE(ptr_vm) = bytecodes[idx];
-            v12 = ptr_vm;
-            LOWORD(v20) = bytecodes[idx + 3] + (bytecodes[idx + 2] << 8);
-            v13 = v20;
-        }
-        else
-        {
-            HIDWORD(v21) = bytecodes[idx + 1];
-            instruction_sz = 2i64;
-            LOBYTE(v21) = bytecodes[idx];
-            v12 = v21;
-            LOWORD(v22) = 0;
-            v13 = v22;
-        }
-
-        *(_DWORD *)&input[8] = v13;
-        vtable = v3->vtable;
-        total_bytecode += instruction_sz;
-        *(_QWORD *)input = v12;
-        ((void (__fastcall *)(struct_vm *, char *))vtable->___7stackVM__6B@)(v3, input);
-        idx += instruction_sz;
+        instruction_sz = 4i64;
+        HIDWORD(ptr_vm) = bytecodes[idx + 1];
+        LOBYTE(ptr_vm) = bytecodes[idx];
+        v12 = ptr_vm;
+        LOWORD(v20) = bytecodes[idx + 3] + (bytecodes[idx + 2] << 8);
+        v13 = v20;
     }
-    while ( total_bytecode < 0x18C );
-```
-Tóm tắt đoạn code trên như sau: 
-- Nếu `[idx + 1] == 6` thì 
-  * Instruction sẽ có kích thước 4 byte, bắt đầu từ `[idx]` tới `[idx + 3]`
-  * Value sẽ là sự kết hợp giữa `[idx + 2]` và `[idx + 3]`
-  * Được xử lý bởi hàm `PUSH`
-- Nếu `[idx + 1] != 6` thì: 
-  - Instruction sẽ có kích thước 2 byte, bắt đầu từ `[idx]` tới `[idx + 1]`
-  - Dựa vào `[idx + 1]` mà có 8 lựa chọn để gọi hàm xử lý: 
-    - CMP = 0
-    - XOR = 1
-    - ADD = 2
-    - SUB = 3
-    - SHL = 4
-    - SHR = 5
-    - POP = 7
-    - AND = 8
+    else
+    {
+        HIDWORD(v21) = bytecodes[idx + 1];
+        instruction_sz = 2i64;
+        LOBYTE(v21) = bytecodes[idx];
+        v12 = v21;
+        LOWORD(v22) = 0;
+        v13 = v22;
+    }
 
-Dưới đây là minh họa cho việc mình rename và retype cho hàm `PUSH`. Các hàm khác các bạn làm tương tự thì code sẽ clean hơn rất nhiều. 
+    *(_DWORD *)&input[8] = v13;
+    vtable = v3->vtable;
+    total_bytecode += instruction_sz;
+    *(_QWORD *)input = v12;
+    ((void (__fastcall *)(struct_vm *, char *))vtable->___7stackVM__6B@)(v3, input);
+    idx += instruction_sz;
+}
+while ( total_bytecode < 0x18C );
+```
+Summary of the code above:
+
+If `[idx + 1] == 6`:
+- The instruction is 4 bytes long, from `[idx]` to `[idx + 3]`.
+- The value is the combination of `[idx + 2]` and `[idx + 3]`.
+- It’s handled by the `PUSH` function.
+
+If `[idx + 1] != 6`:
+- The instruction is 2 bytes long, from `[idx]` to `[idx + 1]`.
+- Based on `[idx + 1]`, there are 8 different handler functions to call.
+    1. CMP = 0
+    2. XOR = 1
+    3. ADD = 2
+    4. SUB = 3
+    5. SHL = 4
+    6. SHR = 5
+    7. POP = 7
+    8. AND = 8
+
+Below is an example of how I renamed and re-typed the `PUSH` function.
 
 ```c
 __int64 __fastcall PUSH(struct_vm *a1, char a2, __int16 value)
@@ -199,51 +201,51 @@ __int64 __fastcall PUSH(struct_vm *a1, char a2, __int16 value)
 }
 ```
 
-### **0x03 VM Emulator**
+### 0x03 VM Emulator
 
-Sau khi đã hiểu cách thức hoạt động, mình đã lấy toàn bộ giá trị của mảng `bytecodes[]` và viết một đoạn code Python nhỏ để xem chương trình đang thực hiện những thao tác gì. 
+After understanding how it works, I extracted all the values from the `bytecodes[]` array and wrote a small Python script to see what operations the program performs.
 
 ```python
 bytecodes = [0x00, 0x06, 0x00, 0x01, 0x01, 0x06, 0x0C, 0x0D, 0x01, 0x06, 
-        0x00, 0x08, 0x01, 0x05, 0x01, 0x06, 0x22, 0x38, 0x01, 0x06, 
-        0xFF, 0x00, 0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 0x62, 0x61, 
-        0x01, 0x01, 0x01, 0x06, 0x69, 0x4E, 0x01, 0x00, 0x00, 0x07, 
-        0x00, 0x00, 0x01, 0x06, 0x0C, 0x0D, 0x01, 0x06, 0x2D, 0x41, 
-        0x01, 0x02, 0x01, 0x06, 0x00, 0x08, 0x01, 0x05, 0x01, 0x06, 
-        0x22, 0x38, 0x01, 0x06, 0x55, 0x22, 0x01, 0x01, 0x01, 0x06, 
-        0xFF, 0x00, 0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 0x64, 0x63, 
-        0x01, 0x01, 0x01, 0x06, 0x32, 0x6A, 0x01, 0x00, 0x00, 0x07, 
-        0x00, 0x00, 0x01, 0x06, 0x49, 0x30, 0x01, 0x06, 0x00, 0x08, 
-        0x01, 0x05, 0x01, 0x06, 0x3E, 0x5E, 0x01, 0x06, 0xFF, 0x00, 
-        0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 0x66, 0x65, 0x01, 0x01, 
-        0x01, 0x06, 0x45, 0x0A, 0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 
-        0x01, 0x06, 0x3B, 0x20, 0x01, 0x06, 0x00, 0x08, 0x01, 0x05, 
-        0x01, 0x06, 0x6B, 0x2D, 0x01, 0x06, 0xFF, 0x00, 0x01, 0x08, 
-        0x01, 0x02, 0x01, 0x06, 0x68, 0x67, 0x01, 0x01, 0x01, 0x06, 
-        0x5B, 0x78, 0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 0x01, 0x06, 
-        0x2B, 0x79, 0x01, 0x06, 0x00, 0x08, 0x01, 0x05, 0x01, 0x06, 
-        0x70, 0x41, 0x01, 0x06, 0xFF, 0x00, 0x01, 0x08, 0x01, 0x02, 
-        0x01, 0x06, 0x6B, 0x69, 0x01, 0x01, 0x01, 0x06, 0x37, 0x45, 
-        0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 0x01, 0x06, 0x78, 0x79, 
-        0x01, 0x06, 0x00, 0x08, 0x01, 0x05, 0x01, 0x06, 0x34, 0x41, 
-        0x01, 0x06, 0xFF, 0x00, 0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 
-        0x6D, 0x6C, 0x01, 0x01, 0x01, 0x06, 0x55, 0x0A, 0x01, 0x00, 
-        0x00, 0x07, 0x00, 0x00, 0x01, 0x06, 0x6A, 0x36, 0x01, 0x06, 
-        0x00, 0x08, 0x01, 0x05, 0x01, 0x06, 0x2D, 0x01, 0x01, 0x06, 
-        0xFF, 0x00, 0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 0x32, 0x31, 
-        0x01, 0x01, 0x01, 0x06, 0x58, 0x1E, 0x01, 0x00, 0x00, 0x07, 
-        0x00, 0x00, 0x01, 0x06, 0x75, 0x1B, 0x01, 0x06, 0x00, 0x08, 
-        0x01, 0x05, 0x01, 0x06, 0x3B, 0x17, 0x01, 0x06, 0xFF, 0x00, 
-        0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 0x34, 0x33, 0x01, 0x01, 
-        0x01, 0x06, 0x0F, 0x19, 0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 
-        0x01, 0x06, 0x77, 0x7C, 0x01, 0x06, 0x00, 0x08, 0x01, 0x05, 
-        0x01, 0x06, 0x45, 0x30, 0x01, 0x06, 0xFF, 0x00, 0x01, 0x08, 
-        0x01, 0x02, 0x01, 0x06, 0x36, 0x35, 0x01, 0x01, 0x01, 0x06, 
-        0x76, 0x03, 0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 0x01, 0x06, 
-        0x0F, 0x37, 0x01, 0x06, 0x00, 0x08, 0x01, 0x04, 0x01, 0x06, 
-        0x3B, 0x23, 0x01, 0x06, 0x00, 0xFF, 0x01, 0x08, 0x01, 0x02, 
-        0x01, 0x06, 0x38, 0x37, 0x01, 0x01, 0x01, 0x06, 0x4A, 0x12, 
-        0x01, 0x00, 0x00, 0x07, 0x00, 0x00]
+    0x00, 0x08, 0x01, 0x05, 0x01, 0x06, 0x22, 0x38, 0x01, 0x06, 
+    0xFF, 0x00, 0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 0x62, 0x61, 
+    0x01, 0x01, 0x01, 0x06, 0x69, 0x4E, 0x01, 0x00, 0x00, 0x07, 
+    0x00, 0x00, 0x01, 0x06, 0x0C, 0x0D, 0x01, 0x06, 0x2D, 0x41, 
+    0x01, 0x02, 0x01, 0x06, 0x00, 0x08, 0x01, 0x05, 0x01, 0x06, 
+    0x22, 0x38, 0x01, 0x06, 0x55, 0x22, 0x01, 0x01, 0x01, 0x06, 
+    0xFF, 0x00, 0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 0x64, 0x63, 
+    0x01, 0x01, 0x01, 0x06, 0x32, 0x6A, 0x01, 0x00, 0x00, 0x07, 
+    0x00, 0x00, 0x01, 0x06, 0x49, 0x30, 0x01, 0x06, 0x00, 0x08, 
+    0x01, 0x05, 0x01, 0x06, 0x3E, 0x5E, 0x01, 0x06, 0xFF, 0x00, 
+    0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 0x66, 0x65, 0x01, 0x01, 
+    0x01, 0x06, 0x45, 0x0A, 0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 
+    0x01, 0x06, 0x3B, 0x20, 0x01, 0x06, 0x00, 0x08, 0x01, 0x05, 
+    0x01, 0x06, 0x6B, 0x2D, 0x01, 0x06, 0xFF, 0x00, 0x01, 0x08, 
+    0x01, 0x02, 0x01, 0x06, 0x68, 0x67, 0x01, 0x01, 0x01, 0x06, 
+    0x5B, 0x78, 0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 0x01, 0x06, 
+    0x2B, 0x79, 0x01, 0x06, 0x00, 0x08, 0x01, 0x05, 0x01, 0x06, 
+    0x70, 0x41, 0x01, 0x06, 0xFF, 0x00, 0x01, 0x08, 0x01, 0x02, 
+    0x01, 0x06, 0x6B, 0x69, 0x01, 0x01, 0x01, 0x06, 0x37, 0x45, 
+    0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 0x01, 0x06, 0x78, 0x79, 
+    0x01, 0x06, 0x00, 0x08, 0x01, 0x05, 0x01, 0x06, 0x34, 0x41, 
+    0x01, 0x06, 0xFF, 0x00, 0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 
+    0x6D, 0x6C, 0x01, 0x01, 0x01, 0x06, 0x55, 0x0A, 0x01, 0x00, 
+    0x00, 0x07, 0x00, 0x00, 0x01, 0x06, 0x6A, 0x36, 0x01, 0x06, 
+    0x00, 0x08, 0x01, 0x05, 0x01, 0x06, 0x2D, 0x01, 0x01, 0x06, 
+    0xFF, 0x00, 0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 0x32, 0x31, 
+    0x01, 0x01, 0x01, 0x06, 0x58, 0x1E, 0x01, 0x00, 0x00, 0x07, 
+    0x00, 0x00, 0x01, 0x06, 0x75, 0x1B, 0x01, 0x06, 0x00, 0x08, 
+    0x01, 0x05, 0x01, 0x06, 0x3B, 0x17, 0x01, 0x06, 0xFF, 0x00, 
+    0x01, 0x08, 0x01, 0x02, 0x01, 0x06, 0x34, 0x33, 0x01, 0x01, 
+    0x01, 0x06, 0x0F, 0x19, 0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 
+    0x01, 0x06, 0x77, 0x7C, 0x01, 0x06, 0x00, 0x08, 0x01, 0x05, 
+    0x01, 0x06, 0x45, 0x30, 0x01, 0x06, 0xFF, 0x00, 0x01, 0x08, 
+    0x01, 0x02, 0x01, 0x06, 0x36, 0x35, 0x01, 0x01, 0x01, 0x06, 
+    0x76, 0x03, 0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 0x01, 0x06, 
+    0x0F, 0x37, 0x01, 0x06, 0x00, 0x08, 0x01, 0x04, 0x01, 0x06, 
+    0x3B, 0x23, 0x01, 0x06, 0x00, 0xFF, 0x01, 0x08, 0x01, 0x02, 
+    0x01, 0x06, 0x38, 0x37, 0x01, 0x01, 0x01, 0x06, 0x4A, 0x12, 
+    0x01, 0x00, 0x00, 0x07, 0x00, 0x00]
 
 idx = 0 
 
@@ -276,7 +278,7 @@ while (idx < len(bytecodes)):
         idx += 2
 ```
 
-Mình sẽ thử phân tích một phần nhỏ kết quả thu được đầu tiên với input = **abcdefghiklm12345678**
+I'll start by analyzing a small part of the first results using the input **abcdefghiklm12345678**.
 
 ```assembly
 PUSH 0x1
@@ -293,37 +295,32 @@ PUSH 0x694E
 CMP
 ```
 
-1. `PUSH` 3 số 0x1, 0xC0D, 0x8 vào stack, `ESP` sẽ ở 0x8 
-2. `SHR` là dịch phải: 0xC0D >> 0x8 = 0xC, `ESP` sẽ là 0xC 
-3. `PUSH` 2 số 0x2238, 0xFF00 và `AND` với nhau. Kết quả là: 0x2238 & 0xFF00 = 0x2200
-4. `ADD` sẽ cộng 2 số đầu tiên trên stack: 0x2200 + 0xC = 0x220C 
-5. `PUSH` 0x6261 là 2 byte đầu tiên của `input`
-6. `XOR` 0x220C ^ 0x6261 = 0x406D
-7. `CMP` kết quả trên với `0x694E`
+1. `PUSH` 3 numbers 0x1, 0xC0D, 0x8 onto the stack. `ESP` will point to the value `0x8`.
+2. `SHR` is shift-right top 2 values on the stack: 0xC0D >> 0x8 = 0xC. `ESP` becomes 0xC.
+3. `PUSH` 2 numbers 0x2238 and 0xFF00, then do `AND`. Result: 0x2238 & 0xFF00 = 0x2200.
+4. `ADD` the top two values on the stack: 0x2200 + 0xC = 0x220C.
+5. `PUSH` 0x6261, which is the first 2 bytes of the `input`.
+6. `XOR` the values: 0x220C ^ 0x6261 = 0x406D.
+7. `CMP` that result with 0x694E.
 
-Phía trên chỉ là toàn bộ phỏng đoán của mình. Để kiểm chứng, mình debug và check ở hàm `CMP` xem logic trên có thực sự đúng không. 
+The above is just my guess. To verify it, I'll debug and check at the `CMP` function to see if the logic is actually correct.
 
 <img src="./10.png" width=500rem>
 
-Kết quả hoàn toàn chính xác.
+The result is completely correct.
 
 {{< blank >}}
 
-Với việc dump được ra các instruction, chúng ta hoàn toàn có thể giải tay ra được flag. Nhưng để tiết kiệm thời gian, mình sẽ chỉ đặt breakpoint ở hàm `XOR` và hàm `CMP` để lấy các kết quả cuối cùng. 
+Since we’ve dumped all the instructions, we could solve the flag by hand. But to save time, I'll set breakpoints at the `XOR` and `CMP` functions to capture the final results.
 
-Một số lưu ý nhỏ: 
-1. Ta thấy trong đống `bytecodes[]` kia, 2 byte `0x01, 0x00` đại diện cho lệnh `CMP`. Vậy chắc chắn trước đó sẽ là lệnh `PUSH` giá trị `cipher` để so sánh kết quả đã xor. Từ đó ta không cần đặt breakpoint ở hàm `CMP` nữa. 
-2. Việc thực hiện 1 loạt biến đổi rồi xor với 2 byte `input` ta không cần quan tâm. Chỉ cần `F9` và xem thử có input của mình không. Nếu có thì đó là giá trị chính xác. 
- 
 ```python
 value = [0x220c, 0x7739, 0x3e49, 0x6b3b, 0x702b, 0x3478, 0x2d6a, 0x3b75, 0x4577, 0x3723]
 cipher = [0x694E, 0x326A, 0x450A, 0x5B78, 0x3745, 0x550A, 0x581E, 0xF19, 0x7603, 0x4A12]
 flag = "".join([(v ^ c).to_bytes(2, "little").decode("utf8") for v, c in zip(value, cipher)])
+# BKSEC{C0nGratul4t31}
 ```
 
-Flag thu được là `BKSEC{C0nGratul4t31}`
-
-## **rev/Reality (Medium)**
+## rev/Reality (Medium)
 
 {{< admonition note "Challenge Information" >}}
 * **Given files:** [reality.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYE-JsOfHUlLn3eLktQ-CXIB5e-4J0AhnZoM9qHwfNqGdA?e=Phj3TB)
@@ -331,15 +328,15 @@ Flag thu được là `BKSEC{C0nGratul4t31}`
 * **Description:** A simple reversing challenge... Flag format: `BKSEC{}`
 {{< /admonition >}}
 
-Đề bài cho chúng ta một file PE32 `reality.exe`. Khi decompile file này, IDA không cho chúng ta mã giả. Mình sẽ đi đọc mã assembly kết hợp debug để xem chương trình đang làm gì. 
+The challenge gives us a PE32 file named `reality.exe`. When I decompile it, IDA doesn’t show any pseudocode. I’ll read the assembly and debug it to understand what the program is doing.
 
 <img src="./11.png" width=350px style="display: block; margin-left: auto; margin-right: auto;">
 
-Về tổng quan, chương trình cho nhập input và luôn nhảy vào block có exception khi chúng ta debug. 
+Overall, the program reads the input and, when we debug it, it always jumps into the exception handler block.
 
 <img src="./12.png">
 
-Nhìn ở block bên cạnh, mình thấy có một chuỗi khá khả nghi `BKSEECCCC!!!`. Thử xem qua hàm `sub_401220` được gọi trong block này, ta thấy đây đơn giản chỉ là một hàm xor input với key là chuỗi phía trên. 
+In the neighboring block, I see a suspicious string: **BKSEECCCC!!!**. Checking the function `sub_401220()` called there, it’s just XORing the input with that string as the key.
 
 ```c
 char __fastcall sub_401220(const char *a1, int a2, int a3)
@@ -359,23 +356,25 @@ char __fastcall sub_401220(const char *a1, int a2, int a3)
 }
 ```
 
-Mình debug và sửa `EIP` cho nó trỏ vào khối này. Ta thấy được rất nhiều bytecode ở dưới, mình dùng make code thì thấy đó là những phép biến đổi rất phức tạp. 
+I debugged the program and changed `EIP` to point to this block. Below it, there are lots of bytecodes. After using Make Code (in IDA) to disassemble them, I can see they perform very complex transformations.
 
 <img src="./13.png">
 
-Ta thấy ở `loc_40131F` là câu lệnh 
+At `loc_40131F`, there is the instruction
+
 ```assembly
 jmp short near ptr loc_40131F+1 
 ```
-nghĩa là cứ đến đây nó sẽ bị lặp vô tận. Mình nhận ra có gì đó sai sai nên đã ấn **d** để tách hết thành từng bytecode và ấn **c** để make code lại. Kết quả thu được như sau 
+
+This means it would loop forever at this point. I realized something was wrong, so I pressed `d` to split everything into individual bytecodes, then pressed `c` to make code again. The result is as follows.
 
 <img src="./14.png">
 
-Yeah, đến đây thì rõ ràng rồi. Chương trình check xem ta có đang debug không. Nếu có sẽ nhảy vào đống tính toán phức tạp kia, ngược lại sẽ nhảy tới `loc_401AD5`. 
+Yeah, now it’s clear. The program checks if we are debugging. If yes, it jumps into that complex calculation block; otherwise, it jumps to `loc_401AD5`.
 
-> Tại sao mình biết đây là anti-debug, câu trả lời các bạn có thể xem ở [stackoverflow](https://stackoverflow.com/questions/14496730/mov-eax-large-fs30h). 
+> Why do I know this is anti-debugging? You can see the answer in the reference below. [stackoverflow](https://stackoverflow.com/questions/14496730/mov-eax-large-fs30h). 
 
-Ở `loc_401AD5` chỉ là gán giá trị cho `cipher[]`. Vậy chúng ta chỉ cần lấy mảng này xor ngược lại với key phía trên là có được flag. 
+At `loc_401AD5`, the code only assigns values to `cipher[]`. So we just need to take this array and XOR it with the key above to recover the flag.
 
 ```python
 cipher = [
@@ -391,7 +390,7 @@ flag = "".join([chr(cipher[i] ^ key[i % len(key)]) for i in range(len(cipher))])
 print(flag)
 ```
 
-Flag thu được là `BKSEC{e4sy_ch4ll_but_th3r3_must_b3_som3_ant1_debug??}` 
+Flag: `BKSEC{e4sy_ch4ll_but_th3r3_must_b3_som3_ant1_debug??}` 
 
 <!-- ## rev/Checker
 
@@ -405,7 +404,7 @@ Flag thu được là `BKSEC{e4sy_ch4ll_but_th3r3_must_b3_som3_ant1_debug??}`
 
 Updating ...  -->
 
-## **pwn/File Scanner (Medium)**
+## pwn/File Scanner (Medium)
 
 {{< admonition note "Challenge Information" >}}
 * **Given files:** [bkctf2023-file-scanner.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EZ9OTXN0q9FOip0-58L7HfABRbHe_ozK_7abZoFk8uVsQQ?e=ooSD6Y)
@@ -413,10 +412,11 @@ Updating ...  -->
 * **Description:** The most powerful tool maybe the worst :(. Flag format: `BKSEC{}`
 {{< /admonition >}}
 
-### **0x01 Finding the bug**
+### 0x01 Finding the bug
 
 {{< admonition note >}}
-Có thể gặp vấn đề permission denied sau khi đã `chmod +x ./file_scanner`. Mình đã fix bằng cách tạo symlink tên chuẩn để loader tìm thấy được. 
+
+You might get a "permission denied" error even after `chmod +x ./file_scanner`. I fixed it by creating a symlink with the correct, expected name so the loader can find it.
 
 ```shell
 ln -sf ld-2.23.so ld-linux.so.2
@@ -424,7 +424,7 @@ ln -sf libc_32.so.6 libc.so.6
 ```
 {{< /admonition >}}
 
-Chương trình tạo 1 số random 16 byte và bắt chúng ta phải nhập chính xác số random đó. 
+The program generates a 16-byte random value and requires us to enter that exact value.
 
 ```c
 v3 = time(0);
@@ -444,11 +444,11 @@ v3 = time(0);
   puts("Please don't break my program T_T\n");
 ```
 
-Ta hoàn toàn có thể bypass hàm `strncmp` với input `\n`. 
+We can fully bypass the `strncmp` function by using the input `\n`.
 
 {{< blank >}}
 
-Dễ thấy ý đồ của tác giả là muốn sử dụng kỹ thuật File Structure Attack. Ở option 4, chương trình có bug BOF như sau 
+It's clear the author intends us to use a File Structure Attack. In option 4, the program has a buffer overflow (BOF) bug as follows:
 
 ```c
 puts("oh... I forgot asking your name");
@@ -460,19 +460,19 @@ fclose(filePtr);
 exit(1);
 ```
 
-### **0x02 Exploiting BOF bug**
+### 0x02 Exploiting BOF bug
 
-Từ biến `name`, ta hoàn toàn overwrite được `filePtr` lẫn `fileContent`. 
+From the `name` variable, we can fully overwrite both `filePtr` and `fileContent`.
 
 <img src="15.png"/>
 
-Ý tưởng của mình là tạo một fake file structure, sau đó overwrite `filePtr` thành địa chỉ của fake file. Toàn bộ hàm trong `vtable` đều là `system()` của libc, `fakeFile.flags` sẽ trỏ tới chuỗi `/bin/sh\x00`. Khi `fclose(filePtr)` thực chất sẽ gọi `system('/bin/sh')`. 
+My idea is to create a fake file structure, then overwrite `filePtr` so it points to this fake file. Every function in the `vtable` is `system()` from libc, and `fakeFile.flags` points to the string `/bin/sh\x00`. When we call `fclose(filePtr)`, it will actually call `system("/bin/sh")`.
 
 {{< blank >}}
 
-Để leak được `libc`, chúng ta có thể mở `/proc/self/maps` hoặc `/proc/self/syscall`. 
+To leak the libc base, we can open `/proc/self/maps` or `/proc/self/syscall`.
 
-### **0x03 Final script** 
+### 0x03 Final script 
 
 ```python
 #!/usr/bin/env python3
@@ -539,4 +539,4 @@ p.sendlineafter(b'name: ', payload)
 p.interactive()
 ```
 
-Flag của bài toán là `BKSEC{fSoP_1s_n0t_2_hArd_4_u_1fac8554f8eb55a103be3e34c9cf6940}`
+Flag: `BKSEC{fSoP_1s_n0t_2_hArd_4_u_1fac8554f8eb55a103be3e34c9cf6940}`

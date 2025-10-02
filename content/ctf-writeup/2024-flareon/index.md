@@ -1,8 +1,8 @@
 ---
 title: "Flare-On 11"
-date: 2024-11-10T19:18:47+07:00
+date: 2024-12-31T19:18:47+07:00
 draft: false
-tags: ["Reverse-Engineering", "Flare-On", "2025"]
+tags: ["Reverse-Engineering", "Flare-On", "2024"]
 # categories: ["CTF Writeups"]
 lightgallery: true
 toc:
@@ -18,13 +18,13 @@ img {
 }
 </style>
 
-## **Challenge 1: frog**
+## Challenge 1: frog
 
 A game written in Python: your task is to move the frog to the correct spot to get the flag.
 
 <img src="./22.png">
 
-### **0x01 Get Flag** 
+### 0x01 Getting the flag 
 
 We can open the game's source code to read it - it's in the `frog.py` file. At a glance, there's a function that generates the "flag" called `GenerateFlagText()` :
 
@@ -53,9 +53,9 @@ for x in range(0, 999):
 # welcome_to_11@flare-on.com
 ```
 
-## **Challenge 2: checksum**
+## Challenge 2: checksum
 
-### **0x01 Overview**
+### 0x01 Overview
 
 The challenge provides us with a PE64 file written in Golang, along with several questions related to the result of a "checksum" calculation.
 
@@ -177,11 +177,11 @@ The `input_checksum` must be exactly 32 bytes long, where the first 24 bytes are
 
 <!-- <img src="./3.png"> -->
 
-By decoding the `encryptedFlagData` using the key and the nonce mentioned above, we obtain the `decryptedData`.
+By decoding the `encryptedFlagData` using the key and the nonce mentioned above, we obtain the `decryptedData`. The `decryptedData` is hashed using SHA-256, then converted to a hexadecimal string and compared with `input_checksum`.
 
 <img src="./4.png">
 
-The `decryptedData` is hashed using SHA-256, then converted to a hexadecimal string and compared with input_checksum. If they match, the function `main_a` is called and the result is printed to `{os_UserCacheDir}\REAL_FLAREON_FLAG.JPG`.
+If they match, the function `main_a` is called and the result is printed to `{os_UserCacheDir}\REAL_FLAREON_FLAG.JPG`.
 
 <img src="./5.png">
 
@@ -189,9 +189,9 @@ Analyzing the `main_a` function, we can see that its logic is relatively straigh
 
 <img src="./6.png">
 
-### **0x03 Find flag** 
+### 0x03 Getting the flag 
 
-Finding checksum value
+Finding correct checksum value: 
 
 ```python
 >>> x = b"cQoFRQErX1YAVw1zVQdFUSxfAQNRBXUNAxBSe15QCVRVJ1pQEwd/WFBUAlElCFBFUnlaB1ULByRdBEFdfVtWVA=="
@@ -206,15 +206,15 @@ Finding flag in local app data `C:\Users\PWN2OWN\AppData\Local`
 
 <img src="./7.jpg">
 
-## **Challenge 3: aray** 
+## Challenge 3: aray
 
 The challenge provides a YARA rule file, and the task is to find an input that satisfies all the conditions defined in the rule.
 
 <img src="./8.png">
 
-### **0x01 Clean code** 
+### 0x01 Clean code 
 
-First, clean up the code by replacing all occurrences of `and` with line breaks (\n) for better readability. At a glance, there are two types of data involved:
+First, clean up the code by replacing all occurrences of `and` with line breaks `\n` for better readability. At a glance, there are two types of data involved:
 
 - uint8 
 - unint32 
@@ -311,22 +311,22 @@ if (s.check() == sat):
     print(res)
 ```
 
-### **0x02 Get Flag** 
+### 0x02 Getting the flag 
 
 [Full script](./solve.py) 
 
 ```shell
-C:\Users\PWN2OWN\CTF\Flare-On\Flare11\3_aray\aray>python brute.py
+C:\Users\PWN2OWN\CTF\Flare-On\Flare11\3_aray\aray>python solve.py
 bytearray(b'rule flareon { strings: $f = "1RuleADayK33p$Malw4r3Aw4y@flare-on.com" condition: $f }')
 ```
 
-## **Challenge 4: FLARE Meme Maker 3000**
+## Challenge 4: FLARE Meme Maker 3000
 
-The challenge provides a mememaker3000.html file containing an obfuscated JavaScript snippet.
+The challenge provides a `mememaker3000.html` file containing an obfuscated JavaScript snippet.
 
 <img src="./9.png">
 
-### **0x01 Deobfuscate**
+### 0x01 Deobfuscate
 
 Deobfuscate using the website [https://deobfuscate.relative.im](https://deobfuscate.relative.im), the resulting source code is quite clear:
 
@@ -464,7 +464,7 @@ a0n.addEventListener('keyup', () => {
 })
 ```
 
-### **0x02 Get flag** 
+### 0x02 Getting the flag 
 
 There is a base64 encoded string with the content `Congratulations! Here you go: `. From this, we can deduce that the `a0k()` function contains the flag. There are 2 conditions that need to be bypassed:
 
@@ -521,7 +521,7 @@ After reloading the page, we get the flag: `wh0a_it5_4_cru3l_j4va5cr1p7@flare-on
 
 <img src="./11.png">
 
-## **Challenge 5: sshd** 
+## Challenge 5: sshd
 
 {{< admonition note "Challenge Information" >}}
 * **Given file:** [sshd.7z](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYCYJYqV0dZCtAzhZT2O2skBMNpPgWPQ45qrW9Ztf5KQ5A?e=X5v81N)
@@ -529,11 +529,11 @@ After reloading the page, we get the flag: `wh0a_it5_4_cru3l_j4va5cr1p7@flare-on
 7zip archive password: flare
 {{< /admonition >}}
 
-### **0x00 My opinion** 
+### 0x00 My opinion 
 
 In my opinion, this is one of the best challenges in the series. It is related to cases of real-world cybersecurity incidents and mentions a very interesting backdoor [that was discovered last year](https://en.wikipedia.org/wiki/XZ_Utils_backdoor).
 
-### **0x01 Overview** 
+### 0x01 Overview
 
 The challenge provides a filesystem image.
 
@@ -564,7 +564,7 @@ Update the base address of the library in IDA PRO to facilitate analysis of the 
 
 <img src="./15.png" width=400rem>
 
-### **0x02 Analysis The library** 
+### 0x02 Analysis the library 
 
 Jumping to the address that caused the crash, the function that caused the error is `sub_7F4A18C8F820`, with the content renamed as follows:
 
@@ -612,7 +612,7 @@ with open("decrypted_shellcode.bin", "wb") as f:
     f.write(decrypted_data)
 ```
 
-### **0x03 Analysis Shellcode** 
+### 0x03 Analysis shellcode 
 
 The shellcode is quite short and straightforward. It frequently sets the value of the `rax` register to call syscalls in the form `{push value; pop rax}`
 

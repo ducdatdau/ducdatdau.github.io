@@ -28,6 +28,7 @@
 .tag-web { background-color: #0369a1; }
 .tag-misc { background-color: #a21caf; }
 .tag-crypto { background-color: #ca8a04; }
+.tag-flareon { background-color: #eb7f4e; } /* Flare-On yellow */
 
 [theme="dark"] .tag-default { background-color: #333842; }
 [theme="dark"] .tag-blockchain { background-color: #145e75; }
@@ -37,6 +38,7 @@
 [theme="dark"] .tag-web { background-color: #075985; }
 [theme="dark"] .tag-misc { background-color: #86198f; }
 [theme="dark"] .tag-crypto { background-color: #a16207; }
+[theme="dark"] .tag-flareon { background-color: #d97706; } /* Flare-On yellow dark mode */
 
 .single {
   .single-title {
@@ -57,3 +59,4 @@ html {
 .single .content pre code { color: inherit !important; }
 [theme=dark] .single .content code { color: #f47466 !important; }
 [theme=dark] .single .content pre code { color: inherit !important; }
+

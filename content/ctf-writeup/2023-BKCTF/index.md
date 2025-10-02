@@ -22,7 +22,7 @@ img {
 
 BKCTF là giải mà mình lần đầu tiên được tham gia onsite. Host là câu lạc bộ BKSEC của Trường Đại học Bách khoa Hà Nội, nơi đào tạo kỹ thuật hàng đầu tại Việt Nam, là niềm mơ ước của biết bao thế hệ học sinh, sinh viên trong nước. Mình nhớ tới BKSEC vì có biết một số anh chị rất khủng và có tiếng tăm trong ngành như anh chung96vn, chị lanleft, anh hacmao, ... 
 
-## rev/BabyStack
+## **rev/BabyStack (Hard)**
 
 {{< admonition note "Challenge Information" >}}
 * **Given files:** [BabyStack.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EWmha5dk9GxHhMIDplXWwkwBcXd6O5JpYM1G38mtdG8Elw?e=EBWzTG)
@@ -30,11 +30,11 @@ BKCTF là giải mà mình lần đầu tiên được tham gia onsite. Host là
 * **Description:** Stack up to the moon. Flag format: `BKSEC{}`
 {{< /admonition >}}
 
----
+### **0x00 My opinion**
 
-> Theo quan điểm cá nhân của mình, bài này không thực sự quá khó. Nếu ai đã từng có một chút kinh nghiệm làm các dạng bài StackVM thì sẽ thấy bài này khá nhẹ nhàng. Mình sẽ cố gắng đi chi tiết từng thao tác nhỏ để các bạn mới có thể dễ dàng tiếp cận. Happy hacking ... 
+Theo quan điểm cá nhân của mình, bài này không thực sự quá khó. Nếu ai đã từng có một chút kinh nghiệm làm các dạng bài StackVM thì sẽ thấy bài này khá nhẹ nhàng. Mình sẽ cố gắng đi chi tiết từng thao tác nhỏ để các bạn mới có thể dễ dàng tiếp cận. Happy hacking ... 
 
-### Overview & Clean code 
+### **0x01 Overview & Clean code**
 
 Đề bài cho chúng ta một file PE 64 bit `StackVM.exe` với mã giả dài hơn 300 dòng, chủ yếu là khai báo và gán giá trị cho các biến. 
 
@@ -60,7 +60,7 @@ fgets(Buffer, 0x15, v6);
     }
 ```
 
-Đầu tiên, chúng ta phải đi định nghĩa lại kích thước của mảng `bytecodes[]` và `Buffer[]` để chương trình nhìn gọn gàng hơn. 
+Chúng ta sẽ phải đi định nghĩa lại kích thước của mảng `bytecodes[]` và `Buffer[]` để chương trình nhìn gọn gàng hơn. 
 
 Đặt lại cho mảng `Buffer[]` có kích thước 20 bytes và đổi tên thành `input[]`. 
 
@@ -70,13 +70,15 @@ và mảng `bytecodes[]` là 400 bytes.
 
 <img src="./6.png" width=600rem>
 
-> Tại sao mình tính được kích thước là 400 bytes. Vì `bytecodes` bắt đầu từ `v24 [rsp+60h]`, kết thúc ở `v131 [rsp+1E8h]`, vậy nên 0x1E8 - 0x60 + 8 = 400
+> Tại sao mình tính được kích thước là 400 bytes? 
+>
+> Vì `bytecodes` bắt đầu từ `v24 [rsp+60h]`, kết thúc ở `v131 [rsp+1E8h]`, vậy nên 0x1E8 - 0x60 + 8 = 400
 
 Okay, chương trình đã ngắn hơn một xíu rồi. Tiếp tục quan sát đoạn code dưới đây, ta thấy chương trình sử dụng vtable. Hiểu một cách đơn giản, vtable như là một cái bảng chứa các hàm, chương trình cần dùng hàm nào thì nhảy vào đó mà lấy. 
 
 <img src="./7.png" width=600rem>
 
-Ở đây mình sẽ tạo 1 struct cho vtable có kích thước 40 byte, đúng bằng kích thước của `v19`. Double click vào `vtable`, bôi đen toàn bộ các hàm, chuột phải và create struct. Đặt tên cho struct này là `struct_vtable`, tên các field mình vẫn giữ nguyên, sau này khi phân tích kỹ càng hơn mình sẽ rename sau. 
+Ở đây mình sẽ tạo 1 struct cho vtable có kích thước 40 byte, đúng bằng kích thước của `v19`. Double click vào `vtable`, bôi đen toàn bộ các hàm, chuột phải và chọn **Create struct ...**. Đặt tên cho struct này là `struct_vtable`, tên các field mình vẫn giữ nguyên, sau này khi phân tích kỹ càng hơn mình sẽ rename sau. 
 
 <img src="./8.png">
 
@@ -91,9 +93,9 @@ Tạo tiếp một struct `struct_vm` như sau
 
 và ép kiểu cho field đầu tiên là `*struct_vtable` mà chúng ta đã định nghĩa ở phía trên. 
 
-Right click `v19`, nhấn **Convert to Struct * ...** và chọn `struct_vm` để sửa lại cấu trúc cho `v19`. 
+Right click `v19`, nhấn **Convert to Struct ...** và chọn `struct_vm` để sửa lại cấu trúc cho `v19`. 
 
-### Analyze 
+### **0x02 VM Analysis** 
 
 Chúng ta có thể thấy `input` được load vào mảng `bytecodes[]` như sau:
 ```c
@@ -197,7 +199,8 @@ __int64 __fastcall PUSH(struct_vm *a1, char a2, __int16 value)
 }
 ```
 
-### Solve 
+### **0x03 VM Emulator**
+
 Sau khi đã hiểu cách thức hoạt động, mình đã lấy toàn bộ giá trị của mảng `bytecodes[]` và viết một đoạn code Python nhỏ để xem chương trình đang thực hiện những thao tác gì. 
 
 ```python
@@ -302,7 +305,9 @@ Phía trên chỉ là toàn bộ phỏng đoán của mình. Để kiểm chứn
 
 <img src="./10.png" width=500rem>
 
-Correct... 
+Kết quả hoàn toàn chính xác.
+
+{{< blank >}}
 
 Với việc dump được ra các instruction, chúng ta hoàn toàn có thể giải tay ra được flag. Nhưng để tiết kiệm thời gian, mình sẽ chỉ đặt breakpoint ở hàm `XOR` và hàm `CMP` để lấy các kết quả cuối cùng. 
 
@@ -318,7 +323,7 @@ flag = "".join([(v ^ c).to_bytes(2, "little").decode("utf8") for v, c in zip(val
 
 Flag thu được là `BKSEC{C0nGratul4t31}`
 
-## rev/Reality
+## **rev/Reality (Medium)**
 
 {{< admonition note "Challenge Information" >}}
 * **Given files:** [reality.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYE-JsOfHUlLn3eLktQ-CXIB5e-4J0AhnZoM9qHwfNqGdA?e=Phj3TB)
@@ -388,7 +393,7 @@ print(flag)
 
 Flag thu được là `BKSEC{e4sy_ch4ll_but_th3r3_must_b3_som3_ant1_debug??}` 
 
-## rev/Checker
+<!-- ## rev/Checker
 
 {{< admonition note "Challenge Information" >}}
 * **Given files:** [checker.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EVfrh8c75apLnhn8Vv_rhBIBD1E3SAbCgdo35RI5QCEx4w?e=gggpRu)
@@ -398,9 +403,9 @@ Flag thu được là `BKSEC{e4sy_ch4ll_but_th3r3_must_b3_som3_ant1_debug??}`
 
 **Solution**
 
-Updating ... 
+Updating ...  -->
 
-## pwn/File Scanner
+## **pwn/File Scanner (Medium)**
 
 {{< admonition note "Challenge Information" >}}
 * **Given files:** [bkctf2023-file-scanner.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EZ9OTXN0q9FOip0-58L7HfABRbHe_ozK_7abZoFk8uVsQQ?e=ooSD6Y)
@@ -408,7 +413,7 @@ Updating ...
 * **Description:** The most powerful tool maybe the worst :(. Flag format: `BKSEC{}`
 {{< /admonition >}}
 
----
+### **0x01 Finding the bug**
 
 {{< admonition note >}}
 Có thể gặp vấn đề permission denied sau khi đã `chmod +x ./file_scanner`. Mình đã fix bằng cách tạo symlink tên chuẩn để loader tìm thấy được. 
@@ -418,7 +423,6 @@ ln -sf ld-2.23.so ld-linux.so.2
 ln -sf libc_32.so.6 libc.so.6 
 ```
 {{< /admonition >}}
-
 
 Chương trình tạo 1 số random 16 byte và bắt chúng ta phải nhập chính xác số random đó. 
 
@@ -442,7 +446,7 @@ v3 = time(0);
 
 Ta hoàn toàn có thể bypass hàm `strncmp` với input `\n`. 
 
-<br/>
+{{< blank >}}
 
 Dễ thấy ý đồ của tác giả là muốn sử dụng kỹ thuật File Structure Attack. Ở option 4, chương trình có bug BOF như sau 
 
@@ -456,17 +460,19 @@ fclose(filePtr);
 exit(1);
 ```
 
-Từ biến `name`, ta hoàn toàn overwrite được `filePtr` lẫn `fileContent`. Ý tưởng của mình là tạo một fake file structure, sau đó overwrite `filePtr` thành địa chỉ của fake file. Toàn bộ hàm trong `vtable` đều là `system()` của libc, `fakeFile.flags` sẽ trỏ tới chuỗi `/bin/sh\x00`. 
+### **0x02 Exploiting BOF bug**
 
-Khi `fclose(filePtr)` thực chất sẽ gọi `system('/bin/sh')`. 
+Từ biến `name`, ta hoàn toàn overwrite được `filePtr` lẫn `fileContent`. 
 
 <img src="15.png"/>
 
-<br/>
+Ý tưởng của mình là tạo một fake file structure, sau đó overwrite `filePtr` thành địa chỉ của fake file. Toàn bộ hàm trong `vtable` đều là `system()` của libc, `fakeFile.flags` sẽ trỏ tới chuỗi `/bin/sh\x00`. Khi `fclose(filePtr)` thực chất sẽ gọi `system('/bin/sh')`. 
+
+{{< blank >}}
 
 Để leak được `libc`, chúng ta có thể mở `/proc/self/maps` hoặc `/proc/self/syscall`. 
 
-Full exploit 
+### **0x03 Final script** 
 
 ```python
 #!/usr/bin/env python3

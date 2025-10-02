@@ -10,7 +10,6 @@ toc:
   enable: true
 ---
 
-<!--more-->
 <style>
 img {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -20,7 +19,640 @@ img {
 }
 </style>
 
-## rev/Real Warmup
+## **rev/two-faces (0 solve)** 
+
+{{< admonition note "Challenge Information" >}}
+* 0 solve / 500 pts / by sonx
+* **Given files:** [rev_two_faces.rar](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EsSV4QVyTopIl_6UT65as80B4l8qKmfDx9c_ydgtqJYA9g?e=rEZ5wF)
+* **Description:** Don’t judge a book by its cover.
+{{< /admonition >}}
+
+### **0x01 Overview**
+
+Nội dung hàm `main` sau khi đã được rename các hàm, các biến 
+
+```c
+int __cdecl main_0(int argc, const char **argv, const char **envp)
+{
+    FILE *v3; // eax
+    char v5; // [esp+0h] [ebp-164h]
+    char v6; // [esp+0h] [ebp-164h]
+    size_t v7; // [esp+10h] [ebp-154h]
+    int round; // [esp+DCh] [ebp-88h]
+    int k; // [esp+E8h] [ebp-7Ch]
+    int j; // [esp+F4h] [ebp-70h]
+    int i; // [esp+100h] [ebp-64h]
+    _DWORD *Block; // [esp+10Ch] [ebp-58h]
+    char *subInput; // [esp+130h] [ebp-34h]
+    char input[36]; // [esp+13Ch] [ebp-28h] BYREF
+
+    __CheckForDebuggerJustMyCode(&unk_FDD015);
+    Block = malloc(16u);
+    for ( i = 0; i < 4; ++i )
+    {
+        Block[i] = malloc(4u);
+    }
+
+    j_memset(input, 0, 0x20u);
+    printf("Show your skills. What is the flag?\n", v5);
+    v3 = _acrt_iob_func(0);
+    fgets(input, 0x20, v3);
+    if ( input[strlen1(input) - 1] == 0xA )
+    {
+        v7 = strlen1(input) - 1;
+        if ( v7 >= 0x20 )
+        {
+            j____report_rangecheckfailure();
+        }
+
+        input[v7] = 0;
+    }
+
+    if ( strlen1(input) != 22 )
+    {
+        goto labelFail;
+    }
+
+    subInput = (char *)splitInput(input);
+    if ( !subInput )
+    {
+        goto labelFail;
+    }
+
+    if ( strlen1(subInput) != 0x10 )
+    {
+        goto labelFail;
+    }
+
+    for ( j = 0; j < 4; ++j )
+    {
+        for ( k = 0; k < 4; ++k )
+        {
+            *(_BYTE *)(Block[j] + k) = subInput[4 * j + k];
+        }
+    }
+
+    for ( round = 0; round < 100; ++round )
+    {
+        encrypt1((int)Block, 4, 4);
+        encrypt2((int)Block, 4, 4u);
+        encrypt3(Block, 4, 4);
+        encrypt4((int)Block, 4, 4, round + 0x55);
+    }
+
+    if ( j_checkFlag((char *)Block, 4, 4) )
+    {
+        printf("Good. Nice work", v6);
+        free(Block);
+        return 0;
+    }
+    else
+    {
+labelFail:
+        printf("Wrong flag! You chicken", v6);
+        free(Block);
+        return 0;
+    }
+}
+```
+
+{{< blank >}}
+
+Luồng hoạt động chính của chương trình được tóm tắt như sau: 
+
+**Bước 1:** Cấp phát động cho `Block` có kích thước 16 byte. Với mỗi `Block[i]` lại được tiếp tục cấp phát 4 byte. Mục đích sẽ là tạo một ma trận có kích thước 4x4.
+    
+```c
+Block = malloc(16u);
+for ( i = 0; i < 4; ++i )
+{
+    Block[i] = malloc(4u);
+} 
+```
+    
+**Bước 2:** Kiểm tra độ dài `input` dài 22 bytes, bắt đầu `KCSC{`, kết thúc bằng `}`.
+
+**Bước 3:** Chia `input` thành từng phần rồi cho vào mảng `Block`
+    
+```c
+for ( j = 0; j < 4; ++j )
+{
+    for ( k = 0; k < 4; ++k )
+    {
+        *(_BYTE *)(Block[j] + k) = subInput[4 * j + k];
+    }
+}
+```
+    
+**Bước 4:** Duyệt 100 lần, mỗi lần `Block` sẽ được encrypt bởi 4 hàm mã hóa 
+    
+```c
+for ( round = 0; round < 100; ++round )
+{
+    encrypt1((int)Block, 4, 4);
+    encrypt2((int)Block, 4, 4u);
+    encrypt3(Block, 4, 4);
+    encrypt4((int)Block, 4, 4, round + 0x55);
+}
+```
+    
+Sau khi debug rồi quan sát output, ta sẽ biết được chức năng của các hàm như sau 
+- `encrypt1` xoay các hàng theo thứ tự từ phải sang trái với số lần là 0, 1, 2, 3.
+<img src="4.png" width = "500" style="display: block; margin-left: auto; margin-right: auto;"/>
+- `encrypt2` xoay các cột theo thứ tự từ dưới lên trên với số lần là 0, 1, 2, 3
+<img src="5.png" height="400" style="display: block; margin-left: auto; margin-right: auto;"/>
+- `encrypt3` đổi 4 bit đầu và cuối của 1 byte. Ví dụ `0x61` → `0x16`
+- `encrypt4` xor với (i + 0x55) với i chạy từ 0 → 99, tương ứng với index của từng round.
+
+**Bước 5:** Sau 100 round encrypt ở trên, `Block` thu được sẽ đem đi so sánh với chuỗi `FDA6FF91ADA0FDB7ABA9FB91EFAFFAA2`
+
+### **0x02 Getting fake flag**
+
+Mấu chốt để giải bài này nằm ở việc phải đi viết lại 4 hàm decrypt ở trên. Đây là code giải mã của mình cho 4 hàm phía trên. 
+
+```python
+def unShiftRow(blk):
+    blk[0] = blk[0][0 : ] + blk[0][ : 0]
+    blk[1] = blk[1][3 : ] + blk[1][ : 3]
+    blk[2] = blk[2][2 : ] + blk[2][ : 2]
+    blk[3] = blk[3][1 : ] + blk[3][ : 1]
+    return blk
+
+def unShiftCol(blk):
+    cols = []
+    unshifted_col = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+
+    # get col
+    for col in range(4):
+        cols.append([blk[row][col] for row in range(4)])
+
+    # unshifted col
+    unshifted_col[0] = cols[0][0 : ] + cols[0][ : 0]
+    unshifted_col[1] = cols[1][3 : ] + cols[1][ : 3]
+    unshifted_col[2] = cols[2][2 : ] + cols[2][ : 2]
+    unshifted_col[3] = cols[3][1 : ] + cols[3][ : 1]
+
+    for i in range(4):
+        for j in range(4):
+            blk[i][j] = unshifted_col[j][i]
+    return blk
+
+def unSwapBit(blk):
+    for i in range(4):
+        for j in range(4):
+            blk[i][j] = ((blk[i][j] & 0x0F) << 4) | ((blk[i][j] & 0xF0) >> 4)
+    return blk 
+
+def unXor(blk, round): 
+    for i in range(4):
+        for j in range(4):
+            blk[i][j] ^= (round + 0x55)
+
+def main():
+    res = "FDA6FF91ADA0FDB7ABA9FB91EFAFFAA2" 
+
+    elements = [int(res[i : i+2], 16) for i in range(0, len(res), 2)]
+    block = [elements[i : i+4] for i in range(0, len(elements), 4)]
+
+    round = 99
+    while(round >= 0):
+        unXor(block, round)
+        unSwapBit(block)
+        unShiftCol(block)
+        unShiftRow(block)
+
+        round -= 1
+
+    flag = "KCSC{"
+    for i in range(4):
+        for j in range(4):
+            flag += chr(block[i][j])
+    flag += "}"
+    print(flag)
+
+if __name__ == "__main__":
+    main()
+# KCSC{3a5y_ch41leng3_!}
+```
+
+Mình thử chạy lại chương trình với flag thu được `KCSC{3a5y_ch41leng3_!}` nhưng kết quả sai.
+
+### **0x03 Anti Debug - Hooking**
+
+Sau khi trace lại từ đâu, có một hàm tên là `TlsCallback_0_0` được chạy trước cả hàm `main`
+
+```c
+void *__stdcall TlsCallback_0_0(int a1, int a2, int a3)
+{
+    void *result; // eax
+    char v4; // [esp+D4h] [ebp-4Ch] BYREF
+    char v5[15]; // [esp+D5h] [ebp-4Bh] BYREF
+    int Src[3]; // [esp+E4h] [ebp-3Ch] BYREF
+    bool v7; // [esp+F3h] [ebp-2Dh]
+    SIZE_T dwSize; // [esp+FCh] [ebp-24h]
+    DWORD flOldProtect[3]; // [esp+108h] [ebp-18h] BYREF
+    LPVOID lpAddress; // [esp+114h] [ebp-Ch]
+
+    __CheckForDebuggerJustMyCode(&unk_FDD015);
+    result = (void *)IsDebuggerPresent();
+    if ( !result )
+    {
+        Src[0] = (int)sub_FD133E;
+        v4 = 0x68;
+        v5[4] = 0xC3;
+        j_memcpy(v5, Src, 4u);
+        dwSize = 6;
+        lpAddress = j_strcmp;
+        v7 = VirtualProtect(j_strcmp, 6u, 0x40u, flOldProtect);
+        return j_memcpy(lpAddress, &v4, dwSize);
+    }
+
+    return result;
+}
+```
+
+Chương trình có gọi hàm antidebug `IsDebuggerPresent`. Chúng ta có thể đổi trạng thái của cờ ZF để đi tiếp vào trong.   
+
+```c
+Src[0] = (int)sub_FD133E;
+v4 = 0x68;
+v5[4] = 0xC3;
+j_memcpy(v5, Src, 4u);
+```
+
+Sau 4 lệnh phía trên, chúng ta hãy chú ý tới các giá trị này trong stack
+
+<img src="6.png"/>
+
+Đây chính là một đoạn mã assembly nhỏ 
+
+```nasm
+push sub_FD133E
+ret
+```
+
+Tiếp theo, chương trình gọi `VirtualProtect(j_strcmp, 6u, 0x40u, flOldProtect)` thay đổi lớp bảo vệ của vùng nhớ với lần lượt 4 đối số: 
+
+1. j_strcmp: Địa chỉ bắt đầu của vùng nhớ 
+2. 6: Kích thước ảnh hưởng của vùng nhớ. Ở đây, vùng nhớ bị thay đổi sẽ từ `j_strcmp` → `j_strcmp + 6`
+3. 0x40u: `PAGE_EXECUTE_READWRITE`, kích hoạt quyền thực thi, đọc, viết cho vùng nhớ  
+4. flOldProtect: Con trỏ trỏ tới biến lưu quyền truy cập cũ của vùng nhớ. 
+
+> Đọc thêm thông tin ở https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualprotect
+
+Khi chạy nốt các dòng lệnh còn lại, click vào `j_strcmp`, ta sẽ thấy `push 0xFD133E` và `ret`. Điều đó đồng nghĩa với việc gọi hàm `sub_FD133E`. Nói tóm lại, khi chúng ta gọi hàm `strcmp`, nó sẽ thực thi hàm `sub_FD133E`
+
+<img src="7.png"/>
+
+Click vào hàm `sub_FD133E` nó lại tiếp tục nhảy tới hàm `sub_FD61D0`. Đây là mã giả của nó 
+
+```c
+int __cdecl sub_FD61D0(char *input, char *cmpInput)
+{
+    size_t j; // [esp+D0h] [ebp-78h]
+    size_t v4; // [esp+DCh] [ebp-6Ch]
+    unsigned int i; // [esp+E8h] [ebp-60h]
+    char newCmpInput[44]; // [esp+F4h] [ebp-54h] BYREF
+    char buf[32]; // [esp+120h] [ebp-28h] BYREF
+
+    __CheckForDebuggerJustMyCode(&unk_FDD015);
+    buf[0] = 7;
+    strcpy(&buf[1], "|");
+    buf[3] = 7;
+    buf[4] = 0x7F;
+    buf[5] = 0x77;
+    buf[6] = 0x78;
+    buf[7] = 1;
+    buf[8] = 0;
+    buf[9] = 0x73;
+    buf[0xA] = 7;
+    strcpy(&buf[0xB], "u");
+    buf[0xD] = 2;
+    buf[0xE] = 3;
+    buf[0xF] = 0x73;
+    buf[0x10] = 7;
+    buf[0x11] = 7;
+    buf[0x12] = 0;
+    buf[0x13] = 0xC;
+    buf[0x14] = 7;
+    buf[0x15] = 0x72;
+    buf[0x16] = 0x7B;
+    buf[0x17] = 0x70;
+    buf[0x18] = 4;
+    buf[0x19] = 0x7F;
+    buf[0x1A] = 3;
+    buf[0x1B] = 4;
+    buf[28] = 7;
+    strcpy(&buf[0x1D], "q");
+    buf[31] = 4;
+    j_memset(newCmpInput, 0, 36u);
+    for ( i = 0; i < 32; ++i )
+    {
+        newCmpInput[i] = buf[i] ^ cmpInput[i];
+    }
+
+    v4 = strlen1(newCmpInput);
+    for ( j = 0; j < v4; ++j )
+    {
+        if ( input[j] < newCmpInput[j] )
+        {
+            return -1;
+        }
+
+        if ( input[j] > newCmpInput[j] )
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+```
+
+Tới đây thì rõ ràng rồi, `cmpInput` bị xor với mảng `buf` rồi mới được đem đi so sánh với `input` của chúng ta. Mình chỉ cần xor ngược lại là có thể giải được bài toán và thu được flag `KCSC{function_h00k1ng}`.
+
+```python
+def unShiftRow(blk):
+    blk[0] = blk[0][0 : ] + blk[0][ : 0]
+    blk[1] = blk[1][3 : ] + blk[1][ : 3]
+    blk[2] = blk[2][2 : ] + blk[2][ : 2]
+    blk[3] = blk[3][1 : ] + blk[3][ : 1]
+    return blk
+
+def unShiftCol(blk):
+    cols = []
+    unshifted_col = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+
+    # get col
+    for col in range(4):
+        cols.append([blk[row][col] for row in range(4)])
+
+    # unshifted col
+    unshifted_col[0] = cols[0][0 : ] + cols[0][ : 0]
+    unshifted_col[1] = cols[1][3 : ] + cols[1][ : 3]
+    unshifted_col[2] = cols[2][2 : ] + cols[2][ : 2]
+    unshifted_col[3] = cols[3][1 : ] + cols[3][ : 1]
+
+    for i in range(4):
+        for j in range(4):
+            blk[i][j] = unshifted_col[j][i]
+
+    return blk
+
+def unSwapBit(blk):
+    for i in range(4):
+        for j in range(4):
+            blk[i][j] = ((blk[i][j] & 0x0F) << 4) | ((blk[i][j] & 0xF0) >> 4)
+    return blk 
+
+def unXor(blk, round): 
+    for i in range(4):
+        for j in range(4):
+            blk[i][j] ^= (round + 0x55)
+
+def main():
+    cmpInput = "FDA6FF91ADA0FDB7ABA9FB91EFAFFAA2" 
+    buf = [7 , 124 , 0 , 7 , 127 , 119 , 120 , 1 , 0 , 115 , 7 , 117 , 0 , 2 , 3 , 115 , 7 , 7 , 0 , 12 , 7 , 114 , 123 , 112 , 4 , 127 , 3 , 4 , 7 , 113 , 0 , 4]
+    newCmpInput = ""
+    for i in range(len(cmpInput)):
+        newCmpInput += chr(buf[i] ^ ord(cmpInput[i]))
+
+    elements = [int(newCmpInput[i : i+2], 16) for i in range(0, len(newCmpInput), 2)]
+    block = [elements[i : i+4] for i in range(0, len(elements), 4)]
+
+    round = 99
+    while(round >= 0):
+        unXor(block, round)
+        unSwapBit(block)
+        unShiftCol(block)
+        unShiftRow(block)
+
+        round -= 1
+
+    flag = "KCSC{"
+    for i in range(4):
+        for j in range(4):
+            flag += chr(block[i][j])
+    flag += "}"
+    print(flag)
+
+if __name__ == "__main__":
+    main()
+```
+
+## **rev/dynamic function (2 solves)**
+
+{{< admonition note "Challenge Information" >}}
+* 2 solves / 496 pts / by sonx
+* **Given files:** [rev_dynamic_function.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ETVhfCJRyjVIvM5yXMjStCIBPyIrWi8w6G4oQBTK6HfN1g?e=VrmuZg)
+* **Description:** Unless I am in motion, I remain invisible.
+{{< /admonition >}}
+
+### **0x01 Overview**
+
+Decompile file exe bằng IDA64, sau khi đổi tên các hàm, các biến, chúng ta thu được hàm `main()` như sau 
+
+```c
+int __cdecl main_0(int argc, const char **argv, const char **envp)
+{
+    FILE *v3; // eax
+    size_t subInputLength; // eax
+    char v6; // [esp+0h] [ebp-14Ch]
+    char v7; // [esp+0h] [ebp-14Ch]
+    size_t v8; // [esp+10h] [ebp-13Ch]
+    size_t j; // [esp+DCh] [ebp-70h]
+    unsigned int i; // [esp+E8h] [ebp-64h]
+    void (__cdecl *lpAddress)(char *, char *, size_t); // [esp+F4h] [ebp-58h]
+    char *output; // [esp+10Ch] [ebp-40h]
+    char *subInput; // [esp+118h] [ebp-34h]
+    char input[36]; // [esp+124h] [ebp-28h] BYREF
+
+    __CheckForDebuggerJustMyCode(&unk_D5C017);
+    j_memset(input, 0, 0x20u);
+    malloc(0x19u);
+    output = (char *)malloc(0x19u);
+    printf("Show your skills. What is the flag?\n", v6);
+    v3 = _acrt_iob_func(0);
+    fgets(input, 0x20, v3);
+    if ( input[strlen1(input) - 1] == 0xA )
+    {
+        v8 = strlen1(input) - 1;
+        if ( v8 >= 0x20 )
+        {
+            j____report_rangecheckfailure();
+        }
+
+        input[v8] = 0;
+    }
+
+    if ( strlen1(input) == 30 && (subInput = (char *)splitInput(input)) != 0 && strlen1(subInput) == 24 )
+    {
+        lpAddress = (void (__cdecl *)(char *, char *, size_t))VirtualAlloc(0, 0xA4u, 0x1000u, 0x40u);
+        if ( lpAddress )
+        {
+            for ( i = 0; i < 0xA4; ++i )
+            {
+                *((_BYTE *)lpAddress + i) = byte_D57C50[i] ^ 0x41;
+            }
+
+            subInputLength = strlen1(subInput);
+            lpAddress(subInput, output, subInputLength);
+            VirtualFree(lpAddress, 0xA4u, 0x8000u);
+            for ( j = 0; j < strlen1(subInput); ++j )
+            {
+                if ( output[j] != expectedOutput[j] )
+                {
+                    goto labelFail;
+                }
+            }
+
+            printf("Not uncorrect ^_^", v7);
+            return 0;
+        }
+        else
+        {
+            perror("VirtualAlloc failed");
+            return 1;
+        }
+    }
+    else
+    {
+labelFail:
+        printf("Not correct @_@", v7);
+        return 0;
+    }
+}
+```
+
+Tóm tắt luồng hoạt động của chương trình trên: 
+
+**Bước 1:** Cho người dùng nhập vào `input` từ bàn phím. Đổi byte cuối cùng `\n`  (khi nhấn enter) thành byte kết thúc chuỗi `\x00`.  
+
+**Bước 2:** So sánh độ dài chuỗi `input` với 30, hàm con `splitInput()` kiểm tra `input` có bắt đầu bằng chuỗi `KCSC{` và kết thúc bằng `}` hay không. Kết thúc kiểm tra, thu được `output` có độ dài 24 byte chính là phần ở giữa của chuỗi bắt đầu và kết thúc.
+    
+**Bước 3:** `VirtualAlloc(0, 0xA4u, 0x1000u, 0x40u)` phân bổ một vùng nhớ mới với 4 đối số như sau: 
+1. 0: Hàm tự động chọn địa chỉ cho vùng nhớ
+2. 0xA4u: Kích thước của vùng nhớ
+3. 0x1000u: `MEM_COMMIT`, đặt quyền truy cập cho vùng nhớ
+4. 0x40u: `PAGE_EXECUTE_READWRITE`, đặt quyền đọc ghi, thực thi cho vùng nhớ 
+
+> Đọc thêm thông tin ở  https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
+
+Hàm sẽ trả về là địa chỉ của vùng nhớ mới, được lưu trong biến `lpAddress`
+    
+**Bước 4:** Chương trình ghi lần lượt các byte vào vùng nhớ mới 
+    
+```c
+for ( i = 0; i < 0xA4; ++i )
+{
+    *((_BYTE *)lpAddress + i) = byte_D57C50[i] ^ 0x41;
+}
+```
+    
+**Bước 5:** Tiếp theo, chương trình sẽ thực hiện các lệnh trong vùng nhớ mới. Sau khi kết thúc việc gọi hàm, ta sẽ thu được `output`
+    
+```c
+lpAddress(subInput, output, subInputLength);
+```
+    
+**Bước 6:** So sánh `output` với chuỗi byte `expectedOutput` có sẵn 
+    
+```c
+for ( j = 0; j < strlen1(subInput); ++j )
+{
+    if ( output[j] != expectedOutput[j] )
+    {
+        goto labelFail;
+    }
+}
+```
+
+### **0x02 Dynamic Analysis**
+
+Sau bản tóm tắt trên, mấu chốt của bài toán nằm ở đoạn code gọi hàm động `lpAddress`. Chúng ta cần phải biết nó thực sự đã làm gì với `input` ban đầu. 
+
+Đặt breakpoint tại dòng 44, ấn F7 tại `text:00D558BD` để đi sâu vào từng câu lệnh. Input ban đầu chúng ta nhập sẽ là `KCSC{aaaaaaaaaaaaaaaaaaaaaaaa}`
+
+```nasm
+.text:00D558BD                 call    [ebp+lpAddress]
+```
+
+Đây là một phần mã assembly của hàm `lpAddress`
+
+<img src="1.png"/>
+
+Ta có thể click chuột phải, chọn chức năng **Create function (phím P)** và thu được hàm như sau 
+
+```c
+int __cdecl sub_DF0000(int a1, int a2, int a3)
+{
+    _WORD v4[15]; // [esp+2h] [ebp-1Eh] BYREF
+
+    strcpy((char *)v4, "reversing_is_pretty_cool");
+    *(_DWORD *)&v4[0xD] = 0;
+    while ( *(int *)&v4[0xD] < a3 )
+    {
+        HIBYTE(v4[0xC]) = 0x10 * (*(char *)(*(_DWORD *)&v4[0xD] + a1) % 0x10)
+                        + *(char *)(*(_DWORD *)&v4[0xD] + a1) / 0x10;
+        *(_BYTE *)(a2 + *(_DWORD *)&v4[0xD]) = HIBYTE(v4[0xC]) ^ *((_BYTE *)v4 + *(_DWORD *)&v4[0xD]);
+        ++*(_DWORD *)&v4[0xD];
+    }
+
+    return 0;
+}
+```
+
+Ta cần sửa lại kiểu dữ liệu của một số biến cho dễ đọc hơn. Ấn `y` vào tên hàm để định nghĩa lại các tham số của hàm. 
+
+<img src="2.png"/>
+
+Đổi lại tên, kiểu dữ liệu và kích thước cho mảng `v4`
+
+<img src="3.png"/>
+
+> Mình biết mảng `buf` có size 25 bởi vì nó strcpy chuỗi "reversing_is_pretty_cool" có size 25 vào `buf`.
+
+Đến đây, ta đã thu được một hàm nhìn code rất đẹp
+
+```c
+int __cdecl sub_DF0000(char *subInput, char *output, int subInputLength)
+{
+    char buf[25]; // [esp+2h] [ebp-1Eh] BYREF
+    char tmp; // [esp+1Bh] [ebp-5h]
+    int i; // [esp+1Ch] [ebp-4h]
+
+    strcpy(buf, "reversing_is_pretty_cool");
+    for ( i = 0; i < subInputLength; ++i )
+    {
+        tmp = 16 * (subInput[i] % 16) + subInput[i] / 16;
+        output[i] = tmp ^ buf[i];
+    }
+
+    return 0;
+}
+```
+
+Đoạn encrypt trên rất ngắn gọn, swap 4 bit trước với 4 bit sau của 1 byte. Ví dụ `0x61` → `0x16`
+
+Tiếp theo sẽ xor kết quả trên với mảng `buf` rồi đi so sánh với `expectedOutput`. Chúng ta dễ dàng viết được code giải mã và thu được flag `KCSC{correct_flag!submit_now!}`
+
+```python
+buf = [0x72, 0x65, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6E, 0x67, 0x5F, 0x69, 0x73, 0x5F, 0x70, 0x72, 0x65, 0x74, 0x74, 0x79, 0x5F, 0x63, 0x6F, 0x6F, 0x6C]
+expectedOutput = [0x44, 0x93, 0x51, 0x42, 0x24, 0x45, 0x2E, 0x9B, 0x01, 0x99, 0x7F, 0x05, 0x4D, 0x47, 0x25, 0x43, 0xA2, 0xE2, 0x3E, 0xAA, 0x85, 0x99, 0x18, 0x7E]
+
+flag = "KCSC{"
+for i in range(len(buf)):
+    res = expectedOutput[i] ^ buf[i]
+    swapRes = ((res & 0x0F) << 4) | ((res & 0xF0) >> 4)
+    flag += chr(swapRes)
+flag += "}"
+
+print(flag)
+```
+
+<!-- begin cmt rev -->
+<!-- 
+## rev/Real Warmup 
 
 {{< admonition note "Challenge Information" >}}
 * 28 solves / 100 pts
@@ -29,9 +661,9 @@ img {
 Flag format: `KCSC{}`
 {{< /admonition >}}
 
-**Solution**
+---
 
-Mở file trong IDA64, chương trình cho phép người dùng nhập vào và so sánh với một chuỗi cho trước. 
+Chương trình cho phép người dùng nhập vào và sẽ so sánh với một chuỗi cho trước. 
 
 ```python
 int __fastcall main(int argc, const char **argv, const char **envp)
@@ -389,660 +1021,10 @@ function showFlag() {
 }
 ```
 
-## rev/dynamic function
+-->
+<!-- end cmt rev -->
 
-{{< admonition note "Challenge Information" >}}
-* 2 solves / 496 pts / by sonx
-* **Given files:** [rev_dynamic_function.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ETVhfCJRyjVIvM5yXMjStCIBPyIrWi8w6G4oQBTK6HfN1g?e=VrmuZg)
-* **Description:** Unless I am in motion, I remain invisible.
-{{< /admonition >}}
-
-**Solution**
-
-Decompile file exe bằng IDA64, sau khi đổi tên các hàm, các biến, chúng ta thu được hàm `main` như sau 
-
-```c
-int __cdecl main_0(int argc, const char **argv, const char **envp)
-{
-    FILE *v3; // eax
-    size_t subInputLength; // eax
-    char v6; // [esp+0h] [ebp-14Ch]
-    char v7; // [esp+0h] [ebp-14Ch]
-    size_t v8; // [esp+10h] [ebp-13Ch]
-    size_t j; // [esp+DCh] [ebp-70h]
-    unsigned int i; // [esp+E8h] [ebp-64h]
-    void (__cdecl *lpAddress)(char *, char *, size_t); // [esp+F4h] [ebp-58h]
-    char *output; // [esp+10Ch] [ebp-40h]
-    char *subInput; // [esp+118h] [ebp-34h]
-    char input[36]; // [esp+124h] [ebp-28h] BYREF
-
-    __CheckForDebuggerJustMyCode(&unk_D5C017);
-    j_memset(input, 0, 0x20u);
-    malloc(0x19u);
-    output = (char *)malloc(0x19u);
-    printf("Show your skills. What is the flag?\n", v6);
-    v3 = _acrt_iob_func(0);
-    fgets(input, 0x20, v3);
-    if ( input[strlen1(input) - 1] == 0xA )
-    {
-        v8 = strlen1(input) - 1;
-        if ( v8 >= 0x20 )
-        {
-            j____report_rangecheckfailure();
-        }
-
-        input[v8] = 0;
-    }
-
-    if ( strlen1(input) == 30 && (subInput = (char *)splitInput(input)) != 0 && strlen1(subInput) == 24 )
-    {
-        lpAddress = (void (__cdecl *)(char *, char *, size_t))VirtualAlloc(0, 0xA4u, 0x1000u, 0x40u);
-        if ( lpAddress )
-        {
-            for ( i = 0; i < 0xA4; ++i )
-            {
-                *((_BYTE *)lpAddress + i) = byte_D57C50[i] ^ 0x41;
-            }
-
-            subInputLength = strlen1(subInput);
-            lpAddress(subInput, output, subInputLength);
-            VirtualFree(lpAddress, 0xA4u, 0x8000u);
-            for ( j = 0; j < strlen1(subInput); ++j )
-            {
-                if ( output[j] != expectedOutput[j] )
-                {
-                    goto labelFail;
-                }
-            }
-
-            printf("Not uncorrect ^_^", v7);
-            return 0;
-        }
-        else
-        {
-            perror("VirtualAlloc failed");
-            return 1;
-        }
-    }
-    else
-    {
-labelFail:
-        printf("Not correct @_@", v7);
-        return 0;
-    }
-}
-```
-
-Tóm tắt chương trình trên: 
-
-1. Cho người dùng nhập vào `input` từ bàn phím. Đổi byte cuối cùng `\n`  (khi nhấn enter) thành byte kết thúc chuỗi `\x00`.  
-2. So sánh độ dài chuỗi `input` với 30. Đi vào hàm `splitInput`,** chương trình kiểm tra `input` có bắt đầu bằng chuỗi `KCSC{` và kết thúc bằng `}` hay không. Kết thúc hàm, chúng ta thu được `output` có độ dài 24 byte chính là phần ở giữa của chuỗi bắt đầu và kết thúc.
-    
-    ```c
-    char *__cdecl sub_D51890(char *Str)
-    {
-        char *Destination; // [esp+D0h] [ebp-2Ch]
-        char *v3; // [esp+E8h] [ebp-14h]
-        char *Source; // [esp+F4h] [ebp-8h]
-        char *Sourcea; // [esp+F4h] [ebp-8h]
-    
-        __CheckForDebuggerJustMyCode(&unk_D5C017);
-        Source = j_strstr(Str, "KCSC{");
-        if ( Source )
-        {
-            Sourcea = &Source[strlen1("KCSC{")];
-            v3 = j_strchr(Sourcea, '}');
-            if ( v3 )
-            {
-                Destination = (char *)malloc(v3 - Sourcea + 1);
-                if ( !strncpy_s(Destination, v3 - Sourcea + 1, Sourcea, v3 - Sourcea) )
-                {
-                    return Destination;
-                }
-    
-                free(Destination);
-            }
-        }
-    
-        return 0;
-    }
-    ```
-    
-3. Hàm `VirtualAlloc` phân bổ một vùng nhớ mới với 4 đối số như sau: 
-    1. 0: Hàm tự động chọn địa chỉ cho vùng nhớ
-    2. 0xA4u: Kích thước của vùng nhớ
-    3. 0x1000u: `MEM_COMMIT`, đặt quyền truy cập cho vùng nhớ
-    4. 0x40u: `PAGE_EXECUTE_READWRITE`, đặt quyền đọc ghi, thực thi cho vùng nhớ 
-    
-    > Đọc thêm thông tin ở  https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
-    
-    Hàm sẽ trả về là địa chỉ của vùng nhớ mới, được lưu trong biến `lpAddress`
-    
-4. Chương trình ghi lần lượt các byte vào vùng nhớ mới 
-    
-    ```c
-    for ( i = 0; i < 0xA4; ++i )
-    {
-            *((_BYTE *)lpAddress + i) = byte_D57C50[i] ^ 0x41;
-    }
-    ```
-    
-5. Tiếp theo, chương trình sẽ thực hiện các lệnh trong vùng nhớ mới. Sau khi kết thúc việc gọi hàm, ta sẽ thu được `output`
-    
-    ```c
-    lpAddress(subInput, output, subInputLength);
-    ```
-    
-6. So sánh `output` với chuỗi byte `expectedOutput` cho trước
-    
-    ```c
-    for ( j = 0; j < strlen1(subInput); ++j )
-    {
-        if ( output[j] != expectedOutput[j] )
-        {
-            goto labelFail;
-        }
-    }
-    ```
-    
-Sau bản tóm tắt trên, mấu chốt của bài toán nằm ở đoạn code gọi hàm động `lpAddress`. Chúng ta cần phải biết nó thực sự đã làm gì với `input` ban đầu. 
-
-Đặt breakpoint tại dòng 44, ấn F7 tại `text:00D558BD` để đi sâu vào từng câu lệnh. Input ban đầu chúng ta nhập sẽ là `KCSC{aaaaaaaaaaaaaaaaaaaaaaaa}`
-
-```nasm
-.text:00D558BD                 call    [ebp+lpAddress]
-```
-
-Đây là một phần mã assembly của hàm `lpAddress`
-
-<img src="1.png"/>
-
-Ta có thể click chuột phải, chọn chức năng `Create function (phím P)`, và thu được hàm như sau 
-
-```c
-int __cdecl sub_DF0000(int a1, int a2, int a3)
-{
-    _WORD v4[15]; // [esp+2h] [ebp-1Eh] BYREF
-
-    strcpy((char *)v4, "reversing_is_pretty_cool");
-    *(_DWORD *)&v4[0xD] = 0;
-    while ( *(int *)&v4[0xD] < a3 )
-    {
-        HIBYTE(v4[0xC]) = 0x10 * (*(char *)(*(_DWORD *)&v4[0xD] + a1) % 0x10)
-                        + *(char *)(*(_DWORD *)&v4[0xD] + a1) / 0x10;
-        *(_BYTE *)(a2 + *(_DWORD *)&v4[0xD]) = HIBYTE(v4[0xC]) ^ *((_BYTE *)v4 + *(_DWORD *)&v4[0xD]);
-        ++*(_DWORD *)&v4[0xD];
-    }
-
-    return 0;
-}
-```
-
-Ta cần sửa lại kiểu dữ liệu của một số biến cho dễ đọc hơn. Ấn `y` vào tên hàm để định nghĩa lại các tham số của hàm. 
-
-<img src="2.png"/>
-
-Đổi lại tên, kiểu dữ liệu và kích thước cho mảng `v4`
-
-<img src="3.png"/>
-
-> Mình biết mảng `buf` có size 25 bởi vì nó strcpy chuỗi "reversing_is_pretty_cool" có size 25 vào `buf`.
-
-Đến đây, ta đã thu được một hàm nhìn code rất đẹp
-
-```c
-int __cdecl sub_DF0000(char *subInput, char *output, int subInputLength)
-{
-    char buf[25]; // [esp+2h] [ebp-1Eh] BYREF
-    char tmp; // [esp+1Bh] [ebp-5h]
-    int i; // [esp+1Ch] [ebp-4h]
-
-    strcpy(buf, "reversing_is_pretty_cool");
-    for ( i = 0; i < subInputLength; ++i )
-    {
-        tmp = 16 * (subInput[i] % 16) + subInput[i] / 16;
-        output[i] = tmp ^ buf[i];
-    }
-
-    return 0;
-}
-```
-
-Đoạn encrypt trên rất ngắn gọn, swap 4 bit trước với 4 bit sau của 1 byte. Ví dụ `0x61` → `0x16`
-
-Tiếp theo sẽ xor kết quả trên với mảng `buf` rồi đi so sánh với `expectedOutput`. Chúng ta dễ dàng viết được code giải mã và thu được flag `KCSC{correct_flag!submit_now!}`
-
-```python
-buf = [0x72, 0x65, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6E, 0x67, 0x5F, 0x69, 0x73, 0x5F, 0x70, 0x72, 0x65, 0x74, 0x74, 0x79, 0x5F, 0x63, 0x6F, 0x6F, 0x6C]
-expectedOutput = [0x44, 0x93, 0x51, 0x42, 0x24, 0x45, 0x2E, 0x9B, 0x01, 0x99, 0x7F, 0x05, 0x4D, 0x47, 0x25, 0x43, 0xA2, 0xE2, 0x3E, 0xAA, 0x85, 0x99, 0x18, 0x7E]
-
-flag = "KCSC{"
-for i in range(len(buf)):
-    res = expectedOutput[i] ^ buf[i]
-    swapRes = ((res & 0x0F) << 4) | ((res & 0xF0) >> 4)
-    flag += chr(swapRes)
-flag += "}"
-
-print(flag)
-```
-
-## rev/two-faces
-
-{{< admonition note "Challenge Information" >}}
-* 0 solve / 500 pts / by sonx
-* **Given files:** [rev_two_faces.rar](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EsSV4QVyTopIl_6UT65as80B4l8qKmfDx9c_ydgtqJYA9g?e=rEZ5wF)
-* **Description:** Don’t judge a book by its cover.
-{{< /admonition >}}
-
-**Solution**
-
-Decompile file đề bài cho bằng IDA64, chúng ta có được hàm `main` đã đổi một số tên hàm, tên biến để dễ đọc như sau
-
-```c
-int __cdecl main_0(int argc, const char **argv, const char **envp)
-{
-    FILE *v3; // eax
-    char v5; // [esp+0h] [ebp-164h]
-    char v6; // [esp+0h] [ebp-164h]
-    size_t v7; // [esp+10h] [ebp-154h]
-    int round; // [esp+DCh] [ebp-88h]
-    int k; // [esp+E8h] [ebp-7Ch]
-    int j; // [esp+F4h] [ebp-70h]
-    int i; // [esp+100h] [ebp-64h]
-    _DWORD *Block; // [esp+10Ch] [ebp-58h]
-    char *subInput; // [esp+130h] [ebp-34h]
-    char input[36]; // [esp+13Ch] [ebp-28h] BYREF
-
-    __CheckForDebuggerJustMyCode(&unk_FDD015);
-    Block = malloc(16u);
-    for ( i = 0; i < 4; ++i )
-    {
-        Block[i] = malloc(4u);
-    }
-
-    j_memset(input, 0, 0x20u);
-    printf("Show your skills. What is the flag?\n", v5);
-    v3 = _acrt_iob_func(0);
-    fgets(input, 0x20, v3);
-    if ( input[strlen1(input) - 1] == 0xA )
-    {
-        v7 = strlen1(input) - 1;
-        if ( v7 >= 0x20 )
-        {
-            j____report_rangecheckfailure();
-        }
-
-        input[v7] = 0;
-    }
-
-    if ( strlen1(input) != 22 )
-    {
-        goto labelFail;
-    }
-
-    subInput = (char *)splitInput(input);
-    if ( !subInput )
-    {
-        goto labelFail;
-    }
-
-    if ( strlen1(subInput) != 0x10 )
-    {
-        goto labelFail;
-    }
-
-    for ( j = 0; j < 4; ++j )
-    {
-        for ( k = 0; k < 4; ++k )
-        {
-            *(_BYTE *)(Block[j] + k) = subInput[4 * j + k];
-        }
-    }
-
-    for ( round = 0; round < 100; ++round )
-    {
-        encrypt1((int)Block, 4, 4);
-        encrypt2((int)Block, 4, 4u);
-        encrypt3(Block, 4, 4);
-        encrypt4((int)Block, 4, 4, round + 0x55);
-    }
-
-    if ( j_checkFlag((char *)Block, 4, 4) )
-    {
-        printf("Good. Nice work", v6);
-        free(Block);
-        return 0;
-    }
-    else
-    {
-labelFail:
-        printf("Wrong flag! You chicken", v6);
-        free(Block);
-        return 0;
-    }
-}
-```
-
-Luồng hoạt động chính của chương trình sẽ diễn ra như sau: 
-
-1. Cấp phát động cho `Block` có kích thước 16 byte. Với mỗi `Block[i]` lại được tiếp tục cấp phát 4 byte. Mục đích sẽ là tạo một mảng 2 chiều, có kích thước 4x4
-    
-    ```c
-    Block = malloc(16u);
-    for ( i = 0; i < 4; ++i )
-    {
-          Block[i] = malloc(4u);
-    } 
-    ```
-    
-2. Kiểm tra độ dài `input` dài 22 bytes, bắt đầu `KCSC{`, kết thúc bằng `}`. 
-3. Chia `input` thành từng phần rồi cho vào mảng `Block`
-    
-    ```c
-    for ( j = 0; j < 4; ++j )
-    {
-            for ( k = 0; k < 4; ++k )
-            {
-                *(_BYTE *)(Block[j] + k) = subInput[4 * j + k];
-            }
-    }
-    ```
-    
-4. Duyệt 100 lần, mỗi lần `Block` sẽ được encrypt bởi 4 hàm mã hóa 
-    
-    ```c
-    for ( round = 0; round < 100; ++round )
-    {
-            encrypt1((int)Block, 4, 4);
-            encrypt2((int)Block, 4, 4u);
-            encrypt3(Block, 4, 4);
-            encrypt4((int)Block, 4, 4, round + 0x55);
-    }
-    ```
-    
-    Sau khi debug rồi quan sát output, ta sẽ biết được chức năng của các hàm như sau 
-    
-    - `encrypt1` xoay các hàng theo thứ tự từ phải sang trái với số lần là 0, 1, 2, 3.
-        <img src="4.png" width = "500" style="display: block; margin-left: auto; margin-right: auto;"/>
-        
-    - `encrypt2` xoay các cột theo thứ tự từ dưới lên trên với số lần là 0, 1, 2, 3
-        <img src="5.png" height="400" style="display: block; margin-left: auto; margin-right: auto;"/>
-        
-    - `encrypt3` đổi 4 bit đầu và cuối của 1 byte. Ví dụ `0x61` → `0x16`
-    - `encrypt4` xor với (i + 0x55) với i chạy từ 0 → 99, tương ứng với index của từng round.
-5. Sau 100 round encrypt ở trên, `Block` thu được sẽ đem đi so sánh với chuỗi `FDA6FF91ADA0FDB7ABA9FB91EFAFFAA2`
-
-Mấu chốt để giải bài này nằm ở việc phải đi viết lại 4 hàm decrypt ở trên. Đây là code giải mã của mình cho 4 hàm phía trên. 
-
-```python
-def unShiftRow(blk):
-    blk[0] = blk[0][0 : ] + blk[0][ : 0]
-    blk[1] = blk[1][3 : ] + blk[1][ : 3]
-    blk[2] = blk[2][2 : ] + blk[2][ : 2]
-    blk[3] = blk[3][1 : ] + blk[3][ : 1]
-    return blk
-
-def unShiftCol(blk):
-    cols = []
-    unshifted_col = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-
-    # get col
-    for col in range(4):
-        cols.append([blk[row][col] for row in range(4)])
-
-    # unshifted col
-    unshifted_col[0] = cols[0][0 : ] + cols[0][ : 0]
-    unshifted_col[1] = cols[1][3 : ] + cols[1][ : 3]
-    unshifted_col[2] = cols[2][2 : ] + cols[2][ : 2]
-    unshifted_col[3] = cols[3][1 : ] + cols[3][ : 1]
-
-    for i in range(4):
-        for j in range(4):
-            blk[i][j] = unshifted_col[j][i]
-    return blk
-
-def unSwapBit(blk):
-    for i in range(4):
-        for j in range(4):
-            blk[i][j] = ((blk[i][j] & 0x0F) << 4) | ((blk[i][j] & 0xF0) >> 4)
-    return blk 
-
-def unXor(blk, round): 
-    for i in range(4):
-        for j in range(4):
-            blk[i][j] ^= (round + 0x55)
-
-def main():
-    res = "FDA6FF91ADA0FDB7ABA9FB91EFAFFAA2" 
-
-    elements = [int(res[i : i+2], 16) for i in range(0, len(res), 2)]
-    block = [elements[i : i+4] for i in range(0, len(elements), 4)]
-
-    round = 99
-    while(round >= 0):
-        unXor(block, round)
-        unSwapBit(block)
-        unShiftCol(block)
-        unShiftRow(block)
-
-        round -= 1
-
-    flag = "KCSC{"
-    for i in range(4):
-        for j in range(4):
-            flag += chr(block[i][j])
-    flag += "}"
-    print(flag)
-
-if __name__ == "__main__":
-    main()
-# KCSC{3a5y_ch41leng3_!}
-```
-
-Mình thử chạy lại chương trình với flag thu được ở trên nhưng kết quả sai.
-
-Sau khi trace lại từ đâu, ta thấy được có một hàm tên là `TlsCallback_0_0` được chạy trước cả hàm `main`
-
-```c
-void *__stdcall TlsCallback_0_0(int a1, int a2, int a3)
-{
-    void *result; // eax
-    char v4; // [esp+D4h] [ebp-4Ch] BYREF
-    char v5[15]; // [esp+D5h] [ebp-4Bh] BYREF
-    int Src[3]; // [esp+E4h] [ebp-3Ch] BYREF
-    bool v7; // [esp+F3h] [ebp-2Dh]
-    SIZE_T dwSize; // [esp+FCh] [ebp-24h]
-    DWORD flOldProtect[3]; // [esp+108h] [ebp-18h] BYREF
-    LPVOID lpAddress; // [esp+114h] [ebp-Ch]
-
-    __CheckForDebuggerJustMyCode(&unk_FDD015);
-    result = (void *)IsDebuggerPresent();
-    if ( !result )
-    {
-        Src[0] = (int)sub_FD133E;
-        v4 = 0x68;
-        v5[4] = 0xC3;
-        j_memcpy(v5, Src, 4u);
-        dwSize = 6;
-        lpAddress = j_strcmp;
-        v7 = VirtualProtect(j_strcmp, 6u, 0x40u, flOldProtect);
-        return j_memcpy(lpAddress, &v4, dwSize);
-    }
-
-    return result;
-}
-```
-
-Chương trình có gọi hàm antidebug `IsDebuggerPresent`. Chúng ta có thể đổi trạng thái của cờ ZF để đi tiếp vào trong.   
-
-```c
-Src[0] = (int)sub_FD133E;
-v4 = 0x68;
-v5[4] = 0xC3;
-j_memcpy(v5, Src, 4u);
-```
-
-Sau 4 lệnh phía trên, chúng ta hãy chú ý tới các giá trị này trong stack
-
-<img src="6.png"/>
-
-Đây chính là một đoạn mã assembly nhỏ 
-
-```nasm
-push sub_FD133E
-ret
-```
-
-Tiếp theo, chương trình gọi `VirtualProtect` thay đổi lớp bảo vệ của vùng nhớ với lần lượt 4 đối số: 
-
-1. j_strcmp: Địa chỉ bắt đầu của vùng nhớ 
-2. 6: Kích thước ảnh hưởng của vùng nhớ. Ở đây, vùng nhớ bị thay đổi sẽ từ `j_strcmp` → `j_strcmp + 6`
-3. 0x40u: `PAGE_EXECUTE_READWRITE`, kích hoạt quyền thực thi, đọc, viết cho vùng nhớ  
-4. flOldProtect: Con trỏ trỏ tới biến lưu quyền truy cập cũ của vùng nhớ. 
-
-> Đọc thêm thông tin ở https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualprotect
-
-Khi chạy nốt các dòng lệnh còn lại, click vào `j_strcmp`, ta sẽ thấy `push 0xFD133E` và `ret`. Điều đó đồng nghĩa với việc gọi hàm `sub_FD133E`. Nói tóm lại, khi chúng ta gọi hàm `strcmp`, nó sẽ thực thi hàm `sub_FD133E`
-
-<img src="7.png"/>
-
-Click vào hàm `sub_FD133E`,** nó lại tiếp tục nhảy tới hàm `sub_FD61D0`.** Đây là mã giả của nó 
-
-```c
-int __cdecl sub_FD61D0(char *input, char *cmpInput)
-{
-    size_t j; // [esp+D0h] [ebp-78h]
-    size_t v4; // [esp+DCh] [ebp-6Ch]
-    unsigned int i; // [esp+E8h] [ebp-60h]
-    char newCmpInput[44]; // [esp+F4h] [ebp-54h] BYREF
-    char buf[32]; // [esp+120h] [ebp-28h] BYREF
-
-    __CheckForDebuggerJustMyCode(&unk_FDD015);
-    buf[0] = 7;
-    strcpy(&buf[1], "|");
-    buf[3] = 7;
-    buf[4] = 0x7F;
-    buf[5] = 0x77;
-    buf[6] = 0x78;
-    buf[7] = 1;
-    buf[8] = 0;
-    buf[9] = 0x73;
-    buf[0xA] = 7;
-    strcpy(&buf[0xB], "u");
-    buf[0xD] = 2;
-    buf[0xE] = 3;
-    buf[0xF] = 0x73;
-    buf[0x10] = 7;
-    buf[0x11] = 7;
-    buf[0x12] = 0;
-    buf[0x13] = 0xC;
-    buf[0x14] = 7;
-    buf[0x15] = 0x72;
-    buf[0x16] = 0x7B;
-    buf[0x17] = 0x70;
-    buf[0x18] = 4;
-    buf[0x19] = 0x7F;
-    buf[0x1A] = 3;
-    buf[0x1B] = 4;
-    buf[28] = 7;
-    strcpy(&buf[0x1D], "q");
-    buf[31] = 4;
-    j_memset(newCmpInput, 0, 36u);
-    for ( i = 0; i < 32; ++i )
-    {
-        newCmpInput[i] = buf[i] ^ cmpInput[i];
-    }
-
-    v4 = strlen1(newCmpInput);
-    for ( j = 0; j < v4; ++j )
-    {
-        if ( input[j] < newCmpInput[j] )
-        {
-            return -1;
-        }
-
-        if ( input[j] > newCmpInput[j] )
-        {
-            return 1;
-        }
-    }
-
-    return 0;
-}
-```
-
-Tới đây thì rõ ràng rồi, `cmpInput` bị xor với mảng `buf` rồi mới được đem đi so sánh với `input` của chúng ta. Mình chỉ cần xor ngược lại là có thể giải được bài toán và thu được flag `KCSC{function_h00k1ng}`.
-
-```python
-def unShiftRow(blk):
-    blk[0] = blk[0][0 : ] + blk[0][ : 0]
-    blk[1] = blk[1][3 : ] + blk[1][ : 3]
-    blk[2] = blk[2][2 : ] + blk[2][ : 2]
-    blk[3] = blk[3][1 : ] + blk[3][ : 1]
-    return blk
-
-def unShiftCol(blk):
-    cols = []
-    unshifted_col = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-
-    # get col
-    for col in range(4):
-        cols.append([blk[row][col] for row in range(4)])
-
-    # unshifted col
-    unshifted_col[0] = cols[0][0 : ] + cols[0][ : 0]
-    unshifted_col[1] = cols[1][3 : ] + cols[1][ : 3]
-    unshifted_col[2] = cols[2][2 : ] + cols[2][ : 2]
-    unshifted_col[3] = cols[3][1 : ] + cols[3][ : 1]
-
-    for i in range(4):
-        for j in range(4):
-            blk[i][j] = unshifted_col[j][i]
-
-    return blk
-
-def unSwapBit(blk):
-    for i in range(4):
-        for j in range(4):
-            blk[i][j] = ((blk[i][j] & 0x0F) << 4) | ((blk[i][j] & 0xF0) >> 4)
-    return blk 
-
-def unXor(blk, round): 
-    for i in range(4):
-        for j in range(4):
-            blk[i][j] ^= (round + 0x55)
-
-def main():
-    cmpInput = "FDA6FF91ADA0FDB7ABA9FB91EFAFFAA2" 
-    buf = [7 , 124 , 0 , 7 , 127 , 119 , 120 , 1 , 0 , 115 , 7 , 117 , 0 , 2 , 3 , 115 , 7 , 7 , 0 , 12 , 7 , 114 , 123 , 112 , 4 , 127 , 3 , 4 , 7 , 113 , 0 , 4]
-    newCmpInput = ""
-    for i in range(len(cmpInput)):
-        newCmpInput += chr(buf[i] ^ ord(cmpInput[i]))
-
-    elements = [int(newCmpInput[i : i+2], 16) for i in range(0, len(newCmpInput), 2)]
-    block = [elements[i : i+4] for i in range(0, len(elements), 4)]
-
-    round = 99
-    while(round >= 0):
-        unXor(block, round)
-        unSwapBit(block)
-        unShiftCol(block)
-        unShiftRow(block)
-
-        round -= 1
-
-    flag = "KCSC{"
-    for i in range(4):
-        for j in range(4):
-            flag += chr(block[i][j])
-    flag += "}"
-    print(flag)
-
-if __name__ == "__main__":
-    main()
-```
-
-## pwn/A gift for pwners
+<!-- ## pwn/A gift for pwners
 
 {{< admonition note "Challenge Information" >}}
 * 40 solves / 100 pts
@@ -1056,9 +1038,9 @@ Load file vào IDA64, dùng shortcut Shift + F12 để kiểm tra các string, t
 
 Kiểm tra hàm `secret`, ta có được phần giữa của flag là `for_the_`. 
 
-Flag đầy đủ của bài toán là `KCSC{A_gift_for_the_pwners_0xdeadbeef}`
+Flag đầy đủ của bài toán là `KCSC{A_gift_for_the_pwners_0xdeadbeef}` -->
 
-## pwn/Format
+## **pwn/Format (0 solve)**
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts / by Nuuuuuuuu
@@ -1067,7 +1049,7 @@ Flag đầy đủ của bài toán là `KCSC{A_gift_for_the_pwners_0xdeadbeef}`
 `nc 103.162.14.116 12001`
 {{< /admonition >}}
 
-**Solution**
+### **0x01 Finding the bug**
 
 Load file vào IDA64, dễ thấy có lỗ hổng FMT ở dòng `printf(buf)`
 
@@ -1085,6 +1067,8 @@ int __fastcall main(int argc, const char **argv, const char **envp)
     return 0;
 }
 ```
+
+### **0x02 Exploiting FMT bug**
 
 Chương trình gọi hàm `system` với `cmd` là một câu lệnh echo. Ý tưởng để giải bài này sẽ là tận dụng bug FMT viết thêm chuỗi `;sh` sau câu lệnh đó để lấy shell. 
 
@@ -1107,7 +1091,7 @@ p.interactive()
 # KCSC{F1rs1_Pr0b13m_w1Th_pR1Ntf}
 ```
 
-## pwn/pwn1
+## **pwn/pwn1 (0 solve)**
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts
@@ -1116,7 +1100,7 @@ p.interactive()
 `nc 103.162.14.116 20001`
 {{< /admonition >}}
 
-**Solution**
+### **0x01 Overview**
 
 Sử dụng IDA64 decompile chương trình, ta thu được mã giả của hàm `main` như sau 
 
@@ -1138,6 +1122,8 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 Ta thấy, chương trình `mmap` 1000 byte, bắt đầu tại địa chỉ `0x1337000` với full quyền rwx và yêu cầu chúng ta viết shellcode. 
 
 Vấn đề ở đây là chúng ta chỉ nhập được tối đa 12 byte. Vậy nên không thể viết trực tiếp shellcode lấy shell như thông thường được. Mình sẽ mở rộng kích thước số byte được nhập ra và gọi lại hàm `read`. 
+
+### **0x02 Final script**
 
 ```python
 from pwn import *
@@ -1186,7 +1172,7 @@ p.interactive()
 # KCSC{https://www.youtube.com/watch?v=dQw4w9WgXcQ}
 ```
 
-## pwn/Simple Overflow
+## **pwn/Simple Overflow (2 solves)**
 
 {{< admonition note "Challenge Information" >}}
 * 2 solves / 496 pts / by Nuuuuuuuu
@@ -1195,9 +1181,9 @@ p.interactive()
 `nc 103.162.14.116 12004`
 {{< /admonition >}}
 
-**Solution**
+### **0x01 Finding the bug**
 
-Chúng ta có thể thấy sự xuất hiện của lỗ hổng BOF ở hàm `save_data` tại hàm `read` 
+Chúng ta có thể thấy sự xuất hiện của lỗ hổng BOF ở hàm `save_data` tại chức năng `read`. 
 
 ```c
 unsigned __int64 __fastcall save_data(const char *a1)
@@ -1235,10 +1221,11 @@ unsigned __int64 __fastcall save_data(const char *a1)
 }
 ```
 
-Chúng ta chỉ cần yêu cầu nhập 2 lần
+Ý tưởng khai thác sẽ gồm 2 bước: 
+1. Lần đầu sẽ leak giá trị canary.
+2. Lần thứ hai sẽ overwrite retaddr.
 
-1. Lần đầu sẽ leak giá trị canary
-2. Lần thứ hai sẽ overwrite retaddr 
+### **0x02 Final script**
 
 ```python
 #!/usr/bin/env python3
@@ -1298,7 +1285,7 @@ p.interactive()
 
 # KCSC{Y0u_g0T_1h3_Sup3R_s3Cr31_F14g}
 ```
-
+<!-- 
 ## pwn/strstr
 
 {{< admonition note "Challenge Information" >}}
@@ -1368,13 +1355,14 @@ sa(b"play\n", pay)
 
 p.interactive()
 # KCSC{bypass_strstr_by_null_byte}
-```
+```  -->
 
-# List Challenges 
+<!-- # List Challenges 
+
 rev/mission: impossible
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts / by sonx
 * **Given files:** [rev_mission_impossible.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EZckKwbqg-FMrk8-KWf740kBqOaaqriUc28UKFnCsbalvw?e=awVmt4)
 * **Description:** Defeat all the adversaries to protect your base. We're relying
-{{< /admonition >}}
+{{< /admonition >}}  -->

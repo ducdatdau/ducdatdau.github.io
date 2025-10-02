@@ -38,25 +38,27 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
 # Menu config
 [menu]
+  # [[menu.main]]
+  #   weight = 3
+  #   identifier = "posts"
+  #   # you can add extra information before the name (HTML format is supported), such as icons
+  #   pre = ""
+  #   # you can add extra information after the name (HTML format is supported), such as icons
+  #   post = ""
+  #   name = "VN Blog"
+  #   url = "/posts/"
+  #   # title will be shown when you hover on this menu link
+  #   title = ""
+    
   [[menu.main]]
-    weight = 3
-    identifier = "posts"
-    # you can add extra information before the name (HTML format is supported), such as icons
-    pre = ""
-    # you can add extra information after the name (HTML format is supported), such as icons
-    post = ""
-    name = "VN Blog"
-    url = "/posts/"
-    # title will be shown when you hover on this menu link
-    title = ""
-  [[menu.main]]
-    weight = 5
-    identifier = "tags"
-    pre = ""
-    post = ""
-    name = "Tags"
-    url = "/tags/"
-    title = ""
+   weight = 5
+   identifier = "tags"
+   pre = ""
+   post = ""
+   name = "Tags"
+   url = "/tags/"
+   title = ""
+
   [[menu.main]]
     weight = 4
     identifier = "list100"

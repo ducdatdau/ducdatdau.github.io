@@ -9,19 +9,53 @@ toc:
   enable: true
 ---
 
-<!--more-->
 <style>
 img {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 6px;
     display: block; 
-    margin: 15px auto;
+    margin: 0 auto 15px;
 }
 </style>
 
-## Challenge 2: checksum
+## **Challenge 1: frog**
 
-### Overview
+A game written in Python: your task is to move the frog to the correct spot to get the flag.
+
+<img src="./22.png">
+
+### **0x01 Get Flag** 
+
+We can open the game's source code to read it - it's in the `frog.py` file. At a glance, there's a function that generates the "flag" called `GenerateFlagText()` :
+
+```python
+def GenerateFlagText(x, y):
+    key = x + y*20
+    encoded = "\xa5\xb7\xbe\xb1\xbd\xbf\xb7\x8d\xa6\xbd\x8d\xe3\xe3\x92\xb4\xbe\xb3\xa0\xb7\xff\xbd\xbc\xfc\xb1\xbd\xbf"
+    return ''.join([chr(ord(c) ^ key) for c in encoded])
+```
+
+We don't need the exact values of `x` and `y`. Instead, we'll brute-force all values from 0 to 999 to find the correct flag.
+
+```python
+def GenerateFlagText(x, y):
+    key = x + y*20
+    encoded = "\xa5\xb7\xbe\xb1\xbd\xbf\xb7\x8d\xa6\xbd\x8d\xe3\xe3\x92\xb4\xbe\xb3\xa0\xb7\xff\xbd\xbc\xfc\xb1\xbd\xbf"
+    return ''.join([chr(ord(c) ^ key) for c in encoded])
+
+for x in range(0, 999):
+    for y in range(0, 999): 
+        flag = GenerateFlagText(x, y)
+        if "flare" in flag:
+            print(flag)
+            break
+
+# welcome_to_11@flare-on.com
+```
+
+## **Challenge 2: checksum**
+
+### **0x01 Overview**
 
 The challenge provides us with a PE64 file written in Golang, along with several questions related to the result of a "checksum" calculation.
 
@@ -43,7 +77,7 @@ Checksum: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 Maybe it's time to analyze the binary! ;)
 ```
 
-### Static Analysis 
+### 0x02 Static Analysis 
 
 The program contains three non-library functions: `main_main`, `main_a`, `main_b`. 
 
@@ -53,19 +87,101 @@ First, `randomTimes` represents the number of math questions to be generated, wi
 
 Each question randomly generates two operators, which I renamed to `fsRandom` and `seRandom`. The player's task is to input the correct sum of these two numbers. If all answers are correct, the program proceeds to the next stage.
 
+```c
+  randomTimes = math_rand_v2__ptr_Rand_uint64n(math_rand_v2_globalRand, 5);
+  inputNumber = (int *)runtime_newobject(&RTYPE_int);
+  for ( i = 0; i < randomTimes + 3; i = v45 + 1 )
+  {
+    v45 = i;
+    fsRandom = math_rand_v2__ptr_Rand_uint64n(math_rand_v2_globalRand, 10000);
+    seRandom = math_rand_v2__ptr_Rand_uint64n(math_rand_v2_globalRand, 10000);
+    v66 = 0;
+    v67 = 0;
+    v2 = runtime_convT64(fsRandom);
+    *(_QWORD *)&v66 = &RTYPE_int;
+    *((_QWORD *)&v66 + 1) = v2;
+    v3 = runtime_convT64(seRandom);
+    *(_QWORD *)&v67 = &RTYPE_int;
+    *((_QWORD *)&v67 + 1) = v3;
+    sumRandom = fsRandom + seRandom;
+    fmt_Fprintf(go_itab__os_File_io_Writer, os_Stdout, "Check sum: %d + %d = ", 21, &v66, 2, 2);
+    v65[0] = &RTYPE__ptr_int;
+    v65[1] = inputNumber;
+    v72 = fmt_Fscanf(go_itab__os_File_io_Reader, os_Stdin, "%d\n", 3, v65, 1, 1);
+    v4 = main_b(v72._r1, v72._r2, "Not a valid answer...", 21);
+    if ( *(_QWORD *)inputNumber != fsRandom + seRandom )
+    {
+      runtime_printlock(v4);
+      v5 = runtime_printstring("Try again! ;)\n", 14);
+      runtime_printunlock(v5);
+      return;
+    }
+    ((void (*)(void))runtime_printlock)();
+    v1 = runtime_printstring("Good math!!!\n------------------------------\n", 44);
+    runtime_printunlock(v1);
+  }
+```
+
 The program then prompts for a checksum input and verifies its validity using a Golang API.
 
-<img src="./2.png">
+```c
+  input_checksum = (string *)runtime_newobject(&RTYPE_string);
+  input_checksum->ptr = 0;
+  v64[0] = &RTYPE_string;
+  v64[1] = &off_4EDAB0;                         // checksum
+  fmt_Fprint(go_itab__os_File_io_Writer, os_Stdout, v64, 1, 1);
+  v63[0] = &RTYPE__ptr_string;
+  v63[1] = input_checksum;
+  v70 = fmt_Fscanf(go_itab__os_File_io_Reader, os_Stdin, "%s\n", 3, v63, 1, 1);
+  main_b(v70._r1, v70._r2, "Fail to read checksum input...", 30);
+```
+<!-- <img src="./2.png"> -->
 
 The `input_checksum` must be exactly 32 bytes long, where the first 24 bytes are extracted as the buffer. The program uses the XChaCha20-Poly1305 encryption algorithm, which requires a 32-byte key and a 24-byte nonce. Based on this, we can hypothesize that the buffer serves as the nonce in this encryption scheme.
 
-<img src="./3.png">
+```c
+  buffer = (BYTE *)runtime_makeslice(&RTYPE_uint8, 24, 24);
+  input_checksum_length = v44;
+  v14 = r0;
+  for ( j = 0; input_checksum_length > (__int64)j && j != 24; ++j )
+  {
+    if ( j >= 0x18 )
+      goto LABEL_33;
+    buffer[j] = v14->key[j];                    // buffer = input_checksum[0:24]
+  }
+  v59.cap = (size_t)buffer;
+  if ( input_checksum_length == 32 )            // must be 32 bytes
+  {
+    p_chacha20poly1305_xchacha20poly1305 = (chacha20poly1305_xchacha20poly1305 *)runtime_newobject(&RTYPE_chacha20poly1305_xchacha20poly1305);
+    if ( p_chacha20poly1305_xchacha20poly1305 != r0 )
+    {
+      v57 = p_chacha20poly1305_xchacha20poly1305;
+      runtime_memmove(p_chacha20poly1305_xchacha20poly1305, r0, 32);
+      p_chacha20poly1305_xchacha20poly1305 = v57;
+    }
+    v16 = go_itab__golang_org_x_crypto_chacha20poly1305_xchacha20poly1305_crypto_cipher_AEAD;
+    v17 = 0;
+    v18 = p_chacha20poly1305_xchacha20poly1305;
+    v19 = 0;
+  }
+  else
+  {
+    v62[1] = 32;
+    v62[0] = "chacha20poly1305: bad key length";
+    v16 = 0;
+    v17 = go_itab__errors_errorString_error;
+    v18 = 0;
+    v19 = v62;
+  }
+```
 
-By decoding the `encryptedFlagData` using the key and the nonce mentioned above, we obtain the decrypted data.
+<!-- <img src="./3.png"> -->
+
+By decoding the `encryptedFlagData` using the key and the nonce mentioned above, we obtain the `decryptedData`.
 
 <img src="./4.png">
 
-The decrypted data is hashed using SHA-256, then converted to a hexadecimal string and compared with input_checksum. If they match, the function `main_a` is called and the result is printed to `{os_UserCacheDir}\REAL_FLAREON_FLAG.JPG`.
+The `decryptedData` is hashed using SHA-256, then converted to a hexadecimal string and compared with input_checksum. If they match, the function `main_a` is called and the result is printed to `{os_UserCacheDir}\REAL_FLAREON_FLAG.JPG`.
 
 <img src="./5.png">
 
@@ -73,7 +189,9 @@ Analyzing the `main_a` function, we can see that its logic is relatively straigh
 
 <img src="./6.png">
 
-### Find flag 
+### **0x03 Find flag** 
+
+Finding checksum value
 
 ```python
 >>> x = b"cQoFRQErX1YAVw1zVQdFUSxfAQNRBXUNAxBSe15QCVRVJ1pQEwd/WFBUAlElCFBFUnlaB1ULByRdBEFdfVtWVA=="
@@ -84,17 +202,17 @@ Analyzing the `main_a` function, we can see that its logic is relatively straigh
 '7fd7dd1d0e959f74c133c13abb740b9faa61ab06bd0ecd177645e93b1e3825dd'
 ```
 
-Finding flag in local app data 
+Finding flag in local app data `C:\Users\PWN2OWN\AppData\Local` 
 
 <img src="./7.jpg">
 
-## Challenge 3: aray 
+## **Challenge 3: aray** 
 
 The challenge provides a YARA rule file, and the task is to find an input that satisfies all the conditions defined in the rule.
 
 <img src="./8.png">
 
-### Clean code 
+### **0x01 Clean code** 
 
 First, clean up the code by replacing all occurrences of `and` with line breaks (\n) for better readability. At a glance, there are two types of data involved:
 
@@ -193,7 +311,7 @@ if (s.check() == sat):
     print(res)
 ```
 
-### Flag 
+### **0x02 Get Flag** 
 
 [Full script](./solve.py) 
 
@@ -202,13 +320,13 @@ C:\Users\PWN2OWN\CTF\Flare-On\Flare11\3_aray\aray>python brute.py
 bytearray(b'rule flareon { strings: $f = "1RuleADayK33p$Malw4r3Aw4y@flare-on.com" condition: $f }')
 ```
 
-## Challenge 4: FLARE Meme Maker 3000
+## **Challenge 4: FLARE Meme Maker 3000**
 
 The challenge provides a mememaker3000.html file containing an obfuscated JavaScript snippet.
 
 <img src="./9.png">
 
-### Deobfuscate
+### **0x01 Deobfuscate**
 
 Deobfuscate using the website [https://deobfuscate.relative.im](https://deobfuscate.relative.im), the resulting source code is quite clear:
 
@@ -346,7 +464,7 @@ a0n.addEventListener('keyup', () => {
 })
 ```
 
-### Get flag 
+### **0x02 Get flag** 
 
 There is a base64 encoded string with the content `Congratulations! Here you go: `. From this, we can deduce that the `a0k()` function contains the flag. There are 2 conditions that need to be bypassed:
 
@@ -403,7 +521,7 @@ After reloading the page, we get the flag: `wh0a_it5_4_cru3l_j4va5cr1p7@flare-on
 
 <img src="./11.png">
 
-## Challenge 5: sshd 
+## **Challenge 5: sshd** 
 
 {{< admonition note "Challenge Information" >}}
 * **Given file:** [sshd.7z](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYCYJYqV0dZCtAzhZT2O2skBMNpPgWPQ45qrW9Ztf5KQ5A?e=X5v81N)
@@ -411,11 +529,11 @@ After reloading the page, we get the flag: `wh0a_it5_4_cru3l_j4va5cr1p7@flare-on
 7zip archive password: flare
 {{< /admonition >}}
 
-### Opinion 
+### **0x00 My opinion** 
 
 In my opinion, this is one of the best challenges in the series. It is related to cases of real-world cybersecurity incidents and mentions a very interesting backdoor [that was discovered last year](https://en.wikipedia.org/wiki/XZ_Utils_backdoor).
 
-### Part 1: Overview 
+### **0x01 Overview** 
 
 The challenge provides a filesystem image.
 
@@ -446,7 +564,7 @@ Update the base address of the library in IDA PRO to facilitate analysis of the 
 
 <img src="./15.png" width=400rem>
 
-### Part 2: Analysis The library 
+### **0x02 Analysis The library** 
 
 Jumping to the address that caused the crash, the function that caused the error is `sub_7F4A18C8F820`, with the content renamed as follows:
 
@@ -494,7 +612,7 @@ with open("decrypted_shellcode.bin", "wb") as f:
     f.write(decrypted_data)
 ```
 
-### Part 3: Analysis Shellcode 
+### **0x03 Analysis Shellcode** 
 
 The shellcode is quite short and straightforward. It frequently sets the value of the `rax` register to call syscalls in the form `{push value; pop rax}`
 
@@ -605,5 +723,3 @@ plaintext = chacha20_decrypt(key, nonce, encrypted_data, counter=0, sigma=custom
 print("Decrypted:", plaintext)
 # Decrypted: b'supp1y_cha1n_sund4y@flare-on.com\n\x86Xm\xb4U'
 ```
-
-## Challenge 6: bloke2

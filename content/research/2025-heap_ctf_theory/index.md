@@ -242,8 +242,8 @@ Khi một chunk được yêu cầu `malloc`, nếu Tcache Bin và Fast Bin khô
 
 1. Size của chunk được `malloc` (#1) < Size của chunk trong Tcache Bin (#2) → Cắt một phần của Chunk #2 cho Chunk #1. 
 2. Ngược lại, bộ nhớ sẽ trích từ Top Chunk ra cho Chunk #1, đồng thời thực hiện đưa:  
-  - Chunk có size [0x20 - 0x80] trong Unsorted Bin → đưa vào Small Bin.  
-  - Chunk có size > 0x80 (#3) trong Unsorted Bin → đưa vào Large Bin.
+  - Chunk có size [0x20 - 0x410] trong Unsorted Bin → đưa vào Small Bin.  
+  - Chunk có size > 0x410 (#3) trong Unsorted Bin → đưa vào Large Bin.
   - Chunk trong Fast Bin 
     - Nếu liền kề với chunk #3 → gộp chunk và cùng đưa vào Large Bin.
     - Ngược lại → đưa vào Small Bin.

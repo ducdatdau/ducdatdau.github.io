@@ -271,3 +271,6 @@ Top chunk | PREV_INUSE
 Addr: 0x5555555592d0
 Size: 0x20d30 (with flag bits: 0x20d31)
 ```
+
+## 0x4 References
+[1]. [Heap Exploitation Nightmare](https://guyinatuxedo.github.io/25-heap/index.html)

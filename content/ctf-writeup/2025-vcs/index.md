@@ -20,6 +20,10 @@ img {
 
 ## week 1/crackme1
 
+{{< admonition note "Challenge Information" >}}
+* **Given files:** [crack_me1.exe](https://drive.google.com/file/d/1y75zLYim6Mkf0YphYH-zwe4Q1v-GXqEx/view?usp=sharing)
+{{< /admonition >}}
+
 ### **0x01 Overview** 
 
 Decompile bằng IDA32, ta thu được pseudo-code của hàm `main()` như sau
@@ -793,3 +797,24 @@ ThiS 1s A rIdiCuLously l0ng_Lon9_l0ng_loNg_lOng strIng. The most difficult thing
 Chạy lại chương trình và nhập message trên, ta được flag là `vcstraining{Aw3s0me_D4ta_tran5Form4t1oN_Kak4}`.
 
 <img src="./imgs/6.png" width=700px/>
+
+## week 1/HiddenTreasure
+
+{{< admonition note "Challenge Information" >}}
+* **Given files:** [HiddenTreasure.zip](https://drive.google.com/file/d/1Bf96S_sEw7EbVki7UvJCYnzO73OJi0Ih/view?usp=sharing)
+{{< /admonition >}}
+
+### **0x01 Overview** 
+
+Đề bài cung cấp một file PE32 `HiddenTreasure.exe` viết bằng C++ và một bitmap `inside-the-mind-of-a-hacker-memory.bmp`. Chạy chương trình có kèm theo các tham số nhưng đều không hiện output.  
+
+```Bash
+Microsoft Windows [Version 10.0.26100.6584]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\PWN2OWN>HiddenTreasure.exe
+
+C:\Users\PWN2OWN>HiddenTreasure.exe aaaaaaaaaaaa
+```
+
+[Updating ...]

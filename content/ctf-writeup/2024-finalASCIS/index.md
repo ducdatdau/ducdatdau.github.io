@@ -24,15 +24,13 @@ img {
 }
 </style>
 
-## rev/Trust Me!
-
-<img src="./imgs/5.png" width=500px/>
-
-[Updating]
-
 ## pwn/ROP
 
 <img src="./imgs/0.png" width=500px/>
+
+{{< admonition note "Challenge Information" >}}
+* **Given files:** [ROP.zip](https://drive.google.com/file/d/1oKm_Ph4fC4LRWtJW0weBosRvdQy1yFY6/view?usp=sharing)
+{{< /admonition >}}
 
 ### 0x00. Overview
 
@@ -335,3 +333,11 @@ while True:
 
 p.interactive()
 ```
+
+## rev/Trust Me!
+
+<img src="./imgs/5.png" width=500px/>
+
+{{< admonition note "Challenge Information" >}}
+* **Given files:** [TRUSTME.rar](https://drive.google.com/file/d/16cexQLpgva7Z3Gq0xdLPF-7fg3J1FT8k/view?usp=sharing) (password: **infected**).
+{{< /admonition >}}

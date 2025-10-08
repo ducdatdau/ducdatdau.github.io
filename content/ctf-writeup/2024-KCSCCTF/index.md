@@ -37,10 +37,10 @@ Thời gian cứ dần trôi, mình lại lặng lẽ lôi vài bài của giả
 
 {{< admonition note "Challenge Information" >}}
 * 16 solves / 356 pts 
-* **Given files:** [re_fk3.exe](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EQes0cpg1-ZIusqmKlO22C0B0BNG_6kO3gZYsZa2tQtsqQ?e=8AqamO)
+* **Given files:** [re_fk3.exe](https://drive.google.com/file/d/1zhSwPEXJbrxzKFdU_z6PaiwfNyPBWHU6/view?usp=sharing)
 {{< /admonition >}}
 
-**Solution**
+### 0x01 Anti Debug
 
 <style>
 img {
@@ -78,6 +78,8 @@ __int64 sub_7FF7423313D0()
 
 Vậy khả năng cao đây là hàm anti-debug. Nếu chúng ta debug thì sẽ nhận được key fake, mình đặt breakpoint tại hàm này, sửa lại giá trị cho thanh ghi `ZF` và thu được key chính xác là `FA++!`
 
+### 0x02 Changed function
+
 Sau khi có key đúng thì kết quả decrypt vẫn sai. Có một vấn đề là dù `input` của mình khác nhau nhưng chương trình vẫn luôn in ra `Correct!`. Tới đây thì mình đoán được luôn hàm `lstrcmpA` đã bị thay đổi. 
 
 > Nếu các bạn chơi giải KCSC/KMA đủ nhiều sẽ biết kỹ thuật này thường xuyên được sử dụng. 
@@ -86,25 +88,25 @@ Sau khi có key đúng thì kết quả decrypt vẫn sai. Có một vấn đề
 
 <img src="3.png"/>
 
-Flag thu được là `KCSC{1t_co5ld_be_right7_fla9_here_^.^@@}`
+> **FLAG: KCSC{1t_co5ld_be_right7_fla9_here_^.^@@}**
 
 ## rev/RE x Rust
 
 {{< admonition note "Challenge Information" >}}
 * 5 solves / 489 pts / by JohnathanHuuTri
 * **Given files:** 
-  * [flag.enc](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ETw7mLb_E61Flv3qiLG1dboBxZt6nBy7-7rdnjg-4JtN6g?e=RAKj6l)
-  * [rexrust](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EfKU4YDfSd9Pulfe-DQ_IdkBkZ8dRRyXosmgA4z0OAAURw?e=uOnSO1)
+  * [flag.enc](https://drive.google.com/file/d/1XrubS7036nnVEfOE1Qlxyv1WEDwLPkIa/view?usp=sharing)
+  * [rexrust](https://drive.google.com/file/d/189myHIakMSZXIx1tATi-y8L4o2qwk2l4/view?usp=sharing)
 * **Description:** Challenge name tell everything!
 {{< /admonition >}}
 
-**Solution**
+### 0x01 Overview
 
 Quan sát tổng quan, chương trình đọc dữ liệu từ file `flag.txt`, thực hiện encrypt qua 4 phase và ghi dữ liệu vào file `flag.enc`. 
 
 <img src="./4.png">
 
-### Phase 1 
+### 0x2 Analyze Phase 1 
 
 Ở phase 1 này, sau khi debug và quan sát đầu ra, ta biết được hàm này đảo ngược chuỗi ban đầu.
 
@@ -152,7 +154,7 @@ __int64 __fastcall revsrust::phase1::hff4818a749ae18af(char *input, unsigned __i
 }
 ``` 
 
-### Phase 2 
+### 0x03 Analyze Phase 2 
 
 Ở phase này, chương trình hoán vị 4 bit sau của byte này với 4 bit sau của byte kia. Ví dụ `0x12`, `0x34` sẽ thành `0x14`, `0x32`. 
 
@@ -204,7 +206,7 @@ for i in range(0, len(flag), 2):
 ```
 Vì chúng chỉ swap giá trị giữa 2 byte cho nhau. Vậy nên chúng ta hoàn toàn có thể lấy luôn hàm này để lấy lại dữ liệu ban đầu. 
 
-### Phase 3 
+### 0x04 Analyze Phase 3 
 
 ```c
 __int64 __fastcall revsrust::phase3::h3b700fce28ff291d(char *input, unsigned __int64 input_length)
@@ -275,7 +277,7 @@ def rev_phase3(flag):
     return flag
 ```
 
-### Phase 4
+### 0x05 Analyze Phase 4
 
 Ở phase 4 này, chương trình tạo 1 số random 4 byte và xor tất cả các byte với `input`. Nếu chú ý, ta sẽ biết được các byte xor với nhau thì kết quả thu được luôn nằm trong khoảng [0, 255]. Từ đây, ta dễ dàng xây dựng hàm `rev_phase4` bằng brute-force. 
 
@@ -355,8 +357,9 @@ for i in range(0, 0xff):
     print("".join([chr(i) for i in res]))
 ```
 
-Nhìn sơ qua các kết quả thu được, ta có được flag là `KCSC{r3v3rs3_rust_1s_funny_4nd_34sy_227da29931351}`
+Nhìn sơ qua các kết quả thu được, ta có được đáp án chính xác.
 
+> **FLAG: KCSC{r3v3rs3_rust_1s_funny_4nd_34sy_227da29931351}**
 
 ## rev/behind the scenes
 
@@ -365,10 +368,6 @@ Nhìn sơ qua các kết quả thu được, ta có được flag là `KCSC{r3v3
 * **Given files:** [chall.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/Ec7HNS1M-OdJqmqPCLDivXsB--RiV_rQ9O4pT-fWe_E1kw?e=52AtSQ)
 * **Description:** Don't miss anything. 
 {{< /admonition >}}
-
-**Solution**
-
-Updating... 
 
 ## pwn/KCSBanking
 
@@ -379,9 +378,7 @@ Updating...
 `nc 103.163.24.78 10002`
 {{< /admonition >}}
 
-**Solution**
-
-### Overview
+### 0x01 Overview
 
 Chương trình có 2 lựa chọn chính:
 - general_action 
@@ -429,7 +426,7 @@ int info()
 }
 ```
 
-### Format String Bug 
+### 0x02 Format String Bug 
 
 Đề bài cho chúng ta Dockerfile, hướng tiếp cận của mình là tận dụng bug trên để Return To Libc. 
 
@@ -473,7 +470,7 @@ log.info(f"libc leak = {hex(libc_leak)}")
 log.info(f"libc base = {hex(libc_base)}")
 ```
 
-### Bug Stack Buffer Overflow 
+### 0x03 Bug Stack Buffer Overflow 
 
 Về cơ bản, chương trình không có bug BOF. Nhưng chúng ta đang có một số thứ để có thể trigger được bug này. 
 - Chức năng `logout` cho nhập feedback có kích thước tối đa 256 byte. 
@@ -513,7 +510,8 @@ b"a" * 72 + b"1234567\n"
 
 <img src="./9.png">
 
-### Build ropchain
+### 0x04 Final script
+
 Okay, việc chúng ta bây giờ chỉ là đi build ropchain và lấy shell. 
 ```python
 #!/usr/bin/env python3
@@ -600,7 +598,8 @@ logout(payload)
 
 p.interactive() 
 ```
-Flag thu được là `KCSC{st1ll_buff3r_0v3rfl0w_wh3n_h4s_c4n4ry?!?}`
+
+> **FLAG: KCSC{st1ll_buff3r_0v3rfl0w_wh3n_h4s_c4n4ry?!?}**
 
 ## pwn/Petshop
 
@@ -614,9 +613,7 @@ Flag thu được là `KCSC{st1ll_buff3r_0v3rfl0w_wh3n_h4s_c4n4ry?!?}`
 `nc 103.163.24.78 10001`
 {{< /admonition >}}
 
-**Solution**
-
-### Overview 
+### 0x01 Overview 
 
 Chương trình có 4 lựa chọn:
 - buy
@@ -835,7 +832,7 @@ Tóm tắt hàm `info` như sau:
   - `cat`
   - `mine`: In ra toàn bộ thông tin `pet_list` của mình
 
-### Bug Out-off-Bound 
+### 0x02 Bug Out-off-Bound 
 
 Ở hàm `buy`, ta nhận thấy rằng `pet_type_idx` có thể nhận giá trị âm, từ đó gây nên bug OOB. 
 
@@ -878,7 +875,7 @@ log.info(f"binary base = {hex(binary_base)}")
 
 Sau khi search trong memory, mình không thấy có địa chỉ nào phù hợp để leak ra libc. Vì vậy mình tạm hoãn công việc này tại đây. 
 
-### Bug Stack Buffer Overflow
+### 0x03 Bug Stack Buffer Overflow
 
 Với việc cho nhập `pet_name` tối đa tới tận 1024 byte. Mình thoáng nghĩ có điều gì không ổn tại đây. Mình dùng `cyclic` tạo thử 1020 byte để xem input này có ảnh hưởng gì tới các hàm khác không. 
 
@@ -915,9 +912,9 @@ def sell(pet_list_idx, reason):
     sla(b"You    --> ", reason)
 ```
 
-### Build ropchain to leak libc 
+### 0x04 Leak Libc 
 
-Sau khi dựa trên stack, ta tính được offset để overwrite retaddr là 0x208 byte. Tới đây thì chúng ta dễ dàng build ropchain để leak libc.  
+Sau khi dựa trên stack, ta tính được offset để overwrite return address là 0x208 byte. Tới đây thì chúng ta dễ dàng build ROPChain để leak libc.  
 
 ```python
 poprdi   = binary_base + 0x1a13
@@ -937,9 +934,10 @@ log.info(f"libc leak = {hex(libc_leak)}")
 log.info(f"libc base = {hex(libc_base)}")
 ```
 
-### Get shell 
+### 0x05 Final script 
 
 Hoàn thiện exploit, có được shell của thử thách. Có một vấn đề nhỏ mà chúng ta cần chú ý ở hàm `sell` là 
+
 ```c
  if ( (unsigned int)__isoc99_sscanf(a1, "%d", &pet_list_idx) != 1 || pet_list_idx > 7 || !pet_list[pet_list_idx] )
     {
@@ -1030,4 +1028,5 @@ sell(1, payload2)
 
 p.interactive() 
 ```
-Flag thu được là `KCSC{0h_n0_0ur_p3t_h4s_bug?!????????????????????}`
+
+> **FLAG: KCSC{0h_n0_0ur_p3t_h4s_bug?!????????????????????}**

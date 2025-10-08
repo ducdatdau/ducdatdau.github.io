@@ -25,11 +25,11 @@ img {
 
 {{< admonition note "Challenge Information" >}}
 * 31 solves / 100 pts / by kinjazz
-* **Given files:** [animal.7z](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EVuJORIn52pClGE2rCr4DmUBCTw90S1TIg4_IAXLm0DzQg?e=qSdvbh)
+* **Given files:** [animal.7z](https://drive.google.com/file/d/1t8mCiPbDpAtwiXrpWQ8BaibewKE0TDZq/view?usp=sharing)
 * **Description:** Find the hidden animal
 {{< /admonition >}}
 
-**Solution**
+### 0x01 Overview
 
 Đề bài cho chúng ta một file PE64. Mở bằng IDA64, tổng quan chương trình sẽ như sau
 
@@ -115,7 +115,9 @@ _BOOL8 __fastcall sub_21871F785(char *a1)
 }
 ```
 
-Tới đây chúng ta sẽ biết được luôn phải dùng Z3 để tìm ra flag. Lời giải của mình như sau 
+Tới đây chúng ta sẽ biết được phải dùng Z3 để tìm ra flag.
+
+### 0x02 Final script
 
 ```python
 from z3 import *
@@ -205,17 +207,17 @@ flag[24] = 121
 print("".join([chr(i) for i in flag]))
 ```
 
-Flag thu được là `ISITDTU{a_g0lden_cat_1n_y0ur_area!!}`
+> **FLAG: ISITDTU{a_g0lden_cat_1n_y0ur_area!!}**
 
 ## rev/re01
 
 {{< admonition note "Challenge Information" >}}
 * 46 solves / 100 pts
-* **Given files:** [re01.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ESNNoaYOae9JvGrl9JN6OPMBtIU2akWobbFQ_uM4AorvGg?e=6Qz8eW)
+* **Given files:** [re01.zip](https://drive.google.com/file/d/1VlRg_LjKkYkzCJcIDxofkzcTaZSuHciy/view?usp=sharing)
 * **Description:** VC++ ;)
 {{< /admonition >}}
 
-**Solution**
+### 0x01 Overview
 
 Đề bài cho chúng ta một file PE64, mở bằng IDA64, quan sát tổng thể ta có thể thấy chương trình dùng SHA1 để hash input và so sánh với chuỗi hash `eeeddf4ae0c3364f189a37f79c9d7223a1d60ac7`
 
@@ -235,7 +237,9 @@ Chúng ta dễ dàng nhận ra input length = 58. Mình sẽ tạo mới input v
 flag[i] ^ 0x35 == v7[i] 
 ```
 
-Dễ dàng lấy toàn bộ giá trị của `v7` và xor ngược lại, ta thu được flag `ISITDTU{Congrats_You_Solved_TLS_Callback_Re01_Have_Fun_:)}`
+### 0x02 Final script 
+
+Dễ dàng lấy toàn bộ giá trị của `v7` và xor ngược lại, ta thu được kết quả.
 
 ```python
 X = [0x7C, 0x00, 0x00, 0x00, 0x66, 0x00, 0x00, 0x00, 0x7C, 0x00, 
@@ -267,15 +271,17 @@ flag = "".join([chr(0x35 ^ int.from_bytes(X[i:i+4], "little")) for i in range(0,
 print(flag)
 ```
 
+> **FLAG: ISITDTU{Congrats_You_Solved_TLS_Callback_Re01_Have_Fun_:)}**
+
 ## rev/re02
 
 {{< admonition note "Challenge Information" >}}
 * 29 solves / 100 pts
-* **Given files:** [re02.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EeUsnHq698FEtmb_PBqHVr0B8lbnkxPoWVzGVXMzEv56Tg?e=Yzivqm)
+* **Given files:** [re02.zip](https://drive.google.com/file/d/1JSNy9jT4HGPIx09JP4nJ_PbEjdo-TwT3/view?usp=sharing)
 * **Description:** NES, good luck ;)
 {{< /admonition >}}
 
-**Solution**
+### 0x01 Static Analysis
 
 Đề bài cho chúng ta một file `re02.nes`, đây là một Nintendo ROM image file. Sau một hồi tìm kiếm, mình tìm được tool `FCEUX` có thể emulate và debug file này.  
 
@@ -320,7 +326,9 @@ Nếu tinh ý, ta có thể nhận ra các block check input khá tương tự n
 input[0] + input[1] + input[2] == 0x4A
 ```
 
-Thực hiện tương tự cho các block sau, chúng ta có thể tìm ra được `mapped_input` bằng Z3 
+Thực hiện tương tự cho các block sau, chúng ta có thể tìm ra được `mapped_input` bằng Z3.
+
+### 0x02 Final script
 
 ```python
 from z3 import * 
@@ -356,24 +364,25 @@ else:
     print("......")
 ```
 
-Kết quả thu được là `tuanlinhlinhtuan`,** bây giờ ta chỉ cần nhập input đúng với các key đã được map sẽ có được flag là `ISITDTU{Throw_back_the_nested_if_NES_have_funnnn_:)}`
+Kết quả thu được là `tuanlinhlinhtuan`, bây giờ ta chỉ cần nhập input đúng với các key đã được map sẽ có được đáp án chính xác.
 
 <img src="12.png" width=500em/>
+
+> **FLAG: ISITDTU{Throw_back_the_nested_if_NES_have_funnnn_:)}**
 
 ## rev/The Chamber of Flag
 
 {{< admonition note "Challenge Information" >}}
 * 28 solves / 100 pts / by ks75vl
-* **Given files:** [TheChamberOfFlag_11BA527D91D85F332DEBC3145E3E1C4A.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EfFkS6k8M_9JjPsrzbBDaYkBIuV4cVsOh92XlL1pCCfG6A?e=4BGYmb)
+* **Given files:** [TheChamberOfFlag_11BA527D91D85F332DEBC3145E3E1C4A.zip](https://drive.google.com/file/d/1ENpza0Bbtr9tQz2yjtP0N1ubuKqL1UJA/view?usp=sharing)
 * **Description:** Try to unlock the Chamber and get the Flag.
 {{< /admonition >}}
 
-**Solution**
+### 0x01 Overview
 
 Đề bài cho chúng ta một file PE64, chạy thử chương trình, ta thấy có 2 option để lựa chọn:
 
-- login
-    - input secret key
+- login &rarr; input secret key
 - about
 
 <img src="13.png" width=500em/>
@@ -387,13 +396,17 @@ Mở file bằng IDA64, chương trình nhìn rất lớn và phức tạp. Mìn
 
 <img src="14.png"/>
 
-Trace theo các hàm này, mình tìm ra được hàm `sub_7FF6A0F51530` thực hiện việc mã hóa input và đi kiểm tra tính hợp lệ của nó. 
+### 0x02 Dynamic Analysis
+
+Trace theo các hàm phía trên, mình tìm ra được hàm `sub_7FF6A0F51530` thực hiện việc mã hóa input và đi kiểm tra tính hợp lệ của nó. 
 
 <img src="15.png"/>
 
-Sau khi debug và decrypt `AlgId`, chúng ta biết được chương trình sử dụng hash SHA256. Thông tin chi tiết các bạn có thể đọc thêm ở đây https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider
+Sau khi debug và decrypt `AlgId`, chúng ta biết được chương trình sử dụng hash SHA256. 
 
 <img src="16.png"/>
+
+> Thông tin chi tiết các bạn có thể đọc thêm ở đây https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider
 
 Tiếp tục debug và ta lấy được `checked_hash` = `26F2D45844BFDBC8E5A2AE67149AA6C50E897A2A48FBF479D1BFB9F0D4E24544`
 
@@ -563,19 +576,21 @@ Lúc này, mình tìm xung quanh các thanh ghi `rcx` để xem nó bị ảnh h
 
 <img src="22.png"/>
 
-Đưa `rcx` trỏ về đây, chạy nốt chương trình và thu được flag `ISITDTU{STATIC_STRUCt_INITIALIZATION_FAiLED}`
+Đưa `rcx` trỏ về đây, chạy nốt chương trình và thu được đáp án. 
+
+> **FLAG: ISITDTU{STATIC_STRUCt_INITIALIZATION_FAiLED}**
 
 ## pwn/shellcode 1
 
 {{< admonition note "Challenge Information" >}}
 * 68 solves / 100 pts / by code016hiro
-* **Given files:** [shellcode1.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERrQb5blRN1IgofOJUmPwBwBROdWJxB03jdYp0yTbzcfGg?e=UTPFbg)
+* **Given files:** [shellcode1.rar](https://drive.google.com/file/d/1L0fscrv83p89hKK0hqMTB0YeMVNc1BcX/view?usp=sharing)
 * **Description:** `nc 152.69.210.130 3001`
 {{< /admonition >}}
 
-**Solution**
+### 0x01 Overview 
 
-Về tổng quan, chương trình đọc flag, lưu nó trên 1 vùng nhớ được `mmap` rồi xóa flag đó đi. Chương trình tiếp tục `mmap` một vùng nhớ mới cho shellcode với full quyền rwx và cho phép chúng ta chạy shellcode đó. 
+Về tổng quan, chương trình đọc flag, lưu nó trên 1 vùng nhớ được `mmap` rồi xóa flag đó đi. Chương trình tiếp tục `mmap` một vùng nhớ mới với full quyền `rwx` và cho phép thực thi shellcode đó. 
 
 <img src="25.png"/>
 
@@ -622,6 +637,8 @@ Vậy mình sẽ chỉ định cho `iov_base` là địa chỉ vùng nhớ chứ
 
 Khi nhảy vào shellcode, `rdx` chứa giá trị của địa chỉ shellcode. Vậy nên địa chỉ của vùng nhớ flag sẽ là `rdx + 0x1000`. 
 
+### 0x02 Final script 
+
 ```python
 #!/usr/bin/env python3
 
@@ -664,19 +681,19 @@ p.send(payload)
 
 p.interactive() 
 ```
-Flag là `ISITDTU{061e8c26e3cf9bfad4e22879994048c8257b17d8}`
+> **FLAG: ISITDTU{061e8c26e3cf9bfad4e22879994048c8257b17d8}**
 
 ## pwn/shellcode 2
 
 {{< admonition note "Challenge Information" >}}
 * 61 solves / 100 pts / by code016hiro
-* **Given files:** [shellcode2.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EX0TUAE1NPhJndbYW1iHfpYBTKYyWKIMhYnFfxp1WSXHFA?e=sBRCLM)
+* **Given files:** [shellcode2.rar](https://drive.google.com/file/d/1YDyPKVBIeYIe4VJwT0L0zDhlA9u8l3cf/view?usp=sharing)
 * **Description:** `nc 152.69.210.130 3002`
 {{< /admonition >}}
 
-**Solution**
+### 0x01 Overview
 
-Decompile file đề bài cho bằng IDA64, ta có thể thấy chương trình `mmap` cho vùng nhớ ở địa chỉ 0xAABBCC00 kích thước 0x1000 byte với full quyền rwx. 
+Dễ thấy chương trình `mmap` một vùng nhớ ở địa chỉ `0xAABBCC00` có kích thước 0x1000 byte với toàn bộ quyền `rwx`. 
 
 ```c
 int __cdecl main(int argc, const char **argv, const char **envp)
@@ -715,6 +732,8 @@ Chúng ta có thể thấy, khi chương trình chuẩn bị nhảy vào shellco
 <img src="24.png"/>
 
 Vậy payload đầu tiên chúng ta chỉ cần gọi `syscall` để chương trình tiếp tục được nhập input lần thứ hai. Vì đã pass qua vòng `for` check opcode chẵn lẻ, nên tại lần nhập thứ hai này, ta chỉ cần viết shellcode lấy shell như thông thường. 
+
+### 0x02 Final script
 
 ```python
 #!/usr/bin/env python3
@@ -757,19 +776,17 @@ p.send(payload2)
 p.interactive() 
 ```
 
-Flag là `ISITDTU{95acf3a6b3e1afc243fbad70fbd60a6be00541c62c6d651d1c10179b41113bda}`
+> **FLAG: ISITDTU{95acf3a6b3e1afc243fbad70fbd60a6be00541c62c6d651d1c10179b41113bda}**
 
 ## pwn/Game of Luck
 
 {{< admonition note "Challenge Information" >}}
 * 43 solves / 100 pts
-* **Given files:** [chal](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ERNFcvJ6e1hJpa1dCZ_7Vi0BuGrWTSPjcJKarUz4mA63_Q?e=xatAA3)
+* **Given files:** [chal](https://drive.google.com/file/d/1ukg7n1LhLedBEd4ujLLK8RN4o2qwO-7x/view?usp=sharing)
 * **Description:** `nc 152.69.210.130 2004`
 {{< /admonition >}}
 
-**Solution** 
-
-### Overview & Find bug
+### 0x01 Overview & Find bug
 
 Chương trình chính sau khi được rename lại như sau 
 ```c
@@ -830,7 +847,7 @@ __int64 enter_name()
 }
 ```
 
-### Exploit 
+### 0x02 Exploit 
 
 Chúng ta chỉ có 1 bug duy nhất FSB trong hàm `play`. Mình sẽ tiếp tục tìm kiếm xem có cách nào để tái sử dụng bug này được nhiều lần hay không.
 
@@ -953,24 +970,8 @@ sla(b"guess: ", b"/bin/sh")
 
 p.interactive() 
 ```
-Flag thu được là `ISITDTU{a0e1948f76e189794b7377d8e3b585bfa99d7ed0de7e6a6ff01c2fd95bdf3f72}`. 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+> **FLAG: ISITDTU{a0e1948f76e189794b7377d8e3b585bfa99d7ed0de7e6a6ff01c2fd95bdf3f72}**
 
 
 

@@ -24,7 +24,7 @@ img {
 * **Given files:** [crack_me1.exe](https://drive.google.com/file/d/1y75zLYim6Mkf0YphYH-zwe4Q1v-GXqEx/view?usp=sharing)
 {{< /admonition >}}
 
-### **0x01 Overview** 
+### 0x01 Overview
 
 Decompile bằng IDA32, ta thu được pseudo-code của hàm `main()` như sau
 
@@ -804,7 +804,7 @@ Chạy lại chương trình và nhập message trên, ta được flag là `vcs
 * **Given files:** [HiddenTreasure.zip](https://drive.google.com/file/d/1Bf96S_sEw7EbVki7UvJCYnzO73OJi0Ih/view?usp=sharing)
 {{< /admonition >}}
 
-### **0x01 Overview** 
+### 0x01 Overview 
 
 Đề bài cung cấp một file PE32 `HiddenTreasure.exe` viết bằng C++ và một bitmap `inside-the-mind-of-a-hacker-memory.bmp`. Chạy chương trình có kèm theo các tham số nhưng đều không hiện output.  
 
@@ -817,4 +817,224 @@ C:\Users\PWN2OWN>HiddenTreasure.exe
 C:\Users\PWN2OWN>HiddenTreasure.exe aaaaaaaaaaaa
 ```
 
-[Updating ...]
+### 0x02 Static Analysis 
+
+Hàm `main` sau khi đã được phân tích và rename lại có nội dung như sau
+
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  unsigned int input_length; // kr00_4
+  HANDLE FileW; // eax
+  void *v5; // ebx
+  HANDLE FileMappingW; // eax
+  void *v8; // esi
+  _BYTE *bit_stream_buffer; // ebx
+  unsigned int idx_input; // eax
+  unsigned int idx_buffer; // esi
+  char current_char; // cl
+  const void *v13; // edi
+  DWORD offset_pixel_data; // edx
+  unsigned int idx_bit_stream; // ebx
+  int image_width; // ecx
+  char *pixel_data_ptr; // eax
+  int y_coord; // edx
+  int offset_pixel_row; // eax
+  int x_coord; // edi
+  int idx_pixel_in_row; // edx
+  char v22; // al
+  HANDLE v23; // [esp+4h] [ebp-128h]
+  HANDLE hObject; // [esp+8h] [ebp-124h]
+  int copy_image_width; // [esp+Ch] [ebp-120h]
+  char *copy_pixel_data_ptr; // [esp+10h] [ebp-11Ch]
+  int image_height; // [esp+14h] [ebp-118h]
+  char *mapped_file_content; // [esp+18h] [ebp-114h]
+  _BYTE *copy_bit_stream_buffer; // [esp+1Ch] [ebp-110h]
+  DWORD bmp_file_sz; // [esp+20h] [ebp-10Ch]
+  int v31; // [esp+20h] [ebp-10Ch]
+  unsigned int v32; // [esp+24h] [ebp-108h]
+  int v33; // [esp+24h] [ebp-108h]
+  char input[256]; // [esp+28h] [ebp-104h] BYREF
+
+  if ( argc == 3 )
+  {
+    memset(input, 0, sizeof(input));
+    wcstombs(input, (const wchar_t *)argv[2], 0x100u);
+    input_length = strlen(input);
+    if ( input_length )
+    {
+      FileW = CreateFileW((LPCWSTR)argv[1], 0xC0000000, 1u, 0, 3u, 0x80u, 0);
+      v5 = FileW;
+      v23 = FileW;
+      if ( FileW != (HANDLE)-1 )
+      {
+        bmp_file_sz = GetFileSize(FileW, 0);
+        if ( bmp_file_sz == -1
+          || (FileMappingW = CreateFileMappingW(v5, 0, 4u, 0, 0, 0), v8 = FileMappingW, (hObject = FileMappingW) == 0) )
+        {
+          CloseHandle(v5);
+          return 0;
+        }
+        mapped_file_content = (char *)MapViewOfFile(FileMappingW, 6u, 0, 0, 0);
+        if ( mapped_file_content )
+        {
+          bit_stream_buffer = malloc(8 * input_length);
+          idx_input = 0;
+          copy_bit_stream_buffer = bit_stream_buffer;
+          idx_buffer = 0;
+          v32 = 0;
+          do
+          {
+            current_char = input[idx_input];
+            bit_stream_buffer[idx_buffer] = current_char & 1;
+            bit_stream_buffer[idx_buffer + 1] = (current_char >> 1) & 1;
+            bit_stream_buffer[idx_buffer + 2] = (current_char >> 2) & 1;
+            bit_stream_buffer[idx_buffer + 3] = (current_char >> 3) & 1;
+            bit_stream_buffer[idx_buffer + 4] = (current_char >> 4) & 1;
+            bit_stream_buffer[idx_buffer + 5] = (current_char >> 5) & 1;
+            bit_stream_buffer[idx_buffer + 6] = (current_char >> 6) & 1;
+            idx_input = v32 + 1;
+            bit_stream_buffer[idx_buffer + 7] = (current_char >> 7) & 1;
+            idx_buffer += 8;
+            v32 = idx_input;
+          }
+          while ( idx_input < input_length );
+          v13 = mapped_file_content;
+          if ( *(_WORD *)mapped_file_content == 'MB' && bmp_file_sz >= *(_DWORD *)(mapped_file_content + 2) )
+          {
+            offset_pixel_data = *(_DWORD *)(mapped_file_content + 10);
+            if ( offset_pixel_data < bmp_file_sz && idx_buffer < *(_DWORD *)(mapped_file_content + 34) )
+            {
+              idx_bit_stream = 0;
+              image_width = *(_DWORD *)(mapped_file_content + 18);
+              image_height = *(_DWORD *)(mapped_file_content + 22);
+              pixel_data_ptr = &mapped_file_content[offset_pixel_data];
+              y_coord = 0;
+              copy_image_width = image_width;
+              copy_pixel_data_ptr = pixel_data_ptr;
+              *((_WORD *)mapped_file_content + 3) = idx_buffer;
+              v33 = 0;
+              if ( idx_buffer )
+              {
+                offset_pixel_row = 0;
+                v31 = 0;
+                do
+                {
+                  if ( y_coord >= image_height )
+                    break;
+                  x_coord = 0;
+                  if ( idx_bit_stream < idx_buffer )
+                  {
+                    do
+                    {
+                      if ( x_coord >= image_width )
+                        break;
+                      idx_pixel_in_row = offset_pixel_row + x_coord++;
+                      v22 = copy_bit_stream_buffer[idx_bit_stream++];
+                      copy_pixel_data_ptr[2 * idx_pixel_in_row + idx_pixel_in_row] = v22;
+                      offset_pixel_row = v31;
+                      image_width = copy_image_width;
+                    }
+                    while ( idx_bit_stream < idx_buffer );
+                    y_coord = v33;
+                  }
+                  ++y_coord;
+                  offset_pixel_row += 3 * image_width;
+                  v33 = y_coord;
+                  v31 = offset_pixel_row;
+                }
+                while ( idx_bit_stream < idx_buffer );
+                v13 = mapped_file_content;
+              }
+              bit_stream_buffer = copy_bit_stream_buffer;
+            }
+          }
+          free(bit_stream_buffer);
+          UnmapViewOfFile(v13);
+          CloseHandle(hObject);
+          CloseHandle(v23);
+        }
+        else
+        {
+          CloseHandle(v8);
+          CloseHandle(v5);
+        }
+      }
+    }
+  }
+  return 0;
+}
+```
+
+Tóm tắt luồng hoạt động: 
+
+1\. Nhận Input: Chương trình yêu cầu 2 tham số dòng lệnh: 
+- `argv[1]`: Đường dẫn tới file ảnh BMP đích. 
+- `argv[2]`: Chuỗi thông điệp cần giấu - `input`. 
+
+2\. Xử lý thông điệp
+- Chương trình lấy thông điệp ở `argv[2]`. 
+- Tạo một mảng `bit_stream_buffer[]` có kích thước 8 x `input_length`.
+- Duyệt qua từng ký tự của `input`, chuyển mỗi ký tự thành 8 bit nhị phân rồi lưu vào `bit_stream_buffer[]`. 
+
+3\. Xử lý file ảnh BMP 
+- Chương trình mở file ảnh BMP ở `argv[1]`. 
+- Đọc và ánh xạ (map) toàn bộ nội dung ảnh vào bộ nhớ để đọc và ghi, lưu tại `mapped_file_content`. 
+- Thực hiện kiểm tra tính hợp lệ của file BMP: 
+  - Kiểm tra 2 byte đầu tiên có phải 0x4D42 (magic number "BM") hay không. 
+  - So sánh kích thước đã lấy được thực tế `bmp_file_sz` với ` *(_DWORD *)(mapped_file_content + 2)` - trường `bfSize` nơi khai báo kích thước của ảnh BMP để đảm bảo kích thước hợp lệ. 
+    > Một câu hỏi được đặt ra ở đoạn kiểm tra: `bmp_file_sz >= *(_DWORD *)(mapped_file_content + 2)`. Tại sao sử dụng dấu `>=` mà không phải `==` trong khi việc đọc file và map file phải có kích thước bằng nhau. 
+  - Kiểm tra kiểm thông điệp có thể được giấu vừa vặn vào trong vùng dữ liệu của ảnh hay không.
+4\. Thực hiện giấu tin 
+- Giấu độ dài của `bit_stream_buffer` ở trường `bfReserved1` nằm ở `mapped_file_content + 6`. 
+- Giấu dữ liệu:
+  - Xác định vị trí bắt đầu của dữ liệu điểm ảnh `offset_pixel_data`. 
+  - Duyệt từng pixel của ảnh theo thứ tự: trái sang phải, trên xuống dưới. 
+  - Với mỗi pixel, lấy từng bit trong `bit_stream_buffer` ghi đè lên kênh màu Blue của pixel đó. 
+
+### 0x03 Analyzing file BMP 
+
+<img src="./imgs/7.png"/>
+
+Các giá trị thu được là: 
+- Size `bit_stream_buffer` = 0xF0 &rarr; `input_length` = 0xF0 / 8 = 30. 
+- `offset_pixel_data` = 0x36.
+- Data: `mapped_file_content[0x36 : (0x36 + 0xF0 * 3)]`.
+
+### 0x04 Final script
+
+```python
+import struct
+
+with open("./inside-the-mind-of-a-hacker-memory.bmp", 'rb') as f:
+    f.seek(6)
+    num_bits_bytes = f.read(2)
+    num_bits_to_read = struct.unpack('<H', num_bits_bytes)[0]
+
+    f.seek(10)
+    offset_bytes = f.read(4)
+    pixel_data_offset = struct.unpack('<I', offset_bytes)[0]
+
+    f.seek(pixel_data_offset)
+
+    extracted_bits = []
+    for i in range(num_bits_to_read):
+        blue_channel_byte = f.read(1)
+        extracted_bits.append(blue_channel_byte[0])
+        f.seek(2, 1) 
+
+    decoded_chars = []
+
+    for i in range(0, len(extracted_bits), 8):
+        byte_chunk = extracted_bits[i:i+8]
+
+        byte_value = 0
+        for bit_index, bit in enumerate(byte_chunk):
+            byte_value += bit * (2**bit_index)
+
+        decoded_chars.append(chr(byte_value))
+
+    print(f"[*] FLAG: {''.join(decoded_chars)}") 
+```
+
+> **FLAG: flag{dont_forget_the_treasure}**

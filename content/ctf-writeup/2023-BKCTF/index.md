@@ -25,7 +25,7 @@ BKCTF was the first CTF I attended on-site. It was hosted by BKSEC, a club at Ha
 ## rev/BabyStack (Hard)
 
 {{< admonition note "Challenge Information" >}}
-* **Given files:** [BabyStack.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EWmha5dk9GxHhMIDplXWwkwBcXd6O5JpYM1G38mtdG8Elw?e=EBWzTG)
+* **Given files:** [BabyStack.zip](https://drive.google.com/file/d/1p_QX3MQqotXrE7KahZwiGN5Zlm30yxue/view?usp=sharing) (password: **cookiehanhoan**)
 * **Difficulty:** Hard
 * **Description:** Stack up to the moon. Flag format: `BKSEC{}`
 {{< /admonition >}}
@@ -317,13 +317,14 @@ Since we’ve dumped all the instructions, we could solve the flag by hand. But 
 value = [0x220c, 0x7739, 0x3e49, 0x6b3b, 0x702b, 0x3478, 0x2d6a, 0x3b75, 0x4577, 0x3723]
 cipher = [0x694E, 0x326A, 0x450A, 0x5B78, 0x3745, 0x550A, 0x581E, 0xF19, 0x7603, 0x4A12]
 flag = "".join([(v ^ c).to_bytes(2, "little").decode("utf8") for v, c in zip(value, cipher)])
-# BKSEC{C0nGratul4t31}
 ```
+
+> **FLAG: BKSEC{C0nGratul4t31}**
 
 ## rev/Reality (Medium)
 
 {{< admonition note "Challenge Information" >}}
-* **Given files:** [reality.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EYE-JsOfHUlLn3eLktQ-CXIB5e-4J0AhnZoM9qHwfNqGdA?e=Phj3TB)
+* **Given files:** [reality.zip](https://drive.google.com/file/d/17gZ0uUBLXbd_6fX7woeyqUfaISyBYfac/view?usp=sharing) (password: **cookiehanhoan**)
 * **Difficulty:** Medium
 * **Description:** A simple reversing challenge... Flag format: `BKSEC{}`
 {{< /admonition >}}
@@ -390,7 +391,7 @@ flag = "".join([chr(cipher[i] ^ key[i % len(key)]) for i in range(len(cipher))])
 print(flag)
 ```
 
-Flag: `BKSEC{e4sy_ch4ll_but_th3r3_must_b3_som3_ant1_debug??}` 
+> **FLAG: BKSEC{e4sy_ch4ll_but_th3r3_must_b3_som3_ant1_debug??}**
 
 <!-- ## rev/Checker
 
@@ -407,7 +408,7 @@ Updating ...  -->
 ## pwn/File Scanner (Medium)
 
 {{< admonition note "Challenge Information" >}}
-* **Given files:** [bkctf2023-file-scanner.zip](https://wru-my.sharepoint.com/:u:/g/personal/2251272678_e_tlu_edu_vn/EZ9OTXN0q9FOip0-58L7HfABRbHe_ozK_7abZoFk8uVsQQ?e=ooSD6Y)
+* **Given files:** [bkctf2023-file-scanner.zip](https://drive.google.com/file/d/1G9l1fvSqiCKvM0n8jt6ZtxoBDbIvStgT/view?usp=sharing) (password: **cookiehanhoan**)
 * **Difficulty:** Medium
 * **Description:** The most powerful tool maybe the worst :(. Flag format: `BKSEC{}`
 {{< /admonition >}}
@@ -539,4 +540,4 @@ p.sendlineafter(b'name: ', payload)
 p.interactive()
 ```
 
-Flag: `BKSEC{fSoP_1s_n0t_2_hArd_4_u_1fac8554f8eb55a103be3e34c9cf6940}`
+> **FLAG: BKSEC{fSoP_1s_n0t_2_hArd_4_u_1fac8554f8eb55a103be3e34c9cf6940}**

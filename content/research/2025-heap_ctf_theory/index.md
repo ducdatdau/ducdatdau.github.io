@@ -2,7 +2,7 @@
 title: "Heap CTF Theory"
 date: 2025-10-07
 draft: false
-tags: ["Binary Exploitation"]
+tags: ["Pwnable"]
 # categories: ["CTF Writeups"]
 lightgallery: true
 toc:

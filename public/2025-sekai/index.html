@@ -1,0 +1,1079 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title>SEKAI CTF 2025 - ducdatdau</title><meta name=Description content="Solutions for some challenges in SEKAI CTF 2025 by ducdatdau"><meta property="og:title" content="SEKAI CTF 2025">
+<meta property="og:description" content="Solutions for some challenges in SEKAI CTF 2025 by ducdatdau">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ducdatdau.github.io/2025-sekai/"><meta property="og:image" content="https://ducdatdau.github.io/logo.png"><meta property="article:section" content="ctf-writeup">
+<meta property="article:published_time" content="2025-09-07T00:00:00+00:00">
+<meta property="article:modified_time" content="2025-09-07T00:00:00+00:00"><meta property="og:site_name" content="ducdatdau blog">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://ducdatdau.github.io/logo.png">
+<meta name=twitter:title content="SEKAI CTF 2025">
+<meta name=twitter:description content="Solutions for some challenges in SEKAI CTF 2025 by ducdatdau">
+<meta name=application-name content="Blogs">
+<meta name=apple-mobile-web-app-title content="Blogs"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=https://github.com/ducdatdau.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ducdatdau.github.io/2025-sekai/><link rel=prev href=https://ducdatdau.github.io/2024-flareon/><link rel=next href=https://ducdatdau.github.io/2025-vcs/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'">
+<noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'">
+<noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"SEKAI CTF 2025","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ducdatdau.github.io\/2025-sekai\/"},"genre":"posts","keywords":"Reverse-Engineering, SEKAI, 2025","wordcount":4064,"url":"https:\/\/ducdatdau.github.io\/2025-sekai\/","datePublished":"2025-09-07T00:00:00+00:00","dateModified":"2025-09-07T00:00:00+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"ducdatdau"},"description":"Solutions for some challenges in SEKAI CTF 2025 by ducdatdau"}</script></head>
+<body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title=ducdatdau>Home</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/misc-notes/ title="Misc Notes"> Misc Notes </a><a class=menu-item href=/research/ title=Research> Security Research </a><a class=menu-item href=/ctf-writeup/ title="CTF Writeup"> CTF </a><a class=menu-item href=/list100/ title="List 100"> List 100 </a><a class=menu-item href=/tags/> Tags </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search>
+<i class="fas fa-search fa-fw" aria-hidden=true></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear>
+<i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i>
+</span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a></div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title=ducdatdau>Home</a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search>
+<i class="fas fa-search fa-fw" aria-hidden=true></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear>
+<i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i>
+</span>
+</div>
+<a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
+Cancel
+</a>
+</div><a class=menu-item href=/misc-notes/ title="Misc Notes">Misc Notes</a><a class=menu-item href=/research/ title=Research>Security Research</a><a class=menu-item href=/ctf-writeup/ title="CTF Writeup">CTF</a><a class=menu-item href=/list100/ title="List 100">List 100</a><a class=menu-item href=/tags/ title>Tags</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a></div>
+</div>
+</header><div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div><main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>Contents</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">SEKAI CTF 2025</h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=https://ducdatdau.github.io/ title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>ducdatdau</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2025-09-07>2025-09-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;4064 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;20 minutes&nbsp;</div><div class=post-meta-line>
+<span class=post-tags-inline style="display:inline-flex;gap:.375rem;flex-wrap:wrap;margin:.5rem 0;font-weight:500"><a class="tag-badge tag-reverse" href=/tags/reverse-engineering/ title=Reverse-Engineering><span class=tag-icon aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-4 w-4"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98.0 01-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501.0 10-3.214 3.214c.446.166.855.497.925.968a.979.979.0 01-.276.837l-1.61 1.61A2.404 2.404.0 0112 22.002a2.402 2.402.0 01-1.704-.706l-1.568-1.568a1.026 1.026.0 00-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5.0 11-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026.0 00-.289-.877l-1.568-1.568A2.402 2.402.0 011.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5.0 103.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402.0 0112 1.998c.617.0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5.0 113.237 3.237c-.464.18-.894.527-.967 1.02z"/></svg></span><span class=tag-text>Reverse-Engineering</span></a>
+<a class="tag-badge tag-default" href=/tags/sekai/ title=SEKAI><span class=tag-icon aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-4 w-4"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+</span><span class=tag-text>SEKAI</span></a>
+<a class="tag-badge tag-default tag-year" href=/tags/2025/ title=2025><span class=tag-text>2025</span></a>
+</span>
+</div></div><div class="details toc" id=toc-static data-kept>
+<div class="details-summary toc-title">
+<span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#revmiku-music-machine-hard>rev/Miku Music Machine (Hard)</a>
+<ul>
+<li><a href=#0x01-overview><strong>0x01 Overview</strong></a></li>
+<li><a href=#0x02-cfgxfg><strong>0x02 CFG/XFG</strong></a>
+<ul>
+<li><a href=#checking-the-bitmap>Checking the bitmap</a></li>
+<li><a href=#checking-signature>Checking signature</a></li>
+</ul>
+</li>
+<li><a href=#0x03-solving-the-maze><strong>0x03 Solving the maze</strong></a></li>
+</ul>
+</li>
+</ul>
+</nav></div>
+</div><div class=content id=content><style>img{box-shadow:rgba(0,0,0,.35)0 5px 15px;border-radius:6px;display:block;margin:0 auto 15px}</style>
+<img src=./imgs/0.png>
+<h2 id=revmiku-music-machine-hard>rev/Miku Music Machine (Hard)</h2>
+<div class="details admonition note open">
+<div class="details-summary admonition-title">
+<i class="icon fas fa-pencil-alt fa-fw" aria-hidden=true></i>Challenge Information<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i>
+</div>
+<div class=details-content>
+<div class=admonition-content><ul>
+<li><strong>Description:</strong> I&rsquo;ve created the Miku Music Machine (MMM for short)! Just give it an input, and it will use coding and algorithms™ to generate a beautiful personalized tune based on your prompt. Can you compose a song that pleases Miku?</li>
+<li><strong>Note:</strong> This challenge does not work on Wine.</li>
+<li><strong>Note:</strong> The original version of this challenge (<code>miku-music-machine.exe</code>) relies on a specific Windows feature that was removed in most recent Windows versions. Running on these versions results in invalid flags being accepted by the binary. To avoid this issue, we&rsquo;ve attached <code>mmm-v2.exe</code> which will work on all Windows versions. The flag is identical for both versions.</li>
+<li><strong>Author:</strong> molenzwiebel</li>
+<li><strong>Given files:</strong> <a href=https://2025.ctf.sekai.team/files/f26776cc0787577e3cf45b2bf31c322f/miku-music-machine.exe target=_blank rel="noopener noreffer">miku-music-machine.exe</a>, <a href=https://2025.ctf.sekai.team/files/e65a9f567a0e4df2ce5e03353654822a/mmm-v2.exe target=_blank rel="noopener noreffer">mmm-v2.exe</a></li>
+</ul>
+</div>
+</div>
+</div>
+<h3 id=0x01-overview><strong>0x01 Overview</strong></h3>
+<p>Đề bài cho một file PE64, thử chạy với các input ngẫu nhiên, chương trình sẽ yêu cầu một input với độ dài hợp lệ.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-Text data-lang=Text>C:\Users\P\Downloads&gt;mmm-v2.exe
+Usage: mmm-v2.exe &lt;prompt&gt;
+
+C:\Users\P\Downloads&gt;mmm-v2.exe SEKAI{aaaaaaa}
+You should work on the length of your prompt!
+</code></pre></td></tr></table>
+</div>
+</div><div style=margin-bottom:1.3em></div>
+<p>Chương trình thực hiện một số bước để kiểm tra tính chính xác của input:</p>
+<ol>
+<li>Kiểm tra độ dài input = 50.</li>
+<li>Mở MIDI (Musical Instrument Digital Interface).</li>
+<li>Xor từng ký tự với mảng <code>xor_values</code> cho trước, đồng thời tăng giá trị của biến <code>equal_418</code> lên.</li>
+<li>Tạo MIDI message dựa trên giá trị <code>equal_418</code> và gửi tới MIDI.</li>
+<li>Kiểm tra <code>equal_418</code> = 418 hay không. Nếu đúng sẽ in ra <code>That was beautiful!</code>.</li>
+</ol>
+<img src=./imgs/image.png>
+<p>Sau một hồi quan sát, thứ làm mình chú ý tới nhất đó là <code>list_fn[v8]();</code>. Đây là một danh sách chứa các địa chỉ hàm khác nhau.</p>
+<img src=./imgs/image-3.png>
+<h3 id=0x02-cfgxfg><strong>0x02 CFG/XFG</strong></h3>
+<p>Đặt breakpoint ngay tại dòng <code>list_fn[v8]();</code> với input <strong>SEKAI{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}</strong>. Sau khi F9 để chương trình chạy liên tục, IDA đưa ra một thông báo lỗi</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>7FFE06586490: unknown exception code C0000409 (exc.code c0000409, tid 19460)
+</code></pre></td></tr></table>
+</div>
+</div><p>Để biết chính xác tại sao bị lỗi này, mình đã chuyển qua code assembly ngay đoạn đặt breakpoint để tìm hiểu. Chương trình có call một hàm khá lạ <code>__guard_xfg_dispatch_icall_fptr</code>.</p>
+<img src=./imgs/image-4.png>
+<p>Sau khi tìm kiếm trên Google, mình có đọc được một bài viết khá chi tiết nói về hàm này:</p>
+<ul>
+<li><a href=https://connormcgarr.github.io/examining-xfg/ target=_blank rel="noopener noreffer">https://connormcgarr.github.io/examining-xfg</a></li>
+</ul>
+<p>Định nghĩa về <strong>CFG</strong> và <strong>XFG</strong> theo như mình tìm hiểu được như sau. Cả 2 đều có chức năng chống lại việc ghi đè function pointer trong Windows.</p>
+<ul>
+<li><strong>CFG</strong> hay còn được biết tới là <strong>Control Flow Guard</strong>. Khi một function pointer được gọi, cơ chế này sẽ kiểm tra xem địa chỉ được trỏ tới đã đăng ký ở trong bitmap hay chưa, nếu chưa sẽ ngăn chặn việc gọi hàm. Kỹ thuật này ngăn chặn được kỹ thuật ROP-chain nhưng vẫn không thể tránh được việc attacker ghi đè function pointer thành địa chỉ các hàm hệ thống nguy hiểm như: <code>VirtualProtect()</code>, <code>WriteProcessMemory()</code>, &mldr;</li>
+<li><strong>XFG</strong> hay <strong>Xtended Flow Guard</strong> là phiên bản nâng cấp của CFG. Ngoài việc kiểm tra địa chỉ đã được đăng ký trong bitmap hay chưa, cơ chế này còn kiểm tra mã hash của một số thuộc tính như: số lượng parameter, kiểu dữ liệu của parmeter, kiểu dữ liệu trả về, &mldr; Từ đó kẻ tấn công ngoài việc ghi đè function pointer còn phải thiết kế hàm sao cho trùng khớp với các thuộc tính đã nêu trên.</li>
+</ul>
+<p>Quay lại bài toán, ta thấy được tác giả đã sử dụng cơ chế bảo vệ XFG với <code>85F13E9656DA4870h</code> là mã hash để check.</p>
+<p>Câu hỏi được đặt ra là: Tại sao chương trình thông báo lỗi khi gặp XFG?</p>
+<ol>
+<li>Do hàm được gọi chưa được đăng ký trong bitmap?</li>
+<li>Do các thuộc tính của hàm gọi không trùng khớp với mã hash và gây crash?</li>
+</ol>
+<h4 id=checking-the-bitmap>Checking the bitmap</h4>
+<p>Ở bài viết nêu trên, tác giả sử dụng công cụ <a href=https://github.com/Delphier/dumpbin target=_blank rel="noopener noreffer">dumpbin.exe</a> để extract ra bitmap. Kết quả thu được khá lớn, mình chỉ tập trung ở phần <strong>Guard CF Function Table</strong>, trong đó địa chỉ nào có dấu <code>X</code> là được bảo vệ bởi cơ chế XFG.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>C:\Users\P\Downloads\dumpbin-14.40.33811-x64&gt;dumpbin.exe /LOADCONFIG mmm-v2.exe
+Guard CF Function Table
+
+    Address
+    --------
+    X 0000000140001010
+    X 0000000140001050
+    X 0000000140001070
+    [...]
+    X 0000000140004650
+    X 00000001400046D0
+    X 00000001400046F0
+      00000001400049C0
+      0000000140004C40
+      0000000140004D00
+    [...]
+      0000000140014060
+      0000000140015080
+    X 0000000140015420
+    X 0000000140015560
+    [...]
+    X 000000014005C840
+    X 000000014005D270
+    X 000000014005D310
+      000000014005E440
+      000000014005E5F0
+</code></pre></td></tr></table>
+</div>
+</div><p>Nhìn vào danh sách các địa chỉ các hàm của <code>list_fn</code> trong IDA.</p>
+<img src=./imgs/image-3.png>
+<p>chúng ta có thể xác định được nhiệm vụ trước mắt phải làm:</p>
+<ol>
+<li>Rebase địa chỉ chương trình sao cho trùng khớp giữa IDA và bitmap.</li>
+<li>Kiểm tra các hàm nào đã được đăng ký cả trong IDA lẫn bitmap.</li>
+</ol>
+<p>Nhìn ở bitmap, mình lấy <code>base_address</code> = 0x140000000 bởi vì: <code>min_address</code> = 0x140001010, <code>max_address</code> = 0x14005E5F0 dẫn tới giá trị sẽ là 0x140000000 + offset.</p>
+<p>Nhiệm vụ tiếp theo là xác định hàm nào trong <code>list_fn</code> đã được đăng ký bitmap. Mình viết một đoạn python script nhỏ để in các hàm đấy và index của nó.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=n>ida_list_fn</span>     <span class=o>=</span> <span class=p>[</span><span class=mh>0x1400025F0</span><span class=p>,</span> <span class=mh>0x140001EF0</span><span class=p>,</span> <span class=o>...</span><span class=p>,</span> <span class=mh>0x140003310</span><span class=p>,</span> <span class=mh>0x140004110</span><span class=p>]</span>
+<span class=n>available_fn</span>    <span class=o>=</span> <span class=p>[</span><span class=mh>0x140001010</span><span class=p>,</span> <span class=mh>0x140001070</span><span class=p>,</span> <span class=o>...</span><span class=p>,</span> <span class=mh>0x14005D270</span><span class=p>,</span> <span class=mh>0x14005D310</span><span class=p>]</span>
+<span class=n>available_idx</span>   <span class=o>=</span> <span class=p>[]</span>
+
+<span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>ida_list_fn</span><span class=p>)):</span> 
+    <span class=k>if</span> <span class=n>ida_list_fn</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=ow>in</span> <span class=n>available_fn</span><span class=p>:</span> 
+        <span class=n>available_idx</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+
+<span class=nb>print</span><span class=p>(</span><span class=n>available_idx</span><span class=p>)</span>
+<span class=c1># [22, 24, ..., 416, 418]</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id=checking-signature>Checking signature</h4>
+<p>Sau khi xem qua các hàm trong <code>available_fn</code>, mình nhận ra có một số hàm hơi khác lạ. Ví dụ như hàm <code>sub_430()</code> có xuất hiện lệnh xor 0x7D với giá trị ở địa chỉ <code>loc_79E</code> thuộc hàm <code>sub_790()</code>.</p>
+<img src=./imgs/image-5.png>
+<p>Hàm <code>sub_790()</code> là một hàm trong <code>available_fn</code> và có gọi tới <code>RtlFailFast()</code>.</p>
+<img src=./imgs/image-6.png>
+<p><strong>Kết luận</strong>: Khi hàm <code>sub_430()</code> được gọi thì hàm <code>sub_790()</code> sẽ được unlock.</p>
+<p>Dựa vào keyword <code>0x7D</code>, mình tìm thêm được 5 hàm nữa có chức năng tương tự.</p>
+<img src=./imgs/image-7.png>
+<div style=margin-bottom:1.3em></div>
+<p>Script để tìm index của các hàm như trên, đồng thời xóa đi các index của unlocked function trong <code>available_idx</code>.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=n>map_fn</span> <span class=o>=</span> <span class=p>{</span>
+    <span class=mh>0x140001570</span> <span class=p>:</span> <span class=mh>0x1400014F0</span><span class=p>,</span>
+    <span class=mh>0x140002970</span> <span class=p>:</span> <span class=mh>0x1400023D0</span><span class=p>,</span>
+    <span class=mh>0x140003650</span> <span class=p>:</span> <span class=mh>0x140001410</span><span class=p>,</span>
+    <span class=mh>0x140003F30</span> <span class=p>:</span> <span class=mh>0x140002710</span><span class=p>,</span>
+    <span class=mh>0x140004210</span> <span class=p>:</span> <span class=mh>0x140002110</span><span class=p>,</span>
+    <span class=mh>0x140004430</span> <span class=p>:</span> <span class=mh>0x140001790</span>
+<span class=p>}</span>
+
+<span class=n>addr_to_index</span>   <span class=o>=</span> <span class=p>{</span><span class=n>addr</span><span class=p>:</span> <span class=n>idx</span> <span class=k>for</span> <span class=n>idx</span><span class=p>,</span> <span class=n>addr</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=n>ida_list_fn</span><span class=p>)}</span>
+<span class=n>open_map_idx</span>    <span class=o>=</span> <span class=p>{</span><span class=n>addr_to_index</span><span class=p>[</span><span class=n>k</span><span class=p>]:</span> <span class=n>addr_to_index</span><span class=p>[</span><span class=n>v</span><span class=p>]</span> <span class=k>for</span> <span class=n>k</span><span class=p>,</span> <span class=n>v</span> <span class=ow>in</span> <span class=n>map_fn</span><span class=o>.</span><span class=n>items</span><span class=p>()}</span>
+<span class=n>open_map_keys</span>   <span class=o>=</span> <span class=nb>list</span><span class=p>(</span><span class=n>open_map_idx</span><span class=o>.</span><span class=n>keys</span><span class=p>())</span>
+<span class=n>open_map_values</span> <span class=o>=</span> <span class=nb>list</span><span class=p>(</span><span class=n>open_map_idx</span><span class=o>.</span><span class=n>values</span><span class=p>())</span>
+
+<span class=nb>print</span><span class=p>(</span><span class=n>open_map_idx</span><span class=p>)</span>
+<span class=c1># {187: 280, 368: 397, 153: 281, 383: 156, 235: 76, 26: 72}</span>
+
+<span class=c1># print(open_map_keys)</span>
+<span class=c1># print(open_map_values)</span>
+
+<span class=c1># updating available_idx</span>
+<span class=n>available_idx</span> <span class=o>=</span> <span class=p>[</span><span class=mi>22</span><span class=p>,</span> <span class=mi>24</span><span class=p>,</span> <span class=mi>25</span><span class=p>,</span> <span class=mi>26</span><span class=p>,</span> <span class=mi>28</span><span class=p>,</span> <span class=mi>29</span><span class=p>,</span> <span class=mi>30</span><span class=p>,</span> <span class=mi>31</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=mi>33</span><span class=p>,</span> <span class=mi>34</span><span class=p>,</span> <span class=mi>35</span><span class=p>,</span> <span class=mi>36</span><span class=p>,</span> <span class=mi>37</span><span class=p>,</span> <span class=mi>38</span><span class=p>,</span> <span class=mi>39</span><span class=p>,</span> <span class=mi>40</span><span class=p>,</span> <span class=mi>43</span><span class=p>,</span> <span class=mi>47</span><span class=p>,</span> <span class=mi>55</span><span class=p>,</span> <span class=mi>57</span><span class=p>,</span> <span class=mi>59</span><span class=p>,</span> <span class=mi>61</span><span class=p>,</span> <span class=mi>64</span><span class=p>,</span> <span class=mi>65</span><span class=p>,</span> <span class=mi>66</span><span class=p>,</span> <span class=mi>67</span><span class=p>,</span> <span class=mi>68</span><span class=p>,</span> <span class=mi>69</span><span class=p>,</span> <span class=mi>70</span><span class=p>,</span> <span class=mi>71</span><span class=p>,</span> <span class=mi>74</span><span class=p>,</span> <span class=mi>75</span><span class=p>,</span> <span class=mi>78</span><span class=p>,</span> <span class=mi>80</span><span class=p>,</span> <span class=mi>82</span><span class=p>,</span> <span class=mi>87</span><span class=p>,</span> <span class=mi>93</span><span class=p>,</span> <span class=mi>97</span><span class=p>,</span> <span class=mi>99</span><span class=p>,</span> <span class=mi>106</span><span class=p>,</span> <span class=mi>107</span><span class=p>,</span> <span class=mi>108</span><span class=p>,</span> <span class=mi>110</span><span class=p>,</span> <span class=mi>112</span><span class=p>,</span> <span class=mi>114</span><span class=p>,</span> <span class=mi>115</span><span class=p>,</span> <span class=mi>116</span><span class=p>,</span> <span class=mi>117</span><span class=p>,</span> <span class=mi>118</span><span class=p>,</span> <span class=mi>120</span><span class=p>,</span> <span class=mi>121</span><span class=p>,</span> <span class=mi>122</span><span class=p>,</span> <span class=mi>123</span><span class=p>,</span> <span class=mi>124</span><span class=p>,</span> <span class=mi>131</span><span class=p>,</span> <span class=mi>133</span><span class=p>,</span> <span class=mi>139</span><span class=p>,</span> <span class=mi>143</span><span class=p>,</span> <span class=mi>148</span><span class=p>,</span> <span class=mi>149</span><span class=p>,</span> <span class=mi>150</span><span class=p>,</span> <span class=mi>151</span><span class=p>,</span> <span class=mi>152</span><span class=p>,</span> <span class=mi>153</span><span class=p>,</span> <span class=mi>154</span><span class=p>,</span> <span class=mi>155</span><span class=p>,</span> <span class=mi>157</span><span class=p>,</span> <span class=mi>158</span><span class=p>,</span> <span class=mi>159</span><span class=p>,</span> <span class=mi>160</span><span class=p>,</span> <span class=mi>161</span><span class=p>,</span> <span class=mi>162</span><span class=p>,</span> <span class=mi>164</span><span class=p>,</span> <span class=mi>165</span><span class=p>,</span> <span class=mi>166</span><span class=p>,</span> <span class=mi>169</span><span class=p>,</span> <span class=mi>179</span><span class=p>,</span> <span class=mi>187</span><span class=p>,</span> <span class=mi>190</span><span class=p>,</span> <span class=mi>192</span><span class=p>,</span> <span class=mi>194</span><span class=p>,</span> <span class=mi>196</span><span class=p>,</span> <span class=mi>197</span><span class=p>,</span> <span class=mi>198</span><span class=p>,</span> <span class=mi>199</span><span class=p>,</span> <span class=mi>200</span><span class=p>,</span> <span class=mi>201</span><span class=p>,</span> <span class=mi>202</span><span class=p>,</span> <span class=mi>204</span><span class=p>,</span> <span class=mi>206</span><span class=p>,</span> <span class=mi>208</span><span class=p>,</span> <span class=mi>213</span><span class=p>,</span> <span class=mi>215</span><span class=p>,</span> <span class=mi>217</span><span class=p>,</span> <span class=mi>219</span><span class=p>,</span> <span class=mi>223</span><span class=p>,</span> <span class=mi>225</span><span class=p>,</span> <span class=mi>227</span><span class=p>,</span> <span class=mi>229</span><span class=p>,</span> <span class=mi>232</span><span class=p>,</span> <span class=mi>234</span><span class=p>,</span> <span class=mi>235</span><span class=p>,</span> <span class=mi>236</span><span class=p>,</span> <span class=mi>237</span><span class=p>,</span> <span class=mi>238</span><span class=p>,</span> <span class=mi>240</span><span class=p>,</span> <span class=mi>241</span><span class=p>,</span> <span class=mi>242</span><span class=p>,</span> <span class=mi>244</span><span class=p>,</span> <span class=mi>246</span><span class=p>,</span> <span class=mi>247</span><span class=p>,</span> <span class=mi>248</span><span class=p>,</span> <span class=mi>249</span><span class=p>,</span> <span class=mi>250</span><span class=p>,</span> <span class=mi>253</span><span class=p>,</span> <span class=mi>259</span><span class=p>,</span> <span class=mi>267</span><span class=p>,</span> <span class=mi>271</span><span class=p>,</span> <span class=mi>274</span><span class=p>,</span> <span class=mi>275</span><span class=p>,</span> <span class=mi>276</span><span class=p>,</span> <span class=mi>277</span><span class=p>,</span> <span class=mi>278</span><span class=p>,</span> <span class=mi>279</span><span class=p>,</span> <span class=mi>282</span><span class=p>,</span> <span class=mi>283</span><span class=p>,</span> <span class=mi>284</span><span class=p>,</span> <span class=mi>285</span><span class=p>,</span> <span class=mi>286</span><span class=p>,</span> <span class=mi>288</span><span class=p>,</span> <span class=mi>290</span><span class=p>,</span> <span class=mi>291</span><span class=p>,</span> <span class=mi>292</span><span class=p>,</span> <span class=mi>295</span><span class=p>,</span> <span class=mi>299</span><span class=p>,</span> <span class=mi>301</span><span class=p>,</span> <span class=mi>303</span><span class=p>,</span> <span class=mi>305</span><span class=p>,</span> <span class=mi>307</span><span class=p>,</span> <span class=mi>309</span><span class=p>,</span> <span class=mi>311</span><span class=p>,</span> <span class=mi>313</span><span class=p>,</span> <span class=mi>316</span><span class=p>,</span> <span class=mi>318</span><span class=p>,</span> <span class=mi>319</span><span class=p>,</span> <span class=mi>320</span><span class=p>,</span> <span class=mi>322</span><span class=p>,</span> <span class=mi>324</span><span class=p>,</span> <span class=mi>326</span><span class=p>,</span> <span class=mi>328</span><span class=p>,</span> <span class=mi>330</span><span class=p>,</span> <span class=mi>332</span><span class=p>,</span> <span class=mi>334</span><span class=p>,</span> <span class=mi>339</span><span class=p>,</span> <span class=mi>341</span><span class=p>,</span> <span class=mi>345</span><span class=p>,</span> <span class=mi>349</span><span class=p>,</span> <span class=mi>351</span><span class=p>,</span> <span class=mi>355</span><span class=p>,</span> <span class=mi>358</span><span class=p>,</span> <span class=mi>359</span><span class=p>,</span> <span class=mi>360</span><span class=p>,</span> <span class=mi>362</span><span class=p>,</span> <span class=mi>364</span><span class=p>,</span> <span class=mi>365</span><span class=p>,</span> <span class=mi>366</span><span class=p>,</span> <span class=mi>367</span><span class=p>,</span> <span class=mi>368</span><span class=p>,</span> <span class=mi>370</span><span class=p>,</span> <span class=mi>372</span><span class=p>,</span> <span class=mi>373</span><span class=p>,</span> <span class=mi>374</span><span class=p>,</span> <span class=mi>376</span><span class=p>,</span> <span class=mi>379</span><span class=p>,</span> <span class=mi>381</span><span class=p>,</span> <span class=mi>383</span><span class=p>,</span> <span class=mi>387</span><span class=p>,</span> <span class=mi>393</span><span class=p>,</span> <span class=mi>395</span><span class=p>,</span> <span class=mi>400</span><span class=p>,</span> <span class=mi>402</span><span class=p>,</span> <span class=mi>404</span><span class=p>,</span> <span class=mi>405</span><span class=p>,</span> <span class=mi>406</span><span class=p>,</span> <span class=mi>408</span><span class=p>,</span> <span class=mi>409</span><span class=p>,</span> <span class=mi>410</span><span class=p>,</span> <span class=mi>412</span><span class=p>,</span> <span class=mi>413</span><span class=p>,</span> <span class=mi>414</span><span class=p>,</span> <span class=mi>416</span><span class=p>,</span> <span class=mi>418</span><span class=p>]</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=0x03-solving-the-maze><strong>0x03 Solving the maze</strong></h3>
+<p>Kết hợp 2 dữ kiện ở trên, ta liên tưởng ngay đến bài toán maze cổ điển với quy tắc như sau:</p>
+<ul>
+<li>Mỗi ký tự trong input sẽ được chia làm 4 phần, mỗi phần 2 bits tương ứng với di chuyển: lên, xuống, trái, phải.</li>
+<li>Vị trí đi tới luôn bị thay đổi và phải đảm bảo nằm trong <code>available_idx</code>.</li>
+<li>Có 6 vị trí khi tới đấy sẽ unlock được một vị trí khác.</li>
+</ul>
+<p>Tới đây có thể dùng thuật toán DFS để tìm ra các bước đi và tạo GIF để nhìn thấy rõ toàn bộ quá trình của nó như sau</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span><span class=lnt>230
+</span><span class=lnt>231
+</span><span class=lnt>232
+</span><span class=lnt>233
+</span><span class=lnt>234
+</span><span class=lnt>235
+</span><span class=lnt>236
+</span><span class=lnt>237
+</span><span class=lnt>238
+</span><span class=lnt>239
+</span><span class=lnt>240
+</span><span class=lnt>241
+</span><span class=lnt>242
+</span><span class=lnt>243
+</span><span class=lnt>244
+</span><span class=lnt>245
+</span><span class=lnt>246
+</span><span class=lnt>247
+</span><span class=lnt>248
+</span><span class=lnt>249
+</span><span class=lnt>250
+</span><span class=lnt>251
+</span><span class=lnt>252
+</span><span class=lnt>253
+</span><span class=lnt>254
+</span><span class=lnt>255
+</span><span class=lnt>256
+</span><span class=lnt>257
+</span><span class=lnt>258
+</span><span class=lnt>259
+</span><span class=lnt>260
+</span><span class=lnt>261
+</span><span class=lnt>262
+</span><span class=lnt>263
+</span><span class=lnt>264
+</span><span class=lnt>265
+</span><span class=lnt>266
+</span><span class=lnt>267
+</span><span class=lnt>268
+</span><span class=lnt>269
+</span><span class=lnt>270
+</span><span class=lnt>271
+</span><span class=lnt>272
+</span><span class=lnt>273
+</span><span class=lnt>274
+</span><span class=lnt>275
+</span><span class=lnt>276
+</span><span class=lnt>277
+</span><span class=lnt>278
+</span><span class=lnt>279
+</span><span class=lnt>280
+</span><span class=lnt>281
+</span><span class=lnt>282
+</span><span class=lnt>283
+</span><span class=lnt>284
+</span><span class=lnt>285
+</span><span class=lnt>286
+</span><span class=lnt>287
+</span><span class=lnt>288
+</span><span class=lnt>289
+</span><span class=lnt>290
+</span><span class=lnt>291
+</span><span class=lnt>292
+</span><span class=lnt>293
+</span><span class=lnt>294
+</span><span class=lnt>295
+</span><span class=lnt>296
+</span><span class=lnt>297
+</span><span class=lnt>298
+</span><span class=lnt>299
+</span><span class=lnt>300
+</span><span class=lnt>301
+</span><span class=lnt>302
+</span><span class=lnt>303
+</span><span class=lnt>304
+</span><span class=lnt>305
+</span><span class=lnt>306
+</span><span class=lnt>307
+</span><span class=lnt>308
+</span><span class=lnt>309
+</span><span class=lnt>310
+</span><span class=lnt>311
+</span><span class=lnt>312
+</span><span class=lnt>313
+</span><span class=lnt>314
+</span><span class=lnt>315
+</span><span class=lnt>316
+</span><span class=lnt>317
+</span><span class=lnt>318
+</span><span class=lnt>319
+</span><span class=lnt>320
+</span><span class=lnt>321
+</span><span class=lnt>322
+</span><span class=lnt>323
+</span><span class=lnt>324
+</span><span class=lnt>325
+</span><span class=lnt>326
+</span><span class=lnt>327
+</span><span class=lnt>328
+</span><span class=lnt>329
+</span><span class=lnt>330
+</span><span class=lnt>331
+</span><span class=lnt>332
+</span><span class=lnt>333
+</span><span class=lnt>334
+</span><span class=lnt>335
+</span><span class=lnt>336
+</span><span class=lnt>337
+</span><span class=lnt>338
+</span><span class=lnt>339
+</span><span class=lnt>340
+</span><span class=lnt>341
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=n>ida_list_fn</span>     <span class=o>=</span> <span class=p>[</span><span class=mh>0x1400025F0</span><span class=p>,</span> <span class=mh>0x140001EF0</span><span class=p>,</span> <span class=mh>0x1400039B0</span><span class=p>,</span> <span class=mh>0x140004090</span><span class=p>,</span> <span class=mh>0x140002F70</span><span class=p>,</span> <span class=mh>0x140003B70</span><span class=p>,</span> <span class=mh>0x140002590</span><span class=p>,</span> <span class=mh>0x140001210</span><span class=p>,</span> <span class=mh>0x140002E70</span><span class=p>,</span> <span class=mh>0x140004370</span><span class=p>,</span> <span class=mh>0x140001E70</span><span class=p>,</span> <span class=mh>0x140003A50</span><span class=p>,</span> <span class=mh>0x140003D70</span><span class=p>,</span> <span class=mh>0x1400033F0</span><span class=p>,</span> <span class=mh>0x140002B50</span><span class=p>,</span> <span class=mh>0x140003070</span><span class=p>,</span> <span class=mh>0x140004250</span><span class=p>,</span> <span class=mh>0x140003230</span><span class=p>,</span> <span class=mh>0x1400013D0</span><span class=p>,</span> <span class=mh>0x140002E30</span><span class=p>,</span> <span class=mh>0x140002B10</span><span class=p>,</span> <span class=mh>0x140001D50</span><span class=p>,</span> <span class=mh>0x140001ED0</span><span class=p>,</span> <span class=mh>0x140002190</span><span class=p>,</span> <span class=mh>0x140001370</span><span class=p>,</span> <span class=mh>0x1400016B0</span><span class=p>,</span> <span class=mh>0x140004430</span><span class=p>,</span> <span class=mh>0x140001770</span><span class=p>,</span> <span class=mh>0x140004230</span><span class=p>,</span> <span class=mh>0x140002530</span><span class=p>,</span> <span class=mh>0x140002290</span><span class=p>,</span> <span class=mh>0x140001710</span><span class=p>,</span> <span class=mh>0x1400010B0</span><span class=p>,</span> <span class=mh>0x1400015B0</span><span class=p>,</span> <span class=mh>0x1400037D0</span><span class=p>,</span> <span class=mh>0x140003290</span><span class=p>,</span> <span class=mh>0x1400041B0</span><span class=p>,</span> <span class=mh>0x140004270</span><span class=p>,</span> <span class=mh>0x140001F70</span><span class=p>,</span> <span class=mh>0x140003F70</span><span class=p>,</span> <span class=mh>0x140003B10</span><span class=p>,</span> <span class=mh>0x1400023B0</span><span class=p>,</span> <span class=mh>0x1400034D0</span><span class=p>,</span> <span class=mh>0x140003610</span><span class=p>,</span> <span class=mh>0x1400018D0</span><span class=p>,</span> <span class=mh>0x140004490</span><span class=p>,</span> <span class=mh>0x140004450</span><span class=p>,</span> <span class=mh>0x140003E70</span><span class=p>,</span> <span class=mh>0x140003A70</span><span class=p>,</span> <span class=mh>0x140001CD0</span><span class=p>,</span> <span class=mh>0x140002D30</span><span class=p>,</span> <span class=mh>0x1400020B0</span><span class=p>,</span> <span class=mh>0x140003570</span><span class=p>,</span> <span class=mh>0x140002DB0</span><span class=p>,</span> <span class=mh>0x1400045F0</span><span class=p>,</span> <span class=mh>0x140002EF0</span><span class=p>,</span> <span class=mh>0x140003770</span><span class=p>,</span> <span class=mh>0x140001910</span><span class=p>,</span> <span class=mh>0x140002DD0</span><span class=p>,</span> <span class=mh>0x1400029D0</span><span class=p>,</span> <span class=mh>0x140002AD0</span><span class=p>,</span> <span class=mh>0x140001F50</span><span class=p>,</span> <span class=mh>0x140001A30</span><span class=p>,</span> <span class=mh>0x140003D30</span><span class=p>,</span> <span class=mh>0x140001DB0</span><span class=p>,</span> <span class=mh>0x140003AD0</span><span class=p>,</span> <span class=mh>0x140001B30</span><span class=p>,</span> <span class=mh>0x1400017D0</span><span class=p>,</span> <span class=mh>0x140002450</span><span class=p>,</span> <span class=mh>0x140003FD0</span><span class=p>,</span> <span class=mh>0x140002390</span><span class=p>,</span> <span class=mh>0x140002350</span><span class=p>,</span> <span class=mh>0x140001790</span><span class=p>,</span> <span class=mh>0x1400013B0</span><span class=p>,</span> <span class=mh>0x140003CD0</span><span class=p>,</span> <span class=mh>0x140003030</span><span class=p>,</span> <span class=mh>0x140002110</span><span class=p>,</span> <span class=mh>0x140002770</span><span class=p>,</span> <span class=mh>0x1400016D0</span><span class=p>,</span> <span class=mh>0x1400019B0</span><span class=p>,</span> <span class=mh>0x140003E10</span><span class=p>,</span> <span class=mh>0x140001A90</span><span class=p>,</span> <span class=mh>0x140003CF0</span><span class=p>,</span> <span class=mh>0x1400017B0</span><span class=p>,</span> <span class=mh>0x140002BB0</span><span class=p>,</span> <span class=mh>0x140001F10</span><span class=p>,</span> <span class=mh>0x140001890</span><span class=p>,</span> <span class=mh>0x1400045D0</span><span class=p>,</span> <span class=mh>0x140003C30</span><span class=p>,</span> <span class=mh>0x1400011D0</span><span class=p>,</span> <span class=mh>0x140001BD0</span><span class=p>,</span> <span class=mh>0x140004510</span><span class=p>,</span> <span class=mh>0x140001650</span><span class=p>,</span> <span class=mh>0x140002150</span><span class=p>,</span> <span class=mh>0x140003B50</span><span class=p>,</span> <span class=mh>0x1400040D0</span><span class=p>,</span> <span class=mh>0x140002830</span><span class=p>,</span> <span class=mh>0x140004650</span><span class=p>,</span> <span class=mh>0x1400012B0</span><span class=p>,</span> <span class=mh>0x140003AB0</span><span class=p>,</span> <span class=mh>0x140002C30</span><span class=p>,</span> <span class=mh>0x1400019D0</span><span class=p>,</span> <span class=mh>0x140003BB0</span><span class=p>,</span> <span class=mh>0x140002B90</span><span class=p>,</span> <span class=mh>0x140002370</span><span class=p>,</span> <span class=mh>0x140003930</span><span class=p>,</span> <span class=mh>0x140003810</span><span class=p>,</span> <span class=mh>0x1400042F0</span><span class=p>,</span> <span class=mh>0x140002F50</span><span class=p>,</span> <span class=mh>0x140003250</span><span class=p>,</span> <span class=mh>0x1400015F0</span><span class=p>,</span> <span class=mh>0x140002630</span><span class=p>,</span> <span class=mh>0x1400024D0</span><span class=p>,</span> <span class=mh>0x140001830</span><span class=p>,</span> <span class=mh>0x140003BD0</span><span class=p>,</span> <span class=mh>0x1400046F0</span><span class=p>,</span> <span class=mh>0x140002AF0</span><span class=p>,</span> <span class=mh>0x140001C70</span><span class=p>,</span> <span class=mh>0x140003710</span><span class=p>,</span> <span class=mh>0x140002C70</span><span class=p>,</span> <span class=mh>0x1400042D0</span><span class=p>,</span> <span class=mh>0x140004010</span><span class=p>,</span> <span class=mh>0x1400019F0</span><span class=p>,</span> <span class=mh>0x140003050</span><span class=p>,</span> <span class=mh>0x140002410</span><span class=p>,</span> <span class=mh>0x140001DD0</span><span class=p>,</span> <span class=mh>0x1400046B0</span><span class=p>,</span> <span class=mh>0x140002230</span><span class=p>,</span> <span class=mh>0x140004710</span><span class=p>,</span> <span class=mh>0x140003DF0</span><span class=p>,</span> <span class=mh>0x140001450</span><span class=p>,</span> <span class=mh>0x140004070</span><span class=p>,</span> <span class=mh>0x140003730</span><span class=p>,</span> <span class=mh>0x140001090</span><span class=p>,</span> <span class=mh>0x140003ED0</span><span class=p>,</span> <span class=mh>0x140002670</span><span class=p>,</span> <span class=mh>0x140003DB0</span><span class=p>,</span> <span class=mh>0x1400016F0</span><span class=p>,</span> <span class=mh>0x140003350</span><span class=p>,</span> <span class=mh>0x1400034B0</span><span class=p>,</span> <span class=mh>0x140004570</span><span class=p>,</span> <span class=mh>0x140002CF0</span><span class=p>,</span> <span class=mh>0x140003870</span><span class=p>,</span> <span class=mh>0x140001B10</span><span class=p>,</span> <span class=mh>0x1400032B0</span><span class=p>,</span> <span class=mh>0x140002F30</span><span class=p>,</span> <span class=mh>0x140001310</span><span class=p>,</span> <span class=mh>0x140003D10</span><span class=p>,</span> <span class=mh>0x140003850</span><span class=p>,</span> <span class=mh>0x140003430</span><span class=p>,</span> <span class=mh>0x140001430</span><span class=p>,</span> <span class=mh>0x140001010</span><span class=p>,</span> <span class=mh>0x1400042B0</span><span class=p>,</span> <span class=mh>0x140003650</span><span class=p>,</span> <span class=mh>0x140002850</span><span class=p>,</span> <span class=mh>0x1400022F0</span><span class=p>,</span> <span class=mh>0x140002710</span><span class=p>,</span> <span class=mh>0x140003F10</span><span class=p>,</span> <span class=mh>0x1400014D0</span><span class=p>,</span> <span class=mh>0x140004590</span><span class=p>,</span> <span class=mh>0x140003E90</span><span class=p>,</span> <span class=mh>0x140001810</span><span class=p>,</span> <span class=mh>0x140003E50</span><span class=p>,</span> <span class=mh>0x140003EB0</span><span class=p>,</span> <span class=mh>0x140001AF0</span><span class=p>,</span> <span class=mh>0x140002270</span><span class=p>,</span> <span class=mh>0x140002430</span><span class=p>,</span> <span class=mh>0x140004130</span><span class=p>,</span> <span class=mh>0x140003E30</span><span class=p>,</span> <span class=mh>0x1400039D0</span><span class=p>,</span> <span class=mh>0x140001970</span><span class=p>,</span> <span class=mh>0x140001870</span><span class=p>,</span> <span class=mh>0x140001290</span><span class=p>,</span> <span class=mh>0x140002130</span><span class=p>,</span> <span class=mh>0x1400035F0</span><span class=p>,</span> <span class=mh>0x140003C90</span><span class=p>,</span> <span class=mh>0x140002BD0</span><span class=p>,</span> <span class=mh>0x140003550</span><span class=p>,</span> <span class=mh>0x1400033D0</span><span class=p>,</span> <span class=mh>0x140001FF0</span><span class=p>,</span> <span class=mh>0x140002A30</span><span class=p>,</span> <span class=mh>0x140002330</span><span class=p>,</span> <span class=mh>0x1400010D0</span><span class=p>,</span> <span class=mh>0x140001190</span><span class=p>,</span> <span class=mh>0x140001530</span><span class=p>,</span> <span class=mh>0x1400015D0</span><span class=p>,</span> <span class=mh>0x140002810</span><span class=p>,</span> <span class=mh>0x140001570</span><span class=p>,</span> <span class=mh>0x1400043B0</span><span class=p>,</span> <span class=mh>0x140002B30</span><span class=p>,</span> <span class=mh>0x140002F10</span><span class=p>,</span> <span class=mh>0x140001670</span><span class=p>,</span> <span class=mh>0x140001CB0</span><span class=p>,</span> <span class=mh>0x140002930</span><span class=p>,</span> <span class=mh>0x1400040B0</span><span class=p>,</span> <span class=mh>0x1400045B0</span><span class=p>,</span> <span class=mh>0x140001730</span><span class=p>,</span> <span class=mh>0x140002210</span><span class=p>,</span> <span class=mh>0x1400017F0</span><span class=p>,</span> <span class=mh>0x1400032F0</span><span class=p>,</span> <span class=mh>0x1400046D0</span><span class=p>,</span> <span class=mh>0x140001390</span><span class=p>,</span> <span class=mh>0x1400039F0</span><span class=p>,</span> <span class=mh>0x140002550</span><span class=p>,</span> <span class=mh>0x140003590</span><span class=p>,</span> <span class=mh>0x1400035D0</span><span class=p>,</span> <span class=mh>0x1400026D0</span><span class=p>,</span> <span class=mh>0x1400022B0</span><span class=p>,</span> <span class=mh>0x140001FD0</span><span class=p>,</span> <span class=mh>0x140003CB0</span><span class=p>,</span> <span class=mh>0x140003A10</span><span class=p>,</span> <span class=mh>0x1400041F0</span><span class=p>,</span> <span class=mh>0x1400033B0</span><span class=p>,</span> <span class=mh>0x140003A30</span><span class=p>,</span> <span class=mh>0x140002910</span><span class=p>,</span> <span class=mh>0x1400024B0</span><span class=p>,</span> <span class=mh>0x140003A90</span><span class=p>,</span> <span class=mh>0x1400021B0</span><span class=p>,</span> <span class=mh>0x1400024F0</span><span class=p>,</span> <span class=mh>0x1400041D0</span><span class=p>,</span> <span class=mh>0x140004330</span><span class=p>,</span> <span class=mh>0x1400034F0</span><span class=p>,</span> <span class=mh>0x1400038D0</span><span class=p>,</span> <span class=mh>0x140001630</span><span class=p>,</span> <span class=mh>0x140001590</span><span class=p>,</span> <span class=mh>0x140002DF0</span><span class=p>,</span> <span class=mh>0x140003530</span><span class=p>,</span> <span class=mh>0x140002C90</span><span class=p>,</span> <span class=mh>0x140001F30</span><span class=p>,</span> <span class=mh>0x140002A10</span><span class=p>,</span> <span class=mh>0x1400023F0</span><span class=p>,</span> <span class=mh>0x1400044D0</span><span class=p>,</span> <span class=mh>0x140002AB0</span><span class=p>,</span> <span class=mh>0x140003130</span><span class=p>,</span> <span class=mh>0x140003DD0</span><span class=p>,</span> <span class=mh>0x140004210</span><span class=p>,</span> <span class=mh>0x140001510</span><span class=p>,</span> <span class=mh>0x1400011B0</span><span class=p>,</span> <span class=mh>0x140002030</span><span class=p>,</span> <span class=mh>0x1400030B0</span><span class=p>,</span> <span class=mh>0x140003470</span><span class=p>,</span> <span class=mh>0x140002ED0</span><span class=p>,</span> <span class=mh>0x1400040F0</span><span class=p>,</span> <span class=mh>0x140003910</span><span class=p>,</span> <span class=mh>0x1400011F0</span><span class=p>,</span> <span class=mh>0x140002170</span><span class=p>,</span> <span class=mh>0x1400012D0</span><span class=p>,</span> <span class=mh>0x140002FF0</span><span class=p>,</span> <span class=mh>0x140003C70</span><span class=p>,</span> <span class=mh>0x140002090</span><span class=p>,</span> <span class=mh>0x140003FF0</span><span class=p>,</span> <span class=mh>0x1400018B0</span><span class=p>,</span> <span class=mh>0x140002CB0</span><span class=p>,</span> <span class=mh>0x140002C50</span><span class=p>,</span> <span class=mh>0x140001550</span><span class=p>,</span> <span class=mh>0x140003B90</span><span class=p>,</span> <span class=mh>0x1400043F0</span><span class=p>,</span> <span class=mh>0x140001D10</span><span class=p>,</span> <span class=mh>0x140001D90</span><span class=p>,</span> <span class=mh>0x140004170</span><span class=p>,</span> <span class=mh>0x140003690</span><span class=p>,</span> <span class=mh>0x140003510</span><span class=p>,</span> <span class=mh>0x140003890</span><span class=p>,</span> <span class=mh>0x140002A50</span><span class=p>,</span> <span class=mh>0x140003370</span><span class=p>,</span> <span class=mh>0x1400012F0</span><span class=p>,</span> <span class=mh>0x1400037B0</span><span class=p>,</span> <span class=mh>0x1400013F0</span><span class=p>,</span> <span class=mh>0x140001C90</span><span class=p>,</span> <span class=mh>0x1400028F0</span><span class=p>,</span> <span class=mh>0x140002D10</span><span class=p>,</span> <span class=mh>0x140004390</span><span class=p>,</span> <span class=mh>0x140001DF0</span><span class=p>,</span> <span class=mh>0x140001150</span><span class=p>,</span> <span class=mh>0x140003AF0</span><span class=p>,</span> <span class=mh>0x140002490</span><span class=p>,</span> <span class=mh>0x1400043D0</span><span class=p>,</span> <span class=mh>0x140003090</span><span class=p>,</span> <span class=mh>0x140001470</span><span class=p>,</span> <span class=mh>0x140003110</span><span class=p>,</span> <span class=mh>0x1400014F0</span><span class=p>,</span> <span class=mh>0x140001410</span><span class=p>,</span> <span class=mh>0x140003EF0</span><span class=p>,</span> <span class=mh>0x140004290</span><span class=p>,</span> <span class=mh>0x140002050</span><span class=p>,</span> <span class=mh>0x1400018F0</span><span class=p>,</span> <span class=mh>0x140003270</span><span class=p>,</span> <span class=mh>0x140002470</span><span class=p>,</span> <span class=mh>0x140002610</span><span class=p>,</span> <span class=mh>0x140003F90</span><span class=p>,</span> <span class=mh>0x1400037F0</span><span class=p>,</span> <span class=mh>0x140004310</span><span class=p>,</span> <span class=mh>0x140004630</span><span class=p>,</span> <span class=mh>0x140001270</span><span class=p>,</span> <span class=mh>0x140002C10</span><span class=p>,</span> <span class=mh>0x140002A90</span><span class=p>,</span> <span class=mh>0x1400038B0</span><span class=p>,</span> <span class=mh>0x140001AB0</span><span class=p>,</span> <span class=mh>0x140001230</span><span class=p>,</span> <span class=mh>0x140002F90</span><span class=p>,</span> <span class=mh>0x140001C10</span><span class=p>,</span> <span class=mh>0x140002250</span><span class=p>,</span> <span class=mh>0x1400030F0</span><span class=p>,</span> <span class=mh>0x1400036B0</span><span class=p>,</span> <span class=mh>0x140002750</span><span class=p>,</span> <span class=mh>0x140003210</span><span class=p>,</span> <span class=mh>0x140001690</span><span class=p>,</span> <span class=mh>0x140001BF0</span><span class=p>,</span> <span class=mh>0x1400036F0</span><span class=p>,</span> <span class=mh>0x1400028D0</span><span class=p>,</span> <span class=mh>0x140004030</span><span class=p>,</span> <span class=mh>0x140002A70</span><span class=p>,</span> <span class=mh>0x1400021D0</span><span class=p>,</span> <span class=mh>0x1400029F0</span><span class=p>,</span> <span class=mh>0x140002870</span><span class=p>,</span> <span class=mh>0x140002E10</span><span class=p>,</span> <span class=mh>0x140003330</span><span class=p>,</span> <span class=mh>0x1400031F0</span><span class=p>,</span> <span class=mh>0x140001E50</span><span class=p>,</span> <span class=mh>0x140003C10</span><span class=p>,</span> <span class=mh>0x140001A50</span><span class=p>,</span> <span class=mh>0x140001A70</span><span class=p>,</span> <span class=mh>0x1400028B0</span><span class=p>,</span> <span class=mh>0x140001B70</span><span class=p>,</span> <span class=mh>0x1400025B0</span><span class=p>,</span> <span class=mh>0x1400029B0</span><span class=p>,</span> <span class=mh>0x140001990</span><span class=p>,</span> <span class=mh>0x140003FB0</span><span class=p>,</span> <span class=mh>0x140003670</span><span class=p>,</span> <span class=mh>0x140001130</span><span class=p>,</span> <span class=mh>0x140002010</span><span class=p>,</span> <span class=mh>0x1400030D0</span><span class=p>,</span> <span class=mh>0x140001F90</span><span class=p>,</span> <span class=mh>0x140004690</span><span class=p>,</span> <span class=mh>0x140001CF0</span><span class=p>,</span> <span class=mh>0x140004190</span><span class=p>,</span> <span class=mh>0x140004530</span><span class=p>,</span> <span class=mh>0x140001E30</span><span class=p>,</span> <span class=mh>0x1400027D0</span><span class=p>,</span> <span class=mh>0x1400044F0</span><span class=p>,</span> <span class=mh>0x1400025D0</span><span class=p>,</span> <span class=mh>0x140001D70</span><span class=p>,</span> <span class=mh>0x1400022D0</span><span class=p>,</span> <span class=mh>0x140001950</span><span class=p>,</span> <span class=mh>0x1400021F0</span><span class=p>,</span> <span class=mh>0x140004410</span><span class=p>,</span> <span class=mh>0x140003170</span><span class=p>,</span> <span class=mh>0x140004670</span><span class=p>,</span> <span class=mh>0x140001C50</span><span class=p>,</span> <span class=mh>0x140002730</span><span class=p>,</span> <span class=mh>0x140002B70</span><span class=p>,</span> <span class=mh>0x1400020F0</span><span class=p>,</span> <span class=mh>0x140003750</span><span class=p>,</span> <span class=mh>0x140002FD0</span><span class=p>,</span> <span class=mh>0x140001E90</span><span class=p>,</span> <span class=mh>0x140003150</span><span class=p>,</span> <span class=mh>0x1400038F0</span><span class=p>,</span> <span class=mh>0x140002D70</span><span class=p>,</span> <span class=mh>0x140001BB0</span><span class=p>,</span> <span class=mh>0x140003410</span><span class=p>,</span> <span class=mh>0x140002CD0</span><span class=p>,</span> <span class=mh>0x1400026F0</span><span class=p>,</span> <span class=mh>0x140002D90</span><span class=p>,</span> <span class=mh>0x140001B50</span><span class=p>,</span> <span class=mh>0x140002EB0</span><span class=p>,</span> <span class=mh>0x1400032D0</span><span class=p>,</span> <span class=mh>0x140002790</span><span class=p>,</span> <span class=mh>0x140002070</span><span class=p>,</span> <span class=mh>0x140002970</span><span class=p>,</span> <span class=mh>0x140001850</span><span class=p>,</span> <span class=mh>0x140001170</span><span class=p>,</span> <span class=mh>0x140002950</span><span class=p>,</span> <span class=mh>0x140001610</span><span class=p>,</span> <span class=mh>0x140003490</span><span class=p>,</span> <span class=mh>0x140004610</span><span class=p>,</span> <span class=mh>0x140004470</span><span class=p>,</span> <span class=mh>0x140001EB0</span><span class=p>,</span> <span class=mh>0x140003830</span><span class=p>,</span> <span class=mh>0x1400020D0</span><span class=p>,</span> <span class=mh>0x140002BF0</span><span class=p>,</span> <span class=mh>0x140002E50</span><span class=p>,</span> <span class=mh>0x140003C50</span><span class=p>,</span> <span class=mh>0x140004150</span><span class=p>,</span> <span class=mh>0x140003F30</span><span class=p>,</span> <span class=mh>0x140001350</span><span class=p>,</span> <span class=mh>0x140001D30</span><span class=p>,</span> <span class=mh>0x1400035B0</span><span class=p>,</span> <span class=mh>0x1400027F0</span><span class=p>,</span> <span class=mh>0x140003D90</span><span class=p>,</span> <span class=mh>0x140004550</span><span class=p>,</span> <span class=mh>0x140002FB0</span><span class=p>,</span> <span class=mh>0x140003990</span><span class=p>,</span> <span class=mh>0x140004050</span><span class=p>,</span> <span class=mh>0x140002690</span><span class=p>,</span> <span class=mh>0x140001930</span><span class=p>,</span> <span class=mh>0x140002650</span><span class=p>,</span> <span class=mh>0x140002990</span><span class=p>,</span> <span class=mh>0x1400023D0</span><span class=p>,</span> <span class=mh>0x1400044B0</span><span class=p>,</span> <span class=mh>0x140001E10</span><span class=p>,</span> <span class=mh>0x140002E90</span><span class=p>,</span> <span class=mh>0x140001FB0</span><span class=p>,</span> <span class=mh>0x140001250</span><span class=p>,</span> <span class=mh>0x140003D50</span><span class=p>,</span> <span class=mh>0x140001110</span><span class=p>,</span> <span class=mh>0x140003970</span><span class=p>,</span> <span class=mh>0x140001050</span><span class=p>,</span> <span class=mh>0x140001A10</span><span class=p>,</span> <span class=mh>0x140003450</span><span class=p>,</span> <span class=mh>0x140001070</span><span class=p>,</span> <span class=mh>0x140002570</span><span class=p>,</span> <span class=mh>0x1400026B0</span><span class=p>,</span> <span class=mh>0x1400031B0</span><span class=p>,</span> <span class=mh>0x1400036D0</span><span class=p>,</span> <span class=mh>0x140003190</span><span class=p>,</span> <span class=mh>0x140001B90</span><span class=p>,</span> <span class=mh>0x140003B30</span><span class=p>,</span> <span class=mh>0x140002D50</span><span class=p>,</span> <span class=mh>0x140001490</span><span class=p>,</span> <span class=mh>0x140001750</span><span class=p>,</span> <span class=mh>0x140001330</span><span class=p>,</span> <span class=mh>0x140001C30</span><span class=p>,</span> <span class=mh>0x140003790</span><span class=p>,</span> <span class=mh>0x140002890</span><span class=p>,</span> <span class=mh>0x140001AD0</span><span class=p>,</span> <span class=mh>0x1400031D0</span><span class=p>,</span> <span class=mh>0x1400014B0</span><span class=p>,</span> <span class=mh>0x140003BF0</span><span class=p>,</span> <span class=mh>0x140002310</span><span class=p>,</span> <span class=mh>0x1400027B0</span><span class=p>,</span> <span class=mh>0x140002510</span><span class=p>,</span> <span class=mh>0x1400010F0</span><span class=p>,</span> <span class=mh>0x140004350</span><span class=p>,</span> <span class=mh>0x140003F50</span><span class=p>,</span> <span class=mh>0x140003390</span><span class=p>,</span> <span class=mh>0x140001030</span><span class=p>,</span> <span class=mh>0x140003010</span><span class=p>,</span> <span class=mh>0x140003630</span><span class=p>,</span> <span class=mh>0x140003950</span><span class=p>,</span> <span class=mh>0x140003310</span><span class=p>,</span> <span class=mh>0x140004110</span><span class=p>]</span>
+<span class=n>available_fn</span>    <span class=o>=</span> <span class=p>[</span><span class=mh>0x140001010</span><span class=p>,</span> <span class=mh>0x140001070</span><span class=p>,</span> <span class=mh>0x140001090</span><span class=p>,</span> <span class=mh>0x1400010B0</span><span class=p>,</span> <span class=mh>0x140001110</span><span class=p>,</span> <span class=mh>0x140001170</span><span class=p>,</span> <span class=mh>0x140001050</span><span class=p>,</span> <span class=mh>0x1400011B0</span><span class=p>,</span> <span class=mh>0x1400011F0</span><span class=p>,</span> <span class=mh>0x140001250</span><span class=p>,</span> <span class=mh>0x1400012D0</span><span class=p>,</span> <span class=mh>0x140001370</span><span class=p>,</span> <span class=mh>0x140001390</span><span class=p>,</span> <span class=mh>0x1400013F0</span><span class=p>,</span> <span class=mh>0x140001410</span><span class=p>,</span> <span class=mh>0x140001430</span><span class=p>,</span> <span class=mh>0x140001470</span><span class=p>,</span> <span class=mh>0x140001490</span><span class=p>,</span> <span class=mh>0x1400014D0</span><span class=p>,</span> <span class=mh>0x1400014F0</span><span class=p>,</span> <span class=mh>0x140001510</span><span class=p>,</span> <span class=mh>0x140001570</span><span class=p>,</span> <span class=mh>0x1400015B0</span><span class=p>,</span> <span class=mh>0x1400015F0</span><span class=p>,</span> <span class=mh>0x140001610</span><span class=p>,</span> <span class=mh>0x140001630</span><span class=p>,</span> <span class=mh>0x1400016B0</span><span class=p>,</span> <span class=mh>0x1400016D0</span><span class=p>,</span> <span class=mh>0x140001710</span><span class=p>,</span> <span class=mh>0x140001730</span><span class=p>,</span> <span class=mh>0x140001790</span><span class=p>,</span> <span class=mh>0x1400017D0</span><span class=p>,</span> <span class=mh>0x1400017F0</span><span class=p>,</span> <span class=mh>0x140001810</span><span class=p>,</span> <span class=mh>0x1400018F0</span><span class=p>,</span> <span class=mh>0x140001910</span><span class=p>,</span> <span class=mh>0x140001990</span><span class=p>,</span> <span class=mh>0x1400019F0</span><span class=p>,</span> <span class=mh>0x140001A50</span><span class=p>,</span> <span class=mh>0x140001AF0</span><span class=p>,</span> <span class=mh>0x140001B10</span><span class=p>,</span> <span class=mh>0x140001B30</span><span class=p>,</span> <span class=mh>0x140001BB0</span><span class=p>,</span> <span class=mh>0x140001BF0</span><span class=p>,</span> <span class=mh>0x140001C70</span><span class=p>,</span> <span class=mh>0x140001CB0</span><span class=p>,</span> <span class=mh>0x140001CF0</span><span class=p>,</span> <span class=mh>0x140001D70</span><span class=p>,</span> <span class=mh>0x140001DB0</span><span class=p>,</span> <span class=mh>0x140001E50</span><span class=p>,</span> <span class=mh>0x140001EB0</span><span class=p>,</span> <span class=mh>0x140001ED0</span><span class=p>,</span> <span class=mh>0x140001F50</span><span class=p>,</span> <span class=mh>0x140001F70</span><span class=p>,</span> <span class=mh>0x140001F90</span><span class=p>,</span> <span class=mh>0x140001FD0</span><span class=p>,</span> <span class=mh>0x140001FF0</span><span class=p>,</span> <span class=mh>0x140002010</span><span class=p>,</span> <span class=mh>0x140002030</span><span class=p>,</span> <span class=mh>0x140002050</span><span class=p>,</span> <span class=mh>0x140002070</span><span class=p>,</span> <span class=mh>0x140002090</span><span class=p>,</span> <span class=mh>0x1400020F0</span><span class=p>,</span> <span class=mh>0x140002110</span><span class=p>,</span> <span class=mh>0x140002150</span><span class=p>,</span> <span class=mh>0x1400021B0</span><span class=p>,</span> <span class=mh>0x140002210</span><span class=p>,</span> <span class=mh>0x140002250</span><span class=p>,</span> <span class=mh>0x140002270</span><span class=p>,</span> <span class=mh>0x140002290</span><span class=p>,</span> <span class=mh>0x1400022F0</span><span class=p>,</span> <span class=mh>0x140002350</span><span class=p>,</span> <span class=mh>0x140002390</span><span class=p>,</span> <span class=mh>0x1400023D0</span><span class=p>,</span> <span class=mh>0x140002410</span><span class=p>,</span> <span class=mh>0x140002430</span><span class=p>,</span> <span class=mh>0x140002450</span><span class=p>,</span> <span class=mh>0x140002490</span><span class=p>,</span> <span class=mh>0x1400024B0</span><span class=p>,</span> <span class=mh>0x1400024D0</span><span class=p>,</span> <span class=mh>0x140002530</span><span class=p>,</span> <span class=mh>0x140002570</span><span class=p>,</span> <span class=mh>0x1400025B0</span><span class=p>,</span> <span class=mh>0x140002610</span><span class=p>,</span> <span class=mh>0x140002650</span><span class=p>,</span> <span class=mh>0x140002690</span><span class=p>,</span> <span class=mh>0x1400026D0</span><span class=p>,</span> <span class=mh>0x140002710</span><span class=p>,</span> <span class=mh>0x140002730</span><span class=p>,</span> <span class=mh>0x140002790</span><span class=p>,</span> <span class=mh>0x1400027F0</span><span class=p>,</span> <span class=mh>0x140002850</span><span class=p>,</span> <span class=mh>0x1400028B0</span><span class=p>,</span> <span class=mh>0x1400028D0</span><span class=p>,</span> <span class=mh>0x140002970</span><span class=p>,</span> <span class=mh>0x1400029D0</span><span class=p>,</span> <span class=mh>0x1400029F0</span><span class=p>,</span> <span class=mh>0x140002A10</span><span class=p>,</span> <span class=mh>0x140002A70</span><span class=p>,</span> <span class=mh>0x140002A90</span><span class=p>,</span> <span class=mh>0x140002AB0</span><span class=p>,</span> <span class=mh>0x140002AF0</span><span class=p>,</span> <span class=mh>0x140002BF0</span><span class=p>,</span> <span class=mh>0x140002C50</span><span class=p>,</span> <span class=mh>0x140002C90</span><span class=p>,</span> <span class=mh>0x140002CD0</span><span class=p>,</span> <span class=mh>0x140002D90</span><span class=p>,</span> <span class=mh>0x140002DF0</span><span class=p>,</span> <span class=mh>0x140002E90</span><span class=p>,</span> <span class=mh>0x140002EB0</span><span class=p>,</span> <span class=mh>0x140002ED0</span><span class=p>,</span> <span class=mh>0x140002EF0</span><span class=p>,</span> <span class=mh>0x140002F10</span><span class=p>,</span> <span class=mh>0x140002F50</span><span class=p>,</span> <span class=mh>0x140002F90</span><span class=p>,</span> <span class=mh>0x140002FF0</span><span class=p>,</span> <span class=mh>0x140003030</span><span class=p>,</span> <span class=mh>0x140003050</span><span class=p>,</span> <span class=mh>0x140003090</span><span class=p>,</span> <span class=mh>0x140003110</span><span class=p>,</span> <span class=mh>0x140003150</span><span class=p>,</span> <span class=mh>0x140003190</span><span class=p>,</span> <span class=mh>0x1400031B0</span><span class=p>,</span> <span class=mh>0x140003210</span><span class=p>,</span> <span class=mh>0x140003270</span><span class=p>,</span> <span class=mh>0x140003290</span><span class=p>,</span> <span class=mh>0x1400032D0</span><span class=p>,</span> <span class=mh>0x1400032F0</span><span class=p>,</span> <span class=mh>0x140003330</span><span class=p>,</span> <span class=mh>0x140003410</span><span class=p>,</span> <span class=mh>0x140003430</span><span class=p>,</span> <span class=mh>0x140003450</span><span class=p>,</span> <span class=mh>0x140003470</span><span class=p>,</span> <span class=mh>0x140003490</span><span class=p>,</span> <span class=mh>0x1400034B0</span><span class=p>,</span> <span class=mh>0x140003590</span><span class=p>,</span> <span class=mh>0x140003610</span><span class=p>,</span> <span class=mh>0x140003650</span><span class=p>,</span> <span class=mh>0x140003670</span><span class=p>,</span> <span class=mh>0x1400036B0</span><span class=p>,</span> <span class=mh>0x1400036D0</span><span class=p>,</span> <span class=mh>0x140003710</span><span class=p>,</span> <span class=mh>0x1400037D0</span><span class=p>,</span> <span class=mh>0x1400037F0</span><span class=p>,</span> <span class=mh>0x140003810</span><span class=p>,</span> <span class=mh>0x140003850</span><span class=p>,</span> <span class=mh>0x140003970</span><span class=p>,</span> <span class=mh>0x1400039D0</span><span class=p>,</span> <span class=mh>0x1400039F0</span><span class=p>,</span> <span class=mh>0x140003A30</span><span class=p>,</span> <span class=mh>0x140003AB0</span><span class=p>,</span> <span class=mh>0x140003AD0</span><span class=p>,</span> <span class=mh>0x140003AF0</span><span class=p>,</span> <span class=mh>0x140003B10</span><span class=p>,</span> <span class=mh>0x140003B30</span><span class=p>,</span> <span class=mh>0x140003BD0</span><span class=p>,</span> <span class=mh>0x140003C10</span><span class=p>,</span> <span class=mh>0x140003C50</span><span class=p>,</span> <span class=mh>0x140003C70</span><span class=p>,</span> <span class=mh>0x140003CD0</span><span class=p>,</span> <span class=mh>0x140003CF0</span><span class=p>,</span> <span class=mh>0x140003DD0</span><span class=p>,</span> <span class=mh>0x140003E10</span><span class=p>,</span> <span class=mh>0x140003E50</span><span class=p>,</span> <span class=mh>0x140003E70</span><span class=p>,</span> <span class=mh>0x140003E90</span><span class=p>,</span> <span class=mh>0x140003EF0</span><span class=p>,</span> <span class=mh>0x140003F10</span><span class=p>,</span> <span class=mh>0x140003F30</span><span class=p>,</span> <span class=mh>0x140003F70</span><span class=p>,</span> <span class=mh>0x140003FD0</span><span class=p>,</span> <span class=mh>0x140003FF0</span><span class=p>,</span> <span class=mh>0x140004010</span><span class=p>,</span> <span class=mh>0x140004070</span><span class=p>,</span> <span class=mh>0x1400040B0</span><span class=p>,</span> <span class=mh>0x1400040F0</span><span class=p>,</span> <span class=mh>0x140004170</span><span class=p>,</span> <span class=mh>0x1400041B0</span><span class=p>,</span> <span class=mh>0x1400041D0</span><span class=p>,</span> <span class=mh>0x140004210</span><span class=p>,</span> <span class=mh>0x140004230</span><span class=p>,</span> <span class=mh>0x140004270</span><span class=p>,</span> <span class=mh>0x140004290</span><span class=p>,</span> <span class=mh>0x1400042B0</span><span class=p>,</span> <span class=mh>0x1400042D0</span><span class=p>,</span> <span class=mh>0x1400042F0</span><span class=p>,</span> <span class=mh>0x140004310</span><span class=p>,</span> <span class=mh>0x140004390</span><span class=p>,</span> <span class=mh>0x1400043D0</span><span class=p>,</span> <span class=mh>0x140004410</span><span class=p>,</span> <span class=mh>0x140004430</span><span class=p>,</span> <span class=mh>0x1400044F0</span><span class=p>,</span> <span class=mh>0x140004590</span><span class=p>,</span> <span class=mh>0x1400045D0</span><span class=p>,</span> <span class=mh>0x140004610</span><span class=p>,</span> <span class=mh>0x140004630</span><span class=p>,</span> <span class=mh>0x140004650</span><span class=p>,</span> <span class=mh>0x1400046D0</span><span class=p>,</span> <span class=mh>0x1400046F0</span><span class=p>,</span> <span class=mh>0x140015420</span><span class=p>,</span> <span class=mh>0x140015560</span><span class=p>,</span> <span class=mh>0x14003ADA0</span><span class=p>,</span> <span class=mh>0x14003ADD0</span><span class=p>,</span> <span class=mh>0x14003AE90</span><span class=p>,</span> <span class=mh>0x14003B830</span><span class=p>,</span> <span class=mh>0x14003D7E0</span><span class=p>,</span> <span class=mh>0x14003D800</span><span class=p>,</span> <span class=mh>0x14003D830</span><span class=p>,</span> <span class=mh>0x14003D840</span><span class=p>,</span> <span class=mh>0x14003D850</span><span class=p>,</span> <span class=mh>0x14003D870</span><span class=p>,</span> <span class=mh>0x14003D880</span><span class=p>,</span> <span class=mh>0x14003D890</span><span class=p>,</span> <span class=mh>0x14003D8E0</span><span class=p>,</span> <span class=mh>0x14003D8F0</span><span class=p>,</span> <span class=mh>0x14003D940</span><span class=p>,</span> <span class=mh>0x14003D9B0</span><span class=p>,</span> <span class=mh>0x14003DCB0</span><span class=p>,</span> <span class=mh>0x140040BC0</span><span class=p>,</span> <span class=mh>0x140042670</span><span class=p>,</span> <span class=mh>0x140042780</span><span class=p>,</span> <span class=mh>0x140043280</span><span class=p>,</span> <span class=mh>0x1400432D0</span><span class=p>,</span> <span class=mh>0x140046650</span><span class=p>,</span> <span class=mh>0x140046E80</span><span class=p>,</span> <span class=mh>0x140046ED0</span><span class=p>,</span> <span class=mh>0x140047630</span><span class=p>,</span> <span class=mh>0x140047650</span><span class=p>,</span> <span class=mh>0x14004A040</span><span class=p>,</span> <span class=mh>0x14004B760</span><span class=p>,</span> <span class=mh>0x14004B7D0</span><span class=p>,</span> <span class=mh>0x14004C1C0</span><span class=p>,</span> <span class=mh>0x14004C360</span><span class=p>,</span> <span class=mh>0x14004CB30</span><span class=p>,</span> <span class=mh>0x14004D100</span><span class=p>,</span> <span class=mh>0x14004D9D0</span><span class=p>,</span> <span class=mh>0x14004E570</span><span class=p>,</span> <span class=mh>0x14004E860</span><span class=p>,</span> <span class=mh>0x14004EE10</span><span class=p>,</span> <span class=mh>0x14004F120</span><span class=p>,</span> <span class=mh>0x14004F370</span><span class=p>,</span> <span class=mh>0x14004FA40</span><span class=p>,</span> <span class=mh>0x14004FA70</span><span class=p>,</span> <span class=mh>0x14004FD90</span><span class=p>,</span> <span class=mh>0x140057710</span><span class=p>,</span> <span class=mh>0x14005C840</span><span class=p>,</span> <span class=mh>0x14005D270</span><span class=p>,</span> <span class=mh>0x14005D310</span><span class=p>]</span>
+<span class=n>xor_values</span>      <span class=o>=</span> <span class=p>[</span><span class=mh>0x09</span><span class=p>,</span> <span class=mh>0x40</span><span class=p>,</span> <span class=mh>0x11</span><span class=p>,</span> <span class=mh>0xE4</span><span class=p>,</span> <span class=mh>0x1C</span><span class=p>,</span> <span class=mh>0x81</span><span class=p>,</span> <span class=mh>0x92</span><span class=p>,</span> <span class=mh>0xDB</span><span class=p>,</span> <span class=mh>0x0B</span><span class=p>,</span> <span class=mh>0x75</span><span class=p>,</span> <span class=mh>0x26</span><span class=p>,</span> <span class=mh>0x6A</span><span class=p>,</span> <span class=mh>0x2F</span><span class=p>,</span> <span class=mh>0x7F</span><span class=p>,</span> <span class=mh>0xDD</span><span class=p>,</span> <span class=mh>0xD2</span><span class=p>,</span> <span class=mh>0x52</span><span class=p>,</span> <span class=mh>0x21</span><span class=p>,</span> <span class=mh>0x76</span><span class=p>,</span> <span class=mh>0x9F</span><span class=p>,</span> <span class=mh>0xDF</span><span class=p>,</span> <span class=mh>0x8E</span><span class=p>,</span> <span class=mh>0x8F</span><span class=p>,</span> <span class=mh>0xCD</span><span class=p>,</span> <span class=mh>0x9F</span><span class=p>,</span> <span class=mh>0x84</span><span class=p>,</span> <span class=mh>0x61</span><span class=p>,</span> <span class=mh>0x3F</span><span class=p>,</span> <span class=mh>0x6D</span><span class=p>,</span> <span class=mh>0x7A</span><span class=p>,</span> <span class=mh>0x87</span><span class=p>,</span> <span class=mh>0x1E</span><span class=p>,</span> <span class=mh>0x21</span><span class=p>,</span> <span class=mh>0x99</span><span class=p>,</span> <span class=mh>0xC7</span><span class=p>,</span> <span class=mh>0x65</span><span class=p>,</span> <span class=mh>0xDC</span><span class=p>,</span> <span class=mh>0xC8</span><span class=p>,</span> <span class=mh>0x4A</span><span class=p>,</span> <span class=mh>0x22</span><span class=p>,</span> <span class=mh>0x7D</span><span class=p>,</span> <span class=mh>0x28</span><span class=p>,</span> <span class=mh>0x64</span><span class=p>,</span> <span class=mh>0x69</span><span class=p>,</span> <span class=mh>0xDC</span><span class=p>,</span> <span class=mh>0x20</span><span class=p>,</span> <span class=mh>0x34</span><span class=p>,</span> <span class=mh>0xED</span><span class=p>,</span> <span class=mh>0xFB</span><span class=p>,</span> <span class=mh>0xD7</span><span class=p>]</span>
+<span class=n>available_idx</span>   <span class=o>=</span> <span class=p>[]</span>
+
+<span class=n>map_fn</span> <span class=o>=</span> <span class=p>{</span>
+    <span class=mh>0x140001570</span> <span class=p>:</span> <span class=mh>0x1400014F0</span><span class=p>,</span>
+    <span class=mh>0x140002970</span> <span class=p>:</span> <span class=mh>0x1400023D0</span><span class=p>,</span>
+    <span class=mh>0x140003650</span> <span class=p>:</span> <span class=mh>0x140001410</span><span class=p>,</span>
+    <span class=mh>0x140003F30</span> <span class=p>:</span> <span class=mh>0x140002710</span><span class=p>,</span>
+    <span class=mh>0x140004210</span> <span class=p>:</span> <span class=mh>0x140002110</span><span class=p>,</span>
+    <span class=mh>0x140004430</span> <span class=p>:</span> <span class=mh>0x140001790</span>
+<span class=p>}</span>
+
+<span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>ida_list_fn</span><span class=p>)):</span> 
+    <span class=k>if</span> <span class=n>ida_list_fn</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=ow>in</span> <span class=n>available_fn</span><span class=p>:</span> 
+        <span class=n>available_idx</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+
+<span class=c1># print(available_idx)</span>
+<span class=c1># [22, 24, 25, 26, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 43, 47, 55, 57, 59, 61, 64, 65, 66, 67, 68, 69, 70, 71, 72, 74, 75, 76, 78, 80, 82, 87, 93, 97, 99, 106, 107, 108, 110, 112, 114, 115, 116, 117, 118, 120, 121, 122, 123, 124, 131, 133, 139, 143, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 164, 165, 166, 169, 179, 187, 190, 192, 194, 196, 197, 198, 199, 200, 201, 202, 204, 206, 208, 213, 215, 217, 219, 223, 225, 227, 229, 232, 234, 235, 236, 237, 238, 240, 241, 242, 244, 246, 247, 248, 249, 250, 253, 259, 267, 271, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 288, 290, 291, 292, 295, 299, 301, 303, 305, 307, 309, 311, 313, 316, 318, 319, 320, 322, 324, 326, 328, 330, 332, 334, 339, 341, 345, 349, 351, 355, 358, 359, 360, 362, 364, 365, 366, 367, 368, 370, 372, 373, 374, 376, 379, 381, 383, 387, 393, 395, 397, 400, 402, 404, 405, 406, 408, 409, 410, 412, 413, 414, 416, 418]</span>
+
+<span class=n>addr_to_index</span>   <span class=o>=</span> <span class=p>{</span><span class=n>addr</span><span class=p>:</span> <span class=n>idx</span> <span class=k>for</span> <span class=n>idx</span><span class=p>,</span> <span class=n>addr</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=n>ida_list_fn</span><span class=p>)}</span>
+<span class=n>open_map_idx</span>    <span class=o>=</span> <span class=p>{</span><span class=n>addr_to_index</span><span class=p>[</span><span class=n>k</span><span class=p>]:</span> <span class=n>addr_to_index</span><span class=p>[</span><span class=n>v</span><span class=p>]</span> <span class=k>for</span> <span class=n>k</span><span class=p>,</span> <span class=n>v</span> <span class=ow>in</span> <span class=n>map_fn</span><span class=o>.</span><span class=n>items</span><span class=p>()}</span>
+<span class=n>open_map_keys</span>   <span class=o>=</span> <span class=nb>list</span><span class=p>(</span><span class=n>open_map_idx</span><span class=o>.</span><span class=n>keys</span><span class=p>())</span>
+<span class=n>open_map_values</span> <span class=o>=</span> <span class=nb>list</span><span class=p>(</span><span class=n>open_map_idx</span><span class=o>.</span><span class=n>values</span><span class=p>())</span>
+
+<span class=c1># print(open_map_idx)</span>
+<span class=c1># {187: 280, 368: 397, 153: 281, 383: 156, 235: 76, 26: 72}</span>
+
+<span class=c1># print(open_map_keys)</span>
+<span class=c1># print(open_map_values)</span>
+
+<span class=c1># updating available_idx</span>
+<span class=n>available_idx</span> <span class=o>=</span> <span class=p>[</span><span class=mi>22</span><span class=p>,</span> <span class=mi>24</span><span class=p>,</span> <span class=mi>25</span><span class=p>,</span> <span class=mi>26</span><span class=p>,</span> <span class=mi>28</span><span class=p>,</span> <span class=mi>29</span><span class=p>,</span> <span class=mi>30</span><span class=p>,</span> <span class=mi>31</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=mi>33</span><span class=p>,</span> <span class=mi>34</span><span class=p>,</span> <span class=mi>35</span><span class=p>,</span> <span class=mi>36</span><span class=p>,</span> <span class=mi>37</span><span class=p>,</span> <span class=mi>38</span><span class=p>,</span> <span class=mi>39</span><span class=p>,</span> <span class=mi>40</span><span class=p>,</span> <span class=mi>43</span><span class=p>,</span> <span class=mi>47</span><span class=p>,</span> <span class=mi>55</span><span class=p>,</span> <span class=mi>57</span><span class=p>,</span> <span class=mi>59</span><span class=p>,</span> <span class=mi>61</span><span class=p>,</span> <span class=mi>64</span><span class=p>,</span> <span class=mi>65</span><span class=p>,</span> <span class=mi>66</span><span class=p>,</span> <span class=mi>67</span><span class=p>,</span> <span class=mi>68</span><span class=p>,</span> <span class=mi>69</span><span class=p>,</span> <span class=mi>70</span><span class=p>,</span> <span class=mi>71</span><span class=p>,</span> <span class=mi>74</span><span class=p>,</span> <span class=mi>75</span><span class=p>,</span> <span class=mi>78</span><span class=p>,</span> <span class=mi>80</span><span class=p>,</span> <span class=mi>82</span><span class=p>,</span> <span class=mi>87</span><span class=p>,</span> <span class=mi>93</span><span class=p>,</span> <span class=mi>97</span><span class=p>,</span> <span class=mi>99</span><span class=p>,</span> <span class=mi>106</span><span class=p>,</span> <span class=mi>107</span><span class=p>,</span> <span class=mi>108</span><span class=p>,</span> <span class=mi>110</span><span class=p>,</span> <span class=mi>112</span><span class=p>,</span> <span class=mi>114</span><span class=p>,</span> <span class=mi>115</span><span class=p>,</span> <span class=mi>116</span><span class=p>,</span> <span class=mi>117</span><span class=p>,</span> <span class=mi>118</span><span class=p>,</span> <span class=mi>120</span><span class=p>,</span> <span class=mi>121</span><span class=p>,</span> <span class=mi>122</span><span class=p>,</span> <span class=mi>123</span><span class=p>,</span> <span class=mi>124</span><span class=p>,</span> <span class=mi>131</span><span class=p>,</span> <span class=mi>133</span><span class=p>,</span> <span class=mi>139</span><span class=p>,</span> <span class=mi>143</span><span class=p>,</span> <span class=mi>148</span><span class=p>,</span> <span class=mi>149</span><span class=p>,</span> <span class=mi>150</span><span class=p>,</span> <span class=mi>151</span><span class=p>,</span> <span class=mi>152</span><span class=p>,</span> <span class=mi>153</span><span class=p>,</span> <span class=mi>154</span><span class=p>,</span> <span class=mi>155</span><span class=p>,</span> <span class=mi>157</span><span class=p>,</span> <span class=mi>158</span><span class=p>,</span> <span class=mi>159</span><span class=p>,</span> <span class=mi>160</span><span class=p>,</span> <span class=mi>161</span><span class=p>,</span> <span class=mi>162</span><span class=p>,</span> <span class=mi>164</span><span class=p>,</span> <span class=mi>165</span><span class=p>,</span> <span class=mi>166</span><span class=p>,</span> <span class=mi>169</span><span class=p>,</span> <span class=mi>179</span><span class=p>,</span> <span class=mi>187</span><span class=p>,</span> <span class=mi>190</span><span class=p>,</span> <span class=mi>192</span><span class=p>,</span> <span class=mi>194</span><span class=p>,</span> <span class=mi>196</span><span class=p>,</span> <span class=mi>197</span><span class=p>,</span> <span class=mi>198</span><span class=p>,</span> <span class=mi>199</span><span class=p>,</span> <span class=mi>200</span><span class=p>,</span> <span class=mi>201</span><span class=p>,</span> <span class=mi>202</span><span class=p>,</span> <span class=mi>204</span><span class=p>,</span> <span class=mi>206</span><span class=p>,</span> <span class=mi>208</span><span class=p>,</span> <span class=mi>213</span><span class=p>,</span> <span class=mi>215</span><span class=p>,</span> <span class=mi>217</span><span class=p>,</span> <span class=mi>219</span><span class=p>,</span> <span class=mi>223</span><span class=p>,</span> <span class=mi>225</span><span class=p>,</span> <span class=mi>227</span><span class=p>,</span> <span class=mi>229</span><span class=p>,</span> <span class=mi>232</span><span class=p>,</span> <span class=mi>234</span><span class=p>,</span> <span class=mi>235</span><span class=p>,</span> <span class=mi>236</span><span class=p>,</span> <span class=mi>237</span><span class=p>,</span> <span class=mi>238</span><span class=p>,</span> <span class=mi>240</span><span class=p>,</span> <span class=mi>241</span><span class=p>,</span> <span class=mi>242</span><span class=p>,</span> <span class=mi>244</span><span class=p>,</span> <span class=mi>246</span><span class=p>,</span> <span class=mi>247</span><span class=p>,</span> <span class=mi>248</span><span class=p>,</span> <span class=mi>249</span><span class=p>,</span> <span class=mi>250</span><span class=p>,</span> <span class=mi>253</span><span class=p>,</span> <span class=mi>259</span><span class=p>,</span> <span class=mi>267</span><span class=p>,</span> <span class=mi>271</span><span class=p>,</span> <span class=mi>274</span><span class=p>,</span> <span class=mi>275</span><span class=p>,</span> <span class=mi>276</span><span class=p>,</span> <span class=mi>277</span><span class=p>,</span> <span class=mi>278</span><span class=p>,</span> <span class=mi>279</span><span class=p>,</span> <span class=mi>282</span><span class=p>,</span> <span class=mi>283</span><span class=p>,</span> <span class=mi>284</span><span class=p>,</span> <span class=mi>285</span><span class=p>,</span> <span class=mi>286</span><span class=p>,</span> <span class=mi>288</span><span class=p>,</span> <span class=mi>290</span><span class=p>,</span> <span class=mi>291</span><span class=p>,</span> <span class=mi>292</span><span class=p>,</span> <span class=mi>295</span><span class=p>,</span> <span class=mi>299</span><span class=p>,</span> <span class=mi>301</span><span class=p>,</span> <span class=mi>303</span><span class=p>,</span> <span class=mi>305</span><span class=p>,</span> <span class=mi>307</span><span class=p>,</span> <span class=mi>309</span><span class=p>,</span> <span class=mi>311</span><span class=p>,</span> <span class=mi>313</span><span class=p>,</span> <span class=mi>316</span><span class=p>,</span> <span class=mi>318</span><span class=p>,</span> <span class=mi>319</span><span class=p>,</span> <span class=mi>320</span><span class=p>,</span> <span class=mi>322</span><span class=p>,</span> <span class=mi>324</span><span class=p>,</span> <span class=mi>326</span><span class=p>,</span> <span class=mi>328</span><span class=p>,</span> <span class=mi>330</span><span class=p>,</span> <span class=mi>332</span><span class=p>,</span> <span class=mi>334</span><span class=p>,</span> <span class=mi>339</span><span class=p>,</span> <span class=mi>341</span><span class=p>,</span> <span class=mi>345</span><span class=p>,</span> <span class=mi>349</span><span class=p>,</span> <span class=mi>351</span><span class=p>,</span> <span class=mi>355</span><span class=p>,</span> <span class=mi>358</span><span class=p>,</span> <span class=mi>359</span><span class=p>,</span> <span class=mi>360</span><span class=p>,</span> <span class=mi>362</span><span class=p>,</span> <span class=mi>364</span><span class=p>,</span> <span class=mi>365</span><span class=p>,</span> <span class=mi>366</span><span class=p>,</span> <span class=mi>367</span><span class=p>,</span> <span class=mi>368</span><span class=p>,</span> <span class=mi>370</span><span class=p>,</span> <span class=mi>372</span><span class=p>,</span> <span class=mi>373</span><span class=p>,</span> <span class=mi>374</span><span class=p>,</span> <span class=mi>376</span><span class=p>,</span> <span class=mi>379</span><span class=p>,</span> <span class=mi>381</span><span class=p>,</span> <span class=mi>383</span><span class=p>,</span> <span class=mi>387</span><span class=p>,</span> <span class=mi>393</span><span class=p>,</span> <span class=mi>395</span><span class=p>,</span> <span class=mi>400</span><span class=p>,</span> <span class=mi>402</span><span class=p>,</span> <span class=mi>404</span><span class=p>,</span> <span class=mi>405</span><span class=p>,</span> <span class=mi>406</span><span class=p>,</span> <span class=mi>408</span><span class=p>,</span> <span class=mi>409</span><span class=p>,</span> <span class=mi>410</span><span class=p>,</span> <span class=mi>412</span><span class=p>,</span> <span class=mi>413</span><span class=p>,</span> <span class=mi>414</span><span class=p>,</span> <span class=mi>416</span><span class=p>,</span> <span class=mi>418</span><span class=p>]</span>
+
+<span class=n>current_pos</span> <span class=o>=</span> <span class=mi>22</span>
+<span class=n>end_pos</span>     <span class=o>=</span> <span class=mi>418</span>
+<span class=n>list_move</span>   <span class=o>=</span> <span class=p>[]</span>
+
+<span class=k>def</span> <span class=nf>get_xor_value</span><span class=p>(</span><span class=n>value</span><span class=p>):</span> 
+    <span class=k>if</span> <span class=n>value</span> <span class=o>==</span> <span class=mi>21</span><span class=p>:</span> 
+        <span class=k>return</span> <span class=mi>2</span>
+    <span class=k>if</span> <span class=n>value</span> <span class=o>==</span> <span class=o>-</span><span class=mi>21</span><span class=p>:</span>
+        <span class=k>return</span> <span class=mi>0</span> 
+    <span class=k>if</span> <span class=n>value</span> <span class=o>==</span> <span class=mi>1</span><span class=p>:</span> 
+        <span class=k>return</span> <span class=mi>1</span>
+    <span class=k>if</span> <span class=n>value</span> <span class=o>==</span> <span class=o>-</span><span class=mi>1</span><span class=p>:</span> 
+        <span class=k>return</span> <span class=mi>3</span>
+
+<span class=k>def</span> <span class=nf>calc_flag</span><span class=p>():</span> 
+    <span class=n>flag</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>list_move</span><span class=p>)</span> <span class=o>//</span> <span class=mi>4</span><span class=p>):</span> 
+        <span class=n>char</span> <span class=o>=</span> <span class=mi>0</span>
+        <span class=k>for</span> <span class=n>j</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>4</span><span class=p>):</span>
+            <span class=n>xor_value</span> <span class=o>=</span> <span class=n>get_xor_value</span><span class=p>(</span><span class=n>list_move</span><span class=p>[</span><span class=n>i</span> <span class=o>*</span> <span class=mi>4</span> <span class=o>+</span> <span class=n>j</span><span class=p>])</span>
+            <span class=n>char</span> <span class=o>|=</span> <span class=n>xor_value</span> <span class=o>&lt;&lt;</span> <span class=p>(</span><span class=n>j</span> <span class=o>*</span> <span class=mi>2</span><span class=p>)</span> 
+        <span class=n>char</span> <span class=o>^=</span> <span class=n>xor_values</span><span class=p>[</span><span class=n>i</span><span class=p>]</span>
+        <span class=n>flag</span> <span class=o>+=</span> <span class=nb>chr</span><span class=p>(</span><span class=n>char</span><span class=p>)</span> 
+    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Flag =&#34;</span><span class=p>,</span> <span class=n>flag</span><span class=p>)</span>
+
+<span class=k>def</span> <span class=nf>print_maze</span><span class=p>():</span>
+    <span class=n>RED</span> <span class=o>=</span> <span class=s1>&#39;</span><span class=se>\033</span><span class=s1>[91m&#39;</span>      <span class=c1># P - Player (Red)</span>
+    <span class=n>GREEN</span> <span class=o>=</span> <span class=s1>&#39;</span><span class=se>\033</span><span class=s1>[92m&#39;</span>    <span class=c1># E - End (Green)</span>
+    <span class=n>YELLOW</span> <span class=o>=</span> <span class=s1>&#39;</span><span class=se>\033</span><span class=s1>[93m&#39;</span>   <span class=c1># K - Key (Yellow)</span>
+    <span class=n>BLUE</span> <span class=o>=</span> <span class=s1>&#39;</span><span class=se>\033</span><span class=s1>[94m&#39;</span>     <span class=c1># V - Door/Value (Blue)</span>
+    <span class=n>RESET</span> <span class=o>=</span> <span class=s1>&#39;</span><span class=se>\033</span><span class=s1>[0m&#39;</span>     <span class=c1># Reset color</span>
+    
+    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>21</span><span class=p>):</span>
+        <span class=k>for</span> <span class=n>j</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>21</span><span class=p>):</span> 
+            <span class=n>pos</span> <span class=o>=</span> <span class=n>i</span> <span class=o>*</span> <span class=mi>21</span> <span class=o>+</span> <span class=n>j</span>
+            <span class=k>if</span> <span class=n>pos</span> <span class=o>==</span> <span class=n>current_pos</span><span class=p>:</span> 
+                <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=n>RED</span><span class=si>}</span><span class=s2>P</span><span class=si>{</span><span class=n>RESET</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>,</span> <span class=n>end</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>)</span>
+            <span class=k>elif</span> <span class=n>pos</span> <span class=o>==</span> <span class=n>end_pos</span><span class=p>:</span>
+                <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=n>GREEN</span><span class=si>}</span><span class=s2>E</span><span class=si>{</span><span class=n>RESET</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>,</span> <span class=n>end</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>)</span>
+            <span class=k>elif</span> <span class=n>pos</span> <span class=ow>in</span> <span class=n>open_map_keys</span><span class=p>:</span> 
+                <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=n>YELLOW</span><span class=si>}</span><span class=s2>K</span><span class=si>{</span><span class=n>RESET</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>,</span> <span class=n>end</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>)</span>
+            <span class=k>elif</span> <span class=n>pos</span> <span class=ow>in</span> <span class=n>open_map_values</span><span class=p>:</span> 
+                <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=n>BLUE</span><span class=si>}</span><span class=s2>V</span><span class=si>{</span><span class=n>RESET</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>,</span> <span class=n>end</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>)</span>
+            <span class=k>elif</span> <span class=n>pos</span> <span class=ow>in</span> <span class=n>available_idx</span><span class=p>:</span>
+                <span class=nb>print</span><span class=p>(</span><span class=s2>&#34; &#34;</span><span class=p>,</span> <span class=n>end</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>)</span>
+            <span class=k>else</span><span class=p>:</span>
+                <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\u2588</span><span class=s2>&#34;</span><span class=p>,</span> <span class=n>end</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>)</span>
+        <span class=nb>print</span><span class=p>()</span>
+
+<span class=k>def</span> <span class=nf>move</span><span class=p>():</span> 
+    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Please enter: w (up) | a (left) | s (down) | d (right)&#34;</span><span class=p>)</span>
+    <span class=n>inp</span> <span class=o>=</span> <span class=nb>input</span><span class=p>(</span><span class=s2>&#34;&gt; &#34;</span><span class=p>)</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span><span class=o>.</span><span class=n>lower</span><span class=p>()</span> 
+
+    <span class=k>if</span> <span class=n>inp</span> <span class=o>==</span> <span class=s1>&#39;w&#39;</span><span class=p>:</span> 
+        <span class=k>return</span> <span class=o>-</span><span class=mi>21</span>
+    <span class=k>elif</span> <span class=n>inp</span> <span class=o>==</span> <span class=s1>&#39;s&#39;</span><span class=p>:</span>
+        <span class=k>return</span> <span class=mi>21</span> 
+    <span class=k>elif</span> <span class=n>inp</span> <span class=o>==</span> <span class=s1>&#39;a&#39;</span><span class=p>:</span> 
+        <span class=k>return</span> <span class=o>-</span><span class=mi>1</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=k>return</span> <span class=mi>1</span>
+
+<span class=k>def</span> <span class=nf>dfs_solve_maze_with_animation</span><span class=p>():</span>
+    <span class=k>global</span> <span class=n>current_pos</span><span class=p>,</span> <span class=n>list_move</span><span class=p>,</span> <span class=n>available_idx</span><span class=p>,</span> <span class=n>open_map_keys</span><span class=p>,</span> <span class=n>open_map_values</span>
+    
+    <span class=kn>from</span> <span class=nn>PIL</span> <span class=kn>import</span> <span class=n>Image</span><span class=p>,</span> <span class=n>ImageDraw</span><span class=p>,</span> <span class=n>ImageFont</span>
+    <span class=kn>import</span> <span class=nn>os</span>
+    
+    <span class=k>if</span> <span class=ow>not</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>exists</span><span class=p>(</span><span class=s1>&#39;frames&#39;</span><span class=p>):</span>
+        <span class=n>os</span><span class=o>.</span><span class=n>makedirs</span><span class=p>(</span><span class=s1>&#39;frames&#39;</span><span class=p>)</span>
+    
+    <span class=k>for</span> <span class=n>file</span> <span class=ow>in</span> <span class=n>os</span><span class=o>.</span><span class=n>listdir</span><span class=p>(</span><span class=s1>&#39;frames&#39;</span><span class=p>):</span>
+        <span class=k>if</span> <span class=n>file</span><span class=o>.</span><span class=n>endswith</span><span class=p>(</span><span class=s1>&#39;.png&#39;</span><span class=p>):</span>
+            <span class=n>os</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=s1>&#39;frames&#39;</span><span class=p>,</span> <span class=n>file</span><span class=p>))</span>
+    
+    <span class=n>initial_state</span> <span class=o>=</span> <span class=p>(</span><span class=n>current_pos</span><span class=p>,</span> <span class=p>[],</span> <span class=n>available_idx</span><span class=o>.</span><span class=n>copy</span><span class=p>(),</span> <span class=n>open_map_keys</span><span class=o>.</span><span class=n>copy</span><span class=p>(),</span> <span class=n>open_map_values</span><span class=o>.</span><span class=n>copy</span><span class=p>())</span>
+    <span class=n>stack</span> <span class=o>=</span> <span class=p>[</span><span class=n>initial_state</span><span class=p>]</span>
+    <span class=n>visited</span> <span class=o>=</span> <span class=nb>set</span><span class=p>()</span>
+    
+    <span class=n>step_count</span> <span class=o>=</span> <span class=mi>0</span>
+    <span class=n>frame_count</span> <span class=o>=</span> <span class=mi>0</span>
+    <span class=n>max_steps</span> <span class=o>=</span> <span class=mi>10000</span> 
+    
+    <span class=n>create_maze_frame</span><span class=p>(</span><span class=n>frame_count</span><span class=p>,</span> <span class=n>current_pos</span><span class=p>,</span> <span class=n>available_idx</span><span class=p>,</span> <span class=n>open_map_keys</span><span class=p>,</span> <span class=n>open_map_values</span><span class=p>,</span> <span class=p>[],</span> <span class=s2>&#34;Initial State&#34;</span><span class=p>)</span>
+    <span class=n>frame_count</span> <span class=o>+=</span> <span class=mi>1</span>
+    
+    <span class=k>while</span> <span class=n>stack</span> <span class=ow>and</span> <span class=n>step_count</span> <span class=o>&lt;</span> <span class=n>max_steps</span><span class=p>:</span>
+        <span class=n>step_count</span> <span class=o>+=</span> <span class=mi>1</span>
+        <span class=n>pos</span><span class=p>,</span> <span class=n>moves</span><span class=p>,</span> <span class=n>available</span><span class=p>,</span> <span class=n>keys</span><span class=p>,</span> <span class=n>values</span> <span class=o>=</span> <span class=n>stack</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span>
+        
+        <span class=n>state_key</span> <span class=o>=</span> <span class=p>(</span><span class=n>pos</span><span class=p>,</span> <span class=nb>tuple</span><span class=p>(</span><span class=nb>sorted</span><span class=p>(</span><span class=n>keys</span><span class=p>)),</span> <span class=nb>tuple</span><span class=p>(</span><span class=nb>sorted</span><span class=p>(</span><span class=n>values</span><span class=p>)))</span>
+        <span class=k>if</span> <span class=n>state_key</span> <span class=ow>in</span> <span class=n>visited</span><span class=p>:</span>
+            <span class=k>continue</span>
+        <span class=n>visited</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>state_key</span><span class=p>)</span>
+        
+        <span class=k>if</span> <span class=n>step_count</span> <span class=o>%</span> <span class=mi>10</span> <span class=o>==</span> <span class=mi>0</span> <span class=ow>or</span> <span class=n>pos</span> <span class=ow>in</span> <span class=n>open_map_keys</span> <span class=ow>or</span> <span class=n>pos</span> <span class=o>==</span> <span class=n>end_pos</span><span class=p>:</span>
+            <span class=n>create_maze_frame</span><span class=p>(</span><span class=n>frame_count</span><span class=p>,</span> <span class=n>pos</span><span class=p>,</span> <span class=n>available</span><span class=p>,</span> <span class=n>keys</span><span class=p>,</span> <span class=n>values</span><span class=p>,</span> <span class=n>moves</span><span class=p>,</span> <span class=sa>f</span><span class=s2>&#34;Step </span><span class=si>{</span><span class=n>step_count</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+            <span class=n>frame_count</span> <span class=o>+=</span> <span class=mi>1</span>
+        
+        <span class=k>if</span> <span class=n>pos</span> <span class=o>==</span> <span class=n>end_pos</span><span class=p>:</span>
+            <span class=n>list_move</span> <span class=o>=</span> <span class=n>moves</span>
+            <span class=n>create_maze_frame</span><span class=p>(</span><span class=n>frame_count</span><span class=p>,</span> <span class=n>pos</span><span class=p>,</span> <span class=n>available</span><span class=p>,</span> <span class=n>keys</span><span class=p>,</span> <span class=n>values</span><span class=p>,</span> <span class=n>moves</span><span class=p>,</span> <span class=s2>&#34;SOLUTION FOUND!&#34;</span><span class=p>)</span>
+            <span class=n>frame_count</span> <span class=o>+=</span> <span class=mi>1</span>
+            <span class=k>break</span>
+        
+        <span class=n>directions</span> <span class=o>=</span> <span class=p>[(</span><span class=o>-</span><span class=mi>21</span><span class=p>,</span> <span class=s1>&#39;w&#39;</span><span class=p>),</span> <span class=p>(</span><span class=mi>21</span><span class=p>,</span> <span class=s1>&#39;s&#39;</span><span class=p>),</span> <span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=s1>&#39;a&#39;</span><span class=p>),</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=s1>&#39;d&#39;</span><span class=p>)]</span>
+        
+        <span class=k>for</span> <span class=n>direction</span><span class=p>,</span> <span class=n>direction_name</span> <span class=ow>in</span> <span class=n>directions</span><span class=p>:</span>
+            <span class=n>new_pos</span> <span class=o>=</span> <span class=n>pos</span> <span class=o>+</span> <span class=n>direction</span>
+            
+            <span class=k>if</span> <span class=n>new_pos</span> <span class=o>&lt;</span> <span class=mi>0</span> <span class=ow>or</span> <span class=n>new_pos</span> <span class=o>&gt;=</span> <span class=mi>21</span> <span class=o>*</span> <span class=mi>21</span> <span class=ow>or</span> <span class=n>new_pos</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>available</span><span class=p>:</span>
+                <span class=k>continue</span>
+            
+            <span class=n>new_available</span> <span class=o>=</span> <span class=n>available</span><span class=o>.</span><span class=n>copy</span><span class=p>()</span>
+            <span class=n>new_keys</span> <span class=o>=</span> <span class=n>keys</span><span class=o>.</span><span class=n>copy</span><span class=p>()</span>
+            <span class=n>new_values</span> <span class=o>=</span> <span class=n>values</span><span class=o>.</span><span class=n>copy</span><span class=p>()</span>
+            <span class=n>new_moves</span> <span class=o>=</span> <span class=n>moves</span> <span class=o>+</span> <span class=p>[</span><span class=n>direction</span><span class=p>]</span>
+            
+            <span class=k>if</span> <span class=n>new_pos</span> <span class=ow>in</span> <span class=n>new_keys</span><span class=p>:</span>
+                <span class=n>key_idx</span> <span class=o>=</span> <span class=n>new_keys</span><span class=o>.</span><span class=n>index</span><span class=p>(</span><span class=n>new_pos</span><span class=p>)</span>
+                <span class=n>door_pos</span> <span class=o>=</span> <span class=n>new_values</span><span class=p>[</span><span class=n>key_idx</span><span class=p>]</span>
+                <span class=n>new_available</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>door_pos</span><span class=p>)</span>
+                
+                <span class=k>del</span> <span class=n>new_keys</span><span class=p>[</span><span class=n>key_idx</span><span class=p>]</span>
+                <span class=k>del</span> <span class=n>new_values</span><span class=p>[</span><span class=n>key_idx</span><span class=p>]</span>
+            
+            <span class=n>stack</span><span class=o>.</span><span class=n>append</span><span class=p>((</span><span class=n>new_pos</span><span class=p>,</span> <span class=n>new_moves</span><span class=p>,</span> <span class=n>new_available</span><span class=p>,</span> <span class=n>new_keys</span><span class=p>,</span> <span class=n>new_values</span><span class=p>))</span>
+    
+    <span class=n>create_gif_from_frames</span><span class=p>(</span><span class=n>frame_count</span><span class=p>)</span>
+    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Animation created with </span><span class=si>{</span><span class=n>frame_count</span><span class=si>}</span><span class=s2> frames!&#34;</span><span class=p>)</span>
+    <span class=k>return</span> <span class=kc>True</span>
+
+<span class=k>def</span> <span class=nf>create_maze_frame</span><span class=p>(</span><span class=n>frame_num</span><span class=p>,</span> <span class=n>current_pos</span><span class=p>,</span> <span class=n>available</span><span class=p>,</span> <span class=n>keys</span><span class=p>,</span> <span class=n>values</span><span class=p>,</span> <span class=n>moves</span><span class=p>,</span> <span class=n>title</span><span class=p>):</span>
+    <span class=kn>from</span> <span class=nn>PIL</span> <span class=kn>import</span> <span class=n>Image</span><span class=p>,</span> <span class=n>ImageDraw</span><span class=p>,</span> <span class=n>ImageFont</span>
+    
+    <span class=n>cell_size</span> <span class=o>=</span> <span class=mi>20</span>
+    <span class=n>width</span> <span class=o>=</span> <span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>200</span>  <span class=c1># Thêm không gian cho text</span>
+    <span class=n>height</span> <span class=o>=</span> <span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>100</span>
+    
+    <span class=n>img</span> <span class=o>=</span> <span class=n>Image</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=s1>&#39;RGB&#39;</span><span class=p>,</span> <span class=p>(</span><span class=n>width</span><span class=p>,</span> <span class=n>height</span><span class=p>),</span> <span class=s1>&#39;white&#39;</span><span class=p>)</span>
+    <span class=n>draw</span> <span class=o>=</span> <span class=n>ImageDraw</span><span class=o>.</span><span class=n>Draw</span><span class=p>(</span><span class=n>img</span><span class=p>)</span>
+    
+    <span class=n>colors</span> <span class=o>=</span> <span class=p>{</span>
+        <span class=s1>&#39;wall&#39;</span><span class=p>:</span> <span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>),</span>      <span class=c1># Đen</span>
+        <span class=s1>&#39;path&#39;</span><span class=p>:</span> <span class=p>(</span><span class=mi>255</span><span class=p>,</span> <span class=mi>255</span><span class=p>,</span> <span class=mi>255</span><span class=p>),</span> <span class=c1># Trắng</span>
+        <span class=s1>&#39;player&#39;</span><span class=p>:</span> <span class=p>(</span><span class=mi>255</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>),</span>   <span class=c1># Đỏ</span>
+        <span class=s1>&#39;end&#39;</span><span class=p>:</span> <span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>255</span><span class=p>,</span> <span class=mi>0</span><span class=p>),</span>      <span class=c1># Xanh lá</span>
+        <span class=s1>&#39;key&#39;</span><span class=p>:</span> <span class=p>(</span><span class=mi>255</span><span class=p>,</span> <span class=mi>255</span><span class=p>,</span> <span class=mi>0</span><span class=p>),</span>    <span class=c1># Vàng</span>
+        <span class=s1>&#39;door&#39;</span><span class=p>:</span> <span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>255</span><span class=p>),</span>     <span class=c1># Xanh dương</span>
+        <span class=s1>&#39;visited&#39;</span><span class=p>:</span> <span class=p>(</span><span class=mi>200</span><span class=p>,</span> <span class=mi>200</span><span class=p>,</span> <span class=mi>200</span><span class=p>)</span> <span class=c1># Xám nhạt</span>
+    <span class=p>}</span>
+    
+    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>21</span><span class=p>):</span>
+        <span class=k>for</span> <span class=n>j</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>21</span><span class=p>):</span>
+            <span class=n>pos</span> <span class=o>=</span> <span class=n>i</span> <span class=o>*</span> <span class=mi>21</span> <span class=o>+</span> <span class=n>j</span>
+            <span class=n>x1</span> <span class=o>=</span> <span class=n>j</span> <span class=o>*</span> <span class=n>cell_size</span>
+            <span class=n>y1</span> <span class=o>=</span> <span class=n>i</span> <span class=o>*</span> <span class=n>cell_size</span>
+            <span class=n>x2</span> <span class=o>=</span> <span class=n>x1</span> <span class=o>+</span> <span class=n>cell_size</span>
+            <span class=n>y2</span> <span class=o>=</span> <span class=n>y1</span> <span class=o>+</span> <span class=n>cell_size</span>
+            
+            <span class=k>if</span> <span class=n>pos</span> <span class=o>==</span> <span class=n>current_pos</span><span class=p>:</span>
+                <span class=n>color</span> <span class=o>=</span> <span class=n>colors</span><span class=p>[</span><span class=s1>&#39;player&#39;</span><span class=p>]</span>
+                <span class=n>draw</span><span class=o>.</span><span class=n>rectangle</span><span class=p>([</span><span class=n>x1</span><span class=p>,</span> <span class=n>y1</span><span class=p>,</span> <span class=n>x2</span><span class=p>,</span> <span class=n>y2</span><span class=p>],</span> <span class=n>fill</span><span class=o>=</span><span class=n>color</span><span class=p>)</span>
+                <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=n>x1</span> <span class=o>+</span> <span class=mi>5</span><span class=p>,</span> <span class=n>y1</span> <span class=o>+</span> <span class=mi>5</span><span class=p>),</span> <span class=s1>&#39;P&#39;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;white&#39;</span><span class=p>)</span>
+            <span class=k>elif</span> <span class=n>pos</span> <span class=o>==</span> <span class=mi>418</span><span class=p>:</span>  <span class=c1># end_pos</span>
+                <span class=n>color</span> <span class=o>=</span> <span class=n>colors</span><span class=p>[</span><span class=s1>&#39;end&#39;</span><span class=p>]</span>
+                <span class=n>draw</span><span class=o>.</span><span class=n>rectangle</span><span class=p>([</span><span class=n>x1</span><span class=p>,</span> <span class=n>y1</span><span class=p>,</span> <span class=n>x2</span><span class=p>,</span> <span class=n>y2</span><span class=p>],</span> <span class=n>fill</span><span class=o>=</span><span class=n>color</span><span class=p>)</span>
+                <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=n>x1</span> <span class=o>+</span> <span class=mi>5</span><span class=p>,</span> <span class=n>y1</span> <span class=o>+</span> <span class=mi>5</span><span class=p>),</span> <span class=s1>&#39;E&#39;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;white&#39;</span><span class=p>)</span>
+            <span class=k>elif</span> <span class=n>pos</span> <span class=ow>in</span> <span class=n>keys</span><span class=p>:</span>
+                <span class=n>color</span> <span class=o>=</span> <span class=n>colors</span><span class=p>[</span><span class=s1>&#39;key&#39;</span><span class=p>]</span>
+                <span class=n>draw</span><span class=o>.</span><span class=n>rectangle</span><span class=p>([</span><span class=n>x1</span><span class=p>,</span> <span class=n>y1</span><span class=p>,</span> <span class=n>x2</span><span class=p>,</span> <span class=n>y2</span><span class=p>],</span> <span class=n>fill</span><span class=o>=</span><span class=n>color</span><span class=p>)</span>
+                <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=n>x1</span> <span class=o>+</span> <span class=mi>5</span><span class=p>,</span> <span class=n>y1</span> <span class=o>+</span> <span class=mi>5</span><span class=p>),</span> <span class=s1>&#39;K&#39;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;black&#39;</span><span class=p>)</span>
+            <span class=k>elif</span> <span class=n>pos</span> <span class=ow>in</span> <span class=n>values</span><span class=p>:</span>
+                <span class=n>color</span> <span class=o>=</span> <span class=n>colors</span><span class=p>[</span><span class=s1>&#39;door&#39;</span><span class=p>]</span>
+                <span class=n>draw</span><span class=o>.</span><span class=n>rectangle</span><span class=p>([</span><span class=n>x1</span><span class=p>,</span> <span class=n>y1</span><span class=p>,</span> <span class=n>x2</span><span class=p>,</span> <span class=n>y2</span><span class=p>],</span> <span class=n>fill</span><span class=o>=</span><span class=n>color</span><span class=p>)</span>
+                <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=n>x1</span> <span class=o>+</span> <span class=mi>5</span><span class=p>,</span> <span class=n>y1</span> <span class=o>+</span> <span class=mi>5</span><span class=p>),</span> <span class=s1>&#39;V&#39;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;white&#39;</span><span class=p>)</span>
+            <span class=k>elif</span> <span class=n>pos</span> <span class=ow>in</span> <span class=n>available</span><span class=p>:</span>
+                <span class=n>color</span> <span class=o>=</span> <span class=n>colors</span><span class=p>[</span><span class=s1>&#39;path&#39;</span><span class=p>]</span>
+                <span class=n>draw</span><span class=o>.</span><span class=n>rectangle</span><span class=p>([</span><span class=n>x1</span><span class=p>,</span> <span class=n>y1</span><span class=p>,</span> <span class=n>x2</span><span class=p>,</span> <span class=n>y2</span><span class=p>],</span> <span class=n>fill</span><span class=o>=</span><span class=n>color</span><span class=p>)</span>
+            <span class=k>else</span><span class=p>:</span>
+                <span class=n>color</span> <span class=o>=</span> <span class=n>colors</span><span class=p>[</span><span class=s1>&#39;wall&#39;</span><span class=p>]</span>
+                <span class=n>draw</span><span class=o>.</span><span class=n>rectangle</span><span class=p>([</span><span class=n>x1</span><span class=p>,</span> <span class=n>y1</span><span class=p>,</span> <span class=n>x2</span><span class=p>,</span> <span class=n>y2</span><span class=p>],</span> <span class=n>fill</span><span class=o>=</span><span class=n>color</span><span class=p>)</span>
+    
+    <span class=k>if</span> <span class=n>moves</span><span class=p>:</span>
+        <span class=k>for</span> <span class=n>i</span><span class=p>,</span> <span class=n>move</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=n>moves</span><span class=p>):</span>
+            <span class=k>if</span> <span class=n>i</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+                <span class=n>pos</span> <span class=o>=</span> <span class=mi>22</span>  <span class=c1># start position</span>
+            <span class=k>else</span><span class=p>:</span>
+                <span class=n>pos</span> <span class=o>+=</span> <span class=n>moves</span><span class=p>[</span><span class=n>i</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span>
+            
+            <span class=n>row</span> <span class=o>=</span> <span class=n>pos</span> <span class=o>//</span> <span class=mi>21</span>
+            <span class=n>col</span> <span class=o>=</span> <span class=n>pos</span> <span class=o>%</span> <span class=mi>21</span>
+            <span class=n>x1</span> <span class=o>=</span> <span class=n>col</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>2</span>
+            <span class=n>y1</span> <span class=o>=</span> <span class=n>row</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>2</span>
+            <span class=n>x2</span> <span class=o>=</span> <span class=n>x1</span> <span class=o>+</span> <span class=n>cell_size</span> <span class=o>-</span> <span class=mi>4</span>
+            <span class=n>y2</span> <span class=o>=</span> <span class=n>y1</span> <span class=o>+</span> <span class=n>cell_size</span> <span class=o>-</span> <span class=mi>4</span>
+            
+            <span class=n>draw</span><span class=o>.</span><span class=n>rectangle</span><span class=p>([</span><span class=n>x1</span><span class=p>,</span> <span class=n>y1</span><span class=p>,</span> <span class=n>x2</span><span class=p>,</span> <span class=n>y2</span><span class=p>],</span> <span class=n>fill</span><span class=o>=</span><span class=p>(</span><span class=mi>255</span><span class=p>,</span> <span class=mi>100</span><span class=p>,</span> <span class=mi>100</span><span class=p>),</span> <span class=n>outline</span><span class=o>=</span><span class=p>(</span><span class=mi>255</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>))</span>
+    
+    <span class=k>try</span><span class=p>:</span>
+        <span class=n>font</span> <span class=o>=</span> <span class=n>ImageFont</span><span class=o>.</span><span class=n>truetype</span><span class=p>(</span><span class=s2>&#34;/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf&#34;</span><span class=p>,</span> <span class=mi>16</span><span class=p>)</span>
+    <span class=k>except</span><span class=p>:</span>
+        <span class=n>font</span> <span class=o>=</span> <span class=n>ImageFont</span><span class=o>.</span><span class=n>load_default</span><span class=p>()</span>
+    
+    <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>10</span><span class=p>,</span> <span class=mi>10</span><span class=p>),</span> <span class=n>title</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;black&#39;</span><span class=p>,</span> <span class=n>font</span><span class=o>=</span><span class=n>font</span><span class=p>)</span>
+    
+    <span class=n>info_y</span> <span class=o>=</span> <span class=mi>40</span>
+    <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>10</span><span class=p>,</span> <span class=n>info_y</span><span class=p>),</span> <span class=sa>f</span><span class=s2>&#34;Position: </span><span class=si>{</span><span class=n>current_pos</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;black&#39;</span><span class=p>,</span> <span class=n>font</span><span class=o>=</span><span class=n>font</span><span class=p>)</span>
+    <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>10</span><span class=p>,</span> <span class=n>info_y</span> <span class=o>+</span> <span class=mi>20</span><span class=p>),</span> <span class=sa>f</span><span class=s2>&#34;Moves: </span><span class=si>{</span><span class=nb>len</span><span class=p>(</span><span class=n>moves</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;black&#39;</span><span class=p>,</span> <span class=n>font</span><span class=o>=</span><span class=n>font</span><span class=p>)</span>
+    <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>10</span><span class=p>,</span> <span class=n>info_y</span> <span class=o>+</span> <span class=mi>40</span><span class=p>),</span> <span class=sa>f</span><span class=s2>&#34;Keys left: </span><span class=si>{</span><span class=nb>len</span><span class=p>(</span><span class=n>keys</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;black&#39;</span><span class=p>,</span> <span class=n>font</span><span class=o>=</span><span class=n>font</span><span class=p>)</span>
+    <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>10</span><span class=p>,</span> <span class=n>info_y</span> <span class=o>+</span> <span class=mi>60</span><span class=p>),</span> <span class=sa>f</span><span class=s2>&#34;Doors open: </span><span class=si>{</span><span class=nb>len</span><span class=p>(</span><span class=n>values</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;black&#39;</span><span class=p>,</span> <span class=n>font</span><span class=o>=</span><span class=n>font</span><span class=p>)</span>
+    
+    <span class=n>legend_y</span> <span class=o>=</span> <span class=n>info_y</span> <span class=o>+</span> <span class=mi>100</span>
+    <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>10</span><span class=p>,</span> <span class=n>legend_y</span><span class=p>),</span> <span class=s2>&#34;Legend:&#34;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;black&#39;</span><span class=p>,</span> <span class=n>font</span><span class=o>=</span><span class=n>font</span><span class=p>)</span>
+    <span class=n>draw</span><span class=o>.</span><span class=n>rectangle</span><span class=p>([</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>10</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>20</span><span class=p>,</span> <span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>30</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>40</span><span class=p>],</span> <span class=n>fill</span><span class=o>=</span><span class=n>colors</span><span class=p>[</span><span class=s1>&#39;player&#39;</span><span class=p>])</span>
+    <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>35</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>25</span><span class=p>),</span> <span class=s2>&#34;P - Player&#34;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;black&#39;</span><span class=p>,</span> <span class=n>font</span><span class=o>=</span><span class=n>font</span><span class=p>)</span>
+    
+    <span class=n>draw</span><span class=o>.</span><span class=n>rectangle</span><span class=p>([</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>10</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>45</span><span class=p>,</span> <span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>30</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>65</span><span class=p>],</span> <span class=n>fill</span><span class=o>=</span><span class=n>colors</span><span class=p>[</span><span class=s1>&#39;end&#39;</span><span class=p>])</span>
+    <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>35</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>50</span><span class=p>),</span> <span class=s2>&#34;E - End&#34;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;black&#39;</span><span class=p>,</span> <span class=n>font</span><span class=o>=</span><span class=n>font</span><span class=p>)</span>
+    
+    <span class=n>draw</span><span class=o>.</span><span class=n>rectangle</span><span class=p>([</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>10</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>70</span><span class=p>,</span> <span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>30</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>90</span><span class=p>],</span> <span class=n>fill</span><span class=o>=</span><span class=n>colors</span><span class=p>[</span><span class=s1>&#39;key&#39;</span><span class=p>])</span>
+    <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>35</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>75</span><span class=p>),</span> <span class=s2>&#34;K - Key&#34;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;black&#39;</span><span class=p>,</span> <span class=n>font</span><span class=o>=</span><span class=n>font</span><span class=p>)</span>
+    
+    <span class=n>draw</span><span class=o>.</span><span class=n>rectangle</span><span class=p>([</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>10</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>95</span><span class=p>,</span> <span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>30</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>115</span><span class=p>],</span> <span class=n>fill</span><span class=o>=</span><span class=n>colors</span><span class=p>[</span><span class=s1>&#39;door&#39;</span><span class=p>])</span>
+    <span class=n>draw</span><span class=o>.</span><span class=n>text</span><span class=p>((</span><span class=mi>21</span> <span class=o>*</span> <span class=n>cell_size</span> <span class=o>+</span> <span class=mi>35</span><span class=p>,</span> <span class=n>legend_y</span> <span class=o>+</span> <span class=mi>100</span><span class=p>),</span> <span class=s2>&#34;V - Door&#34;</span><span class=p>,</span> <span class=n>fill</span><span class=o>=</span><span class=s1>&#39;black&#39;</span><span class=p>,</span> <span class=n>font</span><span class=o>=</span><span class=n>font</span><span class=p>)</span>
+    
+    <span class=n>img</span><span class=o>.</span><span class=n>save</span><span class=p>(</span><span class=sa>f</span><span class=s1>&#39;frames/frame_</span><span class=si>{</span><span class=n>frame_num</span><span class=si>:</span><span class=s1>04d</span><span class=si>}</span><span class=s1>.png&#39;</span><span class=p>)</span>
+
+<span class=k>def</span> <span class=nf>create_gif_from_frames</span><span class=p>(</span><span class=n>frame_count</span><span class=p>):</span>
+    <span class=kn>from</span> <span class=nn>PIL</span> <span class=kn>import</span> <span class=n>Image</span>
+    
+    <span class=n>frames</span> <span class=o>=</span> <span class=p>[]</span>
+    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>frame_count</span><span class=p>):</span>
+        <span class=k>try</span><span class=p>:</span>
+            <span class=n>frame</span> <span class=o>=</span> <span class=n>Image</span><span class=o>.</span><span class=n>open</span><span class=p>(</span><span class=sa>f</span><span class=s1>&#39;frames/frame_</span><span class=si>{</span><span class=n>i</span><span class=si>:</span><span class=s1>04d</span><span class=si>}</span><span class=s1>.png&#39;</span><span class=p>)</span>
+            <span class=n>frames</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>frame</span><span class=p>)</span>
+        <span class=k>except</span><span class=p>:</span>
+            <span class=k>continue</span>
+    
+    <span class=k>if</span> <span class=n>frames</span><span class=p>:</span>
+        <span class=n>frames</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>.</span><span class=n>save</span><span class=p>(</span><span class=s1>&#39;dfs_animation.gif&#39;</span><span class=p>,</span> 
+                      <span class=n>save_all</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span> 
+                      <span class=n>append_images</span><span class=o>=</span><span class=n>frames</span><span class=p>[</span><span class=mi>1</span><span class=p>:],</span> 
+                      <span class=n>duration</span><span class=o>=</span><span class=mi>500</span><span class=p>,</span> 
+                      <span class=n>loop</span><span class=o>=</span><span class=mi>0</span><span class=p>)</span>
+        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;GIF saved as &#39;dfs_animation.gif&#39;&#34;</span><span class=p>)</span>
+
+<span class=k>def</span> <span class=nf>dfs_solve_maze</span><span class=p>():</span>
+    <span class=k>global</span> <span class=n>current_pos</span><span class=p>,</span> <span class=n>list_move</span><span class=p>,</span> <span class=n>available_idx</span><span class=p>,</span> <span class=n>open_map_keys</span><span class=p>,</span> <span class=n>open_map_values</span>
+    
+    <span class=n>initial_state</span> <span class=o>=</span> <span class=p>(</span><span class=n>current_pos</span><span class=p>,</span> <span class=p>[],</span> <span class=n>available_idx</span><span class=o>.</span><span class=n>copy</span><span class=p>(),</span> <span class=n>open_map_keys</span><span class=o>.</span><span class=n>copy</span><span class=p>(),</span> <span class=n>open_map_values</span><span class=o>.</span><span class=n>copy</span><span class=p>())</span>
+    <span class=n>stack</span> <span class=o>=</span> <span class=p>[</span><span class=n>initial_state</span><span class=p>]</span>
+    <span class=n>visited</span> <span class=o>=</span> <span class=nb>set</span><span class=p>()</span>
+    
+    <span class=n>step_count</span> <span class=o>=</span> <span class=mi>0</span>
+    <span class=n>max_steps</span> <span class=o>=</span> <span class=mi>10000</span> 
+    
+    <span class=k>while</span> <span class=n>stack</span> <span class=ow>and</span> <span class=n>step_count</span> <span class=o>&lt;</span> <span class=n>max_steps</span><span class=p>:</span>
+        <span class=n>step_count</span> <span class=o>+=</span> <span class=mi>1</span>
+        <span class=n>pos</span><span class=p>,</span> <span class=n>moves</span><span class=p>,</span> <span class=n>available</span><span class=p>,</span> <span class=n>keys</span><span class=p>,</span> <span class=n>values</span> <span class=o>=</span> <span class=n>stack</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span>
+        
+        <span class=n>state_key</span> <span class=o>=</span> <span class=p>(</span><span class=n>pos</span><span class=p>,</span> <span class=nb>tuple</span><span class=p>(</span><span class=nb>sorted</span><span class=p>(</span><span class=n>keys</span><span class=p>)),</span> <span class=nb>tuple</span><span class=p>(</span><span class=nb>sorted</span><span class=p>(</span><span class=n>values</span><span class=p>)))</span>
+        <span class=k>if</span> <span class=n>state_key</span> <span class=ow>in</span> <span class=n>visited</span><span class=p>:</span>
+            <span class=k>continue</span>
+        <span class=n>visited</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>state_key</span><span class=p>)</span>
+        
+        <span class=k>if</span> <span class=n>pos</span> <span class=o>==</span> <span class=n>end_pos</span><span class=p>:</span>
+            <span class=n>list_move</span> <span class=o>=</span> <span class=n>moves</span>
+            <span class=k>return</span> <span class=kc>True</span>
+        
+        <span class=n>directions</span> <span class=o>=</span> <span class=p>[(</span><span class=o>-</span><span class=mi>21</span><span class=p>,</span> <span class=s1>&#39;w&#39;</span><span class=p>),</span> <span class=p>(</span><span class=mi>21</span><span class=p>,</span> <span class=s1>&#39;s&#39;</span><span class=p>),</span> <span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=s1>&#39;a&#39;</span><span class=p>),</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=s1>&#39;d&#39;</span><span class=p>)]</span>
+        
+        <span class=k>for</span> <span class=n>direction</span><span class=p>,</span> <span class=n>direction_name</span> <span class=ow>in</span> <span class=n>directions</span><span class=p>:</span>
+            <span class=n>new_pos</span> <span class=o>=</span> <span class=n>pos</span> <span class=o>+</span> <span class=n>direction</span>
+            
+            <span class=k>if</span> <span class=n>new_pos</span> <span class=o>&lt;</span> <span class=mi>0</span> <span class=ow>or</span> <span class=n>new_pos</span> <span class=o>&gt;=</span> <span class=mi>21</span> <span class=o>*</span> <span class=mi>21</span> <span class=ow>or</span> <span class=n>new_pos</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>available</span><span class=p>:</span>
+                <span class=k>continue</span>
+            
+            <span class=n>new_available</span> <span class=o>=</span> <span class=n>available</span><span class=o>.</span><span class=n>copy</span><span class=p>()</span>
+            <span class=n>new_keys</span> <span class=o>=</span> <span class=n>keys</span><span class=o>.</span><span class=n>copy</span><span class=p>()</span>
+            <span class=n>new_values</span> <span class=o>=</span> <span class=n>values</span><span class=o>.</span><span class=n>copy</span><span class=p>()</span>
+            <span class=n>new_moves</span> <span class=o>=</span> <span class=n>moves</span> <span class=o>+</span> <span class=p>[</span><span class=n>direction</span><span class=p>]</span>
+            
+            <span class=k>if</span> <span class=n>new_pos</span> <span class=ow>in</span> <span class=n>new_keys</span><span class=p>:</span>
+                <span class=n>key_idx</span> <span class=o>=</span> <span class=n>new_keys</span><span class=o>.</span><span class=n>index</span><span class=p>(</span><span class=n>new_pos</span><span class=p>)</span>
+                <span class=n>door_pos</span> <span class=o>=</span> <span class=n>new_values</span><span class=p>[</span><span class=n>key_idx</span><span class=p>]</span>
+                <span class=n>new_available</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>door_pos</span><span class=p>)</span>
+                
+                <span class=k>del</span> <span class=n>new_keys</span><span class=p>[</span><span class=n>key_idx</span><span class=p>]</span>
+                <span class=k>del</span> <span class=n>new_values</span><span class=p>[</span><span class=n>key_idx</span><span class=p>]</span>
+            
+            <span class=n>stack</span><span class=o>.</span><span class=n>append</span><span class=p>((</span><span class=n>new_pos</span><span class=p>,</span> <span class=n>new_moves</span><span class=p>,</span> <span class=n>new_available</span><span class=p>,</span> <span class=n>new_keys</span><span class=p>,</span> <span class=n>new_values</span><span class=p>))</span>
+    
+    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;No solution found after </span><span class=si>{</span><span class=n>step_count</span><span class=si>}</span><span class=s2> steps!&#34;</span><span class=p>)</span>
+    <span class=k>return</span> <span class=kc>False</span>
+
+<span class=n>create_animation</span> <span class=o>=</span> <span class=kc>True</span>
+
+<span class=k>if</span> <span class=n>create_animation</span><span class=p>:</span>
+    <span class=k>if</span> <span class=n>dfs_solve_maze_with_animation</span><span class=p>():</span>
+        <span class=n>print_maze</span><span class=p>()</span>
+        <span class=n>calc_flag</span><span class=p>()</span>
+<span class=k>else</span><span class=p>:</span>
+    <span class=k>if</span> <span class=n>dfs_solve_maze</span><span class=p>():</span>
+        <span class=n>print_maze</span><span class=p>()</span>
+        <span class=n>calc_flag</span><span class=p>()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Flag thu được là: <strong>SEKAI{https://www.youtube.com/watch?v=J&mdash;aiyznGQ}</strong></p>
+<img src=./imgs/dfs_animation.gif width=600rem>
+</div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>Updated on 2025-09-07</span>
+</div></div>
+<div class=post-info-line>
+<div class=post-info-md><span>
+<a class=link-to-markdown href=/2025-sekai/index.md target=_blank>Read Markdown</a>
+</span></div>
+<div class=post-info-share>
+<span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://ducdatdau.github.io/2025-sekai/ data-title="SEKAI CTF 2025" data-hashtags=Reverse-Engineering,SEKAI,2025><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://ducdatdau.github.io/2025-sekai/ data-hashtag=Reverse-Engineering><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=https://ducdatdau.github.io/2025-sekai/><i class="fab fa-reddit fa-fw" aria-hidden=true></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><a class="tag-badge tag-reverse" href=/tags/reverse-engineering/ title=Reverse-Engineering><span class=tag-icon aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-4 w-4"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98.0 01-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501.0 10-3.214 3.214c.446.166.855.497.925.968a.979.979.0 01-.276.837l-1.61 1.61A2.404 2.404.0 0112 22.002a2.402 2.402.0 01-1.704-.706l-1.568-1.568a1.026 1.026.0 00-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5.0 11-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026.0 00-.289-.877l-1.568-1.568A2.402 2.402.0 011.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5.0 103.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402.0 0112 1.998c.617.0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5.0 113.237 3.237c-.464.18-.894.527-.967 1.02z"/></svg></span><span class=tag-text>Reverse-Engineering</span></a>
+<a class="tag-badge tag-default" href=/tags/sekai/ title=SEKAI><span class=tag-icon aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-4 w-4"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+</span><span class=tag-text>SEKAI</span></a>
+<a class="tag-badge tag-default tag-year" href=/tags/2025/ title=2025><span class=tag-text>2025</span></a>
+</section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/2024-flareon/ class=prev rel=prev title="Flare-On 11"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Flare-On 11</a>
+<a href=/2025-vcs/ class=next rel=next title="VCS Training RE">VCS Training RE<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div>
+</div>
+</article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2024 - 2025</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ducdatdau.github.io/ target=_blank>ducdatdau</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+</div>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top">
+<i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments">
+<i class="fas fa-comment fa-fw" aria-hidden=true></i>
+</a>
+</div><link rel=stylesheet href=/lib/lightgallery/css/lightgallery-bundle.min.css><link rel=stylesheet href=/lib/katex/katex.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/lightgallery/lightgallery.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=/lib/lightgallery/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/contrib/auto-render.min.js></script><script type=text/javascript src=/lib/katex/contrib/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
+</html>

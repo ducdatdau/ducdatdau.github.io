@@ -54,9 +54,14 @@ html {
   scroll-behavior: auto !important;
 }
 
+
+/* Remove margins from KaTeX display math */
+.single .content .katex-display {
+  margin: 0 !important;
+}
+
 /* Inline code color only (exclude code blocks) */
 .single .content code { color: #f47466 !important; }
 .single .content pre code { color: inherit !important; }
 [theme=dark] .single .content code { color: #f47466 !important; }
 [theme=dark] .single .content pre code { color: inherit !important; }
-

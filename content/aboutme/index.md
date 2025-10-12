@@ -36,13 +36,13 @@ His research centers on automated vulnerability discovery, with a particular foc
 ## PUBLICATIONS
 
 **[1] Research on the technique of File Structure Attack**
-- **Duc Dat Dau**, Vo Ta Hoang, Pham Thanh Binh
+<!-- - **Duc Dat Dau**, Vo Ta Hoang, Pham Thanh Binh
 - Thuyloi University Student Research Conference, 2025.
-- [[Paper](https://drive.google.com/file/d/1oOxggNl9o6vVCm_NUzv_Bw84ft8qIq7i/view?usp=sharing)], [[Slides](https://docs.google.com/presentation/d/1lQVh6cK0SJh0SDFLPx-KoKBrIuQq_XC5/edit?usp=sharing&ouid=102103163135316721762&rtpof=true&sd=true)]
+- [[Paper](https://drive.google.com/file/d/1oOxggNl9o6vVCm_NUzv_Bw84ft8qIq7i/view?usp=sharing)], [[Slides](https://docs.google.com/presentation/d/1lQVh6cK0SJh0SDFLPx-KoKBrIuQq_XC5/edit?usp=sharing&ouid=102103163135316721762&rtpof=true&sd=true)] -->
 
 **[2] Generator-Based Fuzzing: Enhancing Coverage and Reusing High-Quality Inputs**
-- Ta Hoang Vo, Doan Thi Que, **Duc Dat Dau**
-- Thuyloi University Annual Scientific Conference, 2025 
+<!-- - Ta Hoang Vo, Doan Thi Que, **Duc Dat Dau**
+- Thuyloi University Annual Scientific Conference, 2025  -->
 
 ## RESEARCH AREAS
 

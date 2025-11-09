@@ -63,13 +63,11 @@ Bên cạnh đó, đề bài còn cung cấp Dockerfile, mình sẽ build docker
 
 Dễ dàng thấy có bug Buffer Overflow trong hàm `vuln()`. Đặc biệt hơn khi không có bất cứ hàm nào in ra được output ngoài màn hình. Vì vậy kỹ thuật **ret2libc** nêu trên không thể sử dụng được. Kết hợp với việc GOT ghi đè được, mình có thể dùng kỹ thuật **ret2dlresolve** để giải hoặc **Stack Pivot** nhằm overwrite bảng GOT của `alarm()` thành `execv()`.  
 
-{{< admonition note >}}
-Tại sao sử dụng `execv()` mà không phải `execve()` như thông thường? 
+<img src="./imgs/1.png"/>
 
+{{< admonition type=note title="Tại sao sử dụng `execv()` mà không phải `execve()` như thông thường?" open=true >}}
 Do `execv()` yêu cầu tới tận 3 tham số, trong khi đó mình không thấy bất cứ gadget nào có thể thay đổi được giá trị thanh ghi `rdx`. Vì vậy mình đã sử dụng `execv()` với yêu cầu là 2 tham số và các giá trị `rdi`, `rsi` hoàn toàn kiểm soát được.  
 {{< /admonition >}}
-
-<img src="./imgs/1.png"/>
 
 ### 0x03 Stack Pivot 
 
@@ -95,14 +93,14 @@ retn
 .text:0000000000401261 retn
 ```
 
-Nếu đoạn code trên được gọi, mình sẽ làm được:
-- Ghi được dữ liệu vào `rbp - 0x20`
-- New RBP = [RBP]
-- New RIP = [RBP + 8]
+Nếu đoạn code trên được gọi, mình đã làm được những gì?
+- Ghi được dữ liệu vào địa chỉ `rbp - 0x20`. 
+- `New_RBP` = `[rbp]`
+- `New_RIP` = `[rbp + 8]`
 
 <br/>
 
-Trước tiên, cần phải tính toán offset để ghi đè Saved RIP. Mảng `buf` nằm ở `[rbp - 0x20]` &rarr; ta cần 32 bytes để ghi đè nó. Mình sẽ thử viết 1 POC để trigger lỗi xem new RBP và new RIP sẽ có giá trị như nào. 
+Trước tiên, cần phải tính toán offset để ghi đè Saved RIP. Mảng `buf` nằm ở `[rbp - 0x20]` &rarr; ta cần 32 bytes để ghi đè nó. Mình sẽ thử viết 1 POC để trigger lỗi xem `new_RBP` và `new_RIP` sẽ có giá trị như nào. 
 
 ```python
 #!/usr/bin/env python3
@@ -128,7 +126,7 @@ p.send(payload)
 p.interactive()
 ```
 
-Kết quả thu được như mình mong muốn, new RBP = 0xdeedbeef và new RIP = BBBBBBBB
+Kết quả thu được như mình mong muốn, `new_RBP = 0xdeedbeef` và `new_RIP = BBBBBBBB`
 
 ```Bash
 $rax   : 0x30
@@ -179,17 +177,17 @@ Các công việc mình cần phải xử lý bây giờ là:
 1. Overwrite 2 bytes cuối cùng của GOT `alarm` thành `execv`. \
 Do cùng phiên bản Libc nên 12 bits cuối của địa chỉ các hàm Libc luôn giữ nguyên. Ví dụ `alarm = 0x1555553d3540` thì **540** luôn được giữ nguyên, overwrite 2 bytes cuối làm thay đổi giá trị `3`. Lúc này sẽ cần bruteforce để tìm chính xác địa chỉ, xác suất thành công là **1/16 = 6.25%**.
 2. Ghi chuỗi `/bin/sh\x00` lên bộ nhớ. 
-3. [RSI] = 0, trong đó RSI là một địa chỉ hợp lệ.
+3. `[rsi] = 0`, trong đó RSI là một địa chỉ hợp lệ.
 
-#### 1. Overwrite 2 bytes GOT `alarm()`
+#### 1. Overwrite 2 bytes `alarm@got`
 
-Để overwrite, `RBP - 0x20` = 0x404020 &rarr; `RBP` = 0x404040. 
+Để overwrite, `rbp - 0x20` = 0x404020 &rarr; `rbp` = 0x404040. 
 
 <img src="./imgs/3.png"/>
 
-Sau khi ghi được 2 bytes cuối, `[RBP]` = [0x404040] = 0, dẫn tới việc không thể tiếp tục ghi được các giá trị khác vào bộ nhớ nữa. 
+Sau khi ghi được 2 bytes cuối, `[rbp]` = [0x404040] = 0, dẫn tới việc không thể tiếp tục ghi được các giá trị khác vào bộ nhớ nữa. 
 
-Mình xây dựng lại cấu trúc bộ nhớ như sau, trong đó [0x404040] tiếp tục được trỏ tới 1 vùng nhớ không có dữ liệu ở phía dưới để phục vụ cho công việc `[RSI]` = 0, đồng thời 12 bits cuối cùng của `alarm@got` cũng bị overwrite. 
+Mình xây dựng lại cấu trúc bộ nhớ như sau, trong đó [0x404040] tiếp tục được trỏ tới 1 vùng nhớ không có dữ liệu ở phía dưới để phục vụ cho công việc `[rsi]` = 0, đồng thời 12 bits cuối cùng của `alarm@got` cũng bị overwrite. 
 
 <img src="./imgs/2.png"/>
 
@@ -224,7 +222,7 @@ p.send(b'\xc0\x41')
 
 ```
 
-Kết quả thu được như mình mong muốn, 2 bytes cuối của `alarm@got` bị ghi thành `/x41/xc0`, RBP = 0x404120. 
+Kết quả thu được như mình mong muốn, 2 bytes cuối của `alarm@got` bị ghi thành `/x41/xc0`, `rbp` = 0x404120. 
 
 ```shell
 gef➤  x/gx 0x404020
@@ -551,7 +549,7 @@ ta có thể xác định được danh sách sẽ có tối đa 16 notes. Mình
 
 Có tổng cộng 3 bug được tìm thấy trong chương trình: 
 
-**[1] Bug Out Of Bound**: Tất cả các chức năng đều có bug này. Chương trình chỉ kiểm tra cận trên `idx > 15` mà không kiểm cận dưới. Vì chỉ cho phép nhập 2 byte, khoảng giá trị `idx` có thể truy cập được thay vì [0, 15] sẽ là **[-9, 15]**. 
+**[1] Bug Out Of Bound**: Tất cả các chức năng đều có bug này. Chương trình chỉ kiểm tra cận trên `idx > 15` nhưng không kiểm cận dưới dẫn tới bug OOB. Do chương trình cho phép nhập 2 byte vào `idx`, vì vậy khoảng giá trị có thể truy cập được thay vì [0, 15] thì sẽ là **[-9, 15]**. 
 
 ```c
 printf("  Index: ");
@@ -562,27 +560,27 @@ if ( idx_add > 15 )
   __assert_fail("iIdex < 16", "challenge.c", 0x38u, "main");
 ```
 
-**[2] Bug Use After Free**: Ở chức năng `delete`, sau khi free đã không gán NULL cho con trỏ vừa được giải phóng. 
+**[2] Bug Use After Free**: Ở chức năng `delete`, sau khi free đã không gán NULL cho con trỏ vừa được giải phóng dẫn tới bug UAF. 
 
-**[3] Bug Unlimited Size**: Ở chức năng `write`, biến `new_size` có kiểu `int` nhưng trong hàm `read()` lại bị ép kiểu về `unsigned int` dẫn tới việc có thể ghi một lượng dữ liệu với kích thước không giới hạn. 
+**[3] Bug Unlimited Size**: Ở chức năng `write`, biến `new_size` có kiểu `int` nhưng khi gọi hàm `read()` lại bị ép kiểu về `unsigned int` dẫn tới việc có thể ghi một lượng dữ liệu với kích thước không giới hạn. 
 
 <img src="./imgs/9.png"/>
 
 ### 0x03 Building the payload
 
-Sau khi có nắm rõ được toàn bộ lỗ hổng chương trình, kế hoạch khai thác của mình như sau: 
+Sau khi nắm rõ được toàn bộ lỗ hổng của chương trình, kế hoạch khai thác của mình như sau: 
 1. Dùng bug UAF để leak địa chỉ Libc. 
 2. Dùng bug UAF để leak địa chỉ Heap. 
-3. Tcache Poisoning để overwrite `ABS@GOT` thành `system@PLT`. 
-4. Dùng chức năng `write` poisoned chunk, khi này `puts()` sẽ gọi `system("/bin/sh")`.  
+3. Tcache Poisoning để overwrite `ABS@got` thành `system`. 
+4. Dùng chức năng `write` cho poisoned chunk, khi này `puts(note_data)` sẽ gọi `system("/bin/sh")`.  
 
-{{< admonition type=note title="Tại sao lại chọn `ABS@GOT`?" open=true >}}
-Mặc dù lớp bảo vệ RELRO binary là **Full RELRO** nhưng trong Libc sẽ là **Partial RELRO**, vì vậy ta có thể overwrite bảng GOT trong Libc. Bên cạnh đó,`ABS@GOT` được gọi trong hàm `puts()`, do hàm này chỉ yêu cầu 1 tham số nên sẽ rất thuận tiện cho việc ghi đè thành `system("/bin/sh")`. 
+{{< admonition type=note title="Tại sao lại chọn *ABS*@got?" open=true >}}
+Mặc dù lớp bảo vệ RELRO binary là **Full RELRO** nhưng trong Libc sẽ là **Partial RELRO**, vì vậy ta có thể overwrite nhiều con trỏ hàm trong Libc. Bên cạnh đó,`*ABS*@got` được gọi trong hàm `puts()`, do hàm này chỉ yêu cầu 1 tham số nên sẽ rất thuận tiện cho việc ghi đè thành `system("/bin/sh")`. 
 {{< /admonition >}}
 
 #### Leaking Libc address 
 
-Lần lượt tạo 2 chunk: ${chunk}_0$ có size `0x420` để free vào Unsorted Bin, ${chunk}_1$ có size `0x40` để làm separator tránh hiện tượng gộp chunk. Delete ${chunk}_0$ &rarr; view ${chunk}_0$ &rarr; Leak Libc. 
+Lần lượt tạo 2 chunk: ${chunk}_0$ có size `0x420` để khi free sẽ vào Unsorted Bin, ${chunk}_1$ có size `0x40` để làm separator nhằm tránh hiện tượng gộp chunk. Delete ${chunk}_0$ &rarr; view ${chunk}_0$ &rarr; Leak Libc. 
 
 ```python
 add(0, 0x420) 
@@ -650,15 +648,15 @@ Do ${chunk}_2$ được free sau ${chunk}_3$, con trỏ `fd` của ${chunk}_2$ s
 
 $$ {fd}_2 = {addr}_3 \oplus ({addr}_2 \gg 12) $$
 
-Nếu như overwrite được con trỏ ${fd}_2$ sao cho ${addr}_3$ = `target_addr`, có phải ta đã làm cho ${chunk}_2$ trỏ tới `target_addr` rồi đúng không?
+Nếu thay ${addr}_3$ = `target_addr`, ta sẽ có giá trị ${fd}_2$ mới. Ghi đè `fd` của ${chunk}_2$ bằng giá trị mới này, ta đã làm cho ${chunk}_2$ trỏ tới `target_addr`.
 
-Lần malloc đầu tiên, chương trình sẽ trả về ${addr}_2$ vì nó đang là con trỏ đầu danh sách. Tiếp tục malloc, chúng ta sẽ nhận được con trỏ có giá trị là `target_addr` do con trỏ ${fd}_2$ đã bị chúng ta thao túng trước đó. 
+Lần malloc đầu tiên, chương trình sẽ trả về ${addr}_2$ vì nó đang là con trỏ đầu danh sách. Tiếp tục malloc, chúng ta sẽ nhận được con trỏ mới có giá trị là `target_addr` do con trỏ ${fd}_2$ đã bị chúng ta thao túng trước đó. 
 
 Cuối cùng chỉ cần viết `target_value` vào ${chunk}_3$ sẽ hoàn thành mục tiêu đề ra. 
 
 ---
 
-Quay lại bài toán, mục tiêu của chúng ta sẽ là: `target_addr` = `ABS@GOT`, `target_value` = `system_addr`. 
+Quay lại bài toán, mục tiêu của chúng ta sẽ là: `target_addr` = `ABS@got`, `target_value` = `system_addr`. 
 
 ```python
 addr_2 = heap_base + 0x900 
@@ -683,11 +681,11 @@ Kết quả sau 2 lần malloc, chương trình đã trả về cho ta địa ch
 
 <img src="./imgs/10.png">
 
-Thay vì viết trực tiếp vào `target_addr`, mình đã viết dữ liệu từ địa chỉ `target_addr - 0x30` để có thể chèn chuỗi `/bin/sh\x00` vào vị trí chứa data, các padding byte và `target_value`. 
+Rõ thấy dữ liệu được ghi từ địa chỉ `target_addr - 0x30`. Vì vậy ta sẽ ghi chuỗi `/bin/sh\x00` và các padding byte cho tới khi ghi được `target_value` vào `target_addr`. 
 
 ### 0x04 Final script 
 
-Sau ghi đã overwrite bảng GOT, gọi chức năng 4 - Print Message của note[3] để lấy shell. 
+Sau ghi đã overwrite bảng GOT, gọi chức năng 4 - Print Message của `note[3]` để lấy shell. 
 
 ```python
 #!/usr/bin/env python3

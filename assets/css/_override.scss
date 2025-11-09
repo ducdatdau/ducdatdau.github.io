@@ -3,3 +3,9 @@ $global-background-color-dark: #1d1e20;
 $header-background-color-dark: #161617;
 
 $code-font-family: Consolas, "Fira Code", Menlo, Monaco, "Liberation Mono", "Courier New", monospace;
+
+// Override link colors to #007bff
+// Note: Do NOT use !default here, as variables are already defined in _variables.scss
+$global-link-hover-color: #007bff;
+$single-link-color: #007bff;
+$pagination-link-color: #007bff;

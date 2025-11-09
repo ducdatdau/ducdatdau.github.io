@@ -1,5 +1,5 @@
 ---
-title: "Olympic Toán Sinh viên 2023"
+title: "Olympic Toán Sinh viên Toàn quốc 2023"
 date: 2023-04-10T01:13:42+07:00
 draft: false
 tags: ["Blog", "Mathematics"]
@@ -9,7 +9,7 @@ toc:
   enable: true
 ---
 
-Hành trình đáng nhớ của tôi ở kỳ thi Olympic Toán Sinh viên Toàn quốc năm 2023. 
+<!-- Hành trình đáng nhớ của tôi ở kỳ thi Olympic Toán Sinh viên Toàn quốc năm 2023.  -->
 
 <!--more-->
 <style>
@@ -21,9 +21,9 @@ img {
 }
 </style>
 
-Tôi là sinh viên năm nhất của Đại học Thủy Lợi tham gia kỳ thi Olympic Toán học năm 2023 tại thành phố Huế  đầy thơ mộng. Đoàn Hà Nội chúng tôi gồm 10 thành viên, chia đều thành 2 nhóm: Đại Số và Giải Tích cùng với 2 thầy cô dẫn đoàn là thầy Thọ và cô Lý.
+Tôi là sinh viên năm nhất của Đại học Thủy lợi tham gia kỳ thi Olympic Toán học năm 2023 tại thành phố Huế  đầy thơ mộng. Đoàn Hà Nội chúng tôi gồm 10 thành viên, chia đều thành 2 nhóm: Đại Số và Giải Tích cùng với 2 thầy cô dẫn đoàn là thầy Thọ và cô Lý.
 
-Đoàn chúng tôi vào Huế bằng máy bay hãng Vietjet. Ở sân bay chúng tôi bắt gặp đoàn ĐHSP Hà Nội và đoàn Đại học KTQD. Đây cũng là lần đầu tiên tôi được đi máy bay, cảm giác khá hồi hộp và hào hứng. Thật tiếc là sau chuyến bay đó tôi không muốn phải đi thêm máy bay lần nào nữa :cry:
+Cả đoàn di chuyển vào Huế bằng máy bay hãng Vietjet. Ở sân bay, chúng tôi tình cờ bắt gặp đoàn ĐHSP Hà Nội và đoàn Đại học KTQD. 
 
 <div style="text-align: center;">
     <figure style="display: inline-block; text-align: center;">

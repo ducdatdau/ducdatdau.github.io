@@ -10,7 +10,7 @@ math:
 
 <div style="text-align: center;">
     <figure style="display: inline-block; text-align: center;">
-        <img src="/aboutme/1.jpg" style="width: 200px; border-radius:999px; max-width: 100;">
+        <img src="/aboutme/4.jpg" style="width: 200px; border-radius:999px; max-width: 100;">
     </figure>
 </div>
 
@@ -65,5 +65,6 @@ Building upon a strong foundation in Reverse Engineering and Binary Exploitation
 - Best student in Cybersecurity major, Thuyloi University (2023, 2025)
 
 ### Capture The Flag
-- Finalist, ASEAN Student Contest on Information Security (2024, 2025) 
+- Finalist, ASEAN Student Contest on Information Security (2024) 
 - Finalist, Digital Dragons CTF (2024, 2025)
+- Consolation Prize, Cybersecurity Student Contest Vietnam Final (2025)

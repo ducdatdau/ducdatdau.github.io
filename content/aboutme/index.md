@@ -1,5 +1,5 @@
 ---
-title: "About Me"
+title: "Ryan Do"
 date: 2024-12-13T02:35:00+07:00
 draft: false
 description: "About Me"
@@ -16,19 +16,19 @@ math:
 
 Bachelor of Science in Cybersecurity, Thuyloi University, Class of 2026 (CPA: 3.97/4.00)
 
-Email: contact.ducdatdau@gmail.com\
-Phone: (+84) 366.337.737
+Email: contact.ducdatdau@gmail.com
+<!-- Phone: (+84) 366.337.737 -->
 
 {{< admonition note >}}
-I am prepared to begin graduate research at the Master’s or Ph.D. level immediately after my graduation in the summer of next year. If my research interests align with yours and you believe I may be a suitable candidate, please feel free to contact me using the information provided above.
-
-After reading [this blog](https://andreas-zeller.info/2020/07/01/whats-it-like-to-be-a-phd-student-in-germany.html) by Prof. Andreas Zeller, I am especially excited about pursuing graduate study in Germany 🇩🇪. 
+I am prepared to begin graduate research at the Master’s or PhD level immediately after my graduation in the summer of this year. If my research interests align with yours and you believe I may be a suitable candidate, please feel free to contact me using the information provided above.
+<!-- 
+After reading [this blog](https://andreas-zeller.info/2020/07/01/whats-it-like-to-be-a-phd-student-in-germany.html) by Prof. Andreas Zeller, I am especially excited about pursuing graduate study in Germany 🇩🇪.  -->
 
 {{< /admonition >}}
 
 ## PROFILE 
 
-I am a final-year Cybersecurity student at Thuyloi University, specializing in automated vulnerability discovery with a strong focus on Fuzzing.
+Hi there! I am Duc Dat Dau (aka Ryan Do), a final-year Cybersecurity student at Thuyloi University, specializing in automated vulnerability discovery with a strong focus on Fuzzing.
 
 <!-- Building on a solid foundation in Reverse Engineering and Binary Exploitation, I specialize in analyzing low-level program behavior. Additionally, my interests extend to hardware-assisted security and the security of Internet of Things (IoT) devices. -->
 
@@ -58,13 +58,15 @@ Building upon a strong foundation in Reverse Engineering and Binary Exploitation
 
 ## SCHOLARSHIPS & AWARDS 
 
-### Academic
-- Bronze Medal, Vietnam National Mathematics Olympiad for Undergraduates (2023)
-- Le Van Kiem Scholarship for Excellence student, Thuyloi University (2023)
-- Student of 5 Merits Award, Thuyloi University (2024)
-- Best student in Cybersecurity major, Thuyloi University (2023, 2025)
+<!-- ### Academic -->
+<!-- ### Capture The Flag -->
+🥇Best student in Cybersecurity major, Thuyloi University (2023, 2025)\
+🎖️Consolation Prize, Cybersecurity Student Contest Vietnam Final (2025)\
+🎖️Finalist, Digital Dragons CTF (2024, 2025)\
+🎖️Student of 5 Merits Award, Thuyloi University (2024, 2025)\
+🎖️Finalist, ASEAN Student Contest on Information Security (2024)\
+🥇Le Van Kiem Scholarship for Excellence student, Thuyloi University (2023)\
+🥉Bronze Medal, Vietnam National Mathematics Olympiad for Undergraduates (2023)
 
-### Capture The Flag
-- Finalist, ASEAN Student Contest on Information Security (2024) 
-- Finalist, Digital Dragons CTF (2024, 2025)
-- Consolation Prize, Cybersecurity Student Contest Vietnam Final (2025)
+## TEACHING
+- Binary Exploitation, Summer Training 2024. 

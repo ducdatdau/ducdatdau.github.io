@@ -21,19 +21,24 @@ Email: contact.ducdatdau@gmail.com
 <!-- Phone: (+84) 366.337.737 -->
 
 {{< admonition note >}}
-I am prepared to begin graduate research at the Master’s or PhD level immediately after my graduation in the summer of this year. If my research interests align with yours and you believe I may be a suitable candidate, please feel free to contact me using the information provided above.
+I am available to commence PhD studies immediately following my graduation this summer. If you find my profile and research interests to be a good fit for your team, please feel free to reach out via the contact information above.
 <!-- 
 After reading [this blog](https://andreas-zeller.info/2020/07/01/whats-it-like-to-be-a-phd-student-in-germany.html) by Prof. Andreas Zeller, I am especially excited about pursuing graduate study in Germany 🇩🇪.  -->
 
 {{< /admonition >}}
 
+
+While Cybersecurity is my main focus and where my core expertise lies, I'm also really passionate about a bunch of other topics that I find absolutely fascinating: Meteorites, Poker, Cigars & Chinese cigarettes, Tea & Coffee, Chinese spirits (Baijiu), Tennis, Politics (specifically China and Vietnam), Animals (Horses and Birds), Buddhism.
+
+I'm always down to connect and make friends with anyone who shares these interests!
+
 ## PROFILE 
 
-Hi there! I am Duc Dat Dau (aka Ryan Do), a final-year Cybersecurity student at Thuyloi University, specializing in automated vulnerability discovery with a strong focus on Fuzzing.
+Hi there! I am Duc Dat Dau (aka Ryan Do), a final-year Cybersecurity student at Thuyloi University. My primary research revolves around automated vulnerability discovery, with a strong emphasis on fuzzing.
 
 <!-- Building on a solid foundation in Reverse Engineering and Binary Exploitation, I specialize in analyzing low-level program behavior. Additionally, my interests extend to hardware-assisted security and the security of Internet of Things (IoT) devices. -->
 
-Building upon a strong foundation in Reverse Engineering and Binary Exploitation, my research focuses on the analysis of low-level program behaviors and system vulnerabilities. I am also interested in hardware-assisted security, the protection of Internet of Things (IoT) systems, and the emerging field of cybersecurity law and policy in Vietnam - areas in which I aspire to make meaningful academic and societal contributions in the future.
+Rooted in a solid background of Reverse Engineering and Binary Exploitation, my work explores low-level program behaviors to uncover complex system vulnerabilities. Beyond software, I am also deeply interested in hardware-assisted security, IoT systems, and the evolving landscape of cybersecurity law and policy in Vietnam. Through my future graduate studies, I aspire to make impactful contributions to both the academic community and the broader security landscape.
 
 ## PUBLICATIONS
 
@@ -67,7 +72,8 @@ Building upon a strong foundation in Reverse Engineering and Binary Exploitation
 🎖️Student of 5 Merits Award, Thuyloi University (2024, 2025)\
 🎖️Finalist, ASEAN Student Contest on Information Security (2024)\
 🥇Le Van Kiem Scholarship for Excellence student, Thuyloi University (2023)\
-🥉Bronze Medal, Vietnam National Mathematics Olympiad for Undergraduates (2023)
+🥉Bronze Medal, Vietnam National Mathematics Olympiad for Undergraduates (2023)\
+🎖️Outstanding Academic Merit Scholarship (7/7 semesters)
 
 ## TEACHING
 - Binary Exploitation, Summer Training 2024. 

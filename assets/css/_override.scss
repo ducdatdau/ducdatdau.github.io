@@ -4,7 +4,8 @@ $header-background-color-dark: #161617;
 
 $code-font-family: Consolas, "Fira Code", Menlo, Monaco, "Liberation Mono", "Courier New", monospace;
 $global-font-family: "SuisseIntl", system-ui, -apple-system, "Segoe UI", Roboto, Emoji, Helvetica, Arial, sans-serif;
-$global-font-size: 18px !default;
+$global-font-size: 18px !important;
+$single-font-size: 18px !important;
 
 // Override link colors to #007bff
 // Note: Do NOT use !default here, as variables are already defined in _variables.scss

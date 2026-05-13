@@ -1,3 +1,16 @@
+/* Self-hosted SuisseIntl font */
+@font-face {
+  font-family: "SuisseIntl";
+  src: url("/fonts/SuisseIntl.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {  
+  font-family: "SuisseIntl", system-ui, -apple-system, "Segoe UI", Roboto, Emoji, Helvetica, Arial, sans-serif !important;
+}
+
 /* Tag badges */
 .tag-badge {
   display: inline-flex;
@@ -65,3 +78,4 @@ html {
 .single .content pre code { color: inherit !important; }
 [theme=dark] .single .content code { color: #f47466 !important; }
 [theme=dark] .single .content pre code { color: inherit !important; }
+

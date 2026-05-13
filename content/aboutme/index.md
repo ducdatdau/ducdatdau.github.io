@@ -10,11 +10,11 @@ math:
 
 A final-year Cybersecurity undergraduate at Thuyloi University (TLU). 
 
-CTF Competition (3+ yrs): national and international Capture The Flag tournaments, specializing in Reverse Engineering and Binary Exploitation.
+CTF Competition (3+ yrs): national and international Capture The Flag tournaments, specializing in Reverse Engineering and Binary Exploitation
 
-My focus (1 yrs): automated vulnerability discovery, researching and implementing fuzzing engines (AFL++, AFLGo, HyperGo).
+My focus (1 yrs): automated vulnerability discovery, researching and implementing fuzzing engines (AFL++, AFLGo, HyperGo)
 
-Research: fuzzing, reverse engineering, malware analysis, and Game Theory Optimal (GTO) Poker.
+Research: fuzzing, reverse engineering, malware analysis, and Game Theory Optimal (GTO) Poker
 
 Academic & CTF Highlights:
 - **Ranked #1 (CPA: 4.00)** the Cybersecurity major at TLU

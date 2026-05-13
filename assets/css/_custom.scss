@@ -1,11 +1,22 @@
 /* Self-hosted SuisseIntl font */
-@font-face {
-  font-family: "SuisseIntl";
-  src: url("/fonts/SuisseIntl.ttf") format("truetype");
-  font-size: 18px;
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+// @font-face {
+//   font-family: "SuisseIntl";
+//   src: url("/fonts/SuisseIntl.ttf") format("truetype");
+//   font-size: 18px;
+//   font-weight: 400;
+//   font-style: normal;
+//   font-display: swap;
+// }
+
+/* Text selection: black background, white text */
+::selection {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #000000;
+  color: #ffffff;
 }
 
 // body {  

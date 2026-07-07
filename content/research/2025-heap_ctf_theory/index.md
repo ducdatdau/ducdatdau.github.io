@@ -1,5 +1,5 @@
 ---
-title: "Heap CTF Theory"
+title: "HEAP CTF THEORY"
 date: 2025-10-07
 draft: false
 tags: ["Pwnable"]
@@ -21,7 +21,7 @@ img {
 
 Nội dung bài viết sẽ không đi sâu vào nghiên cứu các cơ chế hoạt động của Heap. Thay vào đó là những nội dung khái quát, vừa đủ để người chơi có thể làm quen được với các dạng bài Heap Exploitation trong Capture The Flag. 
 
-## 0x1 Malloc Chunk
+## 0x01 Malloc Chunk
 
 Khi chương trình gọi hàm `malloc`/`calloc`, một vùng nhớ mới sẽ được tạo ra gọi là **heap chunk**. Cấu trúc của một chunk sẽ gồm 2 phần: **heap metadata** và **heap content**. 
 
@@ -42,7 +42,7 @@ Ví dụ: `malloc` 2 chunk với kích thước 0x20, tính thêm cả metadata 
 
 <img src="./imgs/1.png">
 
-## 0x2 Binning
+## 0x02 Binning
 
 Khi một heap chunk được `free`, nó sẽ được đẩy vào các bin tương ứng. Bin được định nghĩa là các vùng nhớ chứa các chunk được giải phóng, giúp chương trình thuận tiện cấp phát lại bộ nhớ mới khi có yêu cầu. 
 
@@ -248,7 +248,7 @@ Khi một chunk được yêu cầu `malloc`, nếu Tcache Bin và Fast Bin khô
     - Nếu liền kề với chunk #3 → gộp chunk và cùng đưa vào Large Bin.
     - Ngược lại → đưa vào Small Bin.
 
-## 0x3 Top Chunk
+## 0x03 Top Chunk
 
 Top chunk là vùng nhớ lớn cuối cùng của heap dùng để giữ các khối bộ nhớ chưa được phân bổ. Khi có một yêu cầu cấp phát bộ nhớ, trình quản lý heap sẽ tìm kiếm các khối bộ nhớ đủ rộng để cấp phát. Nếu không đủ lớn, top chunk sẽ cắt một phần của mình và trả về vùng nhớ mới.
 
@@ -272,5 +272,5 @@ Addr: 0x5555555592d0
 Size: 0x20d30 (with flag bits: 0x20d31)
 ```
 
-## 0x4 References
+## 0x04 References
 [1]. [Heap Exploitation Nightmare](https://guyinatuxedo.github.io/25-heap/index.html)

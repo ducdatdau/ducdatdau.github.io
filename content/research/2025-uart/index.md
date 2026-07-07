@@ -1,5 +1,5 @@
 ---
-title: "UART protocol"
+title: "UART PROTOCOL"
 date: 2024-08-24
 draft: false
 tags: ["IOT"]
